@@ -9,6 +9,8 @@
 /* Begin PBXBuildFile section */
 		34811DD5274B93EB00A1E994 /* main.swift in Sources */ = {isa = PBXBuildFile; fileRef = 34811DD4274B93EB00A1E994 /* main.swift */; };
 		A1A74BD22770BAD70099CDE3 /* Person.swift in Sources */ = {isa = PBXBuildFile; fileRef = A1A74BD12770BAD70099CDE3 /* Person.swift */; };
+		A1A74BD52770BB1B0099CDE3 /* Coffee.swift in Sources */ = {isa = PBXBuildFile; fileRef = A1A74BD42770BB1B0099CDE3 /* Coffee.swift */; };
+		A1A74BD72770BB440099CDE3 /* CoffeeShop.swift in Sources */ = {isa = PBXBuildFile; fileRef = A1A74BD62770BB440099CDE3 /* CoffeeShop.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXCopyFilesBuildPhase section */
@@ -27,6 +29,8 @@
 		34811DD1274B93EB00A1E994 /* CodeStarterCamp_Week3 */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.executable"; includeInIndex = 0; path = CodeStarterCamp_Week3; sourceTree = BUILT_PRODUCTS_DIR; };
 		34811DD4274B93EB00A1E994 /* main.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = main.swift; sourceTree = "<group>"; };
 		A1A74BD12770BAD70099CDE3 /* Person.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Person.swift; sourceTree = "<group>"; };
+		A1A74BD42770BB1B0099CDE3 /* Coffee.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Coffee.swift; sourceTree = "<group>"; };
+		A1A74BD62770BB440099CDE3 /* CoffeeShop.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CoffeeShop.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -69,6 +73,8 @@
 			isa = PBXGroup;
 			children = (
 				A1A74BD12770BAD70099CDE3 /* Person.swift */,
+				A1A74BD42770BB1B0099CDE3 /* Coffee.swift */,
+				A1A74BD62770BB440099CDE3 /* CoffeeShop.swift */,
 			);
 			path = CoffeeShop;
 			sourceTree = "<group>";
@@ -131,7 +137,9 @@
 			buildActionMask = 2147483647;
 			files = (
 				A1A74BD22770BAD70099CDE3 /* Person.swift in Sources */,
+				A1A74BD72770BB440099CDE3 /* CoffeeShop.swift in Sources */,
 				34811DD5274B93EB00A1E994 /* main.swift in Sources */,
+				A1A74BD52770BB1B0099CDE3 /* Coffee.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
