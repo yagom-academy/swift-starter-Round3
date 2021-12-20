@@ -10,7 +10,7 @@ import Foundation
 struct CoffeeShop {
     var sales: Int
     var barista: Person?
-    var menu: [Coffee:Int]
+    let menu: [Coffee:Int]
     var pickUpTable: [Coffee]
     
     mutating func order(coffee: Coffee) {

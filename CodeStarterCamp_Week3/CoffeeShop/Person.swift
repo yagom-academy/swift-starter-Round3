@@ -8,8 +8,8 @@
 import Foundation
 
 struct Person {
-    var age: Int
-    var name: String
+    let age: Int
+    let name: String
     var money: Int
     
     mutating func buy(coffee: Coffee) {
