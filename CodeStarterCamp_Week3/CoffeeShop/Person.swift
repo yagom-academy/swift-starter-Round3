@@ -8,9 +8,9 @@
 import Foundation
 
 struct Person {
-    let age: Int
-    let name: String
-    var money: Int
+    private(set) var age: Int
+    private(set) var name: String
+    private(set) var money: Int
     
     mutating func buy(coffee: Coffee) {
         

@@ -8,10 +8,10 @@
 import Foundation
 
 struct CoffeeShop {
-    var sales: Int
+    private(set) var sales: Int
     var barista: Person?
-    let menu: [Coffee:Int]
-    var pickUpTable: [Coffee]
+    private(set) var menu: [Coffee:Int]
+    private(set) var pickUpTable: [Coffee]
     
     mutating func order(coffee: Coffee) {
         
