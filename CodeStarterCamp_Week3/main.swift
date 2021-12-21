@@ -16,3 +16,39 @@ struct Person {
     }
 }
 
+enum Coffee {
+    case espresso
+    case americano
+    case cafeLatte
+    case cafeMocha
+    case flatWhite
+}
+
+var menuBoard: [String: Int] = [:]
+menuBoard["espresso"] = 3000
+menuBoard["americano"] = 4000
+menuBoard["cafeLatte"] = 5000
+menuBoard["cafeMocha"] = 5000
+menuBoard["flatWhite"] = 5000
+
+struct CoffeeShop {
+    var brista: Person
+    var salesRevenue = 0
+    var menu: [String: Int] = menuBoard
+    var pickUpTable: String? = nil
+    
+    init(owner brista: Person){
+           self.brista = brista
+    }
+
+    mutating func takeAOrder(coffee: Coffee) {
+        if let cost = menuBoard["\(coffee)"] {
+            salesRevenue = salesRevenue + cost
+            print("\(coffee)는 \(cost)원 입니다.")
+            print(salesRevenue)
+        }
+    }
+    func makeACoffeec(coffee: String) {
+        print("\(coffee)를 만드는 중 입니다.")
+    }
+}
