@@ -8,5 +8,11 @@
 
 import Foundation
 
-print("Hello, World!")
+struct Person {
+    var name: String
+    var money: Int
+    func buy(item: String) {
+        print("\(item)을 삽니다.")
+    }
+}
 
