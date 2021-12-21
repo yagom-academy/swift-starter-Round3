@@ -30,6 +30,11 @@ struct CoffeeShop {
     }
     
     mutating func brewCoffee(coffee: Coffee) {
-    
+        guard let name = customer?.name else {
+            return
+        }
+        
+        self.pickUpTable.append(coffee)
+        print("\(name) 님의 커피가 준비되었습니다. 픽업대에서 가져가주세요.")
     }
 }
