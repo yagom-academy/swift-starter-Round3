@@ -37,7 +37,7 @@ struct CoffeeShop {
     var menu: [String: Int] = menuBoard
     var pickUpTable: String? = nil
     
-    init(owner brista: Person){
+    init(staff brista: Person) {
            self.brista = brista
     }
 
@@ -52,3 +52,7 @@ struct CoffeeShop {
         print("\(coffee)를 만드는 중 입니다.")
     }
 }
+
+var misterLee = Person(name: "Lee", money: 10000)
+var missKim = Person(name: "Kim", money: 10000)
+var yagombucks = CoffeeShop(staff: misterLee)
