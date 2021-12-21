@@ -7,12 +7,18 @@
 
 import Foundation
 
-struct Person {
-    private(set) var age: Int
-    private(set) var name: String
+class Person {
+    let age: Int
+    let name: String
     private(set) var money: Int
     
-    mutating func buy(coffee: Coffee) {
+    init(age: Int, name: String, money: Int) {
+        self.age = age
+        self.name = name
+        self.money = money
+    }
+    
+    func buy(coffee: Coffee) {
         self.money -= coffee.price
     }
 }
