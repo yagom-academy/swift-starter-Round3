@@ -8,9 +8,9 @@
 
 import Foundation
 
-let yagombucksMenu: [Coffee: Int] = [Coffee.americano : Coffee.americano.price,
-                                     Coffee.vanillaLatte : Coffee.vanillaLatte.price,
-                                     Coffee.coldBrew : Coffee.coldBrew.price]
+let yagombucksMenu: [Coffee: Int] = [.americano : Coffee.americano.price,
+                                     .vanillaLatte : Coffee.vanillaLatte.price,
+                                     .coldBrew : Coffee.coldBrew.price]
 
 var misterMino: Person = Person(age: 26, name: "마이노", money: 10000)
 var missMinjin: Person = Person(age: 30, name: "민지니", money: 30000)

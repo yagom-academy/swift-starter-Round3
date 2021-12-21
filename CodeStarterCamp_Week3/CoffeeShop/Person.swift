@@ -13,6 +13,6 @@ struct Person {
     private(set) var money: Int
     
     mutating func buy(coffee: Coffee) {
-        
+        self.money -= coffee.price
     }
 }
