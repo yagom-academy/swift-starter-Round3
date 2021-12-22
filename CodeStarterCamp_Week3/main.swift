@@ -76,8 +76,4 @@ var misterkim = Person(name: "Mr.Kim", birthYear: 1997)
 misterLee.purse = 10000
 misterkim.purse = 10000
 
-struct Store {
-    var barista: Person
-}
-
 let yagombucks = CoffeeShop(barista: misterLee)
