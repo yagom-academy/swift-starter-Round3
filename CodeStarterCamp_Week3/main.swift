@@ -27,3 +27,26 @@ struct Person {
         
     }
 }
+
+enum Coffee {
+    case americano
+    case espresso
+    case cafeLatte
+    case caffeMocha
+    case hotChocolate
+    
+    var price: Int {
+        switch self {
+        case .americano:
+            return 3000
+        case .espresso:
+            return 2500
+        case .cafeLatte:
+            return 3500
+        case .caffeMocha:
+            return 3500
+        case .hotChocolate:
+            return 3500
+        }
+    }
+}
