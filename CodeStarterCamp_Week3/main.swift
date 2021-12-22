@@ -5,7 +5,7 @@
 
 import Foundation
 
-class Person {
+struct Person {
     let name: String
     let birthYear: Int
     var purse: Int?
