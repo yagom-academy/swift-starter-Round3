@@ -48,3 +48,17 @@ let misterLee = Person(name: "misterLee", money: 100_000)
 let missKim = Person(name: "missKim", money: 200_000)
 var yagombucks = CoffeeShop()
 
+yagombucks.menuBoard[.americano] = 4500
+yagombucks.menuBoard[.cafeLatte] = 5000
+yagombucks.menuBoard[.espresso] = 3500
+yagombucks.menuBoard[.cappuccino] = 5000
+yagombucks.menuBoard[.cafeMocha] = 5000
+yagombucks.pickUpTable = 10
+yagombucks.orderAndMakeCoffee(orderCoffee: .americano)
+yagombucks.barista = misterLee
+
+if let baristaName = yagombucks.barista?.name {
+    print("바리스타 이름은 \(baristaName)입니다.")
+} else {
+    print("바리스타가 없습니다. 사장이 직접 운영해요.")
+}
