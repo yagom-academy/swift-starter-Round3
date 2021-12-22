@@ -22,3 +22,25 @@ struct Person {
     }
 }
 
+struct CoffeeShop {
+    var barista: Person?
+    var salesRevenue: Int = 0
+    var menuBoard: [CoffeeType: Int] = [:]
+    var pickUpTable: Int?
+    
+    func orderAndMakeCoffee(orderCoffee: CoffeeType) {
+        if menuBoard.keys.contains(orderCoffee) {
+            print("\(orderCoffee)을(를) 주문하셨습니다.\(orderCoffee)을(를) 만듭니다.")
+            if let someCoffeePrice = menuBoard[orderCoffee] {
+                print("가격은 \(someCoffeePrice)원 입니다.")
+            }
+        } else {
+            print("그런 커피는 없습니다.")
+        }
+    }
+}
+
+enum CoffeeType {
+    case americano, cafeLatte, espresso, cappuccino, cafeMocha
+}
+
