@@ -44,3 +44,7 @@ enum CoffeeType {
     case americano, cafeLatte, espresso, cappuccino, cafeMocha
 }
 
+let misterLee = Person(name: "misterLee", money: 100_000)
+let missKim = Person(name: "missKim", money: 200_000)
+var yagombucks = CoffeeShop()
+
