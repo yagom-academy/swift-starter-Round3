@@ -10,11 +10,6 @@ struct Person {
     let birthYear: Int
     var purse: Int?
     
-    init(name: String, birthYear: Int) {
-        self.name = name
-        self.birthYear = birthYear
-    }
-    
     func buy(something: Any) {
         print("\(something)을 구매하였습니다.")
     }
@@ -72,7 +67,6 @@ struct CoffeeShop {
         print("\(coffee)를 준비중 입니다.")
     }
 }
-
 var misterLee = Person(name: "Mr.Lee", birthYear: 1998)
 var misterkim = Person(name: "Mr.Kim", birthYear: 1997)
 misterLee.purse = 10000
