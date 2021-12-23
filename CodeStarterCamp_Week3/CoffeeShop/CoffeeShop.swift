@@ -10,7 +10,15 @@ import Foundation
 class CoffeeShop {
     private(set) var sales: Int
     private(set) var menu: [Coffee: Int]
-    private(set) var pickUpTable: [Coffee] = []
+    private(set) var pickUpTable: [Coffee] = [] {
+        didSet {
+            guard let name = self.customer?.name else {
+                return
+            }
+            print("\(name) 님의 커피가 준비되었습니다. 픽업대에서 가져가주세요.")
+        }
+    }
+
     var barista: Person?
     var customer: Person?
     
@@ -35,11 +43,6 @@ class CoffeeShop {
     }
     
     private func brewCoffee(coffee: Coffee) {
-        guard let name = customer?.name else {
-            return
-        }
-        
         self.pickUpTable.append(coffee)
-        print("\(name) 님의 커피가 준비되었습니다. 픽업대에서 가져가주세요.")
     }
 }
