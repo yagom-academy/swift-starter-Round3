@@ -9,7 +9,7 @@
 import Foundation
 
 struct Person {
-    var name: String
+    let name: String
     var money: Int
     func buy(item: String) {
         print("\(item)을 삽니다.")
@@ -37,7 +37,7 @@ struct CoffeeShop {
     var menu: [String: Int] = menuBoard
     var pickUpTable: String? = nil
     
-    init(staff brista: Person) {
+    init(brista: Person) {
            self.brista = brista
     }
 
@@ -48,11 +48,11 @@ struct CoffeeShop {
             print(salesRevenue)
         }
     }
-    func makeACoffeec(coffee: String) {
+    func makeCoffees(coffee: String) {
         print("\(coffee)를 만드는 중 입니다.")
     }
 }
 
 var misterLee = Person(name: "Lee", money: 10000)
 var missKim = Person(name: "Kim", money: 10000)
-var yagombucks = CoffeeShop(staff: misterLee)
+var yagombucks = CoffeeShop(brista: misterLee)
