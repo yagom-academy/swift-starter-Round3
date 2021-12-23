@@ -8,7 +8,7 @@ import Foundation
 struct Person {
     let name: String
     let birthYear: Int
-    var purse: Int?
+    var moneyPurse: Int?
     
     func buy(something: Any) {
         print("\(something)을 구매하였습니다.")
@@ -69,7 +69,7 @@ struct CoffeeShop {
 }
 var misterLee = Person(name: "Mr.Lee", birthYear: 1998)
 var misterkim = Person(name: "Mr.Kim", birthYear: 1997)
-misterLee.purse = 10000
-misterkim.purse = 10000
+misterLee.moneyPurse = 10000
+misterkim.moneyPurse = 10000
 
 var yagombucks = CoffeeShop(barista: misterLee)
