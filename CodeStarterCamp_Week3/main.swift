@@ -5,10 +5,15 @@
 
 import Foundation
 
-struct Person {
+class Person {
     let name: String
     let birthYear: Int
     var moneyPurse: Int?
+    
+    init(name: String, birthYear: Int) {
+        self.name = name
+        self.birthYear = birthYear
+    }
     
     func buy(something: Any) {
         print("\(something)을 구매하였습니다.")
@@ -57,18 +62,23 @@ struct CoffeeShop {
         self.barista = barista
     }
     
-    mutating func orderDrink(coffee: Coffee) {
-        print("\(coffee) 메뉴와 \(coffee.price)지불 받았습니다.")
-        totalSales += coffee.price
-        makeDrink(coffee: coffee)
+    mutating func orderDrink(coffee: Coffee, customer: Person) {
+        print("\(coffee) 메뉴와 \(coffee.price)원 지불 받았습니다.")
+        if let customerMoney = customer.moneyPurse, customerMoney < coffee.price {
+            print("잔액이 {\(customerMoney-coffee.price)} 원만큼 부족합니다.")
+        } else {
+            customer.moneyPurse? -= coffee.price
+            totalSales += coffee.price
+            makeDrink(coffee: coffee, barista: self.barista)
+        }
     }
     
-    func makeDrink(coffee: Coffee) {
-        print("\(coffee)를 준비중 입니다.")
+    func makeDrink(coffee: Coffee, barista: Person) {
+        print("\(barista.name)가 \(coffee)를 만들기 시작합니다.")
     }
 }
 var misterLee = Person(name: "Mr.Lee", birthYear: 1998)
-var misterkim = Person(name: "Mr.Kim", birthYear: 1997)
+var misterkim = Person(name: "쿼카", birthYear: 1997)
 misterLee.moneyPurse = 10000
 misterkim.moneyPurse = 10000
 
