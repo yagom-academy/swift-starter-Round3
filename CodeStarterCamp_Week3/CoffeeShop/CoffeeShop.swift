@@ -7,14 +7,19 @@
 
 import Foundation
 
-struct CoffeeShop {
+class CoffeeShop {
     private(set) var sales: Int
-    private(set) var menu: [Coffee:Int]
-    private(set) var pickUpTable: [Coffee]
+    private(set) var menu: [Coffee: Int]
+    private(set) var pickUpTable: [Coffee] = []
     var barista: Person?
     var customer: Person?
     
-    mutating func order(coffee: Coffee) {
+    init(sales: Int, menu: [Coffee: Int]) {
+        self.sales = sales
+        self.menu = menu
+    }
+    
+    func order(coffee: Coffee) {
         guard let money = customer?.money else {
             return
         }
@@ -29,7 +34,7 @@ struct CoffeeShop {
         brewCoffee(coffee: coffee)
     }
     
-    mutating func brewCoffee(coffee: Coffee) {
+    private func brewCoffee(coffee: Coffee) {
         guard let name = customer?.name else {
             return
         }

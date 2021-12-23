@@ -15,10 +15,9 @@ let yagombucksMenu: [Coffee: Int] = [.americano : Coffee.americano.price,
 var misterMino: Person = Person(age: 26, name: "마이노", money: 10000)
 var missMinjin: Person = Person(age: 30, name: "민지니", money: 6000)
 var yagombucks: CoffeeShop = CoffeeShop(sales: 0,
-                                        menu: yagombucksMenu,
-                                        pickUpTable: [],
-                                        customer: missMinjin)
+                                        menu: yagombucksMenu)
 
+yagombucks.customer = missMinjin
 yagombucks.barista = misterMino
 
 print("계산하기 전 -손님- 보유 금액: \(missMinjin.money)")
