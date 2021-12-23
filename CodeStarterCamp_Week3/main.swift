@@ -22,31 +22,38 @@ enum Coffee {
     case cafeLatte
     case cafeMocha
     case flatWhite
+    
+    var cost: Int {
+        switch self {
+        case .espresso:
+            return 3000
+        case .americano:
+            return 4000
+        case .cafeLatte:
+            return 5000
+        case .cafeMocha:
+            return 5000
+        case .flatWhite:
+            return 5000
+        }
+    }
 }
-
-var menuBoard: [String: Int] = [:]
-menuBoard["espresso"] = 3000
-menuBoard["americano"] = 4000
-menuBoard["cafeLatte"] = 5000
-menuBoard["cafeMocha"] = 5000
-menuBoard["flatWhite"] = 5000
 
 struct CoffeeShop {
     var brista: Person
     var salesRevenue = 0
-    var menu: [String: Int] = menuBoard
     var pickUpTable: String? = nil
     
     init(brista: Person) {
            self.brista = brista
     }
 
-    mutating func takeAOrder(coffee: Coffee) {
-        if let cost = menuBoard["\(coffee)"] {
-            salesRevenue = salesRevenue + cost
-            print("\(coffee)는 \(cost)원 입니다.")
+    mutating func takeOrder(coffee: Coffee) {
+        let costOfcoffee = coffee.cost
+            salesRevenue += costOfcoffee
+            print("\(coffee)는 \(costOfcoffee)원 입니다.")
             print(salesRevenue)
-        }
+        
     }
     func makeCoffees(coffee: String) {
         print("\(coffee)를 만드는 중 입니다.")
