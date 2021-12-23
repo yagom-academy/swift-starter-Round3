@@ -8,5 +8,10 @@
 
 import Foundation
 
-print("Hello, World!")
-
+struct Person {
+    var asset: Int
+    func purchaseSomeThing(price: Int) -> Int {
+        let remainder = asset - price
+        return remainder
+    }
+}
