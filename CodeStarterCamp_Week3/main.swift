@@ -70,16 +70,24 @@ struct CoffeeShop {
             customer.moneyPurse? -= coffee.price
             totalSales += coffee.price
             makeDrink(coffee: coffee, barista: self.barista)
+            pickUpTable(coffee: coffee, customer: customer)
         }
     }
     
     func makeDrink(coffee: Coffee, barista: Person) {
         print("\(barista.name)가 \(coffee)를 만들기 시작합니다.")
     }
+    
+    mutating func pickUpTable(coffee: Coffee, customer: Person) {
+        self.pickUpTable?.append(coffee)
+        guard let customerCoffee = self.pickUpTable else { return }
+        print("\(customer.name) 님의 \(customerCoffee)가 준비되었습니다. 픽업대에서 가져가주세요.")
+        self.pickUpTable?.removeAll()
+    }
 }
 var misterLee = Person(name: "Mr.Lee", birthYear: 1998)
-var misterkim = Person(name: "쿼카", birthYear: 1997)
-misterLee.moneyPurse = 10000
+var misterkim = Person(name: "김쿼카", birthYear: 1997)
 misterkim.moneyPurse = 10000
 
 var yagombucks = CoffeeShop(barista: misterLee)
+yagombucks.orderDrink(coffee: .hotChocolate, customer: misterkim)
