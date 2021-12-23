@@ -16,15 +16,17 @@ struct Person {
     }
     
     func buy(something: Any) {
-        
+        print("\(something)을 구매하였습니다.")
     }
     
     func move(to: Any) {
         print("\(name)님이 \(to)로 이동합니다.")
     }
     
-    func have(something: Any) {
-        
+    func drinkCoffee(_ coffee: Coffee) -> Coffee {
+        move(to: "야곰벅스")
+        print("\(coffee)를 주문받고 대기합니다.")
+        return coffee
     }
 }
 
@@ -76,4 +78,4 @@ var misterkim = Person(name: "Mr.Kim", birthYear: 1997)
 misterLee.purse = 10000
 misterkim.purse = 10000
 
-let yagombucks = CoffeeShop(barista: misterLee)
+var yagombucks = CoffeeShop(barista: misterLee)
