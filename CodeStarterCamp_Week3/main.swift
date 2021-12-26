@@ -30,7 +30,7 @@ class Person {
     }
 }
 
-enum Coffee {
+enum Coffee: String {
     case americano
     case espresso
     case cafeLatte
@@ -71,7 +71,7 @@ enum Coffee {
 struct CoffeeShop {
     private var totalSales: Int = 0
     var barista: Person
-    var pickUpTable: [String] = []
+    var pickUpTable: [Coffee.RawValue] = []
     
     init(barista: Person) {
         self.barista = barista
@@ -94,7 +94,7 @@ struct CoffeeShop {
     }
     
     mutating func pickUpTable(coffee: Coffee, customer: Person) {
-        self.pickUpTable.append(coffee.name)
+        self.pickUpTable.append(coffee.rawValue)
         print("\(customer.name) 님의 \(self.pickUpTable)가 준비되었습니다. 픽업대에서 가져가주세요.")
         self.pickUpTable.removeAll()
     }
