@@ -45,7 +45,6 @@ struct CoffeeShop {
             print("주문이 접수되었습니다.")
             sales += price
             pickUpTable = from.name
-            print("\(pickUpTable)님의 커피가 준비되었습니다. 픽업대에서 가져가주세요.")
             return price
         } else {
             print("메뉴에 없는 커피입니다. 주문을 취소합니다.")
