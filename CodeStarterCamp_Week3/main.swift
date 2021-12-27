@@ -24,3 +24,7 @@ struct CoffeeShop {
     }
 }
 
+var misterLee: Person = Person(money: 10000)
+var missKim: Person = Person(money: 30000)
+var yagombucks: CoffeeShop = CoffeeShop()
+yagombucks.barista = misterLee
