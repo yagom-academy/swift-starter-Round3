@@ -1,3 +1,27 @@
+enum Gender {
+    case male, female
+}
+
+struct Person {
+    var name: String
+    var gender: Gender
+    var money: Int = 0
+
+    init(name: String, gender: Gender) {
+        self.name = name
+        self.gender = gender
+    }
+    
+    init(name: String, gender: Gender, money: Int) {
+        self.init(name: name, gender: gender)
+        self.money = money
+    }
+    
+    mutating func doOrder(price: Int) {
+        money -= price
+    }
+}
+
 struct CoffeeShop {
     enum Coffee {
         case espresso, americano, cafe_latte, cappuccino, chocolate_latte
