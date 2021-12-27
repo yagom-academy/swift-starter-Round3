@@ -41,7 +41,7 @@ struct CoffeeShop {
         self.barista = barista
     }
     
-    mutating func getOrderFromSomeone(order: [Coffee], from: Person) -> Int? {
+    mutating func order(coffee: Coffee, from: Person) -> Int? {
         var totalPrice: Int = 0
         
         for coffee in order {
