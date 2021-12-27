@@ -7,7 +7,7 @@
 
 import Foundation
 
-class CoffeeShop {
+struct CoffeeShop {
   enum Coffee {
     case milk
     case iceamricano
@@ -19,11 +19,6 @@ class CoffeeShop {
   var barista: Person?
   var totalSales: Int
   var pickupTable: [String] = []
-    
-  init(totalSales: Int, pickupTable: Array<String>) {
-    self.totalSales = totalSales
-    self.pickupTable = pickupTable
-  }
    
   func takeOrder() {
     print("주문을 받습니다.")

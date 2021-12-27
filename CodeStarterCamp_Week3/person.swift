@@ -7,11 +7,10 @@
 
 import Foundation
 
-class Person {
+struct Person {
   var money: Int
-  init(money: Int) {
-    self.money = money
-  }
+ 
+    
     func buy() {
       print("물건을 구매합니다.")
   }
