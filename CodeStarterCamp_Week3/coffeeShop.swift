@@ -15,19 +15,20 @@ class CoffeeShop {
     case americano
   }
   let menu  = [Coffee.americano: 100, Coffee.cappuccino: 120, Coffee.milk: 130, Coffee.iceamricano: 140]
+    
   var barista: Person?
   var totalSales: Int
-  var pickUpTable: String
+  var pickupTable: [String] = []
     
-  init(totalSales: Int, pickupTable: String) {
+  init(totalSales: Int, pickupTable: Array<String>) {
     self.totalSales = totalSales
-    self.pickUpTable = pickupTable
+    self.pickupTable = pickupTable
   }
    
-  func takeOrder(){
+  func takeOrder() {
     print("주문을 받습니다.")
   }
-  func makeCoffee(){
+  func makeCoffee() {
     print("커피를 만듭니다.")
   }
 }

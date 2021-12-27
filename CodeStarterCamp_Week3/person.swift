@@ -12,7 +12,7 @@ class Person {
   init(money: Int) {
     self.money = money
   }
-    func buy(){
+    func buy() {
       print("물건을 구매합니다.")
   }
 }

@@ -8,7 +8,7 @@
 
 import Foundation
 
-var yagombucks: CoffeeShop = CoffeeShop(totalSales: 0, pickupTable: "pickupTable")
+var yagombucks: CoffeeShop = CoffeeShop(totalSales: 0, pickupTable: [])
 let misterKim: Person = Person(money: 0)
 
 yagombucks.barista = misterKim
