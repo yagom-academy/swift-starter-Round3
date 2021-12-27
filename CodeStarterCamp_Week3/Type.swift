@@ -7,34 +7,62 @@
 
 import Foundation
 
-struct Person {
+class Person {
     var name: String
     var money: UInt
     
-    func buySomething() {
-        print("\(self.name) buy something!")
+    init(name: String, money: UInt) {
+        self.name = name
+        self.money = money
+    }
+    
+    func buyCoffee(at coffeeShop: CoffeeShop, coffee: Coffee) {
+        if self.money < coffee.price {
+            print("잔액이 \(coffee.price - self.money)원만큼 부족합니다.")
+        } else {
+            let isOrderCompleted = coffeeShop.order(coffee: coffee, nameOfCustomer: self.name)
+            self.money = isOrderCompleted ? (self.money - coffee.price) : self.money
+        }
     }
 }
 
-class CoffeeShop {
-    var sales: UInt
-    var barista: Person?
-    var menu: [Coffee]
-    let pickUpTable: String = "This is pick up table!"
-    
-    init() {
-        self.sales = 0
-        self.menu = [.americano, .cafeLatte]
-    }
-    
-    func takeOrder(item: Coffee?) {
-        if case .some(let orderedItem) = item {
-            print(orderedItem)
-        } else { print("주문을 받지 않았습니다.") }
-    }
-    
-    func makeCoffee() {
+
+class Barista: Person {
+    func makeCoffee(coffee: Coffee) -> Bool {
+        var finishedExtractCoffee = false
+        finishedExtractCoffee = true
         
+        return finishedExtractCoffee
+    }
+}
+
+
+class CoffeeShop {
+    var sales: UInt = 0
+    var barista: Barista?
+    var menu: [Coffee]
+    var pickUpTable: Coffee?
+    
+    init(menu: [Coffee]) {
+        self.menu = menu
+    }
+    
+    func order(coffee: Coffee, nameOfCustomer: String) -> Bool {
+        var isSucceed: Bool = false {
+            didSet {
+                print("\(nameOfCustomer) 님의 커피가 준비되었습니다. 픽업대에서 가져가주세요.")
+                pickUpTable = coffee
+            }
+        }
+        
+        if let barista = self.barista {
+            isSucceed = barista.makeCoffee(coffee: coffee)
+        } else {
+            print("현재 카페에 바리스타가 없어서 커피를 만들 수 없습니다!")
+        }
+        
+        self.sales += coffee.price
+        return isSucceed
     }
 }
 
