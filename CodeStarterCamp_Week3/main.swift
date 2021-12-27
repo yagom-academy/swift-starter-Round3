@@ -37,21 +37,6 @@ enum Coffee: String {
     case caffeMocha
     case hotChocolate
     
-    var name: String {
-        switch self {
-        case .americano:
-            return "아메리카노"
-        case .espresso:
-            return "에스프레소"
-        case .cafeLatte:
-            return "카페라떼"
-        case .caffeMocha:
-            return "카페모카"
-        case .hotChocolate:
-            return "핫초코"
-        }
-    }
-    
     var price: Int {
         switch self {
         case .americano:
@@ -71,7 +56,7 @@ enum Coffee: String {
 struct CoffeeShop {
     private var totalSales: Int = 0
     var barista: Person
-    var pickUpTable: [Coffee.RawValue]? = []
+    var pickUpTable: [Coffee] = []
     
     init(barista: Person) {
         self.barista = barista
@@ -94,12 +79,13 @@ struct CoffeeShop {
     }
     
     mutating func pickUpTable(coffee: Coffee, customer: Person) {
-        self.pickUpTable?.append(coffee.rawValue)
-        guard let customerCoffee = self.pickUpTable else { return }
+        self.pickUpTable.append(Coffee(rawValue: coffee.rawValue)!)
+        guard let customerCoffee = self.pickUpTable.first else { return }
         print("\(customer.name) 님의 \(customerCoffee)가 준비되었습니다. 픽업대에서 가져가주세요.")
-        self.pickUpTable?.removeAll()
+        self.pickUpTable.removeAll()
     }
 }
+
 var misterLee = Person(name: "Mr.Lee", birthYear: 1998)
 var misterkim = Person(name: "김쿼카", birthYear: 1997)
 misterkim.moneyPurse = 10000
