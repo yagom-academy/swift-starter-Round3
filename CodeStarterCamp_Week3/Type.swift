@@ -24,7 +24,7 @@ class CoffeeShop {
     
     init() {
         self.sales = 0
-        self.menu = [.americano(price: 4500), .cafeLatte(price: 5000)]
+        self.menu = [.americano, .cafeLatte]
     }
     
     func takeOrder(item: Coffee?) {
@@ -40,9 +40,20 @@ class CoffeeShop {
 
 
 enum Coffee {
-    case americano(price: UInt)
-    case cafeLatte(price: UInt)
-    case cappuccino(price: UInt)
-    case hotChocolate(price: UInt)
+    case americano
+    case cafeLatte
+    case cappuccino
+    case hotChocolate
+    
+    var price: UInt {
+        get {
+            switch self {
+            case .americano: return 4500
+            case .cafeLatte: return 5500
+            case .cappuccino: return 6000
+            case .hotChocolate: return 5000
+            }
+        }
+    }
 }
 

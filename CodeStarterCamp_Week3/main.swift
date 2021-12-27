@@ -15,3 +15,4 @@ var missKim: Person = Person(name: "MsKim", money: 100000)
 var yagomBucks: CoffeeShop = CoffeeShop()
 
 yagomBucks.barista = misterLee
+
