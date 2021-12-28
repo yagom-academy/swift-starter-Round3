@@ -19,7 +19,6 @@ struct Person {
         } else {
             self.money -= coffee.cost
         }
-        
     }
 }
 
