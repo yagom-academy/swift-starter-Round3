@@ -79,7 +79,7 @@ struct CoffeeShop {
     }
     
     mutating func pickUpTable(coffee: Coffee, customer: Person) {
-        self.pickUpTable.append(Coffee(rawValue: coffee.rawValue)!)
+        self.pickUpTable.append(coffee)
         guard let customerCoffee = self.pickUpTable.first else { return }
         print("\(customer.name) 님의 \(customerCoffee)가 준비되었습니다. 픽업대에서 가져가주세요.")
         self.pickUpTable.removeAll()
