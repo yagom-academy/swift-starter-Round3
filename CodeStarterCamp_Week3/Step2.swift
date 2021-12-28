@@ -6,57 +6,88 @@
 //
 
 //
-//import Foundation
-//
-//class Person {
-//    let name: String
-//    var money: Int
-//    
-//    init (name: String, money: Int){
-//        self.name = name
-//        self.money = money
-//    }
-//    
-//    func buyItem() {
-//        print("물건을 구입하셨습니다.")
-//    }
-//}
-//
-//class CoffeeShop {
-//    var barista: Person?
-//    var sales: Int
-//    var menuBoard: Menu
-//    var coffee: CoffeeType
-//    var price: Int
-//    var pickUpTable: Int
-//    
-//    init (sales: Int, coffee: CoffeeType, price: Int, pickUpTable: Int) {
-//        self.sales = sales
-//        self.coffee = coffee
-//        self.price = price
-//        self.pickUpTable = pickUpTable
-//    }
-//    
-//    func orderAndMakeCoffee() {
-//        print("커피를 주문하셨습니다. 커피를 만듭니다.")
-//    }
-//}
-//
-//class Menu {
-//    var
-//}
-//enum CoffeeType {
-//    case americano, cafeLatte, espresso, cappuccino, cafeMocha
-//}
-//
-//let misterLee = Person(name: "misterLee", money: 100_000)
-//let missKim = Person(name: "missKim", money: 200_000)
-//let yagombucks = CoffeeShop(sales: 10_000_000, coffee: .americano , price: 4_500, pickUpTable: 10)
+import Foundation
+
+class Person {
+    let name: String
+    var money: Int
+    
+    init (name: String, money: Int){
+        self.name = name
+        self.money = money
+    }
+    
+    func buyCoffee(coffee: Coffee, coffeeShop: CoffeeShop) {
+        print("\(coffee)을(를) 구입하려 합니다.")
+        coffeeShop.takeOrder(coffee: coffee, coffeeShop: coffeeShop)
+    }
+}
+
+class CoffeeShop {
+    var barista: Person?
+    var customer: Person?
+    var salesRevenue: Int = 0
+    var menuBoard: [Coffee : Int]
+    var pickUpTable: Coffee? {
+        willSet {
+            guard let customerOfCoffeeShop = customer else { return }
+            print("\(customerOfCoffeeShop.name)님의 커피가 준비되었습니다. 픽업대에서 가져가주세요.")
+        }
+    }
+    
+    init (menuBoard: [Coffee : Int]) {
+        self.menuBoard = menuBoard
+    }
+    
+    func takeOrder(coffee: Coffee, coffeeShop: CoffeeShop) {
+        if menuBoard.keys.contains(coffee) {
+            print("\(coffee)을(를) 주문하셨습니다.")
+            guard let coffeePrice = menuBoard[coffee] else { return }
+            guard let customerMoney = customer?.money else { return }
+            if coffeePrice > customerMoney {
+                print("잔액이 \(coffeePrice - customerMoney)원만큼 부족합니다. ")
+            } else {
+                print("결제되셨습니다. \(coffee)이(가) 나오면 불러드리겠습니다.")
+                calculateMoney(coffee: coffee)
+            }
+        } else {
+            print("\(coffee)은(는) 판매하지 않습니다.")
+        }
+    }
+    
+    func calculateMoney(coffee: Coffee) {
+        guard let coffeePrice = menuBoard[coffee] else { return }
+        salesRevenue += coffeePrice
+        customer?.money -= coffeePrice
+        serveOnPickUpTable(coffee: coffee)
+    }
+    
+    func serveOnPickUpTable(coffee: Coffee) {
+        pickUpTable = coffee
+    }
+}
+
+enum Coffee {
+    case americano, cafeLatte, espresso, cappuccino, cafeMocha
+}
+
+var misterLee = Person(name: "misterLee", money: 100_000)
+var missKim = Person(name: "missKim", money: 6_000)
+var yagombucks = CoffeeShop(menuBoard: [.americano : 4000,
+                                        .cafeLatte : 4200,
+                                        .espresso : 3000,
+                                        .cappuccino : 4300,
+                                        .cafeMocha : 4500])
+
 //yagombucks.barista = misterLee
+//yagombucks.customer = missKim
 //
-//if let baristaName = yagombucks.barista?.name {
-//    print("바리스타 이름은 \(baristaName)입니다.")
-//} else {
-//    print("바리스타가 없습니다. 사장이 직접 운영해요.")
-//}
+//missKim.buyCoffee(coffee: .americano, coffeeShop: yagombucks)
+//print(missKim.money)
+//print(yagombucks.salesRevenue)
 //
+//missKim.buyCoffee(coffee: .cappuccino, coffeeShop: yagombucks)
+//print(missKim.money)
+//print(yagombucks.salesRevenue)
+
+
