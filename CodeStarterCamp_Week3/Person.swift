@@ -8,8 +8,14 @@
 import Foundation
 
 class Person {
-    var money: Int = 0
+    var name: String
+    var money: Int
     var purchasedItem: Array<String>?
+    
+    init(name: String, money: Int) {
+        self.name = name
+        self.money = money
+    }
     
     func purchaseSomething(price: Int, item: String) {
         money -= price
