@@ -1,6 +1,6 @@
 import Foundation
 
-enum Coffee{
+enum Coffee {
     case americano, cafeLatte, espresso
 }
 
@@ -8,12 +8,12 @@ struct Person {
     var money: Int = 0
 
     func buy(product: String) {
-        print(product + "를 구매하였습니다.")
+        print("\(product)를 구매하였습니다.")
     }
 }
 
 struct CoffeeShop {
-    var sales: Int = 0
+    var cafeSales: Int = 0
     var menu: [Coffee : Int] = [.americano : 2500, .cafeLatte : 3000, .espresso : 4000]
     var pickUpTable: String?
     var barista: Person = Person()
