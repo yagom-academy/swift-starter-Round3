@@ -15,7 +15,8 @@ struct Person {
         print("\(self.name): \(coffee) 주세요.")
         shop.takeOrder(coffee: coffee, customer: self)
         if money < coffee.cost {
-            print("잔액이 \(coffee.cost)원만큼 부족합니다. ")
+            let lackOfCost = coffee.cost - money
+            print("잔액이 \(lackOfCost)원만큼 부족합니다. ")
         } else {
             self.money -= coffee.cost
         }
@@ -65,14 +66,13 @@ class CoffeeShop {
     func takeOrder(coffee: Coffee, customer: Person) {
         self.customer = customer
         let costOfcoffee = coffee.cost
-            print("\(self.brista.name): \(coffee)는 \(costOfcoffee)원 입니다.")
-            salesRevenue += costOfcoffee
-            makeCoffees(coffee: coffee)
+        print("\(self.brista.name): \(coffee)는 \(costOfcoffee)원 입니다.")
+        salesRevenue += costOfcoffee
+        makeCoffees(coffee: coffee)
     }
     func makeCoffees(coffee: Coffee) {
         print("\(coffee)를 만드는 중 입니다.")
         pickUpTable = "\(coffee)"
-        
     }
 }
 
