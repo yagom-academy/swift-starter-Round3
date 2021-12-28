@@ -11,7 +11,7 @@ enum Coffee: String {
     case americano, latte, espresso
 }
 
-class CoffeeShop: Person {
+class CoffeeShop {
         
     var totalRevenue: Int = 0
     var menuBoard: Dictionary = [Coffee:Int]()
@@ -20,7 +20,6 @@ class CoffeeShop: Person {
     
     init(barista:Person) {
         self.barista = barista
-        super.init(name: barista.name, money: barista.money)
     }
     
     func orderCoffee(coffee: Coffee, amount: Int, guest: Person) {
