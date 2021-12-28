@@ -23,12 +23,8 @@ struct Person {
     }
 }
 
-enum Coffee {
-    case espresso
-    case americano
-    case cafeLatte
-    case cafeMocha
-    case flatWhite
+enum Coffee: CaseIterable {
+    case espresso, americano, cafeLatte, cafeMocha, flatWhite
     
     var cost: Int {
         switch self {
@@ -49,7 +45,7 @@ enum Coffee {
 class CoffeeShop {
     var brista: Person
     var customer: Person?
-    var menuBoard: Coffee = .americano
+    var menuBoard = Coffee.allCases
     var salesRevenue = 0
     var pickUpTable: String? = nil {
         didSet {
