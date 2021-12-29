@@ -24,32 +24,32 @@ struct Person {
 }
 
 struct CoffeeShop {
-    enum Coffee {
-        case espresso, americano, cafe_latte, cappuccino, chocolate_latte
+    enum Coffee:Int {
+        case espresso
+        case americano
+        case cafeLatte
+        case cappuccino
+        case chocolateLatte
     }
-    var menu = [Coffee : Int]()
+    
+    var menu = [Coffee: Int]()
     var sales: Int = 0
-    var pickUpTable: String = ""
+    var pickUpTable: Coffee?
     var barista: Person
     
-    init(barista: Person) {
-        menu[Coffee.espresso] = 3000
-        menu[Coffee.americano] = 4000
-        menu[Coffee.cafe_latte] = 4500
-        menu[Coffee.cappuccino] = 4500
-        menu[Coffee.chocolate_latte] = 4500
+    init(prices: [Int], barista: Person) {
+        menu[.espresso] = prices[0]
+        menu[.americano] = prices[1]
+        menu[.cafeLatte] = prices[2]
+        menu[.cappuccino] = prices[3]
+        menu[.chocolateLatte] = prices[4]
         self.barista = barista
     }
-    
-    mutating func order(coffee: Coffee, from: Person) -> Int? {
+
+    mutating func getOrder(coffee: Coffee){
         if let price = menu[coffee] {
-            print("주문이 접수되었습니다.")
             sales += price
-            pickUpTable = from.name
-            return price
-        } else {
-            print("메뉴에 없는 커피입니다. 주문을 취소합니다.")
-            return nil
+            pickUpTable = coffee
         }
     }
 }
