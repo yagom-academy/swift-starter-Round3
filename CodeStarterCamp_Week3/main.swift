@@ -17,36 +17,38 @@ struct Person {
 }
 
 enum Coffee {
-    case espresso
-    case americano
+    case esprEsso
+    case ameriCano
     case cafeLatte
-    case vanillalatte
+    case vanillaLatte
     case caramelMacchiato
-    case cafemocha
-    case affogato
+    case cafeMocha
+    case affoGato
     
     var cost: Int {
         switch self {
-        case .espresso:
+        case .esprEsso:
             return 3000
-        case .americano:
+        case .ameriCano:
             return 4500
         case .cafeLatte:
             return 5000
-        case .vanillalatte:
+        case .vanillaLatte:
             return 5500
         case .caramelMacchiato:
             return 5500
-        case .cafemocha:
+        case .cafeMocha:
             return 5700
-        case .affogato:
+        case .affoGato:
             return 6000
         }
     }
 }
 
-struct CoffeeShop {
+class CoffeeShop {
     var brista: Person
+    var customer: Person?
+    var menuBoard: Coffee = .ameriCano
     var salesRevenue = 0
     var pickUpTable: String? = nil
     
@@ -54,14 +56,15 @@ struct CoffeeShop {
         self.brista = brista
     }
     
-    mutating func takeOrderMenu(coffee: Coffee) {
-        let costOfcoffee = coffee.cost
-        salesRevenue += costOfcoffee
-        print("\(coffee)는 \(costOfcoffee)원 입니다")
-        print(salesRevenue)
+        func takeOrder(coffee: Coffee, customer: Person) {
+        let costOfCoffee = coffee.cost
+        salesRevenue += costOfCoffee
+        makeCoffees(coffee: coffee)
     }
-    func makeCoffeeMenu(coffee: String) {
-        print("\(coffee)를 제조중입니다!!!")
+    
+    func makeCoffees(coffee: Coffee) {
+        print("\(coffee)를 만드는 중 입니다.!!!")
+                pickUpTable = "\(coffee)"
     }
 }
 
