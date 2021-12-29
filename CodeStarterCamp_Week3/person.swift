@@ -9,9 +9,7 @@ import Foundation
 
 struct Person {
   var money: Int
- 
-    
-    func buy() {
-      print("물건을 구매합니다.")
+  func buy() {
+    print("물건을 구매합니다.")
   }
 }
