@@ -1,8 +1,7 @@
-enum Gender {
-    case male, female
-}
-
 struct Person {
+    enum Gender {
+        case male, female
+    }
     var name: String
     var gender: Gender
     var money: Int = 0
@@ -16,9 +15,11 @@ struct Person {
         self.init(name: name, gender: gender)
         self.money = money
     }
-    
-    mutating func doOrder(price: Int) {
-        money -= price
+
+    mutating func orderCoffeeFromShop(coffee: CoffeeShop.Coffee, from: CoffeeShop) {
+        if let price = from.menu[coffee] {
+            money -= price
+        }
     }
 }
 
