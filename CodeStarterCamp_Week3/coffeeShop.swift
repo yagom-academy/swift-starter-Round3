@@ -9,22 +9,39 @@ import Foundation
 
 struct CoffeeShop {
     
-  enum Coffee {
-    case milk
-    case iceamricano
-    case cappuccino
-    case americano
-  }
-    
-  let menu  = [Coffee.americano: 100, Coffee.cappuccino: 120, Coffee.milk: 130, Coffee.iceamricano: 140]
-  var barista: Person?
+  let menu: Array<Coffee> = [Coffee.milk,
+                             Coffee.americano]
+  var barista: Person
   var totalSales: Int
-  var pickupTable: [String] = []
-   
-  func takeOrder() {
-    print("주문을 받습니다.")
+  var pickUpTable: [Coffee] = []
+    
+  mutating func order(customer: Person, coffee: Coffee, coffeeShop: CoffeeShop) {
+    var customerMoney = customer.money
+    var coffeeShopTotalSales = coffeeShop.totalSales
+      
+    if customerMoney < coffee.rawValue {
+      print("\(coffee)를 주문받았습니다")
+      print("\(coffee)의 값은\(coffee.rawValue)입니다.")
+      print("잔액이 \(coffee.rawValue - customerMoney)원 부족합니다.")
+  } else {
+      customerMoney -= coffee.rawValue
+      coffeeShopTotalSales += coffee.rawValue
+      print("\(coffee)를 주문받았습니다")
+      print("\(coffee)의 값은\(coffee.rawValue)입니다.")
+      print("\(coffee)에 대한 계산 도와드리겠습니다.")
+      print("내잔액 : \(customerMoney), 카페 총매출: \(coffeeShopTotalSales)")
+      makeCoffee(customer: customer.name, coffee: coffee)
+    }
   }
-  func makeCoffee() {
-    print("커피를 만듭니다.")
+
+  mutating func makeCoffee(customer: String, coffee: Coffee) {
+    pickUpTable.append(coffee)
+    print("\(customer)님의 \(coffee)가 준비되었습니다. 픽업대에서 가져가 주세요.")
   }
 }
+
+enum Coffee: Int {
+    case milk = 10000
+    case americano = 100
+}
+

@@ -1,4 +1,6 @@
 //
+
+
 //  main.swift
 //  CodeStarterCamp_Week3
 //
@@ -8,7 +10,7 @@
 
 import Foundation
 
-var yagombucks: CoffeeShop = CoffeeShop(totalSales: 0, pickupTable: [])
-let misterKim: Person = Person(money: 0)
+let misterKim: Person = Person(money: 100000, name: "misterKim")
+var yagombucks: CoffeeShop = CoffeeShop(barista: misterKim, totalSales: 0)
+yagombucks.order(customer: misterKim, coffee: Coffee.milk, coffeeShop:yagombucks)
 
-yagombucks.barista = misterKim
