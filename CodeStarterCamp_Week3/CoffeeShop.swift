@@ -7,12 +7,12 @@
 
 import Foundation
 
-enum Coffee: String {
-    case americano, latte, espresso
-}
-
 class CoffeeShop {
-        
+    
+    enum Coffee: String {
+        case americano, latte, espresso
+    }
+    
     var totalRevenue: Int = 0
     var menuBoard: Dictionary = [Coffee:Int]()
     var pickUpTable: Coffee?
