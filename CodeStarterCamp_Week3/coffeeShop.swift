@@ -8,14 +8,15 @@
 import Foundation
 
 struct CoffeeShop {
+    
   enum Coffee {
     case milk
     case iceamricano
     case cappuccino
     case americano
   }
-  let menu  = [Coffee.americano: 100, Coffee.cappuccino: 120, Coffee.milk: 130, Coffee.iceamricano: 140]
     
+  let menu  = [Coffee.americano: 100, Coffee.cappuccino: 120, Coffee.milk: 130, Coffee.iceamricano: 140]
   var barista: Person?
   var totalSales: Int
   var pickupTable: [String] = []
