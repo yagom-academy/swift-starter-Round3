@@ -36,7 +36,9 @@ struct CoffeeShop {
 
   mutating func makeCoffee(customer: String, coffee: Coffee) {
     pickUpTable.append(coffee)
+    
     print("\(customer)님의 \(coffee)가 준비되었습니다. 픽업대에서 가져가 주세요.")
+    
   }
 }
 

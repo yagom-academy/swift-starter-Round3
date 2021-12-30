@@ -15,5 +15,11 @@ struct Person {
   func buy() {
   
   }
+  
+  mutating func takeCoffee(coffee: Coffee, coffeeShop: CoffeeShop) {
+    var CoffeeShopPickUpTable = coffeeShop.pickUpTable
+    print("커피를 가져갔습니다.")
+    CoffeeShopPickUpTable.removeFirst()
+    print(CoffeeShopPickUpTable)
+    }
 }
-
