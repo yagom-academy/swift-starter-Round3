@@ -37,7 +37,11 @@ struct CoffeeShop {
     mutating func howMuchIsEachCoffee() {
         for coffee in Coffee.allCases {
             print("\(coffee)의 가격: ", terminator: "")
-            menu[coffee] = Int(readLine()!)!
+            if let inputPrice = readLine() {
+                if let price = Int(inputPrice) {
+                    menu[coffee] = price
+                }
+            }
         }
     }
 
