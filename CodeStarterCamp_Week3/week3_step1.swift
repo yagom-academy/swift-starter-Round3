@@ -41,7 +41,7 @@ struct CoffeeShop {
         }
     }
 
-    mutating func getOrder(coffee: Coffee){
+    mutating func order(coffee: Coffee){
         if let price = menu[coffee] {
             sales += price
             pickUpTable = coffee
