@@ -16,7 +16,7 @@ struct Person {
   //TODO: 나중에 사람이 먼가를 살때 사용할 함수
   }
   
-  mutating func takeCoffee(coffee: Coffee, coffeeShop: CoffeeShop) {
+   func takeCoffee(coffee: Coffee, coffeeShop: CoffeeShop) {
     var CoffeeShopPickUpTable = coffeeShop.pickUpTable
     print("커피를 가져갔습니다.")
     CoffeeShopPickUpTable.removeFirst()

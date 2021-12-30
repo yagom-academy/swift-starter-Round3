@@ -15,7 +15,7 @@ struct CoffeeShop {
   var totalSales: Int
   var pickUpTable: [Coffee] = []
     
-  mutating func order(customer: Person, coffee: Coffee, coffeeShop: CoffeeShop) {
+  mutating func order(customer: Person, coffee: Coffee, coffeeShop: CoffeeShop) -> Int{
     var customerMoney = customer.money
     var coffeeShopTotalSales = coffeeShop.totalSales
       
@@ -32,6 +32,7 @@ struct CoffeeShop {
       print("내잔액 : \(customerMoney), 카페 총매출: \(coffeeShopTotalSales)")
       makeCoffee(customer: customer.name, coffee: coffee)
     }
+     return customerMoney
   }
 
   mutating func makeCoffee(customer: String, coffee: Coffee) {
