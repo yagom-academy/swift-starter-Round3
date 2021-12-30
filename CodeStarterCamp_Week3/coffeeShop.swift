@@ -9,8 +9,8 @@ import Foundation
 
 struct CoffeeShop {
     
-  let menu: Array<Coffee> = [Coffee.milk,
-                             Coffee.americano]
+  let menu: Array<Coffee> = [.milk,
+                             .americano]
   var barista: Person
   var totalSales: Int
   var pickUpTable: [Coffee] = [] {
@@ -29,15 +29,18 @@ struct CoffeeShop {
       print("\(coffee)의 값은\(coffee.rawValue)입니다.")
       print("잔액이 \(coffee.rawValue - customerMoney)원 부족합니다.")
   } else {
+     
       customerMoney -= coffee.rawValue
       coffeeShopTotalSales += coffee.rawValue
+      print(customer.money)
+      print(customerMoney)
       print("\(coffee)를 주문받았습니다")
       print("\(coffee)의 값은\(coffee.rawValue)입니다.")
       print("\(coffee)에 대한 계산 도와드리겠습니다.")
       print("내잔액 : \(customerMoney), 카페 총매출: \(coffeeShopTotalSales)")
       makeCoffee(customer: customer.name, coffee: coffee)
     }
-     return customerMoney
+      return customerMoney
   }
 
   mutating func makeCoffee(customer: String, coffee: Coffee) {
