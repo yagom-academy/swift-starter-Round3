@@ -15,4 +15,3 @@ var yagombucks: CoffeeShop = CoffeeShop(barista: misterKim, totalSales: 0)
 
 misterKim.money = yagombucks.order(customer: misterKim, coffee: Coffee.milk, coffeeShop:yagombucks)
 misterKim.takeCoffee(coffee: Coffee.milk, coffeeShop: yagombucks)
-

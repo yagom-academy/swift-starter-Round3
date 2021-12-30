@@ -13,8 +13,13 @@ struct CoffeeShop {
                              Coffee.americano]
   var barista: Person
   var totalSales: Int
-  var pickUpTable: [Coffee] = []
+  var pickUpTable: [Coffee] = [] {
+    didSet {
+      print("준비중입니다.")
+  }
+}
     
+         
   mutating func order(customer: Person, coffee: Coffee, coffeeShop: CoffeeShop) -> Int{
     var customerMoney = customer.money
     var coffeeShopTotalSales = coffeeShop.totalSales
@@ -37,14 +42,12 @@ struct CoffeeShop {
 
   mutating func makeCoffee(customer: String, coffee: Coffee) {
     pickUpTable.append(coffee)
-    
     print("\(customer)님의 \(coffee)가 준비되었습니다. 픽업대에서 가져가 주세요.")
     
+    }
   }
-}
 
 enum Coffee: Int {
     case milk = 10000
     case americano = 100
 }
-
