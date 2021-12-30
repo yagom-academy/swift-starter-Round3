@@ -13,7 +13,7 @@ struct Person {
   let name: String
     
   func buy() {
-  
+  //TODO: 나중에 사람이 먼가를 살때 사용할 함수
   }
   
   mutating func takeCoffee(coffee: Coffee, coffeeShop: CoffeeShop) {
