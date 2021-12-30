@@ -8,5 +8,8 @@
 
 import Foundation
 
-print("Hello, World!")
+var misterLee = Person(name: "misterLee", age: 20, gender: "M", money: 10000)
+var missKim = Person(name: "missKim", age: 28, gender: "F", money: 90000)
+
+var yagombucks = CoffeeShop(revenue: 0, barista: misterLee)
 
