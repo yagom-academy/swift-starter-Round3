@@ -4,15 +4,11 @@ struct Person {
     }
     var name: String
     var gender: Gender
-    var money: Int = 0
+    var money: Int
     
-    init(name: String, gender: Gender) {
+    init(name: String, gender: Gender, money: Int = 0) {
         self.name = name
         self.gender = gender
-    }
-    
-    init(name: String, gender: Gender, money: Int) {
-        self.init(name: name, gender: gender)
         self.money = money
     }
 
@@ -24,7 +20,7 @@ struct Person {
 }
 
 struct CoffeeShop {
-    enum Coffee:Int {
+    enum Coffee {
         case espresso
         case americano
         case cafeLatte
@@ -37,7 +33,7 @@ struct CoffeeShop {
     var pickUpTable: Coffee?
     var barista: Person
     
-    init(prices: [Int], barista: Person) {
+    init(barista: Person) {
         menu[.espresso] = prices[0]
         menu[.americano] = prices[1]
         menu[.cafeLatte] = prices[2]
