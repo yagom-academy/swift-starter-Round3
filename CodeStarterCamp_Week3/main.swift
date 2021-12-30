@@ -12,9 +12,9 @@ struct Person {
     var asset: Int
     var name: String
     var job: String
-    func purchaseSomeThing(price: Int) -> Int {
-        let remainder = asset - price
-        return remainder
+    mutating func purchaseSomeThing(price: Int) -> Int {
+        asset -= price
+        return asset
     }
 }
 
@@ -27,10 +27,10 @@ struct CoffeeShop {
                                          Coffee.cafeMocha : 5500,
                                          Coffee.vanillaLatte : 6000]
     
-    mutating func order(customer: Person, coffee: Coffee, coffeeShop: CoffeeShop) {
+    mutating func order(customer: Person, coffee: Coffee) {
         var assetOfCustomer = customer.asset
         let priceOfCoffee = coffee.rawValue
-        var turnoverOfCoffeeShop = coffeeShop.turnover
+        var turnoverOfCoffeeShop = turnover
         
         if assetOfCustomer < priceOfCoffee {
             let lackOfMoney: Int = priceOfCoffee - assetOfCustomer
@@ -39,14 +39,18 @@ struct CoffeeShop {
             assetOfCustomer -= priceOfCoffee
             turnoverOfCoffeeShop += priceOfCoffee
             brewCoffee(customer: customer.name, coffee: coffee)
-            print("고객 잔액 : \(assetOfCustomer), 카페 이익 : \(turnoverOfCoffeeShop)\n")
+            print("고객 잔액 : \(assetOfCustomer), 커피 가격 : \(coffee.rawValue), 카페 이익 : \(turnoverOfCoffeeShop)\n")
         }
     }
     
     mutating func brewCoffee(customer: String, coffee: Coffee) {
-        print("\(customer)'s \(coffee) is now brewing...")
-        pickUpTable?[customer] = coffee
+        print("baristar \(baristar.name) is now brewing \(customer)'s \(coffee)...")
+        guard ((pickUpTable?[customer] = coffee) != nil) else {
+            return print("픽업대가 비었습니다.")
+        }
         print("\(customer)님의 \(coffee)가 준비되었습니다. 픽업대에서 가져가주세요.")
+        
+        
     }
 }
 
@@ -62,5 +66,6 @@ var missKim: Person = Person(asset: 3000, name: "missKim", job: "iOSDeveloper")
 var marisol: Person = Person(asset: 50000, name: "marisol", job: "student")
 var yagombucks: CoffeeShop = CoffeeShop(turnover: 0, baristar: misterLee)
 
-yagombucks.order(customer: missKim, coffee: Coffee.americano, coffeeShop: yagombucks)
-yagombucks.order(customer: marisol, coffee: Coffee.cafeLatte, coffeeShop: yagombucks)
+yagombucks.order(customer: missKim, coffee: Coffee.americano)
+yagombucks.order(customer: marisol, coffee: Coffee.cafeLatte)
+yagombucks.order(customer: marisol, coffee: Coffee.americano)
