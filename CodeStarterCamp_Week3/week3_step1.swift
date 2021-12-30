@@ -20,12 +20,8 @@ struct Person {
 }
 
 struct CoffeeShop {
-    enum Coffee {
-        case espresso
-        case americano
-        case cafeLatte
-        case cappuccino
-        case chocolateLatte
+    enum Coffee: CaseIterable {
+        case espresso, americano, cafeLatte, cappuccino, chocolateLatte
     }
     
     var menu = [Coffee: Int]()
@@ -34,12 +30,15 @@ struct CoffeeShop {
     var barista: Person
     
     init(barista: Person) {
-        menu[.espresso] = prices[0]
-        menu[.americano] = prices[1]
-        menu[.cafeLatte] = prices[2]
-        menu[.cappuccino] = prices[3]
-        menu[.chocolateLatte] = prices[4]
         self.barista = barista
+        howMuchIsEachCoffee()
+    }
+
+    mutating func howMuchIsEachCoffee() {
+        for coffee in Coffee.allCases {
+            print("\(coffee)의 가격: ", terminator: "")
+            menu[coffee] = Int(readLine()!)!
+        }
     }
 
     mutating func getOrder(coffee: Coffee){
