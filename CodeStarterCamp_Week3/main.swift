@@ -16,5 +16,5 @@ var missKim : Person = Person()
 missKim.name = "missKim"
 var yagombucks : CoffeeShop = CoffeeShop(barista : misterLee)
 
-yagombucks.takeOrderTo(menu: CoffeeList.espresso)
+yagombucks.takeOrderTo(to coffee: CoffeeList.espresso)
 yagombucks.takeOrderMakeCoffee(coffee: CoffeeList.espresso)

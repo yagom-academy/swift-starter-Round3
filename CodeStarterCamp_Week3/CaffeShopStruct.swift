@@ -26,14 +26,14 @@ struct CoffeeShop {
     var makeCoffeeCount : Int = 0
     
     //주문 받아 매출액+
-    mutating func takeOrderTo(menu : CoffeeList){
-        guard let orderPrice = coffeeMenu[menu] else { return }
+    mutating func takeOrder(to coffee : CoffeeList){
+        guard let orderPrice = coffeeMenu[coffee] else { return }
         dailySales += orderPrice
-        orderedCoffee = "\(menu)"
+        orderedCoffee = "\(coffee)"
         makeCoffeeCount += 1
         print("직원: 안녕하세요 손님 주문 하시겠습니까?")
-        print("손님: \(menu) 로 주세요")
-        print("직원: 네 주문하신 커피는 \(menu) 이며 금액은 \(orderPrice)원 입니다")
+        print("손님: \(coffee) 로 주세요")
+        print("직원: 네 주문하신 커피는 \(coffee) 이며 금액은 \(orderPrice) 입니다")
     }
     
     //주문받은걸 픽업테이블에 저장
