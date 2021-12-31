@@ -23,6 +23,6 @@ class Person {
   
   func takeCoffee(coffee: Coffee, coffeeShop: CoffeeShop) {
     print("커피를 가져갔습니다.")
-    coffeeShop.pickUpTable.removeAll()
+    coffeeShop.pickUpTable.removeFirst()
   }
 }
