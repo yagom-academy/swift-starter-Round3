@@ -1,4 +1,3 @@
-//
 //  person.swift
 //  CodeStarterCamp_Week3
 //
@@ -7,24 +6,23 @@
 
 import Foundation
 
-struct Person {
+class Person {
     
   var money: Int
-  let name: String
+  var name: String
     
-  func buy() {
+  init(money: Int, name: String) {
+        self.money = money
+        self.name = name
+      }
+   
   //TODO: 나중에 사람이 먼가를 살때 사용할 함수
+  func buy() {
+   
   }
   
   func takeCoffee(coffee: Coffee, coffeeShop: CoffeeShop) {
-    var CoffeeShopPickUpTable = coffeeShop.pickUpTable
     print("커피를 가져갔습니다.")
-    CoffeeShopPickUpTable.removeFirst()
+    coffeeShop.pickUpTable.removeAll()
   }
 }
-
-
-
-
-
-
