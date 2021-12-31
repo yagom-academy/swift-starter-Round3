@@ -8,17 +8,18 @@
 import Foundation
 
 struct CoffeeShop {
-    var revenue: Int
+    var revenue: Int = 0
     var pickUpTable: [String : String] = [String : String]()
     var barista: Person
     
     mutating func takeOrder(customer: Person, coffee: Coffee) {
-        self.revenue = self.revenue + returnCoffeePrice(coffee: coffee)
-        print("\(customer.name) 님, 주문하신 \(returnCoffeeName(coffee: coffee)) 나왔습니다.")
-        self.pickUpTable.updateValue(coffee.name, forKey: customer.name)
+        self.revenue += coffeePrice(coffee: coffee)
+        let productName: String = coffeeName(coffee: coffee)
+        print("\(customer.name) 님, 주문하신 \(coffeeName(coffee: coffee)) 나왔습니다.")
+        pickUpTable.updateValue(_: productName, forKey: customer.name)
     }
     
-    func returnCoffeePrice(coffee: Coffee) -> Int {
+    func coffeePrice(coffee: Coffee) -> Int {
         switch coffee {
         case .americano:
             return 2500
@@ -29,7 +30,7 @@ struct CoffeeShop {
         }
     }
     
-    func returnCoffeeName(coffee: Coffee) -> String {
+    func coffeeName(coffee: Coffee) -> String {
         switch coffee {
         case .americano:
             return "아메리카노"
