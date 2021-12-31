@@ -17,25 +17,31 @@ class Person {
     }
     
     func buyCoffee(at coffeeShop: CoffeeShop, coffee: Coffee) {
-        var resultOfOrder: Bool = false
         guard (self.money > coffee.price) else {
             print("잔액이 \(coffee.price - self.money)원만큼 부족합니다.")
             return
         }
-        resultOfOrder = coffeeShop.order(coffee: coffee, nameOfCustomer: self.name)
-        if resultOfOrder { self.money -= coffee.price }
+        
+        do {
+            try coffeeShop.order(coffee: coffee, nameOfCustomer: self.name)
+        } catch CoffeeShopError.noBaristaError { return }
+        catch {print("default ERROR")}
+    
+        self.money -= coffee.price
     }
 }
 
 
 class Barista: Person {
-    func makeCoffee(coffee: Coffee) -> Bool { return true}
+    func makeCoffee(coffee: Coffee) {
+        print("\(coffee)를 만들었습니다!")
+    }
 }
 
 
 class CoffeeShop {
     private var sales: UInt = 0
-    private var menu: [Coffee]
+    private var menu: [Coffee] = []
     var barista: Barista?
     var pickUpTable: Coffee?
     
@@ -43,22 +49,25 @@ class CoffeeShop {
         self.menu = menu
     }
     
-    func order(coffee: Coffee, nameOfCustomer: String) -> Bool{
-        var isSucceed : Bool = false {
-            didSet {
-                pickUpTable = coffee
-                self.sales += coffee.price
-                print("매출이 \(coffee.price)원 만큼 증가하여 \(self.sales)원이 되었습니다.")
-                print("\(nameOfCustomer) 님의 커피가 준비되었습니다. 픽업대에서 가져가주세요.")
-            }
+    func isBaristaExist(barista: Barista?) -> Bool {
+        guard let _ = barista else {
+            return false
         }
-        guard let barista = self.barista else {
+        return true
+    }
+    
+    func order(coffee: Coffee, nameOfCustomer: String) throws {
+        guard isBaristaExist(barista: self.barista) else {
             print("현재 카페에 바리스타가 없어서 커피를 만들 수 없습니다!")
-            return isSucceed
+            throw CoffeeShopError.noBaristaError
         }
-        
-        isSucceed = barista.makeCoffee(coffee: coffee)
-        return isSucceed
+        if let barista = self.barista {
+            barista.makeCoffee(coffee: coffee)
+            self.pickUpTable = coffee
+        }
+        self.sales += coffee.price
+        print("매출이 \(coffee.price)원 만큼 증가하여 \(self.sales)원이 되었습니다.")
+        print("\(nameOfCustomer) 님의 커피가 준비되었습니다. 픽업대에서 가져가주세요.")
     }
 }
 
@@ -79,3 +88,6 @@ enum Coffee {
     }
 }
 
+enum CoffeeShopError: Error {
+    case noBaristaError
+}
