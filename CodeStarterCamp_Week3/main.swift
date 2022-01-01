@@ -11,22 +11,20 @@ import Foundation
 struct Person {
     let name: String
     var money: Int
-    mutating func buy (coffee: Coffee , shop: CoffeeShop) {
+    mutating func buy(coffee: Coffee , shop: CoffeeShop) {
         print("\(self.name): \(coffee)를 주세요 ")
         shop.takeOrder(coffee: coffee, customer: self)
         if money < coffee.cost {
             let insufficientOfcost = coffee.cost - money
             print("잔액이 \(insufficientOfcost)원 만큼 부족 합니다")
         }else {
-            self.money -= coffee.cost
+            money -= coffee.cost
         }
     }
 }
 
-
 enum Coffee: CaseIterable {
     case espresso, americano, cafeLatte, vanillaLatte, caramelMacchiato, cafeMocha, affogato
-    
     
     var cost: Int {
         switch self {
@@ -59,7 +57,6 @@ class CoffeeShop {
                 print("\(customer.name)님의 커피가 준비되었습니다. 픽업대에서 가져가주세요")
             }
         }
-        
     }
     
     init(barista: Person){
@@ -68,9 +65,9 @@ class CoffeeShop {
     
     func takeOrder(coffee: Coffee, customer: Person) {
         self.customer = customer
-        let costOfCoffee = coffee.cost
-        print("\(self.barista.name): \(coffee)는 \(costOfCoffee)원입니다 ")
-        salesRevenue += costOfCoffee
+        let costOfMenu = coffee.cost
+        print("\(self.barista.name): \(coffee)는 \(costOfMenu)원입니다 ")
+        salesRevenue += costOfMenu
         makeCoffees(coffee: coffee)
     }
     
