@@ -7,42 +7,87 @@
 
 import Foundation
 
-struct Person {
+class Person {
     var name: String
     var money: UInt
     
-    func buySomething() {
-        print("\(self.name) buy something!")
+    init(name: String, money: UInt) {
+        self.name = name
+        self.money = money
+    }
+    
+    func buyCoffee(at coffeeShop: CoffeeShop, coffee: Coffee) {
+        guard (self.money > coffee.price) else {
+            print("잔액이 \(coffee.price - self.money)원만큼 부족합니다.")
+            return
+        }
+        
+        do {
+            try coffeeShop.order(coffee: coffee, nameOfCustomer: self.name)
+        } catch CoffeeShopError.noBaristaError { return }
+        catch {print("default ERROR")}
+    
+        self.money -= coffee.price
     }
 }
 
+
+class Barista: Person {
+    func makeCoffee(coffee: Coffee) {
+        print("\(coffee)를 만들었습니다!")
+    }
+}
+
+
 class CoffeeShop {
-    var sales: UInt
-    var barista: Person?
-    var menu: [Coffee]
-    let pickUpTable: String = "This is pick up table!"
+    private var sales: UInt = 0
+    private var menu: [Coffee] = []
+    var barista: Barista?
+    var pickUpTable: Coffee?
     
-    init() {
-        self.sales = 0
-        self.menu = [.americano(price: 4500), .cafeLatte(price: 5000)]
+    init(menu: [Coffee]) {
+        self.menu = menu
     }
     
-    func takeOrder(item: Coffee?) {
-        if case .some(let orderedItem) = item {
-            print(orderedItem)
-        } else { print("주문을 받지 않았습니다.") }
+    func isBaristaExist(barista: Barista?) -> Bool {
+        guard let _ = barista else {
+            return false
+        }
+        return true
     }
     
-    func makeCoffee() {
-        
+    func order(coffee: Coffee, nameOfCustomer: String) throws {
+        guard isBaristaExist(barista: self.barista) else {
+            print("현재 카페에 바리스타가 없어서 커피를 만들 수 없습니다!")
+            throw CoffeeShopError.noBaristaError
+        }
+        if let barista = self.barista {
+            barista.makeCoffee(coffee: coffee)
+            self.pickUpTable = coffee
+        }
+        self.sales += coffee.price
+        print("매출이 \(coffee.price)원 만큼 증가하여 \(self.sales)원이 되었습니다.")
+        print("\(nameOfCustomer) 님의 커피가 준비되었습니다. 픽업대에서 가져가주세요.")
     }
 }
 
 
 enum Coffee {
-    case americano(price: UInt)
-    case cafeLatte(price: UInt)
-    case cappuccino(price: UInt)
-    case hotChocolate(price: UInt)
+    case americano
+    case cafeLatte
+    case cappuccino
+    case hotChocolate
+    
+    var price: UInt {
+        switch self {
+        case .americano: return 4500
+        case .cafeLatte: return 5500
+        case .cappuccino: return 6000
+        case .hotChocolate: return 5000
+        }
+    }
 }
 
+enum CoffeeShopError: Error {
+    case noBaristaError
+}
