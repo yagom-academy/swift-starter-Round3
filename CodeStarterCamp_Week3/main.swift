@@ -53,11 +53,12 @@ class CoffeeShop {
     }
     
     func brewCoffee(customer: String, coffee: Coffee) {
-        guard ((pickUpTable?[customer] = coffee) != nil) else {
+        print("baristar \(baristar.name) is now brewing \(customer)'s \(coffee)...")
+        pickUpTable?[customer] = coffee
+        guard let coffeeOnPickUpTable = pickUpTable?[customer] else {
             return print("픽업대가 비었습니다.")
         }
-        print("baristar \(baristar.name) is now brewing \(customer)'s \(coffee)...")
-        print("\(customer)님의 \(coffee)가 준비되었습니다. 픽업대에서 가져가주세요.")
+        print("\(customer)님의 \(coffeeOnPickUpTable)가 준비되었습니다. 픽업대에서 가져가주세요.")
     }
 }
 
