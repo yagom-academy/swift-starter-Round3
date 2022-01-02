@@ -9,7 +9,7 @@ import Foundation
 
 class Person {
     var money: Int = 0
-    var Bag: Array<Any> = Array<Any>()
+    var bag: Array<Any> = Array<Any>()
     
     func buyObject(payMoney: Int) {
         if self.money > payMoney {
@@ -25,6 +25,10 @@ class CoffeeShop {
     var salesTotal: Int = 0
     var pickUpTable: Coffee? = nil
     var barista: Person
+
+    init(barista: Person){
+        self.barista = barista
+    }
     
     func getOrder(orderedCoffee: Coffee) -> Coffee? {
         if let coffeePrice = self.menu[orderedCoffee] {
@@ -37,12 +41,11 @@ class CoffeeShop {
     }
     
     func makeCoffee(orderedCoffee: Coffee) -> Coffee {
+        print("주문하신 \(orderedCoffee) 커피 나왔습니다.")
         return orderedCoffee
     }
     
-    init(barista: Person){
-        self.barista = barista
-    }
+
 }
 
 enum Coffee {
