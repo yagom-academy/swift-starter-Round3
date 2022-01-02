@@ -16,10 +16,10 @@ struct CoffeeShop {
     var barista : Person
     var dailySales : Int = 0
     var coffeeMenu : [CoffeeList : Int] = [CoffeeList.espresso : 1000, CoffeeList.americano : 1500, CoffeeList.latte : 2000]
-    var pickUpTable : [Int : String] =  [:]
+    var pickUpTable : [Int : String] = [:]
     var orderedCoffee : String = ""
     var orderNumber : Int = 0
-    
+
     mutating func takeOrderTo(coffee : CoffeeList){
         guard let orderPrice = coffeeMenu[coffee] else { return }
         dailySales += orderPrice

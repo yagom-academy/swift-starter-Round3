@@ -12,9 +12,9 @@ struct Person {
     var haveMoney : Int
     var job : String
     
-    mutating func buyIt (item : [String : Int], buy : String){
+    mutating func buyIt (item : [String : Int], itemName : String){
         let item : [String : Int] = [:]
-        guard let ItemPrice = item[buy] else { return }
+        guard let ItemPrice = item[itemName] else { return }
         haveMoney -= ItemPrice
     }
 }
