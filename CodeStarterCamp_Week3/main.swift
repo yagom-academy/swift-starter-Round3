@@ -8,5 +8,12 @@
 
 import Foundation
 
-print("Hello, World!")
+var misterLee: Person = Person()
+var missKim: Person = Person()
+var yagombucks = CoffeeShop(barista: misterLee)
 
+
+let mix = Coffee.mix
+yagombucks.menu[mix] = 4000
+
+var coffee = yagombucks.getOrder(orderedCoffee: mix)
