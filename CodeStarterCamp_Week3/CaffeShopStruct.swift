@@ -12,34 +12,27 @@ enum CoffeeList {
 }
 
 struct CoffeeShop {
-    //바리스타
-    var barista : Person
-    //하루 매출액
-    var dailySales : Int = 0
-    //메뉴판 딕셔너리
-    var coffeeMenu : [CoffeeList : Int] = [CoffeeList.espresso : 1000, CoffeeList.americano : 1500, CoffeeList.latte : 2000]
-    //픽업 테이블
-    var pickUpTable : [Int : String] = [:]
-    //주문받은 음료
-    var orderedCoffee : String = ""
-    //오늘 몇잔 만들었는지 기록
-    var makeCoffeeCount : Int = 0
     
-    //주문 받아 매출액+
+    var barista : Person
+    var dailySales : Int = 0
+    var coffeeMenu : [CoffeeList : Int] = [CoffeeList.espresso : 1000, CoffeeList.americano : 1500, CoffeeList.latte : 2000]
+    var pickUpTable : [Int : String] = [:]
+    var orderedCoffee : String = ""
+    var orderNumber : Int = 0
+    
     mutating func takeOrder(to coffee : CoffeeList){
         guard let orderPrice = coffeeMenu[coffee] else { return }
         dailySales += orderPrice
         orderedCoffee = "\(coffee)"
-        makeCoffeeCount += 1
+        orderNumber += 1
         print("직원: 안녕하세요 손님 주문 하시겠습니까?")
         print("손님: \(coffee) 로 주세요")
-        print("직원: 네 주문하신 커피는 \(coffee) 이며 금액은 \(orderPrice) 입니다")
+        print("직원: 네 주문하신 커피는 \(coffee) 이며 금액은 \(orderPrice) 원 입니다")
     }
     
-    //주문받은걸 픽업테이블에 저장
-    mutating func takeOrderMakeCoffee(coffee : CoffeeList){
-        pickUpTable.updateValue(orderedCoffee, forKey: makeCoffeeCount)
-        guard let makedCoffee = pickUpTable[makeCoffeeCount] else { return }
-        print("방송: 현재 픽업 테이블에는 \(makeCoffeeCount)번 손님 \(makedCoffee) 메뉴가 나왔습니다")
+    mutating func makeCoffeeMoveToPickUpTable(coffee : CoffeeList){
+        pickUpTable.updateValue(orderedCoffee, forKey: orderNumber)
+        guard let makedCoffee = pickUpTable[orderNumber] else { return }
+        print("방송: 현재 픽업 테이블에는 \(orderNumber)번 손님 \(makedCoffee) 메뉴가 나왔습니다")
     }
 }

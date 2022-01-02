@@ -9,12 +9,12 @@ import Foundation
 
 struct Person {
     var name : String = ""
-    var haveMoney : Int = 10000
+    var haveMoney : Int = 0
     var job : String = ""
     
-    mutating func buyIt (buy : String, price: Int) {
-        let buyItItem : [String : Int] = [:]
-        guard let ItemPrice = buyItItem[buy] else { return }
+    mutating func buyIt (item : [String : Int], buy : String){
+        let item : [String : Int] = [:]
+        guard let ItemPrice = item[buy] else { return }
         haveMoney -= ItemPrice
     }
 }
