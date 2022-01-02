@@ -1,4 +1,3 @@
-//
 //  main.swift
 //  CodeStarterCamp_Week3
 //
@@ -8,7 +7,9 @@
 
 import Foundation
 
-var yagombucks: CoffeeShop = CoffeeShop(totalSales: 0, pickupTable: [])
-let misterKim: Person = Person(money: 0)
-
-yagombucks.barista = misterKim
+var misterKim: Person = Person(money: 100000, name: "misterKim")
+var yagombucks: CoffeeShop = CoffeeShop(menu: [], barista: misterKim, totalSales: 0, pickUpTable: [])
+print("내잔액 :\(misterKim.money)")
+yagombucks.order(customer: misterKim, coffee: Coffee.milk, coffeeShop: yagombucks)
+print("내잔액 :\(misterKim.money)")
+misterKim.takeCoffee(coffee: Coffee.milk, coffeeShop: yagombucks)
