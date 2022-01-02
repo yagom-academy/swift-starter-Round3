@@ -9,15 +9,35 @@ import Foundation
 
 struct CoffeeShop {
     var revenue: Int = 0
-    var pickUpTable: [String : String] = [String : String]()
+    var pickUpTable: [String : String] = [String : String]() {
+        didSet {
+            if let name = customer?.name {
+                print("\(name) 님의 커피가 준비되었습니다. 픽업대에서 가져가주세요.")
+            }
+            else {
+                return
+            }
+        }
+    }
+    var customer: Person?
     var barista: Person
     
+    mutating func order(coffee: Coffee) {
+        if let name = customer?.name {
+            self.revenue += coffeePrice(coffee: coffee)
+            let productName: String = coffeeName(coffee: coffee)
+            pickUpTable.updateValue(_: productName, forKey: name)
+        }
+    }
+    
+    /*
     mutating func takeOrder(customer: Person, coffee: Coffee) {
         self.revenue += coffeePrice(coffee: coffee)
         let productName: String = coffeeName(coffee: coffee)
-        print("\(customer.name) 님, 주문하신 \(coffeeName(coffee: coffee)) 나왔습니다.")
-        pickUpTable.updateValue(_: productName, forKey: customer.name)
+        print("\(customer.name) 님, 주문하신 \(productName) 나왔습니다.")
+        //pickUpTable.updateValue(_: productName, forKey: customer.name)
     }
+    */
     
     func coffeePrice(coffee: Coffee) -> Int {
         switch coffee {
