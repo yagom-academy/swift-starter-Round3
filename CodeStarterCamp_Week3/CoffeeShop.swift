@@ -14,11 +14,11 @@ class CoffeeShop {
     }
     
     var totalRevenue: Int = 0
-    var menuBoard: Dictionary = [Coffee:Int]()
+    var menuBoard: Dictionary = [Coffee: Int]()
     var pickUpTable: Coffee?
     var barista: Person
     
-    init(barista:Person) {
+    init(barista: Person) {
         self.barista = barista
     }
     
