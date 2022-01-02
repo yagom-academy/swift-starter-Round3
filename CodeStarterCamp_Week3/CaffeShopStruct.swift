@@ -16,11 +16,11 @@ struct CoffeeShop {
     var barista : Person
     var dailySales : Int = 0
     var coffeeMenu : [CoffeeList : Int] = [CoffeeList.espresso : 1000, CoffeeList.americano : 1500, CoffeeList.latte : 2000]
-    var pickUpTable : [Int : String] = [:]
+    var pickUpTable : [Int : String] =  [:]
     var orderedCoffee : String = ""
     var orderNumber : Int = 0
     
-    mutating func takeOrder(to coffee : CoffeeList){
+    mutating func takeOrderTo(coffee : CoffeeList){
         guard let orderPrice = coffeeMenu[coffee] else { return }
         dailySales += orderPrice
         orderedCoffee = "\(coffee)"
@@ -30,7 +30,7 @@ struct CoffeeShop {
         print("직원: 네 주문하신 커피는 \(coffee) 이며 금액은 \(orderPrice) 원 입니다")
     }
     
-    mutating func makeCoffeeMoveToPickUpTable(coffee : CoffeeList){
+    mutating func moveToPickUpTable(coffee : CoffeeList){
         pickUpTable.updateValue(orderedCoffee, forKey: orderNumber)
         guard let makedCoffee = pickUpTable[orderNumber] else { return }
         print("방송: 현재 픽업 테이블에는 \(orderNumber)번 손님 \(makedCoffee) 메뉴가 나왔습니다")

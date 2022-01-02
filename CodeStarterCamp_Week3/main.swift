@@ -12,6 +12,6 @@ var misterLee : Person = Person(name: "misterLee", haveMoney: 10000, job: "baris
 var missKim : Person = Person(name: "missKim", haveMoney: 20000, job: "none")
 var yagombucks : CoffeeShop = CoffeeShop(barista : misterLee)
 
-yagombucks.takeOrder(to: CoffeeList.espresso)
-yagombucks.makeCoffeeMoveToPickUpTable(coffee: CoffeeList.espresso)
+yagombucks.takeOrderTo(coffee: CoffeeList.espresso)
+yagombucks.moveToPickUpTable(coffee: CoffeeList.espresso)
 

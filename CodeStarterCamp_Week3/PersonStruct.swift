@@ -8,9 +8,9 @@
 import Foundation
 
 struct Person {
-    var name : String = ""
-    var haveMoney : Int = 0
-    var job : String = ""
+    var name : String 
+    var haveMoney : Int
+    var job : String
     
     mutating func buyIt (item : [String : Int], buy : String){
         let item : [String : Int] = [:]
