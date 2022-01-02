@@ -8,6 +8,9 @@
 
 /* Begin PBXBuildFile section */
 		34811DD5274B93EB00A1E994 /* main.swift in Sources */ = {isa = PBXBuildFile; fileRef = 34811DD4274B93EB00A1E994 /* main.swift */; };
+		4E8F28BE277C7CE800A01A9E /* CoffeeShop.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E8F28BD277C7CE800A01A9E /* CoffeeShop.swift */; };
+		4E8F28C1277C7D0100A01A9E /* Coffee.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E8F28C0277C7D0100A01A9E /* Coffee.swift */; };
+		4E8F28C3277C7E0900A01A9E /* Person.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E8F28C2277C7E0900A01A9E /* Person.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXCopyFilesBuildPhase section */
@@ -25,6 +28,9 @@
 /* Begin PBXFileReference section */
 		34811DD1274B93EB00A1E994 /* CodeStarterCamp_Week3 */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.executable"; includeInIndex = 0; path = CodeStarterCamp_Week3; sourceTree = BUILT_PRODUCTS_DIR; };
 		34811DD4274B93EB00A1E994 /* main.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = main.swift; sourceTree = "<group>"; };
+		4E8F28BD277C7CE800A01A9E /* CoffeeShop.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CoffeeShop.swift; sourceTree = "<group>"; };
+		4E8F28C0277C7D0100A01A9E /* Coffee.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Coffee.swift; sourceTree = "<group>"; };
+		4E8F28C2277C7E0900A01A9E /* Person.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Person.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -57,9 +63,36 @@
 		34811DD3274B93EB00A1E994 /* CodeStarterCamp_Week3 */ = {
 			isa = PBXGroup;
 			children = (
+				4E8F28BF277C7CF900A01A9E /* Stuff */,
+				4E8F28BC277C7CC300A01A9E /* Shop */,
+				4E8F28BB277C7C1D00A01A9E /* Person */,
 				34811DD4274B93EB00A1E994 /* main.swift */,
 			);
 			path = CodeStarterCamp_Week3;
+			sourceTree = "<group>";
+		};
+		4E8F28BB277C7C1D00A01A9E /* Person */ = {
+			isa = PBXGroup;
+			children = (
+				4E8F28C2277C7E0900A01A9E /* Person.swift */,
+			);
+			path = Person;
+			sourceTree = "<group>";
+		};
+		4E8F28BC277C7CC300A01A9E /* Shop */ = {
+			isa = PBXGroup;
+			children = (
+				4E8F28BD277C7CE800A01A9E /* CoffeeShop.swift */,
+			);
+			path = Shop;
+			sourceTree = "<group>";
+		};
+		4E8F28BF277C7CF900A01A9E /* Stuff */ = {
+			isa = PBXGroup;
+			children = (
+				4E8F28C0277C7D0100A01A9E /* Coffee.swift */,
+			);
+			path = Stuff;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -120,6 +153,9 @@
 			buildActionMask = 2147483647;
 			files = (
 				34811DD5274B93EB00A1E994 /* main.swift in Sources */,
+				4E8F28BE277C7CE800A01A9E /* CoffeeShop.swift in Sources */,
+				4E8F28C3277C7E0900A01A9E /* Person.swift in Sources */,
+				4E8F28C1277C7D0100A01A9E /* Coffee.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
