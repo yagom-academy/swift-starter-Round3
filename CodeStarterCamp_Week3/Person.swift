@@ -10,7 +10,7 @@ import Foundation
 class Person {
     var name: String
     var money: Int
-    var purchasedItem: Array<String>?
+    var purchasedItem = [String]()
     
     init(name: String, money: Int) {
         self.name = name
@@ -19,6 +19,6 @@ class Person {
     
     func purchaseSomething(price: Int, item: String) {
         money -= price
-        purchasedItem?.append(item)
+        purchasedItem.append(item)
     }
 }

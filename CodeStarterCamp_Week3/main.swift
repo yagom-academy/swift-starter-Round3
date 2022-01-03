@@ -15,4 +15,3 @@ let yagombucks = CoffeeShop(barista: misterLee)
 yagombucks.menuBoard = [.americano:3000, .latte:4000, .espresso:2000]
 
 yagombucks.orderCoffee(coffee: .americano, amount: 1, guest: missKim)
-print("\(missKim.money)")

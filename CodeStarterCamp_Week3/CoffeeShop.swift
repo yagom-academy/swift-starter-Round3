@@ -40,3 +40,12 @@ class CoffeeShop {
         print("\(barista.name) : \(coffee) \(amount)잔 나왔습니다!")
     }
 }
+
+class Market {
+    
+    enum Coffee: String {
+        case aaa, bbb, ccc
+    }
+    
+    
+}
