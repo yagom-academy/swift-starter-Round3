@@ -15,6 +15,7 @@ class CoffeeShop {
         }
     }
     var barista: Person
+    var customer: Person?
     
     init(barista: Person) {
         self.revenue = 0
@@ -24,6 +25,9 @@ class CoffeeShop {
     
     func order(coffee: Coffee) {
         self.revenue += coffeePrice(coffee: coffee)
+        if let customerName = customer?.name {
+            pickUpTable = customerName
+        }
     }
     
     func coffeePrice(coffee: Coffee) -> Int {

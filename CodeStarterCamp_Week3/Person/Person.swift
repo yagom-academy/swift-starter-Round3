@@ -20,14 +20,9 @@ struct Person {
         let price: Int = shop.coffeePrice(coffee: stuff)
         if money >= price {
             money -= price
-            takeOrder(shop: shop, stuff: stuff)
+            shop.order(coffee: stuff)
         } else {
             print("잔액이 \(price - money)원만큼 부족합니다.")
         }
-    }
-    
-    func takeOrder(shop: CoffeeShop, stuff: Coffee) {
-        shop.order(coffee: stuff)
-        shop.pickUpTable = name
     }
 }
