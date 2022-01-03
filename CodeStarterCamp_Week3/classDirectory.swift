@@ -9,15 +9,24 @@ import Foundation
 
 class Person {
     var money: Int = 0
+    var name: String
     var bag: Array<Any> = Array<Any>()
     
-    func buyObject(payMoney: Int) {
+    func buyObject(payMoney: Int) -> Int {
         if self.money > payMoney {
             self.money = self.money - payMoney
+            return payMoney
         } else {
-            print("돈이 부족합니다!")
+            let lackMoney = payMoney - self.money
+            print("잔액이 \(lackMoney)원만큼 부족합니다.")
+            return 0
         }
     }
+    
+    init(name: String){
+        self.name = name
+    }
+    
 }
 
 class CoffeeShop {
@@ -30,22 +39,18 @@ class CoffeeShop {
         self.barista = barista
     }
     
-    func getOrder(orderedCoffee: Coffee) -> Coffee? {
+    func getOrder(person:inout Person,orderedCoffee: Coffee) {
         if let coffeePrice = self.menu[orderedCoffee] {
-            salesTotal += coffeePrice
-            return makeCoffee(orderedCoffee: orderedCoffee)
+            let money: Int = person.buyObject(payMoney: coffeePrice)
+            salesTotal += money
+            if money != 0 {
+                self.pickUpTable = orderedCoffee
+                print("\(person.name) 님의 커피가 준비되었습니다. 픽업대에서 가져가 주세요.")
+            }
         } else {
             print("존재하지 않는 메뉴 입니다!")
-            return nil
         }
     }
-    
-    func makeCoffee(orderedCoffee: Coffee) -> Coffee {
-        print("주문하신 \(orderedCoffee) 커피 나왔습니다.")
-        return orderedCoffee
-    }
-    
-
 }
 
 enum Coffee {

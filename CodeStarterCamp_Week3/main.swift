@@ -8,12 +8,12 @@
 
 import Foundation
 
-var misterLee: Person = Person()
-var missKim: Person = Person()
+var misterLee: Person = Person(name: "misterLee")
+var missKim: Person = Person(name: "missKim")
 var yagombucks = CoffeeShop(barista: misterLee)
 
-
-let mix = Coffee.mix
-yagombucks.menu[mix] = 4000
-
-var coffee = yagombucks.getOrder(orderedCoffee: mix)
+let menu: Dictionary<Coffee, Int> = [.arrabica:1000,.yogu:2000,.mix:4000]
+missKim.money = 3000
+yagombucks.menu = menu
+yagombucks.getOrder(person: &missKim, orderedCoffee: .mix)
+yagombucks.getOrder(person: &missKim, orderedCoffee: .yogu)
