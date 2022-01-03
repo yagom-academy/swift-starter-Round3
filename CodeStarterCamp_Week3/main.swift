@@ -8,10 +8,9 @@
 
 import Foundation
 
-let misterLee = Person(name: "Mr.Lee", money: 10000)
-let missKim = Person(name: "Ms.Kim", money: 10000)
+let misterLee = Person(name: "misterLee", money: 1000)
+let missKim = Person(name: "missKim", money: 1000)
 
 let yagombucks = CoffeeShop(barista: misterLee)
-yagombucks.menuBoard = [.americano:3000, .latte:4000, .espresso:2000]
 
-yagombucks.orderCoffee(coffee: .americano, amount: 1, guest: missKim)
+missKim.purchaseCoffee(coffeeShop: yagombucks, coffee: Coffee.americano)

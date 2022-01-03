@@ -7,45 +7,44 @@
 
 import Foundation
 
+enum Coffee: String {
+    case americano, latte, espresso
+}
+
 class CoffeeShop {
-    
-    enum Coffee: String {
-        case americano, latte, espresso
-    }
-    
+
     var totalRevenue: Int = 0
     var menuBoard: Dictionary = [Coffee: Int]()
-    var pickUpTable: Coffee?
+    var pickUpTable: Coffee? {
+        didSet {
+            if let customer = self.customer {
+                print("\(customer.name)님의 커피가 준비되었습니다. 픽업대에서 가져가주세요.")
+            }
+        }
+    }
     var barista: Person
+    var customer: Person?
     
     init(barista: Person) {
         self.barista = barista
+        self.menuBoard = [.americano:3000, .latte:4000, .espresso:2000]
     }
     
-    func orderCoffee(coffee: Coffee, amount: Int, guest: Person) {
+    func orderCoffee(coffee: Coffee){
         guard let price = menuBoard[coffee] else { return }
-        let totalPrice = price * amount
-        
-        print("\(guest.name) : \(coffee) \(amount)잔 주세요.")
-        print("\(barista.name) : \(totalPrice)입니다.")
-        
-        guest.purchaseSomething(price: totalPrice, item: coffee.rawValue)
-        totalRevenue += totalPrice
-        
-        makeCoffee(coffee: coffee, amount: amount)
-    }
-    
-    func makeCoffee(coffee: Coffee, amount: Int) {
-        pickUpTable = coffee
-        print("\(barista.name) : \(coffee) \(amount)잔 나왔습니다!")
-    }
-}
+        guard let customer = self.customer else { return }
 
-class Market {
-    
-    enum Coffee: String {
-        case aaa, bbb, ccc
+        if (customer.money < price) {
+            print("잔액이 \(price)원만큼 부족합니다.")
+            return
+        }
+        customer.money -= price
+        totalRevenue += price
+        
+        makeCoffee(coffee: coffee)
     }
     
-    
+    func makeCoffee(coffee: Coffee) {
+        pickUpTable = coffee
+    }
 }

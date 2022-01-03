@@ -10,15 +10,14 @@ import Foundation
 class Person {
     var name: String
     var money: Int
-    var purchasedItem = [String]()
     
     init(name: String, money: Int) {
         self.name = name
         self.money = money
     }
     
-    func purchaseSomething(price: Int, item: String) {
-        money -= price
-        purchasedItem.append(item)
+    func purchaseCoffee(coffeeShop: CoffeeShop, coffee: Coffee) {
+        coffeeShop.customer = self
+        coffeeShop.orderCoffee(coffee: coffee)
     }
 }
