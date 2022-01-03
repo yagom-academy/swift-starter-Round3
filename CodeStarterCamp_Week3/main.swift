@@ -13,3 +13,6 @@ var misterLee: Person = Person(name: "misterLee", haveMoney: 10000)
 var missKim: Person = Person(name: "missKim", haveMoney: 3000)
 
 missKim.buyItCoffee(shop: yagomBucks, coffee: CoffeeList.americano)
+
+
+
