@@ -7,14 +7,24 @@
 
 import Foundation
 
-struct Person {
-    var name : String = ""
-    var haveMoney : Int = 10000
-    var job : String = ""
+class Person {
+    var name: String
+    var haveMoney: Int
     
-    mutating func buyIt (buy : String, price: Int) {
-        let buyItItem : [String : Int] = [:]
-        guard let ItemPrice = buyItItem[buy] else { return }
-        haveMoney -= ItemPrice
+    
+    init(name: String, haveMoney: Int){
+        self.name = name
+        self.haveMoney = haveMoney
+    }
+    
+    func buyItCoffee(shop: CoffeeShop, coffee: CoffeeList){
+        print("\(self.name): \(coffee) 주세요")
+        if haveMoney > coffee.price {
+            shop.takeOrderTo(coffee: coffee, guest: self)
+            haveMoney -= coffee.price
+        } else {
+            print("잔액이 \(coffee.price - haveMoney)원만큼 부족합니다. ")
+        }
+        
     }
 }

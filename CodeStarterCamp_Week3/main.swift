@@ -8,13 +8,8 @@
 
 import Foundation
 
-var misterLee : Person = Person()
-misterLee.name = "misterLee"
-misterLee.haveMoney = 20000
-misterLee.job = "barista"
-var missKim : Person = Person()
-missKim.name = "missKim"
-var yagombucks : CoffeeShop = CoffeeShop(barista : misterLee)
+var yagomBucks: CoffeeShop = CoffeeShop(barista: misterLee)
+var misterLee: Person = Person(name: "misterLee", haveMoney: 10000)
+var missKim: Person = Person(name: "missKim", haveMoney: 3000)
 
-yagombucks.takeOrderTo(menu: CoffeeList.espresso)
-yagombucks.takeOrderMakeCoffee(coffee: CoffeeList.espresso)
+missKim.buyItCoffee(shop: yagomBucks, coffee: CoffeeList.americano)

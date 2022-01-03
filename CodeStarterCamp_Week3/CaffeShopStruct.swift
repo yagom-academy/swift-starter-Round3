@@ -9,37 +9,46 @@ import Foundation
 
 enum CoffeeList {
     case americano, latte, espresso
+    var price: Int {
+        switch self {
+        case .americano:
+            return 1500
+        case .latte:
+            return 2000
+        case .espresso:
+            return 1000
+        }
+    }
 }
 
-struct CoffeeShop {
-    //바리스타
-    var barista : Person
-    //하루 매출액
-    var dailySales : Int = 0
-    //메뉴판 딕셔너리
-    var coffeeMenu : [CoffeeList : Int] = [CoffeeList.espresso : 1000, CoffeeList.americano : 1500, CoffeeList.latte : 2000]
-    //픽업 테이블
-    var pickUpTable : [Int : String] = [:]
-    //주문받은 음료
-    var orderedCoffee : String = ""
-    //오늘 몇잔 만들었는지 기록
-    var makeCoffeeCount : Int = 0
+class CoffeeShop {
     
-    //주문 받아 매출액+
-    mutating func takeOrderTo(menu : CoffeeList){
-        guard let orderPrice = coffeeMenu[menu] else { return }
-        dailySales += orderPrice
-        orderedCoffee = "\(menu)"
-        makeCoffeeCount += 1
-        print("직원: 안녕하세요 손님 주문 하시겠습니까?")
-        print("손님: \(menu) 로 주세요")
-        print("직원: 네 주문하신 커피는 \(menu) 이며 금액은 \(orderPrice)원 입니다")
+    var barista: Person
+    var customer: Person?
+    var coffeeMenuBoard: CoffeeList?
+    var dailySales: Int = 0
+    var orderName: String = ""
+    var pickUpTable: [String : String] = [:]
+    
+    init(barista: Person) {
+        self.barista = barista
     }
     
-    //주문받은걸 픽업테이블에 저장
-    mutating func takeOrderMakeCoffee(coffee : CoffeeList){
-        pickUpTable.updateValue(orderedCoffee, forKey: makeCoffeeCount)
-        guard let makedCoffee = pickUpTable[makeCoffeeCount] else { return }
-        print("방송: 현재 픽업 테이블에는 \(makeCoffeeCount)번 손님 \(makedCoffee) 메뉴가 나왔습니다")
+    func takeOrderTo(coffee: CoffeeList, guest: Person) {
+        print("카페 직원: 주문하신 \(coffee)는 \(coffee.price) 원 입니다")
+        dailySales += coffee.price
+        makeCoffee(coffee: coffee, guest: guest)
+    }
+    
+    func makeCoffee(coffee: CoffeeList, guest: Person) {
+        orderName = guest.name
+        print("\(orderName) 의 \(coffee)를 추출 합니다")
+        moveToPickUpTable(coffee: coffee)
+    }
+    
+    func moveToPickUpTable(coffee: CoffeeList) {
+        pickUpTable.updateValue("\(coffee)", forKey: orderName)
+        guard let makedCoffee = pickUpTable[orderName] else { return }
+        print("\(orderName) 님의 \(makedCoffee) 가 준비되었습니다. 픽업대에서 가져가주세요.")
     }
 }
