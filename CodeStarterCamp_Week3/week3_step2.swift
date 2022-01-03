@@ -16,8 +16,7 @@ struct Person {
         if let price = from.menu[coffee] {
             if price <= money {
                 money -= price
-                from.order(coffee: coffee)
-                print("\(name) 님의 커피가 준비되었습니다. 픽업대에서 가져가주세요")
+                from.order(coffee: coffee, forWho: name)
             } else {
                 print("잔액이 \(price - money)원만큼 부족합니다.")
             }
