@@ -31,8 +31,12 @@ class CoffeeShop {
     
     var menu = [Coffee: Int]()
     var sales: Int = 0
-    var pickUpTable: Coffee?
     var barista: Person
+    var pickUpTable: Coffee? {
+        didSet {
+            print("커피가 준비되었습니다. 픽업대에서 가져가주세요.")
+        }
+    }
     
     init(barista: Person) {
         self.barista = barista
@@ -47,9 +51,10 @@ class CoffeeShop {
         menu[.chocolateLatte] = 5000
     }
 
-    func order(coffee: Coffee){
+    func order(coffee: Coffee, forWho: String) {
         if let price = menu[coffee] {
             sales += price
+            print("\(forWho) 님의 ", terminator: "")
             pickUpTable = coffee
         }
     }
