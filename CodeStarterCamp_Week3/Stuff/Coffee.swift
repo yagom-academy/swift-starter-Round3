@@ -10,5 +10,3 @@ import Foundation
 enum Coffee {
     case americano, espresso, latte, hotChocolate
 }
-
-

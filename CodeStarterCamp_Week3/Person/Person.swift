@@ -16,15 +16,18 @@ struct Person {
     var money: Int
     
     // 메서드
-    mutating func purchase(stuff: String, price: Int) -> Bool {
+    mutating func purchase(shop: CoffeeShop, stuff: Coffee) {
+        let price: Int = shop.coffeePrice(coffee: stuff)
         if money >= price {
             money -= price
-            return true
+            takeOrder(shop: shop, stuff: stuff)
         } else {
-            //print("잔액이 부족하여 \(stuff)를 구매할 수 없습니다.")
             print("잔액이 \(price - money)원만큼 부족합니다.")
-            return false
         }
     }
     
+    func takeOrder(shop: CoffeeShop, stuff: Coffee) {
+        shop.order(coffee: stuff)
+        shop.pickUpTable = name
+    }
 }
