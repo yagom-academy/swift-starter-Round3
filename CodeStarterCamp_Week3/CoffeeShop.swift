@@ -16,9 +16,11 @@ class CoffeeShop {
     var totalRevenue: Int = 0
     var menuBoard: Dictionary = [Coffee: Int]()
     var pickUpTable: Coffee? {
-        didSet {
-            if let customer = self.customer {
+        didSet (oldCoffee) {
+            if (oldCoffee == nil) {
+                guard let customer = self.customer else { return }
                 print("\(customer.name)님의 커피가 준비되었습니다. 픽업대에서 가져가주세요.")
+                takeCoffee()
             }
         }
     }
@@ -46,5 +48,10 @@ class CoffeeShop {
     
     func makeCoffee(coffee: Coffee) {
         pickUpTable = coffee
+    }
+    
+    func takeCoffee() {
+        pickUpTable = nil
+        customer = nil
     }
 }
