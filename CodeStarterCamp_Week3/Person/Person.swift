@@ -20,6 +20,7 @@ struct Person {
         let price: Int = shop.coffeePrice(coffee: stuff)
         if money >= price {
             money -= price
+            shop.customer = Self.init(name: name, age: age, gender: gender, money: money)
             shop.order(coffee: stuff)
         } else {
             print("잔액이 \(price - money)원만큼 부족합니다.")

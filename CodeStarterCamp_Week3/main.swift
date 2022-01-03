@@ -18,5 +18,5 @@ var yagombucks = CoffeeShop(barista: misterLee)
 
 // 주문할 음료: 핫초코
 let hotChoco = Coffee.hotChocolate
-yagombucks.customer = missKim
+
 missKim.purchase(shop: yagombucks, stuff: hotChoco)
