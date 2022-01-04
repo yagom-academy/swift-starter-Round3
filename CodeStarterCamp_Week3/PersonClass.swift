@@ -11,22 +11,23 @@ class Person {
     var name: String
     var haveMoney: Int
     
-    
     init(name: String, haveMoney: Int){
         self.name = name
         self.haveMoney = haveMoney
     }
     
-    func buyItCoffee(shop: CoffeeShop, coffee: CoffeeList){
+    func buyCoffee(shop: CoffeeShop, coffee: CoffeeList){
         print("\(self.name): \(coffee) 주세요")
-        if haveMoney > coffee.price {
+        if haveMoney >= coffee.price {
             shop.takeOrderTo(coffee: coffee, guest: self)
             haveMoney -= coffee.price
+            bringCoffee(shop: shop)
         } else {
             print("잔액이 \(coffee.price - haveMoney)원만큼 부족합니다. ")
         }
-        
+    }
+    
+    func bringCoffee(shop: CoffeeShop) {
+        shop.pickUpTable.removeValue(forKey: self.name)
     }
 }
-
-

@@ -10,9 +10,6 @@ import Foundation
 
 var yagomBucks: CoffeeShop = CoffeeShop(barista: misterLee)
 var misterLee: Person = Person(name: "misterLee", haveMoney: 10000)
-var missKim: Person = Person(name: "missKim", haveMoney: 3000)
+var missKim: Person = Person(name: "missKim", haveMoney: 1500)
 
-missKim.buyItCoffee(shop: yagomBucks, coffee: CoffeeList.americano)
-
-
-
+missKim.buyCoffee(shop: yagomBucks, coffee: CoffeeList.americano)
