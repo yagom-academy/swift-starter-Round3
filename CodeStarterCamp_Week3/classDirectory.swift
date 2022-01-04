@@ -12,40 +12,49 @@ class Person {
     var name: String
     var bag: Array<Any> = Array<Any>()
     
-    func buyObject(payMoney: Int) -> Int {
-        if self.money > payMoney {
-            self.money = self.money - payMoney
-            return payMoney
+    init(name: String, money: Int){
+        self.name = name
+        self.money = money
+    }
+    
+    func buyObject(productPrice: Int) -> Int {
+        if self.money >= productPrice {
+            self.money = self.money - productPrice
+            return productPrice
         } else {
-            let lackMoney = payMoney - self.money
+            let lackMoney = productPrice - self.money
             print("잔액이 \(lackMoney)원만큼 부족합니다.")
             return 0
         }
     }
     
-    init(name: String){
-        self.name = name
+    func getProduct(product: Any){
+        bag.append(product)
+        print("\(self.name)은 물건을 획득했다!")
     }
-    
 }
 
 class CoffeeShop {
     var menu: Dictionary<Coffee, Int> = Dictionary<Coffee, Int>()
     var salesTotal: Int = 0
-    var pickUpTable: Coffee? = nil
+    var pickUpTable: Coffee? {
+        didSet(oldValue){
+            print("픽업대에서 가져가 주세요.")
+        }
+    }
     var barista: Person
 
     init(barista: Person){
         self.barista = barista
     }
     
-    func getOrder(person:inout Person,orderedCoffee: Coffee) {
+    func getOrder(person: Person, orderedCoffee: Coffee) {
         if let coffeePrice = self.menu[orderedCoffee] {
-            let money: Int = person.buyObject(payMoney: coffeePrice)
+            let money: Int = person.buyObject(productPrice: coffeePrice)
             salesTotal += money
             if money != 0 {
+                print("\(person.name) 님의 커피가 준비되었습니다. ", terminator: "")
                 self.pickUpTable = orderedCoffee
-                print("\(person.name) 님의 커피가 준비되었습니다. 픽업대에서 가져가 주세요.")
             }
         } else {
             print("존재하지 않는 메뉴 입니다!")
@@ -54,8 +63,5 @@ class CoffeeShop {
 }
 
 enum Coffee {
-    case arrabica
-    case yogu
-    case mix
-    case yegerChef
+    case arrabica, yogu, mix, yegerChef
 }
