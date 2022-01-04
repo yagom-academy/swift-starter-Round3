@@ -12,15 +12,8 @@ struct Person {
         self.money = money
     }
 
-    mutating func orderCoffeeFromShop(coffee: CoffeeShop.Coffee, from: CoffeeShop) {
-        if let price = from.menu[coffee] {
-            if price <= money {
-                money -= price
-                from.order(coffee: coffee, forWho: name)
-            } else {
-                print("잔액이 \(price - money)원만큼 부족합니다.")
-            }
-        }
+    mutating func buySomething(price: Int) {
+        money -= price
     }
 }
 
@@ -51,11 +44,14 @@ class CoffeeShop {
         menu[.chocolateLatte] = 5000
     }
 
-    func order(coffee: Coffee, forWho: String) {
+    func order(coffee: Coffee, forWho: Person) {
         if let price = menu[coffee] {
-            sales += price
-            print("\(forWho) 님의 ", terminator: "")
-            pickUpTable = coffee
+            if forWho.money >= price {
+                forWho.buySomething(price: price)
+                sales += price
+                print("\(forWho) 님의 ", terminator: "")
+                pickUpTable = coffee
+            }
         }
     }
 }
