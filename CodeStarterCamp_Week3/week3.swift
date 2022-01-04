@@ -1,4 +1,4 @@
-struct Person {
+class Person {
     enum Gender {
         case male, female
     }
@@ -12,7 +12,7 @@ struct Person {
         self.money = money
     }
 
-    mutating func buySomething(price: Int) {
+    func buySomething(price: Int) {
         money -= price
     }
 }
@@ -25,9 +25,12 @@ class CoffeeShop {
     var menu = [Coffee: Int]()
     var sales: Int = 0
     var barista: Person
+    var customer: Person?
     var pickUpTable: Coffee? {
         didSet {
-            print("커피가 준비되었습니다. 픽업대에서 가져가주세요.")
+            if let forWho = customer {
+                print("\(forWho.name) 님의 커피가 준비되었습니다. 픽업대에서 가져가주세요.")
+            }
         }
     }
     
@@ -47,12 +50,20 @@ class CoffeeShop {
     func order(coffee: Coffee, forWho: Person) {
         if let price = menu[coffee] {
             if forWho.money >= price {
-                forWho.buySomething(price: price)
-                sales += price
-                print("\(forWho) 님의 ", terminator: "")
+                customer = forWho
+                makePayment(price)
                 pickUpTable = coffee
+            } else {
+                print("잔액이 \(price - forWho.money)원만큼 부족합니다.")
             }
         }
+    }
+    
+    func makePayment(_ price: Int) {
+        if let forWho = customer {
+            forWho.buySomething(price: price)
+        }
+        sales += price
     }
 }
 
