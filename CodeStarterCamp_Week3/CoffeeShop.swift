@@ -9,15 +9,11 @@ import Foundation
 
 class CoffeeShop {
     var turnover: Int = 0
-    var pickUpTable: Dictionary<String, Coffee>? {
-        willSet {
-            print("baristar \(baristar.name) is now brewing \(customer?.name ?? "")'s coffee...")
-        }
-        didSet {
-            guard let coffeeOnPickUpTable = pickUpTable?[customer?.name ?? ""] else {
-                return print("픽업대가 비었습니다.")
+    var pickUpTable: Coffee? {
+        willSet(coffeeToBrew) {
+            if let customerCoffee = coffeeToBrew, let customerName = customer?.name {
+                print("\(customerName)님의 \(customerCoffee)가 준비되었습니다. 픽업대에서 가져가주세요.")
             }
-            print("\(customer?.name ?? "")님의 \(coffeeOnPickUpTable)가 준비되었습니다. 픽업대에서 가져가주세요.")
         }
     }
     var baristar: Person = Person(name: "misterLee", asset: 30000)
@@ -48,6 +44,7 @@ class CoffeeShop {
     }
     
     func brewCoffee(customerName: String, coffee: Coffee) {
-        pickUpTable?[customerName] = coffee
+        print("바리스타 \(baristar.name)가 \(customerName)님의 \(coffee)를 준비하고 있습니다...")
+        pickUpTable = coffee
     }
 }

@@ -12,7 +12,7 @@ class Person {
     var asset: Int
     var name: String
     func orderCoffee(coffeeShop: CoffeeShop, coffee: Coffee) {
-        print("\(name) ordered \(coffee)")
+        print("\(name)님이 \(coffee)를 주문했습니다.")
         coffeeShop.takeOrder(coffee: coffee)
     }
     
