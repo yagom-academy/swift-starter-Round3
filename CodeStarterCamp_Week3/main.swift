@@ -8,44 +8,27 @@
 
 import Foundation
 
-struct Person {
+class Person {
     var asset: Int
     var name: String
-    var numberOfFamilyMembers: Int
-    var job: String
-    func purchaseSomeThing(price: Int) -> Int {
-        let remainder = asset - price
-        return remainder
+    func orderCoffee(coffeeShop: CoffeeShop, coffee: Coffee) {
+        print("\(name)님이 \(coffee)를 주문했습니다.")
+        coffeeShop.takeOrder(coffee: coffee)
+    }
+    
+    init(name: String, asset: Int) {
+        self.name = name
+        self.asset = asset
     }
 }
 
-struct CoffeeShop {
-    var turnover: Int
-    var pickUpTable: Dictionary<String, Coffee>? = [String: Coffee]()
-    var baristar: Person
-    var menu: Dictionary<Coffee, Int> = [Coffee.americano : 4500,
-                                         Coffee.cafeLatte : 5000,
-                                         Coffee.cafeMocha : 5000,
-                                         Coffee.vanillaLatte : 5000]
-    func order(customer: String, coffee: Coffee) {
-        print("\(customer) ordered \(coffee)")
-    }
-    mutating func brewCoffee(customer: String, coffee: Coffee) {
-        print("\(customer)'s \(coffee) is now brewing...")
-        pickUpTable?[customer] = coffee
-    }
-}
+var missKim: Person = Person(name: "missKim", asset: 3000)
+var marisol: Person = Person(name: "marisol", asset: 50000)
+var yagombucks: CoffeeShop = CoffeeShop()
 
-enum Coffee {
-    case americano
-    case cafeLatte
-    case cafeMocha
-    case vanillaLatte
-}
-
-var misterLee: Person = Person(asset: 20000, name: "misterLee", numberOfFamilyMembers: 3, job: "baristar")
-var missKim: Person = Person(asset: 3000, name: "missKim", numberOfFamilyMembers: 2, job: "iOSDeveloper")
-var yagombucks: CoffeeShop = CoffeeShop(turnover: 0, baristar: misterLee)
-
-yagombucks.order(customer: missKim.name, coffee: Coffee.americano)
-yagombucks.brewCoffee(customer: missKim.name, coffee: Coffee.americano)
+yagombucks.customer = marisol
+marisol.orderCoffee(coffeeShop: yagombucks, coffee: .americano)
+marisol.orderCoffee(coffeeShop: yagombucks, coffee: .cafeMocha)
+marisol.orderCoffee(coffeeShop: yagombucks, coffee: .cafeLatte)
+yagombucks.customer = missKim
+missKim.orderCoffee(coffeeShop: yagombucks, coffee: .vanillaLatte)
