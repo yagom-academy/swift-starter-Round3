@@ -18,16 +18,17 @@ class Person {
     
     func buyCoffee(shop: CoffeeShop, coffee: CoffeeList){
         print("\(self.name): \(coffee) 주세요")
+        shop.takeOrderTo(coffee: coffee, guest: self)
         if haveMoney >= coffee.price {
-            shop.takeOrderTo(coffee: coffee, guest: self)
-            haveMoney -= coffee.price
-            bringCoffee(shop: shop)
+        haveMoney -= coffee.price
+        bringCoffee(shop: shop, coffee: coffee)
         } else {
-            print("잔액이 \(coffee.price - haveMoney)원만큼 부족합니다. ")
+            print("\(self.name): 앗! 돈이 부족하군요 다음에 다시오겠습니다")
         }
     }
     
-    func bringCoffee(shop: CoffeeShop) {
+    func bringCoffee(shop: CoffeeShop, coffee: CoffeeList) {
         shop.pickUpTable.removeValue(forKey: self.name)
+        print("\(self.name): \(coffee)를 픽업대에서 가져왔습니다")
     }
 }
