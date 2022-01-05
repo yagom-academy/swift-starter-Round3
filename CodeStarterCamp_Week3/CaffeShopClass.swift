@@ -36,17 +36,17 @@ class CoffeeShop {
     
     func takeOrderTo(coffee: CoffeeList, guest: Person) {
         print("카페 직원: 주문하신 \(coffee)는 \(coffee.price) 원 입니다")
-        calculate(coffee: coffee, guest: guest)
-    }
-    
-    func calculate(coffee: CoffeeList, guest: Person) {
         if guest.haveMoney >= coffee.price {
-            print("카페 직원: 결제 완료되었습니다")
-            dailySales += coffee.price
-            makeCoffee(coffee: coffee, guest: guest)
+            calculate(coffee: coffee, guest: guest)
         } else {
             print("카페 직원: 잔액이 \(coffee.price - guest.haveMoney)원만큼 부족합니다. ")
         }
+    }
+    
+    func calculate(coffee: CoffeeList, guest: Person) {
+        print("카페 직원: 결제 완료되었습니다")
+        dailySales += coffee.price
+        makeCoffee(coffee: coffee, guest: guest)
     }
     
     func makeCoffee(coffee: CoffeeList, guest: Person) {
