@@ -18,8 +18,12 @@ class Person {
     
     func buyCoffee(shop: CoffeeShop, coffee: CoffeeList){
         print("\(self.name): \(coffee) 주세요")
+        shop.takeOrderTo(coffee: coffee, guest: self)
+        liquidate(shop: shop, coffee: coffee)
+    }
+    
+    func liquidate(shop: CoffeeShop, coffee:CoffeeList){
         if haveMoney >= coffee.price {
-            shop.takeOrderTo(coffee: coffee, guest: self)
             haveMoney -= coffee.price
             bringCoffee(shop: shop, coffee: coffee)
         } else {
