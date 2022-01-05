@@ -24,22 +24,10 @@ struct Person {
 
 struct CoffeeShop {
     var sales: Int = 0
+    var barista: Person
     
-    enum CoffeMenu {
+    enum CoffeeMenu {
         case espresso, americano, cafelatte, capuccino
-        
-        var coffePrice: Int {
-            switch self {
-            case .espresso:
-                return 3600
-            case .americano:
-                return 4100
-            case .cafelatte:
-                return 4600
-            case .capuccino:
-                return 4600
-            }
-        }
     }
     
     var pickUpTable: String?
@@ -53,3 +41,31 @@ struct CoffeeShop {
     }
 }
 
+enum Coffee {
+    case espresso, americano, cafelatte, capuccino
+    
+    var coffeePrice: Int {
+        switch self {
+        case .espresso:
+            return 3600
+        case .americano:
+            return 4100
+        case .cafelatte:
+            return 4600
+        case .capuccino:
+            return 4600
+        }
+    }
+}
+
+var misterLee: Person = Person()
+misterLee.name = "misterLee"
+misterLee.gender = "male"
+misterLee.money = 100000
+
+var missKim: Person = Person()
+missKim.name = "missKim"
+missKim.gender = "male"
+missKim.money = 200000
+
+var yagombucks: CoffeeShop = CoffeeShop(barista: misterLee)
