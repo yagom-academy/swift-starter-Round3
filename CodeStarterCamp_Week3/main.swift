@@ -23,7 +23,7 @@ class Person {
 class CoffeeShop {
     var salesRevenue: Int
     var pickUpTable: Array<Menu>?
-    var barista: Person?
+    var barista: Barista?
 
     struct Menu {
         var coffeeType: String
@@ -43,10 +43,9 @@ class CoffeeShop {
 }
 
 class Barista: Person {
-    var workPlace: CoffeeShop
+    var workPlace: CoffeeShop?
     
-    init(workPlace: CoffeeShop, budget: Int) {
-        self.workPlace = workPlace
+    override init(budget: Int) {
         super.init(budget: budget)
     }
 }
@@ -58,7 +57,7 @@ enum CoffeeType: String {
     case Tea
 }
 
-var misterLee = Person(budget: 10000)
+var misterLee = Barista(budget: 10000)
 var missKim = Person(budget: 10000)
 var yagombucks = CoffeeShop(salesRevenue: 0)
 yagombucks.barista = misterLee
