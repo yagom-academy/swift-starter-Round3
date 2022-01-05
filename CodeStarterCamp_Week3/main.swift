@@ -8,5 +8,60 @@
 
 import Foundation
 
-print("Hello, World!")
+class Person {
+    var budget: Int
+    
+    func buy(something: String) {
+        print("\(something)을 삽니다.")
+    }
+    
+    init(budget: Int) {
+        self.budget = budget
+    }
+}
+
+class CoffeeShop {
+    var salesRevenue: Int
+    var pickUpTable: Array<Menu>?
+    var barista: Person?
+
+    struct Menu {
+        var coffeeType: String
+        var price: Int
+    }
+    
+    func order(coffee: CoffeeShop.Menu, from: Person) {
+        
+    }
+    func makeCoffee(of: CoffeeShop.Menu) {
+        
+    }
+    
+    init(salesRevenue: Int) {
+        self.salesRevenue = salesRevenue
+    }
+}
+
+class Barista: Person {
+    var workPlace: CoffeeShop
+    
+    init(workPlace: CoffeeShop, budget: Int) {
+        self.workPlace = workPlace
+        super.init(budget: budget)
+    }
+}
+
+enum CoffeeType: String {
+    case Americano
+    case Latte
+    case Coldbrew
+    case Tea
+}
+
+var misterLee = Person(budget: 10000)
+var missKim = Person(budget: 10000)
+var yagombucks = CoffeeShop(salesRevenue: 0)
+yagombucks.barista = misterLee
+
+
 
