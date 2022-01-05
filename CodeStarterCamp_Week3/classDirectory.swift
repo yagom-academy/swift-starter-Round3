@@ -39,21 +39,24 @@ class CoffeeShop {
     var salesTotal: Int = 0
     var pickUpTable: Coffee? {
         didSet(oldValue){
-            print("픽업대에서 가져가 주세요.")
+            if let coffeeCustomer = self.customer {
+                print("\(coffeeCustomer.name) 님의 커피가 준비되었습니다. 픽업대에서 가져가 주세요.")
+            }
         }
     }
     var barista: Person
+    var customer: Person?
 
     init(barista: Person){
         self.barista = barista
     }
     
     func getOrder(person: Person, orderedCoffee: Coffee) {
+        self.customer = person
         if let coffeePrice = self.menu[orderedCoffee] {
             let money: Int = person.buyObject(productPrice: coffeePrice)
             salesTotal += money
             if money != 0 {
-                print("\(person.name) 님의 커피가 준비되었습니다. ", terminator: "")
                 self.pickUpTable = orderedCoffee
             }
         } else {
