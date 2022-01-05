@@ -10,7 +10,6 @@ import Foundation
 class Person {
     var money: Int = 0
     var name: String
-    var bag: Array<Any> = Array<Any>()
     
     init(name: String, money: Int){
         self.name = name
@@ -22,15 +21,8 @@ class Person {
             self.money = self.money - productPrice
             return productPrice
         } else {
-            let lackMoney = productPrice - self.money
-            print("잔액이 \(lackMoney)원만큼 부족합니다.")
-            return 0
+            return self.money
         }
-    }
-    
-    func getProduct(product: Any){
-        bag.append(product)
-        print("\(self.name)은 물건을 획득했다!")
     }
 }
 
@@ -55,8 +47,10 @@ class CoffeeShop {
         self.customer = person
         if let coffeePrice = self.menu[orderedCoffee] {
             let money: Int = person.buyObject(productPrice: coffeePrice)
-            salesTotal += money
-            if money != 0 {
+            if money < coffeePrice {
+                print("잔액이 \(coffeePrice-money)부족합니다!")
+            } else {
+                salesTotal += money
                 self.pickUpTable = orderedCoffee
             }
         } else {
