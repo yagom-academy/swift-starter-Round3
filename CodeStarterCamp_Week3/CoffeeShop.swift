@@ -7,7 +7,7 @@
 
 import Foundation
 
-enum Coffee: String {
+enum Coffee {
     case americano, latte, espresso
 }
 
@@ -16,8 +16,8 @@ class CoffeeShop {
     var totalRevenue: Int = 0
     var menuBoard: Dictionary = [Coffee: Int]()
     var pickUpTable: Coffee? {
-        didSet (oldCoffee) {
-            if (oldCoffee == nil) {
+        didSet (preOrderCoffee) {
+            if (preOrderCoffee == nil) {
                 guard let customer = self.customer else { return }
                 print("\(customer.name)님의 커피가 준비되었습니다. 픽업대에서 가져가주세요.")
                 takeCoffee()
@@ -29,24 +29,18 @@ class CoffeeShop {
     
     init(barista: Person) {
         self.barista = barista
-        self.menuBoard = [.americano:3000, .latte:4000, .espresso:2000]
+        self.menuBoard = [.americano: 3000, .latte: 4000, .espresso: 2000]
     }
     
-    func orderCoffee(coffee: Coffee){
+    func order(coffee: Coffee, customer: Person){
         guard let price = menuBoard[coffee] else { return }
-        guard let customer = self.customer else { return }
-
-        if (customer.money < price) {
-            print("잔액이 \(price)원만큼 부족합니다.")
-            return
-        }
-        customer.money -= price
+        self.customer = customer
         totalRevenue += price
         
-        makeCoffee(coffee: coffee)
+        make(coffee: coffee)
     }
     
-    func makeCoffee(coffee: Coffee) {
+    func make(coffee: Coffee) {
         pickUpTable = coffee
     }
     
