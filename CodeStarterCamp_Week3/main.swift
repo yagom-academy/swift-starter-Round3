@@ -23,7 +23,7 @@ class Person {
 class CoffeeShop {
     var salesRevenue: Int
     var menuList: Array<Menu>
-    var pickUpTable: Array<Menu>?
+    var pickUpTable: Array<CoffeeType>?
     var barista: Barista?
     
     func order(coffee: Menu, from: Person) {
