@@ -12,5 +12,4 @@ let misterLee = Person(name: "misterLee")
 let missKim = Person(name: "missKim", money: 10000)
 
 let yagombucks = CoffeeShop(barista: misterLee)
-
-missKim.purchase(coffeeShop: yagombucks, coffee: Coffee.americano)
+yagombucks.order(coffee: Coffee.americano, customer: missKim)

@@ -35,9 +35,12 @@ class CoffeeShop {
     func order(coffee: Coffee, customer: Person){
         guard let price = menuBoard[coffee] else { return }
         self.customer = customer
-        totalRevenue += price
+        let canPurchase = customer.purchase(price: price)
         
-        make(coffee: coffee)
+        if (canPurchase) {
+            totalRevenue += price
+            make(coffee: coffee)
+        }
     }
     
     func make(coffee: Coffee) {

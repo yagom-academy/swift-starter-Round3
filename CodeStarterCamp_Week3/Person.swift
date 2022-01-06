@@ -16,13 +16,12 @@ class Person {
         self.money = money
     }
     
-    func purchase(coffeeShop: CoffeeShop, coffee: Coffee) {
-        guard let price = coffeeShop.menuBoard[coffee] else { return }
+    func purchase(price: Int) -> Bool {
         if (money < price) {
             print("잔액이 \(price)원만큼 부족합니다.")
-            return
+            return false
         }
         money -= price
-        coffeeShop.order(coffee: coffee, customer: self)
+        return true
     }
 }
