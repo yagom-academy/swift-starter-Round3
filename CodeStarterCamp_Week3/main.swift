@@ -44,10 +44,6 @@ class CoffeeShop {
 
 class Barista: Person {
     var workPlace: CoffeeShop?
-    
-    override init(budget: Int) {
-        super.init(budget: budget)
-    }
 }
 
 enum CoffeeType: String {
