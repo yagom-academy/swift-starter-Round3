@@ -28,8 +28,8 @@ class CoffeeShop {
     var customer: Person?
     var pickUpTable: Coffee? {
         didSet {
-            if let whoOrdered = customer, let coffee = pickUpTable {
-                print("\(whoOrdered.name) 님의 커피 \(coffee)가 준비되었습니다. 픽업대에서 가져가주세요.")
+            if let customer = self.customer, let coffee = pickUpTable {
+                print("\(customer.name) 님의 커피 \(coffee)가 준비되었습니다. 픽업대에서 가져가주세요.")
             }
         }
     }
@@ -47,22 +47,22 @@ class CoffeeShop {
         menu[.chocolateLatte] = 5000
     }
 
-    func order(coffee: Coffee, fromWho: Person) {
-        if let price = menu[coffee] {
-            let isMoneyEnough = fromWho.money - price
-            if isMoneyEnough >= 0 {
-                customer = fromWho
-                makePayment(price)
-                pickUpTable = coffee
-            } else {
-                print("잔액이 \(-isMoneyEnough)원만큼 부족합니다.")
-            }
+    func order(coffee: Coffee, person: Person) {
+        guard let price = menu[coffee] else {
+            return
+        }
+        if person.money >= price {
+            customer = person
+            makePayment(price)
+            pickUpTable = coffee
+        } else {
+            print("잔액이 \(price - person.money)원만큼 부족합니다.")
         }
     }
     
     func makePayment(_ price: Int) {
-        if let whoOrdered = customer {
-            whoOrdered.buySomething(price: price)
+        if let customer = self.customer {
+            customer.buySomething(price: price)
         }
         sales += price
     }
