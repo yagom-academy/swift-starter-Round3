@@ -45,6 +45,7 @@ class CoffeeShop {
     
     func calculate(coffee: CoffeeList, guest: Person) {
         print("카페 직원: 결제 완료되었습니다")
+        guest.haveMoney -= coffee.price
         dailySales += coffee.price
         makeCoffee(coffee: coffee, guest: guest)
     }

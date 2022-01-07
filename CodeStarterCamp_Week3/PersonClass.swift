@@ -19,16 +19,7 @@ class Person {
     func buyCoffee(shop: CoffeeShop, coffee: CoffeeList){
         print("\(self.name): \(coffee) 주세요")
         shop.takeOrderTo(coffee: coffee, guest: self)
-        liquidate(shop: shop, coffee: coffee)
-    }
-    
-    func liquidate(shop: CoffeeShop, coffee:CoffeeList){
-        if haveMoney >= coffee.price {
-            haveMoney -= coffee.price
-            bringCoffee(shop: shop, coffee: coffee)
-        } else {
-            print("\(self.name): 앗! 돈이 부족하군요 다음에 다시오겠습니다")
-        }
+        bringCoffee(shop: shop, coffee: coffee)
     }
     
     func bringCoffee(shop: CoffeeShop, coffee: CoffeeList) {
