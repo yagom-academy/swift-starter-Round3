@@ -9,16 +9,19 @@ import Foundation
 
 class Person {
     var name: String
-    var money: Int
-    var purchasedItem = [String]()
+    var money: Int = 0
     
-    init(name: String, money: Int) {
+    init(name: String, money: Int = 0) {
         self.name = name
         self.money = money
     }
     
-    func purchaseSomething(price: Int, item: String) {
+    func purchase(price: Int) -> Bool {
+        if (money < price) {
+            print("잔액이 \(price)원만큼 부족합니다.")
+            return false
+        }
         money -= price
-        purchasedItem.append(item)
+        return true
     }
 }
