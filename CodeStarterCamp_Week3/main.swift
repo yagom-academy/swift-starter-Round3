@@ -26,6 +26,11 @@ class CoffeeShop {
     var pickUpTable: Array<CoffeeType>?
     var barista: Barista?
     
+    let yagomAmericano = Menu(coffeeType: CoffeeType.Americano, price: 3000)
+    let yagomLatte = Menu(coffeeType: CoffeeType.Latte, price: 3500)
+    let yagomBrew = Menu(coffeeType: CoffeeType.Coldbrew, price: 4000)
+    let yagomTea = Menu(coffeeType: CoffeeType.Tea, price: 3000)
+    
     func order(coffee: Menu, from: Person) {
         
     }
@@ -33,9 +38,9 @@ class CoffeeShop {
         
     }
     
-    init(salesRevenue: Int, menuList: Array<Menu>) {
+    init(salesRevenue: Int) {
         self.salesRevenue = salesRevenue
-        self.menuList = menuList
+        self.menuList = [yagomAmericano, yagomLatte, yagomBrew, yagomTea]
     }
 }
 
@@ -57,12 +62,8 @@ enum CoffeeType {
 
 var misterLee = Barista(budget: 10000)
 var missKim = Person(budget: 10000)
-var yagomAmericano = Menu(coffeeType: CoffeeType.Americano, price: 3000)
-let yagomLatte = Menu(coffeeType: CoffeeType.Latte, price: 3500)
-let yagomBrew = Menu(coffeeType: CoffeeType.Coldbrew, price: 4000)
-let yagomTea = Menu(coffeeType: CoffeeType.Tea, price: 3000)
-var yagomMenuList = [yagomAmericano, yagomLatte, yagomBrew, yagomTea]
-var yagombucks = CoffeeShop(salesRevenue: 0, menuList: yagomMenuList)
+var yagombucks = CoffeeShop(salesRevenue: 0)
+
 yagombucks.barista = misterLee
 
 
