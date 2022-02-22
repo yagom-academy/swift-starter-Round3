@@ -46,3 +46,10 @@ struct CoffeeShop {
         print("we made \(coffee) for \(person.name)")
     }
 }
+
+var misterLee = Person(name: "misterLee", money: 10000)
+var missKim = Person(name: "missKim", money: 20000)
+
+var yagomBucks = CoffeeShop(revenue: 0, menu: [Coffee.americano: 4500, Coffee.latte: 5000, Coffee.frappuccino: 5500], pickUpTable: [:])
+
+yagomBucks.barista = misterLee
