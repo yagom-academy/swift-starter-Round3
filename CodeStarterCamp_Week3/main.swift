@@ -27,3 +27,22 @@ struct Person {
         }
     }
 }
+
+struct CoffeeShop {
+    var revenue: Int
+    var menu: [Coffee: Int]
+    var barista = Person(name: "", money: 0)
+    var pickUpTable: [String: String]
+    
+    mutating func takeOrder(person: Person,coffee: Coffee) {
+        if let coffeePrice = menu[coffee] {
+            revenue += coffeePrice
+            makeCoffee(person: person, coffee: coffee)
+        } else {
+            print("We don't have \(coffee) in our store")
+        }
+    }
+    mutating func makeCoffee(person: Person, coffee: Coffee) {
+        print("we made \(coffee) for \(person.name)")
+    }
+}
