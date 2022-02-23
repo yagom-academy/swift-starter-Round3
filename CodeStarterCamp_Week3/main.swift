@@ -43,3 +43,8 @@ enum Coffee {
     case cafeLatte
     case coldBrew
 }
+
+var misterLee: Person = Person(money: 10000)
+var missKim: Person = Person(money: 10000)
+var yagombucks: CoffeeShop = CoffeeShop(sales: 0, menu: ("",0),  pcikUpTable: [])
+var yagombucksBarista = misterLee
