@@ -37,3 +37,9 @@ class CoffeeShop {
         print("\(coffee)를 만들었습니다.")
     }
 }
+
+enum Coffee {
+    case americano
+    case cafeLatte
+    case coldBrew
+}
