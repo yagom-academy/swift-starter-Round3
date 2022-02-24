@@ -54,3 +54,4 @@ class CoffeeShop {
 var misterLee: Person = Person(money: 300, feeling: "nice")
 var missKim: Person = Person(money: 250, feeling: "soso")
 var yagombucks: CoffeeShop = CoffeeShop(menu: [.coldBrew : 4500], sales: "$300", pickUpTable: 1, barista: misterLee)
+yagombucks.barista = misterLee
