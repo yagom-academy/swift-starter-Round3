@@ -50,3 +50,6 @@ class CoffeeShop {
         self.barista = barista
     }
 }
+
+var misterLee: Person = Person(money: 300, feeling: "nice")
+var missKim: Person = Person(money: 250, feeling: "soso")
