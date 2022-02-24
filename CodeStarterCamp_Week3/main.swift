@@ -19,13 +19,20 @@ struct Person {
     var money: Int
     
     mutating func buyProduct(productName: Coffee, quantity: Int, cost: Int) {
-        if self.money >= cost * quantity {
-            self.money -= cost * quantity
-            print("\(self.name) paid \(cost * quantity) for \(quantity) \(productName)(s)")
-        } else {
-            print("you do not have enough money")
+            var buyAvailability = false
+            if self.money >= cost * quantity {
+                self.money -= cost * quantity
+                buyAvailability = true
+            printPurchaseResult(buyAvailability: buyAvailability, quantity: quantity, cost: cost, productName: productName)
+            }
         }
-    }
+        func printPurchaseResult (buyAvailability: Bool, quantity: Int, cost: Int, productName: Coffee) {
+            if buyAvailability {
+                print("\(self.name) paid \(cost * quantity) for \(quantity) \(productName)(s)")
+            } else {
+                print("you do not have enough money")
+            }
+        }
 }
 
 struct CoffeeShop {
