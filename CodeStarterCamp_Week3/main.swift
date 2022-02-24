@@ -10,9 +10,11 @@ import Foundation
 
 class Person {
     var money: Int
+    
     init(money: Int) {
         self.money = money
     }
+    
     func buySomething(price: Int) {
         print(money-price)
     }
@@ -20,13 +22,23 @@ class Person {
 
 class CoffeeShop {
     var sales: Int
-    var menu: (KindOfCoffee: String, price: Int)
+    var kindOfCoffeeMenu: String
+    var priceOfCoffeeMenu: Int
     var pickUpTable: Array<String> = Array<String>()
+    var barista: Person
     
-    init(sales: Int, menu: (String,Int), pcikUpTable: Array<String>){
-        self.menu = menu
+    init(sales: Int, kindOfCoffeeMenu: String, priceOfCoffeeMenu: Int, pcikUpTable: Array<String>, barista: Person) {
+        self.kindOfCoffeeMenu = kindOfCoffeeMenu
+        self.priceOfCoffeeMenu = priceOfCoffeeMenu
         self.sales = sales
         self.pickUpTable = pcikUpTable
+        self.barista = barista
+    }
+    
+    enum Coffee {
+        case americano
+        case cafeLatte
+        case coldBrew
     }
     
     func orderMenu(coffee: Coffee) {
@@ -38,13 +50,7 @@ class CoffeeShop {
     }
 }
 
-enum Coffee {
-    case americano
-    case cafeLatte
-    case coldBrew
-}
-
 var misterLee: Person = Person(money: 10000)
 var missKim: Person = Person(money: 10000)
-var yagombucks: CoffeeShop = CoffeeShop(sales: 0, menu: ("",0),  pcikUpTable: [])
-var yagombucksBarista = misterLee
+var yagombucks: CoffeeShop = CoffeeShop(sales: 0, kindOfCoffeeMenu: "", priceOfCoffeeMenu: 0, pcikUpTable: [], barista: misterLee)
+
