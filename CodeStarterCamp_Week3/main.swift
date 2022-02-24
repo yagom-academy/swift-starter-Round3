@@ -15,7 +15,7 @@ enum Coffee {
 }
 
 struct Person {
-    var name: String
+    let name: String
     var money: Int
     
     mutating func buyProduct(productName: Coffee, quantity: Int, cost: Int) {
