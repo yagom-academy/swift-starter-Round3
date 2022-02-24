@@ -30,8 +30,8 @@ struct Person {
 
 struct CoffeeShop {
     var revenue: Int
-    var menu: [Coffee: Int]
-    var barista = Person(name: "", money: 0)
+    let menu: [Coffee: Int]
+    let barista: Person
     var pickUpTable: [String: String]
     
     mutating func takeOrder(person: Person,coffee: Coffee) {
@@ -50,6 +50,5 @@ struct CoffeeShop {
 var misterLee = Person(name: "misterLee", money: 10000)
 var missKim = Person(name: "missKim", money: 20000)
 
-var yagomBucks = CoffeeShop(revenue: 0, menu: [Coffee.americano: 4500, Coffee.latte: 5000, Coffee.frappuccino: 5500], pickUpTable: [:])
+var yagomBucks = CoffeeShop(revenue: 0, menu: [Coffee.americano: 4500, Coffee.latte: 5000, Coffee.frappuccino: 5500], barista: misterLee, pickUpTable: [:])
 
-yagomBucks.barista = misterLee
