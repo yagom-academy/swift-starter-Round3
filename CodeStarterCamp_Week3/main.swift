@@ -1,12 +1,9 @@
-//
-//  main.swift
-//  CodeStarterCamp_Week3
-//
-//  Created by yagom.
-//  Copyright © yagom academy. All rights reserved.
-//
-
 import Foundation
 
-print("Hello, World!")
+enum Coffee {
+    case Americano
+    case Latte
+    case cappuccino
+    case coldBrew
+}
 
