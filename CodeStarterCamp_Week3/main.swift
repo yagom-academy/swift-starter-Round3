@@ -8,5 +8,59 @@
 
 import Foundation
 
-print("Hello, World!")
+enum Coffee {
+    case americano
+    case latte
+    case frappuccino
+}
+
+struct Person {
+    let name: String
+    var money: Int
+    
+    mutating func buyProduct(productName: Coffee, quantity: Int, cost: Int) {
+            var buyAvailability = false
+            if self.money >= cost * quantity {
+                self.money -= cost * quantity
+                buyAvailability = true
+            printPurchaseResult(buyAvailability: buyAvailability, quantity: quantity, cost: cost, productName: productName)
+            }
+        }
+        func printPurchaseResult (buyAvailability: Bool, quantity: Int, cost: Int, productName: Coffee) {
+            if buyAvailability {
+                print("\(self.name) paid \(cost * quantity) for \(quantity) \(productName)(s)")
+            } else {
+                print("you do not have enough money")
+            }
+        }
+}
+
+struct CoffeeShop {
+    var revenue: Int
+    let menu: [Coffee: Int]
+    let barista: Person
+    var pickUpTable: [String: String]
+    
+    mutating func takeOrder(person: Person, coffee: Coffee) {
+        var orderAvailability = false
+        if let coffeePrice = menu[coffee] {
+            revenue += coffeePrice
+            orderAvailability = true
+        }
+        makeCoffee(orderAvailability: orderAvailability, person: person, coffee: coffee)
+    }
+    func makeCoffee(orderAvailability: Bool, person: Person, coffee: Coffee) {
+        if orderAvailability {
+            print("we made \(coffee) for \(person.name)")
+        } else {
+            print("We don't have \(coffee) in our store")
+        }
+        
+    }
+}
+
+var misterLee = Person(name: "misterLee", money: 10000)
+var missKim = Person(name: "missKim", money: 20000)
+
+var yagomBucks = CoffeeShop(revenue: 0, menu: [Coffee.americano: 4500, Coffee.latte: 5000, Coffee.frappuccino: 5500], barista: misterLee, pickUpTable: [:])
 
