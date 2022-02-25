@@ -8,5 +8,28 @@
 
 import Foundation
 
-print("Hello, World!")
+struct Person {
+  let money: Int
+  func buyThing() {
+  }
+}
 
+struct CoffeeShop {
+  let salesRevenue: Int
+  let menus: [Coffee: Int] = [:]
+  let pickUpTable: [Coffee] = []
+  
+  func takeAnOrder(of coffee: Coffee) {
+  }
+  
+  func make(coffee: Coffee) {
+  }
+}
+
+enum Coffee {
+  case americano
+  case latte
+  case cappuccino
+  case caffeMocha
+  case espresso
+}
