@@ -11,6 +11,7 @@ import Foundation
 struct Person {
     var name: String = ""
     var money: Int = 0
+    
     func buySome(coffee: Coffee) {
         print("\(coffee)주세요.")
     }
@@ -36,6 +37,6 @@ enum Coffee {
     case coldBrew
 }
 
-var misterLee: Person = Person()
-var missKim: Person = Person()
+var misterLee: Person = Person(name: "misterLee", money: 10000)
+var missKim: Person = Person(name: "missKim", money: 10000)
 var yagombucks: CoffeeShop = CoffeeShop(barista: misterLee)
