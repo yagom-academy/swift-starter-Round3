@@ -1,57 +1,49 @@
 import Foundation
 
 enum Coffee {
-    case Americano
-    case Latte
+    case americano
+    case latte
     case cappuccino
     case coldBrew
 }
 
 class Person {
     var money: Int
-    var feeling: String
-    
+    var feeling: String = ""
+    let name: String
     func buyThings(coffee: Coffee) {
         print("안녕하세요. \(coffee) 한 잔 주시겠어요?")
     }
-    init(money: Int, feeling: String) {
+    init(name: String, money: Int) {
+        self.name = name
         self.money = money
-        self.feeling = feeling
     }
 }
 
 class CoffeeShop {
-    var sales: String
-    var pickUpTable: Int
-    var menu : [Coffee :Int] = [.Americano : 1500, .Latte : 3000, .cappuccino : 3500, .coldBrew : 4000]
+    var sales: Int = 0
+    var pickUpTable: String?
+    var menu : [Coffee :Int] = [.americano : 1500, .latte : 3000, .cappuccino : 3500, .coldBrew : 4000]
     var barista: Person
+    var customer: Person?
     
-    func makeCoffee(numberOfCoffee: Int, nameOfCoffee: String, shot: Int) {
-        
-        if nameOfCoffee == "americano" {
-            print("\(nameOfCoffee) \(numberOfCoffee)잔 주문 받았습니다.")
-            print("얼음을 가득 넣고 물을 따른 뒤 샷 \(shot)잔 추출 후 부어주기")
-        } else if nameOfCoffee == "latte" {
-            print("\(nameOfCoffee) \(numberOfCoffee)잔 주문 받았습니다.")
-            print("얼음을 가득 넣고 우유를 따른 뒤 샷 \(shot)잔 추출 후 부어주기")
-        } else if nameOfCoffee == "cappuccino" {
-            print("\(nameOfCoffee) \(numberOfCoffee)잔 주문 받았습니다.")
-            print("얼음을 가득 넣고 우유를 2/3 따른 뒤 우유 거품을 위에 부어 준 뒤 샷 \(shot)잔 추출 후 부어주기")
-        } else if nameOfCoffee == "coldBrew" {
-            print("\(nameOfCoffee) \(numberOfCoffee)잔 주문 받았습니다.")
-            print("얼음을 가득 넣고 콜드브루 원액을 부어주기")
-        }
+    func order(coffee: Coffee) {
+        print("주문하신 \(coffee) 제조 중입니다.")
+        print("주문하신 \(coffee) 나왔습니다.")
     }
-
-    init(menu: [Coffee : Int], sales: String, pickUpTable: Int, barista: Person) {
-        self.menu = menu
+    
+    init(sales: Int,barista: Person, pickUpTable: String) {
         self.sales = sales
+        self.barista = barista
         self.pickUpTable = pickUpTable
+    }
+    init(sales: Int,barista: Person) {
+        self.sales = sales
         self.barista = barista
     }
 }
 
-var misterLee: Person = Person(money: 300, feeling: "nice")
-var missKim: Person = Person(money: 250, feeling: "soso")
-var yagombucks: CoffeeShop = CoffeeShop(menu: [.coldBrew : 4500], sales: "$300", pickUpTable: 1, barista: misterLee)
+var misterLee = Person(name: "misterLee", money: 30000)
+var missKim = Person(name: "missKim", money: 1000)
+var yagombucks: CoffeeShop = CoffeeShop(sales: 300000, barista: misterLee)
 yagombucks.barista = misterLee
