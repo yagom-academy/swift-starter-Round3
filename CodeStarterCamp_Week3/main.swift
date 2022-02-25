@@ -17,6 +17,4 @@ missKim?.buySomeThings(things: "Americano") //메소드를 실행할때 또한 i
 let yagombucks : CoffeShop = CoffeShop(revenue: 0, pickUpTable: true)//오늘 수입이 0원부터 시작하고, pickUpTable이 있는 yagombucks에 coffeshop타입을 할당해주었다.
 yagombucks.showCoffeePrint(.Americano)
 yagombucks.makeCoffee(.Americano)
-print("\(yagombucks.totalRevenue(.Americano))원 입니다.")//오늘 첫 판매 가격 출력
-print("\(yagombucks.totalRevenue(.Americano))원 입니다.")//두번째 누적 판매 가격 출력
 yagombucks.barista = misterLee//바리스타 할당

@@ -11,7 +11,7 @@ class Person {
     var name: String
     var age: Int
     var money: Int
-
+    
     init?(name: String, age: Int , money: Int) {
         if name.count == 0 {
             return nil
@@ -29,13 +29,32 @@ class Person {
 }
 
 enum Coffee: Int {
-    case Americano = 4500
-    case Latte = 5000
-    case Espresso = 3500
-    case Juice = 5500
-    case Dessert = 6000
-    case Goods = 3000
+    case Americano
+    case Latte
+    case Espresso
+    case Juice
+    case Dessert
+    case Goods
+    
+    func printCoffeePrice()-> Int{
+        switch self{
+        case .Americano:
+            return 4500
+        case .Latte:
+            return 5000
+        case .Espresso:
+            return 3500
+        case .Dessert:
+            return 6000
+        case .Juice:
+            return 5500
+        case .Goods:
+            return 3000
+        }
+        
+    }
 }
+
 
 class CoffeShop{
     var revenue: Int
@@ -47,15 +66,11 @@ class CoffeShop{
         self.revenue = revenue //보통은 하루 수입은 0원부터 출발한다.
         self.pickUpTable = pickUpTable
     }
-    
+
     func showCoffeePrint(_ price : Coffee){ //메뉴를 고르면 얼마인지 보여주는 함수
-        print("\(price)의 가격은 \(price.rawValue)원 입니다.")
+        print("\(price)의 가격은 \(price.printCoffeePrice())원 입니다.")
     }
-    func totalRevenue(_ income : Coffee)-> Int{ //팔때마다 금액이 누적되는 함수
-        let sellRevenue : Int = income.rawValue
-        revenue += sellRevenue
-        return revenue
-    }
+    
     func makeCoffee(_ menu : Coffee){ //자신의 메뉴가 제조중인지 알려주는 함수
         print("\(menu)를 만드는 중입니다.")
     }
