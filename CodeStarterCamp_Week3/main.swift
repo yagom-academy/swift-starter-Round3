@@ -8,18 +8,22 @@
 
 import Foundation
 
-struct Person {
+class Person {
   var money: Int = 0
   
   func buyThing() {
   }
 }
 
-struct CoffeeShop {
+class CoffeeShop {
   var barista: Person
   var salesRevenue: Int = 0
   var menus: [Coffee] = Coffee.allCases
   var pickUpTable: [Coffee] = []
+  
+  init(barista: Person) {
+    self.barista = barista
+  }
   
   func takeAnOrder(of coffee: Coffee) {
   }
