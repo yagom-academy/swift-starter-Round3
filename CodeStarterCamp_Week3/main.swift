@@ -9,15 +9,17 @@
 import Foundation
 
 struct Person {
-  let money: Int
+  var money: Int = 0
+  
   func buyThing() {
   }
 }
 
 struct CoffeeShop {
-  let salesRevenue: Int
-  let menus: [Coffee: Int] = [:]
-  let pickUpTable: [Coffee] = []
+  var barista: Person
+  var salesRevenue: Int = 0
+  var menus: [Coffee] = Coffee.allCases
+  var pickUpTable: [Coffee] = []
   
   func takeAnOrder(of coffee: Coffee) {
   }
@@ -26,10 +28,30 @@ struct CoffeeShop {
   }
 }
 
-enum Coffee {
+enum Coffee: Int, CaseIterable {
   case americano
   case latte
   case cappuccino
   case caffeMocha
   case espresso
+  
+  var price: Int {
+    switch self {
+    case .americano:
+      return 3000
+    case .latte:
+      return 4000
+    case .cappuccino:
+      return 4000
+    case .caffeMocha:
+      return 5000
+    case .espresso:
+      return 3000
+    }
+  }
 }
+
+let misterLee = Person()
+let missKim = Person()
+
+let yagombucks = CoffeeShop(barista: misterLee)
