@@ -39,10 +39,12 @@ class Person { // 물건 구매 후 남은 돈 알려주면 될듯
     }
 }
 
+// 수입을 부가적으로 올려서 알려주기
+// 열거형 이용해서 캎페이익
+var cafeProfit = 0
+
 class CoffeeShop {
     
-    var checkMakeCoffee = 0
-
     var cafeName: String
     var cafeProfit: Int
     var barista: String
@@ -56,46 +58,43 @@ class CoffeeShop {
     }
     
     func takeOrder(coffeeType : String){
-        checkProfit(coffeeType: coffeeType)
-        if checkMakeCoffee == 0 {
             print("\(coffeeType) 준비해 드리겠습니다, \(barista)님이 준비해주실거에요 !")
             makeCoffee(coffeeType: coffeeType)
-        } else if checkMakeCoffee == 1 {
-            print("해당 커피는 안팝니다.. !!!")
-        }
     }
     
     func makeCoffee(coffeeType: String){
         print("\(coffeeType)을 만들기 위해 샷을.. 내리는 중 .. ")
         print("주문하신 \(coffeeType) 나왔습니다 ~~! \(pickUpTable)에 놓을게요!")
     }
-    func checkProfit(coffeeType: String){
-            switch coffeeType{
-            case "아메리카노":
-                cafeProfit += 3000
-            case "믹스커피":
-                cafeProfit += 2500
-            case "카페모카":
-                cafeProfit += 3500
-            case "바닐라라떼":
-                cafeProfit += 4000
-            default:
-                cafeProfit += 0
-                checkMakeCoffee += 1
-        }
+    
+    func printCafeProfit(){
+        
+        print("\(cafeName)의 누적 이익은 \(cafeProfit)원 입니다 !")
+        
     }
+
 }
 
-enum coffee {
-    case 아메리카노, 믹스커피, 카페모카, 바닐라라떼, 에스프레소
-}
-
-func checkCoffee(coffee: coffee){
-    switch coffee{
-    case .아메리카노, .믹스커피, .바닐라라떼, .카페모카:
-        print("아 \(coffee) 있습니다 !")
-    case .에스프레소:
-        print("아 \(coffee)…그건 없어요 ㅠㅠ")
+enum Coffee: Int{
+    case americano
+    case mixCoffee
+    case cafeMocha
+    case vanillaLatte
+    case espresso
+    
+    func coffeePrice() -> Int{
+        switch self{
+        case .americano:
+            return 3000
+        case .mixCoffee:
+            return 2500
+        case .cafeMocha:
+            return 3500
+        case .vanillaLatte:
+            return 4000
+        case .espresso:
+            return 2500
+        }
     }
 }
 
@@ -104,8 +103,14 @@ var missKim = Person(name: "missKim", money: 50000)
 misterLee.buySomething(thing: "신발")
 missKim.buySomething(thing: "담배")
 
-var yagombucks = CoffeeShop(cafeName: "yagombucks", cafeProfit: 10000, barista: "misterLee", pickUpTable: "카운터")
-yagombucks.takeOrder(coffeeType: "아메리카노")
+let americano = Coffee.americano
+let vanillaLatte = Coffee.vanillaLatte
 
-checkCoffee(coffee: .아메리카노)
-checkCoffee(coffee: .에스프레소)
+var yagombucks = CoffeeShop(cafeName: "yagombucks", cafeProfit: 10000, barista: "misterLee", pickUpTable: "카운터")
+yagombucks.takeOrder(coffeeType: "\(americano)")
+yagombucks.cafeProfit += americano.coffeePrice()
+
+yagombucks.takeOrder(coffeeType: "\(vanillaLatte)")
+yagombucks.cafeProfit += vanillaLatte.coffeePrice()
+
+yagombucks.printCafeProfit()
