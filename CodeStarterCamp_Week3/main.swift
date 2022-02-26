@@ -1,68 +1,30 @@
-//
-//  main.swift
-//  CodeStarterCamp_Week3
-//
-//  Created by yagom.
-//  Copyright © yagom academy. All rights reserved.
-//
 import Foundation
 
-
-class Person {
-    var money: Int?
-    var baristarMan: String
-    var baristarGirl: String
-    init(money: Int, baristarMan: String, baristarGirl: String) {
-        self.money = money
-        self.baristarMan = baristarMan
-        self.baristarGirl = baristarGirl
-    }
-    init(baristarMan: String, baristarGirl: String) {
-        self.baristarMan = baristarMan
-        self.baristarGirl = baristarGirl
-    }
+struct Person {
+    var money: Int
     func buyCoffee() {
-        print("커피 주문할게요")
+        print("커피를 구매합니다")
     }
 }
-class CoffeeShop {
-    
-    var salesMoney: Int
-    var baristar: String
-    //종류와 가격을 같이 표기하기 위해 dictionary를 사용해봤습니다.
-    var coffeeMenu: Dictionary<String, Int> = [:]
-    //pickUpTable이 어떤 기능을 하는지 잘 이해하지 못해 일단 string type으로 설정 해 봤습니다
-    var pickUpTable: String
-    init(salesMoney: Int, baristar: String, coffeeMenu: Dictionary<String, Int> , pickUpTable: String) {
-        self.salesMoney = salesMoney
-        self.baristar = baristar
-        self.coffeeMenu = coffeeMenu
-        self.pickUpTable = pickUpTable
+enum Coffee: Int {
+    case iceAmericano = 2500
+    case cafeLatte = 3300
+    case cappuccino = 3500
+}
+struct CoffeeShop {
+    //당장 필요하지 않은 값들은 옵셔널로 표시 했습니다
+    var sales: Int?
+    var baristar: Person
+    var coffeeMenu: Coffee?
+    var pickUpTable: String?
+    func takeOrder(coffee: Coffee) {
+        print("\(coffee)하나 부타드립니다.")
     }
-    func makeCoffeAndOrder(coffe: Dictionary<String, Int>) {
-        coffeeMenu = ["iceAmericano": 45000, "espresso": 3000, "cafeLatte": 5200]
-        if coffe == ["iceAmericano": 45000] {
-            print("아이스 아메리카노 주문 받았습니다")
-        } else if coffe  == ["espresso": 3000] {
-            print("에스프레소 주문 받았습니다")
-        } else {
-            print("카페라테 주문 받았습니다")
-        }
+    func makeCoffee(making: Coffee) {
+        print("\(making)하나 제조중입니다")
     }
 }
-
-enum Menupan: String {
-    // 열거형에 string 타입으로 가격까지 붙여 봤습니다
-    case iceAmericano = "아이스 아메리카노 4500원입니다"
-    case esopresso = "에소프레소 3000원 입니다"
-    case cafeLatte = "카페라떼 5000원 입니다"
-}
-
-//Person 타입의 인스턴스로 misterLee , missKim 을 생성해봅시다.
-var myPerson: Person = Person(baristarMan: "", baristarGirl: "")
-myPerson.baristarGirl = "missKim"
-myPerson.baristarMan = "misterLee"
-var yagomBucks: CoffeeShop = CoffeeShop(salesMoney: 0, baristar: "", coffeeMenu: ["": 0], pickUpTable: "" )
-yagomBucks.baristar = myPerson.baristarMan
-
-print("저희 yagomBucks의 baristar는\(myPerson.baristarMan)입니다")
+var misterLee: Person = Person(money: 15000)
+var missKim: Person = Person(money: 15000)
+var yagomBucks: CoffeeShop = CoffeeShop(baristar: misterLee)
+print(yagomBucks.baristar)
