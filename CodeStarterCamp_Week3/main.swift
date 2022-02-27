@@ -8,26 +8,35 @@
 
 import Foundation
 
-struct Person {
-    var name: String = ""
-    var money: Int = 0
+class Person {
+    var name: String
+    var money: Int
     
-    func buySome(coffee: Coffee) {
-        print("\(coffee)주세요.")
+    init(name: String, money: Int) {
+        self.name = name
+        self.money = money
     }
 }
 
 struct CoffeeShop {
     var sales: Int = 0
-    var barista: Person = Person()
-    var menu: Dictionary<Coffee, Int> = [:]
+    var barista: Person = Person(name: "", money: 0)
+    var menu: Dictionary<Coffee, Int> = [.americano: 4000, .latte: 4500, .coldBrew: 5000]
     
-    func makeCoffee(order: Coffee) {
-        print("\(order)만드는중")
+    mutating func order(_ coffee: Coffee, by person: Person) {
+        if person.money >= menu[coffee] ?? 0 {
+            person.money -= menu[coffee] ?? 0
+            sales += menu[coffee] ?? 0
+            pickUpTable = person.name
+        } else {
+            print("잔액이 \((menu[coffee] ?? 0) - person.money)원만큼 부족합니다.")
+        }
     }
     
-    func pickUpTable(coffee: Coffee) {
-        print("\(coffee)나왔습니다.")
+    var pickUpTable: String = "" {
+        didSet {
+            print("\(pickUpTable)님의 커피가 준비되었습니다. 픽업대에서 가져가주세요.")
+        }
     }
 }
 
@@ -37,6 +46,8 @@ enum Coffee {
     case coldBrew
 }
 
-var misterLee: Person = Person(name: "misterLee", money: 10000)
+var misterLee: Person = Person(name: "misterLee", money: 0)
 var missKim: Person = Person(name: "missKim", money: 10000)
 var yagombucks: CoffeeShop = CoffeeShop(barista: misterLee)
+
+yagombucks.order(.americano, by: missKim)
