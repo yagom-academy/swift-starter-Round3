@@ -53,14 +53,15 @@ struct CoffeeShop {
     let barista: Person
     var pickUpTable: [String: String]
     
-    mutating func takeOrder(person: Person, coffee: Coffee) {
+    mutating func takeOrder(coffee: Coffee) -> Bool {
         var orderAvailability = false
         if let coffeePrice = menu[coffee] {
             revenue += coffeePrice
             orderAvailability = true
         }
-        makeCoffee(orderAvailability: orderAvailability, person: person, coffee: coffee)
+        return orderAvailability
     }
+    
     func makeCoffee(orderAvailability: Bool, person: Person, coffee: Coffee) {
         if orderAvailability {
             print("we made \(coffee) for \(person.name)")
