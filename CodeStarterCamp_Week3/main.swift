@@ -9,7 +9,12 @@
 import Foundation
 
 class Person {
+  let name: String
   var money: Int = 0
+  
+  init(name: String) {
+    self.name = name
+  }
   
   func buyThing() {
   }
