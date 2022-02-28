@@ -62,13 +62,11 @@ struct CoffeeShop {
         return orderAvailability
     }
     
-    func makeCoffee(orderAvailability: Bool, person: Person, coffee: Coffee) {
-        if orderAvailability {
-            print("we made \(coffee) for \(person.name)")
-        } else {
-            print("We don't have \(coffee) in our store")
+    mutating func makeCoffee(person: Person, coffee: Coffee) {
+        pickUpTable["\(person.name)"] = "\(coffee)"
+        if let orderedCoffee = pickUpTable["\(person.name)"] {
+            print("\(person.name) 님의 \(orderedCoffee)가 준비되었습니다. 픽업대에서 가져가 주세요.")
         }
-        
     }
 }
 
