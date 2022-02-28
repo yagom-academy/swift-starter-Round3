@@ -38,11 +38,11 @@ struct Person {
         return buyAvailability
     }
     
-    func printPurchaseResult (buyAvailability: Bool, quantity: Int, cost: Int, productName: Coffee) {
+    func printPurchaseResult (buyAvailability: Bool, productName: Coffee) {
         if buyAvailability {
-            print("\(self.name) paid \(cost * quantity) for \(quantity) \(productName)(s)")
+            print("\(self.name) paid \(productName.cost) for \(productName)")
         } else {
-            print("you do not have enough money")
+            print("잔액이 {\((productName.cost) - self.money)}원만큼 부족합니다.")
         }
     }
 }
