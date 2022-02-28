@@ -75,3 +75,11 @@ var missKim = Person(name: "missKim", money: 10000)
 
 var yagomBucks = CoffeeShop(revenue: 0, menu: [Coffee.americano: Coffee.americano.cost, Coffee.latte: Coffee.latte.cost, Coffee.frappuccino: Coffee.frappuccino.cost], barista: misterLee, pickUpTable: [:])
 
+if missKim.buyProduct(productName: Coffee.americano) {
+    missKim.printPurchaseResult(buyAvailability: true, productName: .americano)
+    if yagomBucks.takeOrder(coffee: .americano) {
+        yagomBucks.makeCoffee(person: missKim, coffee: .americano)
+    }
+} else {
+    missKim.printPurchaseResult(buyAvailability: false, productName: .americano)
+}
