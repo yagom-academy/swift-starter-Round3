@@ -29,9 +29,26 @@ class CoffeeShop {
     var barista: Person
     var customer: Person?
     
-    func order(coffee: Coffee) {
-        print("주문하신 \(coffee) 제조 중입니다.")
-        print("주문하신 \(coffee) 나왔습니다.")
+    func order(_ coffee: Coffee) {
+        print("주문하신 \(coffee) 주문 받았습니다.")
+        
+        if coffee == .americano {
+            print("주문하신 \(coffee)는 5분 후에 나옵니다.")
+        } else {
+            print("주문하신 \(coffee)는 10분 후에 나옵니다.")
+        }
+    }
+    
+    func make(_ coffee: Coffee) {
+        if coffee == .americano {
+            print("컵에 얼음과 물을 가득 담은 후 샷 부어주기")
+        } else if coffee == .latte {
+            print("컵에 얼음과 우유를 가득 담은 후 샷 부어주기")
+        } else if coffee == .cappuccino {
+            print("컵에 얼음과 우유를 2/3 담은 후 거품을 올리고 샷 부어주기")
+        } else {
+            print("컵에 얼음을 가득 담고 콜드브루 원액을 부어주기")
+        }
     }
     
     init(sales: Int, barista: Person, pickUpTable: String) {
