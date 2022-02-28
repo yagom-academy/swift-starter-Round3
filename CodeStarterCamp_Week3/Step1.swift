@@ -6,7 +6,7 @@
 //
 
 import Foundation
-
+/*
 class Person {
     var name: String
     var age: Int
@@ -75,3 +75,4 @@ class CoffeShop{
         print("\(menu)를 만드는 중입니다.")
     }
 }
+*/
