@@ -12,6 +12,17 @@ enum Coffee {
     case americano
     case latte
     case frappuccino
+    
+    var cost: Int {
+        switch self {
+        case .americano:
+            return 4500
+        case .latte:
+            return 5000
+        case .frappuccino:
+            return 5500
+        }
+    }
 }
 
 struct Person {
