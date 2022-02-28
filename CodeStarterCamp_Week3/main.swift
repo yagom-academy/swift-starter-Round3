@@ -70,6 +70,7 @@ class CoffeeShop {
     
     func order(coffee: Coffee) {
         var coffePrice = menu[coffee]
+        
         if let price = coffePrice {
             print("\(price)원 짜리 \(coffee)주문을 받았습니다.")
         }
