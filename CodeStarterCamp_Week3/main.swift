@@ -32,7 +32,7 @@ class CoffeeShop {
   }
 }
 
-enum Coffee: Int, CaseIterable {
+enum Coffee: CaseIterable {
   case americano
   case latte
   case cappuccino
