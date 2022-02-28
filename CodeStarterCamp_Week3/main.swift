@@ -70,8 +70,8 @@ struct CoffeeShop {
     }
 }
 
-var misterLee = Person(name: "misterLee", money: 10000)
-var missKim = Person(name: "missKim", money: 20000)
+var misterLee = Person(name: "misterLee", money: 5000)
+var missKim = Person(name: "missKim", money: 10000)
 
-var yagomBucks = CoffeeShop(revenue: 0, menu: [Coffee.americano: 4500, Coffee.latte: 5000, Coffee.frappuccino: 5500], barista: misterLee, pickUpTable: [:])
+var yagomBucks = CoffeeShop(revenue: 0, menu: [Coffee.americano: Coffee.americano.cost, Coffee.latte: Coffee.latte.cost, Coffee.frappuccino: Coffee.frappuccino.cost], barista: misterLee, pickUpTable: [:])
 
