@@ -10,7 +10,7 @@ import Foundation
 
 class Person { // 물건 구매 후 남은 돈 알려주면 될듯
     
-    var name: String
+    let name: String
     var money: Int
     
     init(name: String, money: Int){
@@ -43,22 +43,22 @@ class Person { // 물건 구매 후 남은 돈 알려주면 될듯
 // 열거형 이용해서 캎페이익
 var cafeProfit = 0
 
-class CoffeeShop {
+class CoffeeShop: Person {
     
     var cafeName: String
     var cafeProfit: Int
-    var barista: String
     var pickUpTable: String
     
-    init(cafeName: String, cafeProfit: Int, barista: String, pickUpTable: String){
+    init(cafeName: String, cafeProfit: Int, name: String, pickUpTable: String, money: Int){
+
         self.cafeName = cafeName
         self.cafeProfit = cafeProfit
-        self.barista = barista
         self.pickUpTable = pickUpTable
+        super.init(name: name, money: money)
     }
     
     func takeOrder(coffeeType : String){
-            print("\(coffeeType) 준비해 드리겠습니다, \(barista)님이 준비해주실거에요 !")
+            print("\(coffeeType) 준비해 드리겠습니다, \(name)님이 준비해주실거에요 !")
             makeCoffee(coffeeType: coffeeType)
     }
     
@@ -106,7 +106,7 @@ missKim.buySomething(thing: "담배")
 let americano = Coffee.americano
 let vanillaLatte = Coffee.vanillaLatte
 
-var yagombucks = CoffeeShop(cafeName: "yagombucks", cafeProfit: 10000, barista: "misterLee", pickUpTable: "카운터")
+var yagombucks = CoffeeShop(cafeName: "yagombucks", cafeProfit: 10000, name: misterLee.name, pickUpTable: "카운터", money: misterLee.money)
 yagombucks.takeOrder(coffeeType: "\(americano)")
 yagombucks.cafeProfit += americano.coffeePrice()
 
