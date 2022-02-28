@@ -29,21 +29,22 @@ struct Person {
     let name: String
     var money: Int
     
-    mutating func buyProduct(productName: Coffee, quantity: Int, cost: Int) {
-            var buyAvailability = false
-            if self.money >= cost * quantity {
-                self.money -= cost * quantity
-                buyAvailability = true
-            printPurchaseResult(buyAvailability: buyAvailability, quantity: quantity, cost: cost, productName: productName)
-            }
+    mutating func buyProduct(productName: Coffee) -> Bool {
+        var buyAvailability = false
+        if self.money >= productName.cost {
+            self.money -= productName.cost
+            buyAvailability = true
         }
-        func printPurchaseResult (buyAvailability: Bool, quantity: Int, cost: Int, productName: Coffee) {
-            if buyAvailability {
-                print("\(self.name) paid \(cost * quantity) for \(quantity) \(productName)(s)")
-            } else {
-                print("you do not have enough money")
-            }
+        return buyAvailability
+    }
+    
+    func printPurchaseResult (buyAvailability: Bool, quantity: Int, cost: Int, productName: Coffee) {
+        if buyAvailability {
+            print("\(self.name) paid \(cost * quantity) for \(quantity) \(productName)(s)")
+        } else {
+            print("you do not have enough money")
         }
+    }
 }
 
 struct CoffeeShop {
