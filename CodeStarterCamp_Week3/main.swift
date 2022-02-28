@@ -16,7 +16,13 @@ class Person {
     self.name = name
   }
   
-  func buyThing() {
+  private func buy(coffee: Coffee, from coffeeShop: CoffeeShop) {
+    if money < coffee.price {
+      print("잔액이 \(coffee.price - money)원만큼 부족합니다")
+    } else {
+      money -= coffee.price
+      coffeeShop.takeAnOrder(of: coffee, from: self)
+    }
   }
 }
 
@@ -30,10 +36,14 @@ class CoffeeShop {
     self.barista = barista
   }
   
-  func takeAnOrder(of coffee: Coffee) {
+  func takeAnOrder(of coffee: Coffee, from customer: Person) {
+    salesRevenue += coffee.price
+    make(coffee: coffee, for: customer)
   }
   
-  func make(coffee: Coffee) {
+  private func make(coffee: Coffee, for customer: Person) {
+    pickUpTable.append(coffee)
+    print("\(customer.name) 님의 커피가 준비되었습니다. 픽업대에서 가져가주세요")
   }
 }
 
@@ -60,7 +70,7 @@ enum Coffee: CaseIterable {
   }
 }
 
-let misterLee = Person()
-let missKim = Person()
+let misterLee = Person(name: "misterLee")
+let missKim = Person(name: "missKim")
 
 let yagombucks = CoffeeShop(barista: misterLee)
