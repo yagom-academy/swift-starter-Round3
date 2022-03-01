@@ -53,13 +53,7 @@ enum Coffee {
     
     var name: String {
         switch self {
-        case Coffee.espresso:
-            return "\(self)"
-        case Coffee.americano:
-            return "\(self)"
-        case Coffee.latte:
-            return "\(self)"
-        case Coffee.cappuccino:
+        default:
             return "\(self)"
         }
     }
