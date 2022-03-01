@@ -10,6 +10,7 @@ import Foundation
 class Person {
     var name: String
     var money: Int
+    var inventory: Array<String> = []
     
     init(name: String, money: Int) {
         self.name = name
@@ -17,9 +18,8 @@ class Person {
     }
     
     func buy(something: String) {
-        var inventory: Array<String> = []
-        inventory.append(something)
-        print("\(self.name)의 인벤토리에 \(something)이/가 추가되었습니다.")
+        self.inventory.append(something)
+        print("\(self.name)의 인벤토리에 \(something) 이/가 추가되었습니다.")
     }
 }
 
@@ -50,4 +50,17 @@ enum Coffee {
     case americano
     case latte
     case cappuccino
+    
+    var name: String {
+        switch self {
+        case Coffee.espresso:
+            return "espresso"
+        case Coffee.americano:
+            return "americano"
+        case Coffee.latte:
+            return "latte"
+        case Coffee.cappuccino:
+            return "cappuccino"
+        }
+    }
 }
