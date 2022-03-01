@@ -44,8 +44,8 @@ enum Coffee {
     case luwak
 }
 
-// MARK: - class CoffeShop
-// CoffeShop 타입 생성
+// MARK: - class CoffeeShop
+// CoffeeShop 타입 생성
 // 카페들이 공통적으로 가지는 특성을 프로퍼티로 정의  -> 매출액(totalRevenue)을 속성으로 가진다, 메뉴판(커피 종류, 가격)을 가진다, 커피를 올려둘 수 있는 pickUpTable을 가진다.
 // 카페들이 공통적으로 할 수 있는 동작을 메서드로 정의
 class CoffeeShop {
