@@ -54,7 +54,7 @@ enum Coffee {
     var name: String {
         switch self {
         default:
-            return "\(self)"
+            return "\(self)".capitalized
         }
     }
 }
