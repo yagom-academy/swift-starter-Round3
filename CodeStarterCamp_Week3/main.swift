@@ -49,16 +49,14 @@ enum Coffee {
 // 카페들이 공통적으로 가지는 특성을 프로퍼티로 정의  -> 매출액(totalRevenue)을 속성으로 가진다, 메뉴판(커피 종류, 가격)을 가진다, 커피를 올려둘 수 있는 pickUpTable을 가진다.
 // 카페들이 공통적으로 할 수 있는 동작을 메서드로 정의
 class CoffeeShop {
-    
     var totalRevenue: Int
     let menu: [Coffee : Int] = [.americano : 4500, .latte : 5000, .handDrip : 10000, .luwak : 100000]
     var barista: Person
     var customer: Person?
     var pickupTable: String?
     
-    init(totalRevenue: Int, barista: Person, customer: Person, pickupTable: String) {
-        self.totalRevenue = totalRevenue
-        self.barista = barista
+    convenience init(totalRevenue: Int, barista: Person, customer: Person, pickupTable: String) {
+        self.init(totalRevenue: totalRevenue, barista: barista)
         self.customer = customer
         self.pickupTable = pickupTable
     }
@@ -70,7 +68,6 @@ class CoffeeShop {
     
     func order(coffee: Coffee) {
         var coffePrice = menu[coffee]
-        
         if let price = coffePrice {
             print("\(price)원 짜리 \(coffee)주문을 받았습니다.")
         }
@@ -86,4 +83,3 @@ CoffeeShop(totalRevenue: 10000, barista: missKim).order(coffee: .luwak)
 CoffeeShop(totalRevenue: 10000, barista: missKim).makeCoffe()
 // yagombucks의 바리스타를 misterLee로 할당하기
 let yagombucks = CoffeeShop(totalRevenue: 100000, barista: misterLee)
-
