@@ -22,3 +22,32 @@ class Person {
         print("\(self.name)의 인벤토리에 \(something)이/가 추가되었습니다.")
     }
 }
+
+class CoffeeShop {
+    var salesRevenue: Int = 0
+    var menu: [Coffee: Int] = [:]
+    var pickUpTable: Array<String> = []
+    var baristas: Array<String> = []
+    
+    init(baristas: Array<String>, menu: [Coffee: Int]) {
+        self.baristas = baristas
+        self.menu = menu
+    }
+    
+    func order(coffee: String) -> String {
+        print("\(coffee) 주문 접수가 완료되었습니다.")
+        return coffee
+    }
+    
+    func make(what: String) {
+        pickUpTable.append(what)
+        print("주문하신 \(what) 나왔습니다.")
+    }
+}
+
+enum Coffee {
+    case espresso
+    case americano
+    case latte
+    case cappuccino
+}
