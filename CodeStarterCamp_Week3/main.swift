@@ -9,10 +9,10 @@ enum Coffee {
 
 class Person {
     var money: Int
-    var feeling: String = ""
+    var feeling: String?
     let name: String
     
-    func buyThings(coffee: Coffee) {
+    func buyCoffee(_ coffee: Coffee) {
         print("안녕하세요. \(coffee) 한 잔 주시겠어요?")
     }
     
@@ -29,7 +29,7 @@ class CoffeeShop {
     var barista: Person
     var customer: Person?
     
-    func order(_ coffee: Coffee) {
+    func orderCoffee(_ coffee: Coffee) {
         print("주문하신 \(coffee) 주문 받았습니다.")
         
         if coffee == .americano {
@@ -39,7 +39,7 @@ class CoffeeShop {
         }
     }
     
-    func make(_ coffee: Coffee) {
+    func makeCoffee(_ coffee: Coffee) {
         if coffee == .americano {
             print("컵에 얼음과 물을 가득 담은 후 샷 부어주기")
         } else if coffee == .latte {
@@ -63,7 +63,6 @@ class CoffeeShop {
     }
 }
 
-var misterLee = Person(name: "misterLee", money: 30000)
-var missKim = Person(name: "missKim", money: 1000)
-var yagombucks: CoffeeShop = CoffeeShop(sales: 300000, barista: misterLee)
-yagombucks.barista = misterLee
+let misterLee = Person(name: "misterLee", money: 30000)
+let missKim = Person(name: "missKim", money: 3000)
+let yagombucks: CoffeeShop = CoffeeShop(sales: 300000, barista: misterLee)
