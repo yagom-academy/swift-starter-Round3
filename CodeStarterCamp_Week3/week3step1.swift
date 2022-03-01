@@ -25,11 +25,11 @@ class Person {
 
 class CoffeeShop {
     var salesRevenue: Int = 0
-    var menu: [Coffee: Int] = [:]
+    var menu: [Items.Coffee: Int] = [:]
     var pickUpTable: Array<String> = []
     var baristas: Array<Person> = []
     
-    init(baristas: Array<Person>, menu: [Coffee: Int]) {
+    init(baristas: Array<Person>, menu: [Items.Coffee: Int]) {
         self.baristas = baristas
         self.menu = menu
     }
@@ -45,16 +45,31 @@ class CoffeeShop {
     }
 }
 
-enum Coffee {
-    case espresso
-    case americano
-    case latte
-    case cappuccino
+class Items {
+    enum Coffee {
+        case espresso
+        case americano
+        case latte
+        case cappuccino
+        
+        var name: String {
+            switch self {
+            default:
+                return "\(self)".capitalized
+            }
+        }
+    }
     
-    var name: String {
-        switch self {
-        default:
-            return "\(self)".capitalized
+    enum Tea {
+        case herbal
+        case lemon
+        case mint
+        
+        var name: String {
+            switch self {
+            default:
+                return "\(self) Tea".capitalized
+            }
         }
     }
 }

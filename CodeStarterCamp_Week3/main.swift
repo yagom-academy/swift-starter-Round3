@@ -11,10 +11,4 @@ import Foundation
 let misterLee = Person(name: "Cheolsoo", money: 10000)
 let missKim = Person(name: "Younghee", money: 10000)
 
-let yagombuks = CoffeeShop(baristas: [misterLee], menu: [Coffee.espresso: 3000, Coffee.americano: 3500])
-
-missKim.buy(Coffee.americano.name)
-
-var str = "bla bla"
-print(capitalize(what: str))
-
+let yagombuks = CoffeeShop(baristas: [misterLee], menu: [Items.Coffee.espresso: 3000, Items.Coffee.americano: 3500])
