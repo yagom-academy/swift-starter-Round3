@@ -27,9 +27,9 @@ class CoffeeShop {
     var salesRevenue: Int = 0
     var menu: [Coffee: Int] = [:]
     var pickUpTable: Array<String> = []
-    var baristas: Array<String> = []
+    var baristas: Array<Person> = []
     
-    init(baristas: Array<String>, menu: [Coffee: Int]) {
+    init(baristas: Array<Person>, menu: [Coffee: Int]) {
         self.baristas = baristas
         self.menu = menu
     }
