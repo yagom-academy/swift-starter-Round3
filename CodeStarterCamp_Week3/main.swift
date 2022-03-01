@@ -8,79 +8,42 @@
 
 import Foundation
 
-class Person { // 물건 구매 후 남은 돈 알려주면 될듯
-    
-    let name: String
+// struct가 어울릴 것 같다.
+
+struct Person {
+    var name: String
     var money: Int
     
     init(name: String, money: Int){
         self.name = name
         self.money = money
     }
-    
-    func buySomething(thing: String) {
-        var defaultCount = 0
+    mutating func buySomething(thing: String){
         switch thing{
         case "커피":
             money -= 3000
         case "담배":
             money -= 4500
         case "콜라":
-            money -= 2500
+            money -= 2000
         default:
-            money += 0
-            defaultCount += 1
+            money -= 0
         }
-        if defaultCount == 0 {
-            print("\(name)님이 구매하신 물건은 \(thing)이며, 남은 금액은 \(money)원 입니다.")
-        } else if defaultCount == 1{
-            print("\(name)님, 해당 물건은 구매할 수 없으며, 남은 금액은 \(money)원 입니다.")
+        
+        if money != 10000{
+            print("\(name)님이 구매하신 물건은 \(thing)이며, 남은 돈은 \(money)입니다.")
+        } else if money == 10000{
+            print("\(name)님이 구매하신 물건은 없으며, 남은 돈은 \(money)입니다.")
         }
     }
 }
 
-// 수입을 부가적으로 올려서 알려주기
-// 열거형 이용해서 캎페이익
-var cafeProfit = 0
-
-class CoffeeShop: Person {
-    
-    var cafeName: String
-    var cafeProfit: Int
-    var pickUpTable: String
-    
-    init(cafeName: String, cafeProfit: Int, name: String, pickUpTable: String, money: Int){
-
-        self.cafeName = cafeName
-        self.cafeProfit = cafeProfit
-        self.pickUpTable = pickUpTable
-        super.init(name: name, money: money)
-    }
-    
-    func takeOrder(coffeeType : String){
-            print("\(coffeeType) 준비해 드리겠습니다, \(name)님이 준비해주실거에요 !")
-            makeCoffee(coffeeType: coffeeType)
-    }
-    
-    func makeCoffee(coffeeType: String){
-        print("\(coffeeType)을 만들기 위해 샷을.. 내리는 중 .. ")
-        print("주문하신 \(coffeeType) 나왔습니다 ~~! \(pickUpTable)에 놓을게요!")
-    }
-    
-    func printCafeProfit(){
-        
-        print("\(cafeName)의 누적 이익은 \(cafeProfit)원 입니다 !")
-        
-    }
-
-}
-
-enum Coffee: Int{
-    case americano
-    case mixCoffee
-    case cafeMocha
-    case vanillaLatte
-    case espresso
+enum Coffee: String{
+    case americano = "아메리카노"
+    case mixCoffee = "믹스커피"
+    case cafeMocha = "카페모카"
+    case vanillaLatte = "바닐라라떼"
+    case espresso = "에스프레소"
     
     func coffeePrice() -> Int{
         switch self{
@@ -98,19 +61,45 @@ enum Coffee: Int{
     }
 }
 
+
+struct CoffeeShop{
+    var cafeName: String
+    var cafeProfit: Int
+    var pickUpTable: String
+    var barista: String
+    
+    let cafeMenu: [String: Int] = [ Coffee.americano.rawValue : Coffee.americano.coffeePrice(), Coffee.mixCoffee.rawValue : Coffee.mixCoffee.coffeePrice(), Coffee.cafeMocha.rawValue : Coffee.cafeMocha.coffeePrice(), Coffee.vanillaLatte.rawValue : Coffee.vanillaLatte.coffeePrice() , Coffee.espresso.rawValue : Coffee.espresso.coffeePrice()]
+    
+    mutating func takeOrder(coffee1: String, coffee2: String, coffeePrice: Int){
+        print("\(barista)님이 \(coffee1)이랑 \(coffee2) 만들어 드릴게요 !")
+        makeCoffee(coffee1: coffee1, coffee2: coffee2, coffeePrice: coffeePrice)
+    }
+    
+    mutating func makeCoffee(coffee1: String, coffee2: String, coffeePrice: Int){
+        print("\(coffee1), \(coffee2) 나왔습니다! \(pickUpTable)에 놓을게요!")
+        checkProfit(coffeePrice: coffeePrice)
+    }
+    
+    mutating func checkProfit(coffeePrice: Int){
+        cafeProfit += coffeePrice
+        print("\(cafeName)의 누적 순이익은 \(cafeProfit)입니다!")
+    }
+    
+}
+
 var misterLee = Person(name: "misterLee", money: 10000)
-var missKim = Person(name: "missKim", money: 50000)
-misterLee.buySomething(thing: "신발")
-missKim.buySomething(thing: "담배")
+var missKim = Person(name: "missKim", money: 10000)
+misterLee.buySomething(thing: "담배")
+missKim.buySomething(thing: "커피")
 
-let americano = Coffee.americano
-let vanillaLatte = Coffee.vanillaLatte
+var yagombucks = CoffeeShop(cafeName: "yagombucks", cafeProfit: 150000, pickUpTable: "카운터", barista: misterLee.name)
 
-var yagombucks = CoffeeShop(cafeName: "yagombucks", cafeProfit: 10000, name: misterLee.name, pickUpTable: "카운터", money: misterLee.money)
-yagombucks.takeOrder(coffeeType: "\(americano)")
-yagombucks.cafeProfit += americano.coffeePrice()
+let cafeMenu = yagombucks.cafeMenu
+print("**메뉴판** \n\(cafeMenu)")
 
-yagombucks.takeOrder(coffeeType: "\(vanillaLatte)")
-yagombucks.cafeProfit += vanillaLatte.coffeePrice()
+let americano = Coffee.americano.rawValue
+let mixCoffee = Coffee.mixCoffee.rawValue
+let coffeePrice = Coffee.americano.coffeePrice() + Coffee.mixCoffee.coffeePrice()
 
-yagombucks.printCafeProfit()
+yagombucks.takeOrder(coffee1: americano, coffee2: mixCoffee, coffeePrice: coffeePrice)
+
