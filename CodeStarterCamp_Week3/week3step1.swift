@@ -17,7 +17,7 @@ class Person {
         self.money = money
     }
     
-    func buy(something: String) {
+    func buy(_ something: String) {
         self.inventory.append(something)
         print("\(self.name)의 인벤토리에 \(something) 이/가 추가되었습니다.")
     }
@@ -39,7 +39,7 @@ class CoffeeShop {
         return coffee
     }
     
-    func make(what: String) {
+    func make(_ what: String) {
         pickUpTable.append(what)
         print("주문하신 \(what) 나왔습니다.")
     }
