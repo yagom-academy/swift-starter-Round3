@@ -63,18 +63,16 @@ class CoffeeShop {
         self.barista = barista
     }
 
-    mutating func takeOrder(coffee: Coffee) {
-        if let coffeePrice = menu[coffee] {
-            sales += coffeePrice
-        } else {
-            print("다시 주문해주세요")
-        }
+    func takeOrder(coffee: Coffee, from person: Person) {
+        sales += coffee.price
+        pickUpTable = true
+        makeCoffee(coffee: coffee, to: person, on: pickUpTable)
     }
     
-    func makeCoffee(coffee: Coffee, to person: Person) {
-        let isCompleted = pickUpTable == "on"
+    func makeCoffee(coffee: Coffee, to person: Person, on pickUpTable: Bool) {
+        let isCompleted = pickUpTable == true
         if isCompleted {
-            print("\(person.name)님 주문하신 \(coffee) 나왔습니다")
+            print("\(person.name)님의 커피가 준비되었습니다. 픽업대에서 가져가주세요.")
         } else {
             print("잠시만 기다려주세요")
         }
