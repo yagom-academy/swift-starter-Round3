@@ -20,7 +20,7 @@ class Person {
 
 class CoffeeShop {
     var totalSale : Int
-    var menu : [Dictionary<Coffee, Int>] = [[.americano:4500],[.tea: 2500],[.juice: 3000]]
+    var menu : [Coffee] = [.americano, .tea, .juice]
     var pickUpTable : Array<String> = []
     var baristas : Person
 
@@ -32,11 +32,11 @@ class CoffeeShop {
     func takeOrder(drinkType: Coffee) {
         switch drinkType {
         case .americano:
-            self.totalSale += self.menu[0][.americano]!
+            self.totalSale += self.menu[0].rawValue
         case .tea:
-            self.totalSale += self.menu[1][.tea]!
+            self.totalSale += self.menu[1].rawValue
         case .juice:
-            self.totalSale += self.menu[2][.juice]!
+            self.totalSale += self.menu[2].rawValue
         }
     }
     
@@ -52,6 +52,8 @@ class CoffeeShop {
     }
 }
 
-enum Coffee {
-    case americano, tea, juice
+enum Coffee: Int {
+    case americano = 4500
+    case tea = 2500
+    case juice = 3000
 }
