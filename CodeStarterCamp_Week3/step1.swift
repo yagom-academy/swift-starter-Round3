@@ -8,10 +8,10 @@
 import Foundation
 
 class Person {
-    var moneyYouHave : Int?
+    var property : Int
 
-    init(moneyYouHave : Int?) {
-        self.moneyYouHave = moneyYouHave
+    init(property : Int) {
+        self.property = property
     }
 
     func buy() {
@@ -20,14 +20,13 @@ class Person {
 
 class CoffeeShop {
     var totalSale : Int
-    var menu : [Dictionary<Coffee, Int>] = [[Coffee: Int]()]
-    var pickUpTable : Int
-    var barista : String?
+    var menu : [Dictionary<Coffee, Int>] = [[.americano:4500],[.tea: 2500],[.juice: 3000]]
+    var pickUpTable : Array<String> = []
+    var baristas : Person
 
-    init(totalSale : Int, menu: [[Coffee: Int]], pickUpTable: Int) {
+    init(totalSale: Int, baristas: Person) {
         self.totalSale = totalSale
-        self.menu = menu
-        self.pickUpTable = pickUpTable
+        self.baristas = baristas
     }
 
     func takeOrder(drinkType: Coffee) {
@@ -41,14 +40,14 @@ class CoffeeShop {
         }
     }
     
-    func makecoffee(drinkType: Coffee) {
+    func makeCoffee(drinkType : Coffee) {
         switch drinkType {
         case .americano:
-            print("아메리카노 제조중...")
+            pickUpTable.append("아메")
         case .tea:
-            print("티 제조중...")
+            pickUpTable.append("티")
         case .juice:
-            print("주스 제조중...")
+            pickUpTable.append("주스")
         }
     }
 }

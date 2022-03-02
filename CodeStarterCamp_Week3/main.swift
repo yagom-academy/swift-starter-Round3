@@ -8,9 +8,9 @@
 
 import Foundation
 
-var misterLee = Person(moneyYouHave : nil)
-var missKim = Person(moneyYouHave: 10000)
-var yagombucks = CoffeeShop(totalSale: 0, menu: [[.americano:4500],[.tea: 2500],[.juice: 3000]], pickUpTable: 5)
+var misterLee = Person(property: 0)
+var missKim = Person(property: 10000)
+var yagombucks = CoffeeShop(totalSale: 0, baristas: misterLee)
 
 yagombucks.takeOrder(drinkType: .juice)
 yagombucks.takeOrder(drinkType: .juice)
