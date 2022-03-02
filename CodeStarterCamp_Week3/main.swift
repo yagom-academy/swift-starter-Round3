@@ -8,10 +8,21 @@
 
 import Foundation
 
-enum Coffee {
+enum Coffee: CaseIterable {
     case americano
     case latte
     case espresso
+    
+    var price: Int {
+        switch self {
+        case .espresso:
+            return 3800
+        case .americano:
+            return 4100
+        case .latte:
+            return 4500
+        }
+    }
 }
 
 struct Person {
