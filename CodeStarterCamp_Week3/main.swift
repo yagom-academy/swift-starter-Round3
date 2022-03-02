@@ -79,4 +79,4 @@ class CoffeeShop {
     }
 }
 
-var yagombucks = CoffeShop(sales: 200000, menu: [Coffee.espresso: 3800, Coffee.americano: 4100, Coffee.latte: 4500], pickUpTable: "on", barista: misterLee)
+var yagombucks = CoffeeShop(sales: 0, menu: [Coffee.espresso: Coffee.espresso.price, Coffee.americano: Coffee.americano.price, Coffee.latte: Coffee.latte.price], pickUpTable: false, barista: misterLee)
