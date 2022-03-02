@@ -80,3 +80,5 @@ class CoffeeShop {
 }
 
 var yagombucks = CoffeeShop(sales: 0, menu: [Coffee.espresso: Coffee.espresso.price, Coffee.americano: Coffee.americano.price, Coffee.latte: Coffee.latte.price], pickUpTable: false, barista: misterLee)
+
+missKim.buy(coffee: Coffee.americano, from: yagombucks)
