@@ -50,11 +50,18 @@ class Person {
 var misterLee = Person(name: "misterLee", money: 10000)
 var missKim = Person(name: "missKim", money: 10000)
 
-struct CoffeShop {
+class CoffeeShop {
     var sales: Int
     let menu: [Coffee: Int]
-    var pickUpTable: String
-    var barista: Person?
+    var pickUpTable: Bool
+    let barista: Person
+    
+    init(sales: Int, menu: [Coffee: Int], pickUpTable: Bool, barista: Person) {
+        self.sales = sales
+        self.menu = menu
+        self.pickUpTable = pickUpTable
+        self.barista = barista
+    }
 
     mutating func takeOrder(coffee: Coffee) {
         if let coffeePrice = menu[coffee] {
