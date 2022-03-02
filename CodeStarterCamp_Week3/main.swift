@@ -25,22 +25,30 @@ enum Coffee: CaseIterable {
     }
 }
 
-struct Person {
+class Person {
     let name: String
     var money: Int
     
-    mutating func buySomething(for price: Int) {
-        let hasEnoughMoney = self.money >= price
-        if hasEnoughMoney {
-            self.money -= price
-            print("\(self.name)이 구매를 완료했습니다. 잔액은 \(self.money)원 입니다")
-        } else {
-            print("잔액이 부족합니다.")
+    init(name: String, money: Int) {
+        self.name = name
+        self.money = money
+    }
+    
+    func buy(coffee: Coffee, from coffeeShop: CoffeeShop) {
+        let hasEnoughMoney = self.money >= coffee.price
+        guard hasEnoughMoney else {
+            self.money -= coffee.price
+            print("잔액이 \(-self.money)원만큼 부족합니다.")
+            return
         }
+        self.money -= coffee.price
+        print("결제가 완료되었습니다. 잔액은 \(self.money)원입니다.")
+        coffeeShop.takeOrder(coffee: coffee, from: self)
     }
 }
-var misterLee = Person(name: "misterLee", money: 100000)
-var missKim = Person(name: "missKim", money: 100000)
+
+var misterLee = Person(name: "misterLee", money: 10000)
+var missKim = Person(name: "missKim", money: 10000)
 
 struct CoffeShop {
     var sales: Int
