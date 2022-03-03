@@ -42,8 +42,9 @@ struct Person {
         return buyAvailability
     }
     
-    func printPurchaseResult (buyAvailability: Bool, productName: Coffee) {
+    mutating func printPurchaseResult (buyAvailability: Bool, productName: Coffee) {
         if buyAvailability {
+            self.money -= productName.cost
             print("\(self.name) paid \(productName.cost) for \(productName)")
         } else {
             print("잔액이 {\((productName.cost) - self.money)}원만큼 부족합니다.")
