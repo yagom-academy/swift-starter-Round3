@@ -10,7 +10,7 @@ import Foundation
 
 class Person {
   let name: String
-  var money: Int = 0
+  private var money: Int = 0
   
   init(name: String) {
     self.name = name
@@ -27,10 +27,10 @@ class Person {
 }
 
 class CoffeeShop {
-  var barista: Person
-  var salesRevenue: Int = 0
-  var menus: [Coffee] = Coffee.allCases
-  var pickUpTable: [Coffee] = []
+  private var barista: Person
+  private var salesRevenue: Int = 0
+  private var menus: [Coffee] = Coffee.allCases
+  private var pickUpTable: [Coffee] = []
   
   init(barista: Person) {
     self.barista = barista
