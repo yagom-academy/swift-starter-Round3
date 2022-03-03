@@ -63,6 +63,13 @@ struct CoffeeShop {
         }
     }
     
+    init(revenue: Int, menu: [Coffee: Int], barista: Person, pickUpTable: Array<String>) {
+        self.revenue = revenue
+        self.menu = menu
+        self.barista = barista
+        self.pickUpTable = pickUpTable
+    }
+    
     mutating func takeOrder(coffee: Coffee) -> Bool {
         var orderAvailability = false
         if let coffeePrice = menu[coffee] {
