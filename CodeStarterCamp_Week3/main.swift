@@ -21,36 +21,44 @@ class Person {
 }
 
 class CoffeeShop {
-    var sales: Int
-    var kindOfCoffeeMenu: String
-    var priceOfCoffeeMenu: Int
+    var menu: [Coffee: Int]
     var pickUpTable: Array<String> = Array<String>()
     var barista: Person
+    var sales: Int
+    var yagombucks: CoffeeShop
     
-    init(sales: Int, kindOfCoffeeMenu: String, priceOfCoffeeMenu: Int, pcikUpTable: Array<String>, barista: Person) {
-        self.kindOfCoffeeMenu = kindOfCoffeeMenu
-        self.priceOfCoffeeMenu = priceOfCoffeeMenu
-        self.sales = sales
-        self.pickUpTable = pcikUpTable
+    init(yagombucks: CoffeeShop, sales: Int, menu: [Coffee: Int], pickUpTable: Array<String>, barista: Person) {
+        self.menu = [.americano: 3000, .cafeLatte: 3500, .coldBrew: 4000]
+        self.pickUpTable = pickUpTable
         self.barista = barista
+        self.sales = sales
+        self.yagombucks = yagombucks
     }
     
     enum Coffee {
-        case americano
-        case cafeLatte
-        case coldBrew
+        case americano, cafeLatte, coldBrew
     }
     
     func orderMenu(coffee: Coffee) {
         print("\(coffee)한잔 주문 받았습니다.")
     }
     
-    func makeCoffe(coffee: Coffee) {
+    func makeCoffee(coffee: Coffee) {
         print("\(coffee)를 만들었습니다.")
     }
+    
+    func putOn(pickUpTable: Array<String>, person: Person, coffee: Coffee) {
+        let PickUpTable = "\(coffee)"
+        print(PickUpTable)
+        print("\(person.name)님의 커피가 준비되었습니다. 픽업대에서 가져가주세요.")
+    }
+    
+    func goingUp(price: Coffee) {
+        var sumSales: Int = 0
+        if let price = menu[price] {
+            sumSales += price
+            sales = sumSales
+        }
+        print("yagombucks의 매출이 \(sales)원 올랐습니다.")
+    }
 }
-
-var misterLee: Person = Person(money: 10000)
-var missKim: Person = Person(money: 10000)
-var yagombucks: CoffeeShop = CoffeeShop(sales: 0, kindOfCoffeeMenu: "", priceOfCoffeeMenu: 0, pcikUpTable: [], barista: misterLee)
-
