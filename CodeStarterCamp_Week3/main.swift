@@ -8,19 +8,18 @@
 
 import Foundation
 
-//Person 인스턴스
-let misterLee : Person? = Person(name: "misterLee", age: 28, money: 10000) //Person타입에 ?를 붙여서 misterLee라는 사람을 할당했다.
-let missKim : Person? = Person(name: "missKim", age: 26, money: 10000)
-
-//CoffeeShop 인스턴스 및 상속
+////Person 인스턴스(customer , barista에 할당)
+let misterLee : Barista? = Barista(name: "misterLee", age: 28, money: 10000)
+let missKim : Customer? = Customer(name: "missKim", age: 26, money: 10000)
 let yagombucks : CoffeeShop = CoffeeShop()//오늘 수입이 0원부터 시작하고, pickUpTable이 있는 yagombucks에 coffeshop타입을 할당해주었다.
-
-yagombucks.showCoffeePrint(.Americano)//가격출력
 yagombucks.barista = misterLee//바리스타 할당
 yagombucks.customer = missKim//손님 할당
+misterLee?.cafe = yagombucks//바리스타에게 어느 카페에서 일을 하는지 할당해주었다.
+missKim?.cafe = yagombucks//손님에게 어느 카페를 가는지 할당해주었다.
 
+yagombucks.showCoffeePrint(.Americano)//가격출력
 
-
-missKim?.order(.Americano) //yagombucks의 매출이 올라간 모습까지 확인가능
-missKim?.order(.Americano)
-yagombucks.pickUpTable(ready: true )
+missKim?.cafe.order(.Americano) //yagombucks의 매출이 올라간 모습까지 확인가능
+missKim?.cafe.order(.Americano)
+missKim?.cafe.order(.Americano) //missKim이 세잔을 주문할 잔액이 부족하다는 것을 호출해줌
+misterLee?.cafe.pickUpTable(ready: true ) //바리스타가 음료가 완료됐다는 것을 알려줌.
