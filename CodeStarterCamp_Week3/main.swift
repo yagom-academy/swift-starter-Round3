@@ -79,10 +79,8 @@ struct CoffeeShop {
     }
     
     mutating func makeCoffee(person: Person, coffee: Coffee) {
-        pickUpTable["\(person.name)"] = "\(coffee)"
-        if let orderedCoffee = pickUpTable["\(person.name)"] {
-            print("\(person.name) 님의 \(orderedCoffee)가 준비되었습니다. 픽업대에서 가져가 주세요.")
-        }
+        self.revenue += coffee.cost
+        pickUpTable.append(person.name)
     }
 }
 
