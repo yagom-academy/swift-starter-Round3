@@ -34,10 +34,9 @@ struct Person {
         self.money = money
     }
     
-    mutating func buyProduct(productName: Coffee) -> Bool {
+    mutating func canBuy(productName: Coffee) -> Bool {
         var buyAvailability = false
         if self.money >= productName.cost {
-            self.money -= productName.cost
             buyAvailability = true
         }
         return buyAvailability
