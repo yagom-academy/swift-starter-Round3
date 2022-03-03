@@ -55,8 +55,13 @@ struct Person {
 struct CoffeeShop {
     var revenue: Int
     let menu: [Coffee: Int]
-    let barista: Person
-    var pickUpTable: [String: String]
+    private let barista: Person
+    private var pickUpTable: Array<String> {
+        willSet (newName) {
+            guard let personName = newName.first else { return }
+            print("\(personName) 님의 커피가 준비되었습니다. 픽업대에서 갖져가 주세요.")
+        }
+    }
     
     mutating func takeOrder(coffee: Coffee) -> Bool {
         var orderAvailability = false
