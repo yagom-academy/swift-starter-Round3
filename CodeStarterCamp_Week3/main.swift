@@ -8,15 +8,25 @@
 
 import Foundation
 
-class Person {
+class Person: CoffeeShop {
     var money: Int
+    var name: String
     
-    init(money: Int) {
+    init(money: Int, name: String) {
         self.money = money
+        self.name = name
+        super.init(yagombucks: misterLee, sales: 0, menu: [:], pickUpTable: [], barista: misterLee)
     }
-    
-    func buySomething(price: Int) {
-        print(money-price)
+    func makePayment(coffee: Coffee, person: Person) {
+        if let price = menu[coffee] {
+            if price <= person.money {
+                person.money -= price
+                print("거스름돈은 \(person.money)원 입니다.")
+            }
+            else if price > person.money {
+                print("잔액이 \(price-person.money)원만큼 부족합니다.")
+            }
+        }
     }
 }
 
@@ -62,3 +72,7 @@ class CoffeeShop {
         print("yagombucks의 매출이 \(sales)원 올랐습니다.")
     }
 }
+
+var misterLee: Person = Person(money: 10000, name: "misterLee")
+var missKim: Person = Person(money: 10000, name: "missKim")
+var pickUpTable: Array<String> = Array<String>()
