@@ -29,6 +29,11 @@ struct Person {
     let name: String
     private var money: Int
     
+    init(name: String, money: Int) {
+        self.name = name
+        self.money = money
+    }
+    
     mutating func buyProduct(productName: Coffee) -> Bool {
         var buyAvailability = false
         if self.money >= productName.cost {
