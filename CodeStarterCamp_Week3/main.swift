@@ -27,7 +27,7 @@ enum Coffee {
 
 struct Person {
     let name: String
-    var money: Int
+    private var money: Int
     
     mutating func buyProduct(productName: Coffee) -> Bool {
         var buyAvailability = false
