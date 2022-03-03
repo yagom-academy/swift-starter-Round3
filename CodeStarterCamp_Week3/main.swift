@@ -70,10 +70,9 @@ struct CoffeeShop {
         self.pickUpTable = pickUpTable
     }
     
-    mutating func takeOrder(coffee: Coffee) -> Bool {
+    mutating func canOrder(coffee: Coffee) -> Bool {
         var orderAvailability = false
-        if let coffeePrice = menu[coffee] {
-            revenue += coffeePrice
+        if let _ = menu[coffee] {
             orderAvailability = true
         }
         return orderAvailability
