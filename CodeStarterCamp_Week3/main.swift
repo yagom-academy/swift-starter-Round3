@@ -68,3 +68,10 @@ import Foundation
 //let yagombucks: CoffeeShop = CoffeeShop(sales: 300000, barista: misterLee)
 
 
+missKim.buyCoffee(.americano)
+yagombucks.orderCoffee(.americano)
+
+if hasAsset(missKim, .americano) == true {
+    yagombucks.makeCoffee(.americano)
+    print(yagombucks.pickUpTable)
+}
