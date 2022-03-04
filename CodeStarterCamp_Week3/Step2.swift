@@ -61,19 +61,19 @@ class Person {
 }
 
 class Barista : Person {
-    var cafe : CoffeeShop! //나중에 CoffeeShop의 인스턴스를 할당해줄 예정이다.
+    var cafe : CoffeeShop? //나중에 CoffeeShop의 인스턴스를 할당해줄 예정이다.
 }
 
 class Customer : Person{
-    var cafe : CoffeeShop!
+    var cafe : CoffeeShop?
 }
 
 class CoffeeShop {
     var cafe : String
     var revenue: Int
     var menu: Coffee!
-    var barista : Barista!
-    var customer : Customer!
+    var barista : Barista?
+    var customer : Customer?
     
     init(){
         self.revenue = 0
@@ -96,22 +96,35 @@ class CoffeeShop {
     }
     
     func order(_ menu : Coffee){ //자신의 메뉴 주문완료 표시
-        print("\(customer.name)님이 \(menu)를 선택하셨습니다.")
-        let costMoney : Int = menu.printCoffeePrice()
-        customer.money -= costMoney
-        if customer.money >= 0 {
-            print("결제되셨습니다. 남은 \(customer.name)님의 잔액은 \(customer.money)입니다.")
-            print("\(cafe)의 오늘 매출은 \(totalRevenue(menu))원 입니다.")//주문과 동시에 오늘 수입이 올라가는 로직이 짜보았다.
+        if let customerName = customer?.name{
+            print("\(customerName)님이 \(menu)를 선택하셨습니다.")
+            let costMoney : Int = menu.printCoffeePrice()
+            if let customerMoney = customer?.money{
+            if customerMoney-costMoney >= 0 {
+                print("결제되셨습니다. 남은 \(customerName)님의 잔액은 \(customerMoney-costMoney)입니다.")
+                print("\(cafe)의 오늘 매출은 \(totalRevenue(menu))원 입니다.")//주문과 동시에 오늘 수입이 올라가는 로직이 짜보았다.
+                customer?.money = customerMoney-costMoney
+            }else{
+                print("\(customerName)님의 잔액이 \(-(customerMoney-costMoney))원만큼 부족합니다.")
+            }
+            }else{
+                print("nil")
+            }
         }else{
-            print("\(customer.name)님의 잔액이 \(-customer.money)원만큼 부족합니다.")
+            print("nil")
         }
     }
     
     func pickUpTable(ready : Bool){
-        if ready == true {
-            print("\(customer.name)님의 커피가 준비되었습니다. 픽업대에서 가져가주세요")
-        }else{
-            print("아직 준비중입니다.")
+        if let customerName = customer?.name{
+            if ready == true {
+                        print("\(customerName)님의 커피가 준비되었습니다. 픽업대에서 가져가주세요")
+                    }else{
+                        print("아직 준비중입니다.")
+                    }
+        }
+        else{
+            print("nil")
         }
     }
 }
