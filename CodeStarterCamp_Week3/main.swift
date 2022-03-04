@@ -23,7 +23,7 @@ class Person {
         if money < coffee.rawValue {
             print("잔액이 \(coffee.rawValue - money)만큼 부족합니다.")
         } else {
-            coffeeShop.takeOrder(coffee: coffee)
+            coffeeShop.takeOrder(coffee: coffee, customer: self)
             money -= coffee.rawValue
         }
     }
@@ -33,6 +33,7 @@ class CoffeeShop {
     var sales: Int
     var barista: Person
     var menu: [Coffee]
+    var customer: Person?
     var pickUpTable: String?
     
     init(sales: Int, barista: Person, menu: [Coffee]) {
@@ -41,15 +42,15 @@ class CoffeeShop {
         self.menu = menu
     }
     
-    func takeOrder(coffee: Coffee) {
+    func takeOrder(coffee: Coffee, customer: Person) {
         print("주문하신 \(coffee)의 가격은 \(coffee.rawValue)입니다.")
         sales += coffee.rawValue
-        bringOutCoffee(coffee: coffee)
+        bringOutCoffee(coffee: coffee, customer: customer)
     }
     
-    func bringOutCoffee(coffee: Coffee) {
+    func bringOutCoffee(coffee: Coffee, customer: Person) {
         pickUpTable = String("\(coffee)")
-        print("\(coffee)나왔습니다.")
+        print("\(customer.name) 님의 \(coffee)가 준비되었습니다. 픽업대에서 가져가주세요.")
     }
 }
 
@@ -63,3 +64,5 @@ enum Coffee: Int {
 var misterLee = Person(name: "Lee", age: 20, money: 10000)
 var missKim = Person(name: "Kim", age: 30, money: 20000)
 var yagombucks = CoffeeShop(sales: 0, barista: misterLee, menu: [.americano, .latte, .espresso, .water])
+
+missKim.orderCoffee(coffee: .americano, coffeeShop: yagombucks)
