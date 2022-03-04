@@ -24,18 +24,22 @@ struct CoffeeShop {
     var menu: Dictionary<Coffee, Int> = [.americano: 4000, .latte: 4500, .coldBrew: 5000]
     
     mutating func order(_ coffee: Coffee, by person: Person) {
-        if person.money >= menu[coffee] ?? 0 {
-            person.money -= menu[coffee] ?? 0
-            sales += menu[coffee] ?? 0
-            pickUpTable = person.name
-        } else {
-            print("잔액이 \((menu[coffee] ?? 0) - person.money)원만큼 부족합니다.")
+        if let coffeePrice = menu[coffee] {
+            if person.money >= coffeePrice {
+                person.money -= coffeePrice
+                sales += coffeePrice
+                pickUpTable = person.name
+            } else {
+                print("잔액이 \((coffeePrice) - person.money)원만큼 부족합니다.")
+            }
         }
     }
     
-    var pickUpTable: String = "" {
+    var pickUpTable: String? {
         didSet {
-            print("\(pickUpTable)님의 커피가 준비되었습니다. 픽업대에서 가져가주세요.")
+            if let pickUpTable = pickUpTable {
+                print("\(pickUpTable)님의 커피가 준비되었습니다. 픽업대에서 가져가주세요.")
+            }
         }
     }
 }
