@@ -66,12 +66,11 @@ struct CoffeeShop {
         self.pickUpTable = pickUpTable
     }
     
-    mutating func canOrder(coffee: Coffee) -> Bool {
-        var orderAvailability = false
-        if let _ = menu[coffee] {
-            orderAvailability = true
+    func canOrder(coffee: Coffee) -> Bool {
+        if menu[coffee] == nil {
+            return false
         }
-        return orderAvailability
+        return true
     }
     
     mutating func makeCoffee(person: Person, coffee: Coffee) {
