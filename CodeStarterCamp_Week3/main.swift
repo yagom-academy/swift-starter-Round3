@@ -8,7 +8,7 @@
 
 import Foundation
 
-struct Person {
+class Person {
     let name: String
     let age: Int
     var money: Int
@@ -18,15 +18,18 @@ struct Person {
         self.age = age
         self.money = money
     }
-    
-    mutating func buySomething(price: Int) {
-        print("\(price)원의 물건을 구매합니다.")
-        money -= price
-        print("\(money)가 남았습니다.")
+
+    func orderCoffee(coffee: Coffee, coffeeShop: CoffeeShop) {
+        if money < coffee.rawValue {
+            print("잔액이 \(coffee.rawValue - money)만큼 부족합니다.")
+        } else {
+            coffeeShop.takeOrder(coffee: coffee)
+            money -= coffee.rawValue
+        }
     }
 }
 
-struct CoffeeShop {
+class CoffeeShop {
     var sales: Int
     var barista: Person
     var menu: [Coffee]
@@ -38,13 +41,13 @@ struct CoffeeShop {
         self.menu = menu
     }
     
-    mutating func takeOrder(coffee: Coffee) {
+    func takeOrder(coffee: Coffee) {
         print("주문하신 \(coffee)의 가격은 \(coffee.rawValue)입니다.")
         sales += coffee.rawValue
         bringOutCoffee(coffee: coffee)
     }
     
-    mutating func bringOutCoffee(coffee: Coffee) {
+    func bringOutCoffee(coffee: Coffee) {
         pickUpTable = String("\(coffee)")
         print("\(coffee)나왔습니다.")
     }
