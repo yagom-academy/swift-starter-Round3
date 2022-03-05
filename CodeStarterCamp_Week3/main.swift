@@ -8,5 +8,10 @@
 
 import Foundation
 
-print("Hello, World!")
-
+enum Coffee {
+    case americano
+    case cafeLatte
+    case vanilaLatte
+    case cafeMoca
+    case chocoLatte
+}
