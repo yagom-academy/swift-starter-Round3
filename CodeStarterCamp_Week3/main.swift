@@ -10,10 +10,11 @@ import Foundation
 
 class Person {
   let name: String
-  private var money: Int = 0
+  private var money: Int
   
-  init(name: String) {
+  init(name: String, money: Int) {
     self.name = name
+    self.money = money
   }
   
   func buy(coffee: Coffee, from coffeeShop: CoffeeShop) {
@@ -70,8 +71,8 @@ enum Coffee: CaseIterable {
   }
 }
 
-let misterLee = Person(name: "misterLee")
-let missKim = Person(name: "missKim")
+let misterLee = Person(name: "misterLee", money: 50000)
+let missKim = Person(name: "missKim", money: 5000)
 
 let yagombucks = CoffeeShop(barista: misterLee)
 missKim.buy(coffee: .americano, from: yagombucks)
