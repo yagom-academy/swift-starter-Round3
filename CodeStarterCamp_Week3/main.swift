@@ -15,3 +15,16 @@ enum Coffee {
     case cafeMoca
     case chocoLatte
 }
+
+struct Person {
+    var money: Int
+    
+    mutating func buyStuff(price: Int) {
+        if money >= price {
+            print("\(price)를 내고 구매하였습니다!")
+            money -= price
+        } else {
+            print("열심히 일해서 돈을 더 법시다!")
+        }
+    }
+}
