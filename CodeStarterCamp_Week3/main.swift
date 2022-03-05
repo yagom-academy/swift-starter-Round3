@@ -35,32 +35,34 @@ class Person {
     }
     
     func buy(coffee: Coffee, from coffeeShop: CoffeeShop) {
-        if Coffee.allCases.contains(coffee) {
-            let hasEnoughMoney = self.money >= coffee.price
-            guard hasEnoughMoney else {
-                print("잔액이 \(coffee.price-self.money)원만큼 부족합니다.")
-                return
-            }
-            self.money -= coffee.price
-            print("결제가 완료되었습니다. 잔액은 \(self.money)원입니다.")
-            coffeeShop.takeOrder(coffee: coffee, from: self)
-        }
-        else {
+        guard coffeeShop.menu.contains(coffee) else {
             print("죄송합니다. 주문하신 \(coffee)는 판매하지 않습니다.")
+            return
         }
+        let hasEnoughMoney = self.money >= coffee.price
+        guard hasEnoughMoney else {
+            print("잔액이 \(coffee.price-self.money)원만큼 부족합니다.")
+            return
+        }
+        self.money -= coffee.price
+        coffeeShop.takeOrder(coffee: coffee, from: self)
     }
 }
 
-var misterLee = Person(name: "misterLee", money: 10000)
-var missKim = Person(name: "missKim", money: 10000)
+let misterLee = Person(name: "misterLee", money: 10000)
+let missKim = Person(name: "missKim", money: 10000)
 
 class CoffeeShop {
     var sales: Int = 0
     let menu: [Coffee] = Coffee.allCases
-    var customer: String = ""
+    var customer: String?
     var pickUpTable: [Coffee] = [] {
         didSet {
-            print("\(customer)님의 커피가 준비되었습니다. 픽업대에서 가져가주세요.")
+            if let actual_customer = customer {
+                giveCoffee(to: actual_customer)
+            } else {
+                return
+            }
         }
     }
     let barista: Person
@@ -79,8 +81,12 @@ class CoffeeShop {
         customer = person.name
         pickUpTable.append(coffee)
     }
+    
+    func giveCoffee(to customer: String) {
+        print("\(customer)님의 커피가 준비되었습니다. 픽업대에서 가져가주세요.")
+    }
 }
 
-var yagombucks = CoffeeShop(barista: misterLee)
+let yagombucks = CoffeeShop(barista: misterLee)
 
 missKim.buy(coffee: Coffee.americano, from: yagombucks)
