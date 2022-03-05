@@ -31,7 +31,12 @@ class CoffeeShop {
   private var barista: Person
   private var salesRevenue: Int = 0
   private var menus: [Coffee] = Coffee.allCases
-  private var pickUpTable: [Coffee] = []
+  private var pickUpTable: [(coffee: Coffee, name: String)] = [] {
+    didSet {
+      guard let customerName = pickUpTable.last?.name else { return }
+      print("\(customerName) 님의 커피가 준비되었습니다. 픽업대에서 가져가주세요")
+    }
+  }
   
   init(barista: Person) {
     self.barista = barista
@@ -43,8 +48,8 @@ class CoffeeShop {
   }
   
   private func make(coffee: Coffee, for customer: Person) {
-    self.pickUpTable.append(coffee)
-    print("\(customer.name) 님의 커피가 준비되었습니다. 픽업대에서 가져가주세요")
+    self.pickUpTable.append((coffee, customer.name))
+    
   }
 }
 
