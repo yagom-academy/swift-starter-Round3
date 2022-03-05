@@ -49,7 +49,6 @@ class CoffeeShop {
   
   private func make(coffee: Coffee, for customer: Person) {
     self.pickUpTable.append((coffee, customer.name))
-    
   }
 }
 
@@ -81,3 +80,17 @@ let missKim = Person(name: "missKim", money: 5000)
 
 let yagombucks = CoffeeShop(barista: misterLee)
 missKim.buy(coffee: .americano, from: yagombucks)
+
+// struct
+var misterLeeStruct = PersonStruct(name: "misterLee", money: 50000)
+var missKimStruct = PersonStruct(name: "missKim", money: 5000)
+
+var yagombucksStruct = CoffeeShopStruct(barista: misterLeeStruct)
+
+let coffee: Coffee = .americano
+if missKimStruct.hasEnoughMoney(toBuy: coffee) {
+  missKimStruct.buy(coffee: coffee)
+  yagombucksStruct.takeAnOrder(of: coffee, from: missKimStruct.name)
+}
+
+
