@@ -16,7 +16,7 @@ class Person {
     self.name = name
   }
   
-  private func buy(coffee: Coffee, from coffeeShop: CoffeeShop) {
+  func buy(coffee: Coffee, from coffeeShop: CoffeeShop) {
     if self.money < coffee.price {
       print("잔액이 \(coffee.price - self.money)원만큼 부족합니다")
     } else {
@@ -74,3 +74,4 @@ let misterLee = Person(name: "misterLee")
 let missKim = Person(name: "missKim")
 
 let yagombucks = CoffeeShop(barista: misterLee)
+missKim.buy(coffee: .americano, from: yagombucks)
