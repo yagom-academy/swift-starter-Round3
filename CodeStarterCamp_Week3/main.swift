@@ -11,33 +11,33 @@ import Foundation
 // MARK: - struct Person
 // 사람이 공통적으로 가지는 특성을 프로퍼티로 정의해보기 -> 돈이라는 속성을 가지도록 해볼 것
 // 사람이 공통적으로 할 수 있는 동작을 메서드로 정의해보기 -> 물건을 구매할 수 있도록 메서드를 정의해보기
-struct Person {
+class Person {
     var name: String
-    var gender: Character
+    var gender: Character?
     var money: Int
     
-    init(name: String, gender: Character, money: Int) {
+    init(name: String, gender: Character?, money: Int) {
         self.name = name
         self.gender = gender
         self.money = money
     }
+    
+    init(name: String, money: Int) {
+        self.name = name
+        self.money = money
+    }
 
-    func buySomething(youCanBuy: String) {
-        print("\(name)은 \(money)원으로 \(youCanBuy)를 삽니다")
+    func buy(something: String) {
+        print("\(name)은 \(money)원으로 \(something)를 삽니다")
     }
 }
-
 // Person 타입의 인스턴스로 misterLee, missKim 생성
 let misterLee = Person(name: "MR.Lee", gender: "⚨", money: 0)
 let missKim = Person(name: "MS.Kim", gender: "♀", money: 32000)
-print(misterLee)
-print(missKim)
-misterLee.buySomething(youCanBuy: "용기")
-missKim.buySomething(youCanBuy: "스위프트 프로그래밍 3판")
 
 // MARK: - enum Coffee
 // 커피의 여러 종류들을 case로 가질 수 있도록 해봄
-enum Coffee {
+enum Coffee: String {
     case americano
     case latte
     case handDrip
@@ -60,14 +60,19 @@ class CoffeeShop {
         self.customer = customer
         self.pickupTable = pickupTable
     }
-    
+
+    convenience init(totalRevenue: Int, barista: Person, customer: Person) {
+        self.init(totalRevenue: totalRevenue, barista: barista)
+        self.customer = customer
+    }
+
     init(totalRevenue: Int, barista: Person) {
         self.totalRevenue = totalRevenue
         self.barista = barista
     }
     
     func order(coffee: Coffee) {
-        var coffePrice = menu[coffee]
+        let coffePrice = menu[coffee]
         if let price = coffePrice {
             print("\(price)원 짜리 \(coffee)주문을 받았습니다.")
         }
@@ -78,8 +83,5 @@ class CoffeeShop {
     }
 }
 
-CoffeeShop(totalRevenue: 10000, barista: missKim)
-CoffeeShop(totalRevenue: 10000, barista: missKim).order(coffee: .luwak)
-CoffeeShop(totalRevenue: 10000, barista: missKim).makeCoffe()
 // yagombucks의 바리스타를 misterLee로 할당하기
 let yagombucks = CoffeeShop(totalRevenue: 100000, barista: misterLee)
