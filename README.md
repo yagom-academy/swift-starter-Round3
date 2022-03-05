@@ -1,1 +1,4 @@
-코드 스타터 캠프 3주차 미션을 위한 저장소입니다.
+## Step 1 실행 예시
+| 결과 화면 |
+|:--:|
+| ![image](CodeStarterCamp_Week3/Step1.png) |
