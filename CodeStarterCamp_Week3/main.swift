@@ -35,8 +35,7 @@ class Person {
     }
     
     func buy(coffee: Coffee, from coffeeShop: CoffeeShop) {
-        guard coffeeShop.menu.contains(coffee) else {
-            print("죄송합니다. 주문하신 \(coffee)는 판매하지 않습니다.")
+        guard coffeeShop.checkCoffee(coffee: coffee) else {
             return
         }
         let hasEnoughMoney = self.money >= coffee.price
@@ -58,11 +57,10 @@ class CoffeeShop {
     var customer: String?
     var pickUpTable: [Coffee] = [] {
         didSet {
-            if let actual_customer = customer {
-                giveCoffee(to: actual_customer)
-            } else {
+            guard let actualCustomer = customer else {
                 return
             }
+            giveCoffee(to: actualCustomer)
         }
     }
     let barista: Person
@@ -71,10 +69,17 @@ class CoffeeShop {
         self.barista = barista
     }
     
+    func checkCoffee(coffee: Coffee) -> Bool {
+        guard menu.contains(coffee) else {
+            print("죄송합니다. 주문하신 \(coffee)는 판매하지 않습니다.")
+            return false
+        }
+        return true
+    }
+    
     func takeOrder(coffee: Coffee, from person: Person) {
         sales += coffee.price
         makeCoffee(coffee: coffee, to: person)
-        
     }
     
     func makeCoffee(coffee: Coffee, to person: Person) {
