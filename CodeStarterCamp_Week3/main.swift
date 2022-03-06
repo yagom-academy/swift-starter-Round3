@@ -17,13 +17,13 @@ class Person: CoffeeShop {
         self.name = name
         super.init(yagombucks: misterLee, sales: 0, menu: [:], pickUpTable: [], barista: misterLee)
     }
+    
     func makePayment(coffee: Coffee, person: Person) {
         if let price = menu[coffee] {
             if price <= person.money {
                 person.money -= price
                 print("거스름돈은 \(person.money)원 입니다.")
-            }
-            else if price > person.money {
+            } else if price > person.money {
                 print("잔액이 \(price-person.money)원만큼 부족합니다.")
             }
         }
@@ -64,12 +64,18 @@ class CoffeeShop {
     }
     
     func goingUp(price: Coffee) {
-        var sumSales: Int = 0
         if let price = menu[price] {
-            sumSales += price
-            sales = sumSales
+            sales += price
         }
         print("yagombucks의 매출이 \(sales)원 올랐습니다.")
+    }
+    
+    func order(coffee: CoffeeShop.Coffee, person: Person, pickUpTable: Array<String>, price: CoffeeShop.Coffee) {
+        missKim.yagombucks.orderMenu(coffee: coffee)
+        missKim.makePayment(coffee: coffee, person: person)
+        missKim.yagombucks.goingUp(price: coffee)
+        missKim.yagombucks.makeCoffee(coffee: coffee)
+        missKim.yagombucks.putOn(pickUpTable: pickUpTable, person: person, coffee: coffee)
     }
 }
 
@@ -77,11 +83,4 @@ var misterLee: Person = Person(money: 10000, name: "misterLee")
 var missKim: Person = Person(money: 10000, name: "missKim")
 var pickUpTable: Array<String> = Array<String>()
 
-func order(coffee: CoffeeShop.Coffee, person: Person, pickUpTable: Array<String>, price: CoffeeShop.Coffee) {
-    missKim.yagombucks.orderMenu(coffee: coffee)
-    missKim.makePayment(coffee: coffee, person: person)
-    missKim.yagombucks.goingUp(price: coffee)
-    missKim.yagombucks.makeCoffee(coffee: coffee)
-    missKim.yagombucks.putOn(pickUpTable: pickUpTable, person: person, coffee: coffee)
-}
-order(coffee: CoffeeShop.Coffee.americano, person: missKim, pickUpTable: pickUpTable, price: .americano)
+missKim.order(coffee: CoffeeShop.Coffee.americano, person: missKim, pickUpTable: pickUpTable, price: .americano)
