@@ -278,5 +278,63 @@ class CoffeeShop {
         }
     }
     }
-
+    
+    func calculateNowPrice(_ coffeeName: String, _ coffeecount: String, _ menu: [Coffee: String]) {
+           var count = 0
+           
+           while count < Coffee.coffeeList.count {
+               if coffeeName == Coffee.coffeeList[count].rawValue {
+                   if let price = menu[Coffee.coffeeList[count]] {
+                       
+                       let result1 = Int(price)
+                       let result2 = Int(coffeecount)
+                       
+                       // Int로 감싸면 Int? 가 됩니다.
+                       // 이때 옵셔널이 되는 이유는 Int로 형 변환을 실패하여 nil이 할당될 수도 있기 때문입니다.
+                       // 다시 옵셔널 바인딩해야한다.
+                       if let result1 = result1, let result2 = result2 {
+                       pos += result1 * result2
+                       print("현재까지 계산 가격은 \(pos)원 입니다!")
+                       print()
+                       }
+                   }
+               }
+               count += 1
+           }
+       }
+       
+    func calculatePay(to cafe: CoffeeShop, for customer: Person?) {
+        if let customer = customer {
+            print()
+            print("!!*** 계산 내역입니다 ***!!")
+            print("카페의 이전 매출은 \(salesMoney)입니다.")
+            print("총 지불할 가격은 \(pos)입니다.")
+            print("카페의 현재 매출은 \(salesMoney + pos)입니다.")
+            print("손님의 남은 돈은 \(customer.money - pos)입니다.")
+        }
+    }
+       
+       // 딕셔너리 컬렉션 타입의 key 값들과 for in 반복문에서 key 값을 현재 상수로 선언하여,
+       // 딕셔너리 컬렉션 타입의 값들을 반복문으로 돌렸더니,
+       // 딕셔너리 컬렉션 타입의 모든 멤버들에 접근할 수 있었다!
+    func makeCoffee(for customer: Person?) {
+        print()
+        print("!!*** 주문 받은 커피 내역입니다 ***!!")
+        print(pickUpTable)
+        print()
+           
+        for pickUpTableKey in pickUpTable.keys {
+            if let coffeeCount = pickUpTable[pickUpTableKey] {
+            print("\(pickUpTableKey) 커피 \(coffeeCount)잔이 만들어졌습니다!")
+            pickUpTable.removeValue(forKey: pickUpTableKey)
+            }
+        }
+           
+        if let customer = customer {
+            print()
+            print("\(customer.personalInformation.name)님! 커피 준비가 완료되었습니다. 가져가주시기 바랍니다!")
+        }
+    }
 }
+
+
