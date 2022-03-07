@@ -15,3 +15,5 @@ let yagombuks = CoffeeShop(baristas: [misterLee], menu: [Coffee.espresso: 3000, 
 
 print(Coffee.espresso.name)
 yagombuks.order(Coffee.espresso)
+yagombuks.make(Coffee.espresso)
+print(yagombuks.pickUpTable)

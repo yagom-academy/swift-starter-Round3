@@ -39,8 +39,8 @@ class CoffeeShop {
         return "\(coffee)"
     }
     
-    func make(_ beverage: String) {
-        pickUpTable.append(beverage)
+    func make(_ beverage: Coffee) {
+        pickUpTable.append("\(beverage)")
         print("주문하신 \(beverage) 나왔습니다.")
     }
 }
