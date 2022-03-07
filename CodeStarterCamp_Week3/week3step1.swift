@@ -19,7 +19,7 @@ class Person {
     
     func order(_ coffee: Coffee, at: CoffeeShop) {
         print("\(self.name)이/가 \(at)에서 \(coffee)를 구입합니다.")
-        at.takeOrder(coffee)
+        at.takeOrder(coffee, from: self)
     }
 }
 
@@ -34,8 +34,8 @@ class CoffeeShop {
         self.menu = menu
     }
     
-    func takeOrder(_ coffee: Coffee) {
-        print("\(coffee) 주문 접수가 완료되었습니다.")
+    func takeOrder(_ coffee: Coffee, from: Person) {
+        print("\(from.name)님의 \(coffee) 주문 접수가 완료되었습니다.")
     }
     
     func make(_ beverage: Coffee) {
