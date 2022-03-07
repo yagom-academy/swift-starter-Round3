@@ -8,25 +8,13 @@
 
 import Foundation
 
-class Person: CoffeeShop {
+class Person {
     var money: Int
     var name: String
     
     init(money: Int, name: String) {
         self.money = money
         self.name = name
-        super.init(yagombucks: misterLee, sales: 0, menu: [:], pickUpTable: [], barista: misterLee)
-    }
-    
-    func makePayment(coffee: Coffee, person: Person) {
-        if let price = menu[coffee] {
-            if price <= person.money {
-                person.money -= price
-                print("거스름돈은 \(person.money)원 입니다.")
-            } else if price > person.money {
-                print("잔액이 \(price-person.money)원만큼 부족합니다.")
-            }
-        }
     }
 }
 
@@ -35,14 +23,13 @@ class CoffeeShop {
     var pickUpTable: Array<String> = Array<String>()
     var barista: Person
     var sales: Int
-    var yagombucks: CoffeeShop
+//    var yagombucks: CoffeeShop
     
-    init(yagombucks: CoffeeShop, sales: Int, menu: [Coffee: Int], pickUpTable: Array<String>, barista: Person) {
+    init(sales: Int, menu: [Coffee: Int], pickUpTable: Array<String>, barista: Person) {
         self.menu = [.americano: 3000, .cafeLatte: 3500, .coldBrew: 4000]
         self.pickUpTable = pickUpTable
         self.barista = barista
         self.sales = sales
-        self.yagombucks = yagombucks
     }
     
     enum Coffee {
@@ -70,17 +57,28 @@ class CoffeeShop {
         print("yagombucks의 매출이 \(sales)원 올랐습니다.")
     }
     
-    func order(coffee: CoffeeShop.Coffee, person: Person, pickUpTable: Array<String>, price: CoffeeShop.Coffee) {
-        missKim.yagombucks.orderMenu(coffee: coffee)
-        missKim.makePayment(coffee: coffee, person: person)
-        missKim.yagombucks.goingUp(price: coffee)
-        missKim.yagombucks.makeCoffee(coffee: coffee)
-        missKim.yagombucks.putOn(pickUpTable: pickUpTable, person: person, coffee: coffee)
+    func makePayment(coffee: Coffee, person: Person) {
+        if let price = menu[coffee] {
+            if price <= person.money {
+                person.money -= price
+                print("거스름돈은 \(person.money)원 입니다.")
+            } else if price > person.money {
+                print("잔액이 \(price-person.money)원만큼 부족합니다.")
+            }
+        }
     }
+    
+    func order(coffee: CoffeeShop.Coffee, person: Person, pickUpTable: Array<String>, price: CoffeeShop.Coffee) {
+        yagombucks.orderMenu(coffee: coffee)
+        yagombucks.makePayment(coffee: coffee, person: person)
+        yagombucks.goingUp(price: coffee)
+        yagombucks.makeCoffee(coffee: coffee)
+        yagombucks.putOn(pickUpTable: pickUpTable, person: person, coffee: coffee)
 }
-
+}
+var yagombucks:CoffeeShop = CoffeeShop(sales: 0, menu: [:], pickUpTable: [], barista: misterLee)
 var misterLee: Person = Person(money: 10000, name: "misterLee")
 var missKim: Person = Person(money: 10000, name: "missKim")
 var pickUpTable: Array<String> = Array<String>()
-
-missKim.order(coffee: CoffeeShop.Coffee.americano, person: missKim, pickUpTable: pickUpTable, price: .americano)
+    
+yagombucks.order(coffee: .americano, person: missKim, pickUpTable: pickUpTable, price: .americano)
