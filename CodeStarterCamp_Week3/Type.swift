@@ -59,6 +59,8 @@ class CoffeeShop {
         } else {
             print("메뉴에 없는 커피를 주문하셨네요...메뉴판을 잘 봐주세요!")
         }
-        pickUpTable = false
+        if pickUpTable {
+            pickUpTable = false
+        }
     }
 }
