@@ -16,13 +16,18 @@ class Person {
     
     init(name: String, money: Int) {
         self.name = name
-        self.money = money
+        self.money = money  
     }
 }
 
 class CoffeeShop {
     var sales: Int = 0
-    var pickUpTable: String
+    var pickUpTable: Coffee? {
+        willSet {
+             guard let newValue = newValue, let name = self.customer?.name else { return }
+             print("\(name)님의 \(newValue)가 준비되었습니다. 픽업대에서 가져가주세요.")
+         }
+     }
     var menu : [Coffee: Int] = [.americano: 1500, .latte: 3000, .cappuccino: 3500, .coldBrew: 4000]
     var barista: Person
     var customer: Person?
@@ -49,26 +54,36 @@ class CoffeeShop {
         }
     }
     
-    init(sales: Int, barista: Person, pickUpTable: String) {
+    func pickUp(by customer: Person, coffee: Coffee) {
+        yagombucks.customer = customer
+        yagombucks.pickUpTable = coffee
+    }
+    
+    init(sales: Int, barista: Person, pickUpTable: Coffee) {
         self.sales = sales
         self.barista = barista
         self.pickUpTable = pickUpTable
+    }
+    
+    init(sales: Int, barista: Person) {
+        self.sales = sales
+        self.barista = barista
     }
 }
 
 let misterLee = Person(name: "misterLee", money: 30000)
 let missKim = Person(name: "missKim", money: 3000)
-let yagombucks: CoffeeShop = CoffeeShop(sales: 300000, barista: misterLee, pickUpTable: "")
 
-func hasAsset(_ customer: Person, _ coffee: Coffee) -> Bool {
-    if let menu = yagombucks.menu[coffee] {
-        if customer.money < menu {
-            print("잔액이 {\(menu)}원만큼 부족합니다.")
+let yagombucks: CoffeeShop = CoffeeShop(sales: 300000, barista: misterLee)
+
+func hasAsset(of customer: Person, for coffee: Coffee) -> Bool {
+    if let assetOfYagombucks = yagombucks.menu[coffee] {
+        if customer.money < assetOfYagombucks {
+            print("잔액이 \(assetOfYagombucks)원만큼 부족합니다.")
             return false
         } else {
-            customer.money -= menu
-            yagombucks.sales += menu
-            yagombucks.pickUpTable = "\(customer.name) 님의 커피가 준비되었습니다. 픽업대에서 가져가주세요."
+            customer.money -= assetOfYagombucks
+            yagombucks.sales += assetOfYagombucks
         }
     }
     return true
