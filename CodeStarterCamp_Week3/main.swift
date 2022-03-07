@@ -228,7 +228,55 @@ class CoffeeShop {
     func storeMenu(coffeeName: Coffee, coffeePrice: String) {
         menu[coffeeName] = coffeePrice
     }
+    
+    func order(to barista: Person?, for customer: Person?) {
+        if let customer = customer, let barista = barista {
+            print("\(customer.personalInformation.name): 메뉴판을 보여주세요.")
+            print("\(barista.personalInformation.name): 메뉴판을 보여준다.")
+            printMenu()
+            print()
+            print("메뉴를 골라 말해주세요.")
+            decideCoffeeMenu(to: customer)
+        }
+    }
 
-
+    func printMenu() {
+        print()
+        print("!!***** \(cafeName) 카페 메뉴 *****!!")
+        for menuMember in menu {
+            print("\(menuMember.key): \(menuMember.value)원")
+        }
+    }
+    
+    func decideCoffeeMenu(to customer: Person) {
+        while true {
+            print("!!** 메뉴에서 \'X\'를 누르시면 결제가 진행됩니다 **!!")
+            print("메뉴: ", terminator: " ")
+            let coffeeName = readLine()
+                
+            if let coffeeName = coffeeName {
+                if coffeeName == "X" {
+                    print("주문이 종료되었습니다!")
+                    break
+                }
+            }
+                
+            print("잔: ", terminator: " ")
+            let coffeeCount = readLine()
+                
+            if let coffeeName = coffeeName, let coffeeCount = coffeeCount {
+                var count = 0
+                    
+                while count < Coffee.coffeeList.count {
+                    if coffeeName == Coffee.coffeeList[count].rawValue {
+                        print("\(customer.personalInformation.name)님이 \(coffeeName) 커피: \(coffeeCount)잔을 골랐습니다!")
+                        calculateNowPrice(coffeeName, coffeeCount, menu)
+                        pickUpTable[coffeeName] = Int(coffeeCount)
+                }
+                count += 1
+            }
+        }
+    }
+    }
 
 }
