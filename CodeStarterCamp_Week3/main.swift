@@ -335,6 +335,19 @@ class CoffeeShop {
             print("\(customer.personalInformation.name)님! 커피 준비가 완료되었습니다. 가져가주시기 바랍니다!")
         }
     }
+    
+    func playCoffeeShopGame(_ baristaPlayer: Person?, _ customerPlayer: Person?, _ coffeeShop: CoffeeShop) {
+        barista = baristaPlayer
+        decideCoffeePrice()
+        order(to: barista, for: customerPlayer)
+        calculatePay(to: coffeeShop, for: customerPlayer)
+        makeCoffee(for: customerPlayer)
+        
+    }
 }
 
+var misterLee = Person(socialSecurityNumber: "999999-1111111", name: "misterLee", age: 24, residence: "서울", phoneNumber: "010-1234-5678", height: 170.5, weight: 80.3, money: 100000)
+var missKim = Person(socialSecurityNumber: "999999-4444444", name: "missKim", age: 20, residence: "경기도", phoneNumber: "010-5678-1234", height: 161.3, weight: 50.2, money: 100000)
+var yagombucks = CoffeeShop(cafeName: "yagombucks")
 
+yagombucks.playCoffeeShopGame(misterLee, missKim, yagombucks)
