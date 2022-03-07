@@ -23,7 +23,7 @@ class Person {
         if money < coffee.rawValue {
             print("잔액이 \(coffee.rawValue - money)만큼 부족합니다.")
         } else {
-            coffeeShop.takeOrder(coffee: coffee, customer: self)
+            coffeeShop.takeOrder(coffee: coffee)
             money -= coffee.rawValue
         }
     }
@@ -34,7 +34,11 @@ class CoffeeShop {
     var barista: Person
     var menu: [Coffee]
     var customer: Person?
-    var pickUpTable: String?
+    var pickUpTable: String? {
+        didSet {
+            print("\(pickUpTable!)가 준비되었습니다. 픽업대에서 가져가주세요.")
+        }
+    }
     
     init(sales: Int, barista: Person, menu: [Coffee]) {
         self.sales = sales
@@ -42,15 +46,14 @@ class CoffeeShop {
         self.menu = menu
     }
     
-    func takeOrder(coffee: Coffee, customer: Person) {
+    func takeOrder(coffee: Coffee) {
         print("주문하신 \(coffee)의 가격은 \(coffee.rawValue)입니다.")
         sales += coffee.rawValue
-        bringOutCoffee(coffee: coffee, customer: customer)
+        bringOutCoffee(coffee: coffee)
     }
     
-    func bringOutCoffee(coffee: Coffee, customer: Person) {
+    func bringOutCoffee(coffee: Coffee) {
         pickUpTable = String("\(coffee)")
-        print("\(customer.name) 님의 \(coffee)가 준비되었습니다. 픽업대에서 가져가주세요.")
     }
 }
 
