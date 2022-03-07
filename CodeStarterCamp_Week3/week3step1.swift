@@ -18,19 +18,19 @@ class Person {
     }
     
     func order(_ coffee: Coffee, at: CoffeeShop) {
-        print("\(self.name)이/가 \(at)에서 \(coffee)를 구입합니다.")
+        print("\(self.name)이/가 \(at.name)에서 \(coffee)를 구입합니다.")
         at.takeOrder(coffee, from: self)
     }
     
     func pay(forWhat: Coffee, at: CoffeeShop) {
         
         guard let coffeePrice = at.menu[forWhat] else {
-            print("\(at)에 \(forWhat)라는 메뉴는 없습니다.")
+            print("\(at.name)에 \(forWhat)라는 메뉴는 없습니다.")
             return
         }
         
         if coffeePrice < self.money {
-            print("\(at)에서 \(forWhat)을/를 주문했습니다.")
+            print("\(at.name)에서 \(forWhat)을/를 주문했습니다.")
             print("소요 비용은 \(coffeePrice)원이며, 잔액은 \(self.money - coffeePrice)원 입니다.")
             self.money = self.money - coffeePrice
             
@@ -44,12 +44,14 @@ class Person {
 }
 
 class CoffeeShop {
+    var name: String
     var salesRevenue: Int = 0
     var menu: [Coffee: Int] = [:]
     var pickUpTable: Array<String> = []
     var baristas: Array<Person> = []
     
-    init(baristas: Array<Person>, menu: [Coffee: Int]) {
+    init(name: String, baristas: Array<Person>, menu: [Coffee: Int]) {
+        self.name = name
         self.baristas = baristas
         self.menu = menu
     }

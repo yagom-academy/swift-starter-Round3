@@ -11,7 +11,7 @@ import Foundation
 let misterLee = Person(name: "Cheolsoo", money: 10000)
 let missKim = Person(name: "Younghee", money: 10000)
 
-let yagombuks = CoffeeShop(baristas: [misterLee], menu: [Coffee.espresso: 3000, Coffee.americano: 3500])
+let yagombuks = CoffeeShop(name: "yagombuks", baristas: [misterLee], menu: [Coffee.espresso: 3000, Coffee.americano: 3500])
 
 print(Coffee.espresso.name)
 yagombuks.takeOrder(Coffee.espresso, from: missKim)
