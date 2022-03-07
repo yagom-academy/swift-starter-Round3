@@ -34,9 +34,9 @@ class CoffeeShop {
         self.menu = menu
     }
     
-    func order(coffee: String) -> String {
+    func order(coffee: Items.Coffee) -> String {
         print("\(coffee) 주문 접수가 완료되었습니다.")
-        return coffee
+        return "\(coffee)"
     }
     
     func make(_ what: String) {
