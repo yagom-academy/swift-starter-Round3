@@ -29,8 +29,8 @@ class CoffeeShop {
     var barista: Person!
     let menuBoard: [Coffee: Int]
     var pickUpTable: Bool {
-        willSet {
-            if newValue {
+        didSet {
+            if pickUpTable {
                 print("주문하신 커피가 완성되어 픽업대에 올려졌습니다!")
             }
         }
@@ -59,5 +59,6 @@ class CoffeeShop {
         } else {
             print("메뉴에 없는 커피를 주문하셨네요...메뉴판을 잘 봐주세요!")
         }
+        pickUpTable = false
     }
 }
