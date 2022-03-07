@@ -46,7 +46,15 @@ class Person {
 class CoffeeShop {
     var totalSale : Int = 0
     var menu : [Coffee] = [.americano(price:4500), .tea(price:2500), .juice(price:3000)]
-    var pickUpTable : Array<String> = []
+    var pickUpTable : Array<Coffee> = [] {
+        didSet {
+            if pickUpTable.isEmpty != true {
+                print("\(self.baristas.name) 님의 \"\(pickUpTable[0])\"가 준비 되었습니다. 픽업대에서 가져가주세요.")
+            }else{
+                print("감사합니다 맛있게 드세요~")
+            }
+        }
+    }
     var baristas : Person
 
     init(baristas: Person) {
@@ -62,25 +70,21 @@ class CoffeeShop {
         case .juice(let price):
             totalSale += price
         }
-        make(beverage: beverage)
+        maked(beverage: beverage)
     }
     
-    func make(beverage : Coffee) {
+    func maked(beverage : Coffee) {
         switch beverage {
         case .americano:
-            pickUpTable.append("아메")
-            print("\(self.baristas.name) 님의 아메가 준비 되었습니다. 픽업대에서 가져가주세요.")
+            pickUpTable.append(.americano(price: 4500))
+            pickUpTable.removeFirst()
         case .tea:
-            pickUpTable.append("티")
-            print("\(self.baristas.name) 님의 티가 준비 되었습니다. 픽업대에서 가져가주세요.")
+            pickUpTable.append(.tea(price: 2500))
+            pickUpTable.removeFirst()
         case .juice:
-            pickUpTable.append("주스")
-            print("\(self.baristas.name) 님의 주스가 준비 되었습니다. 픽업대에서 가져가주세요.")
+            pickUpTable.append(.juice(price: 3000))
+            pickUpTable.removeFirst()
         }
-        
-        print("손님 맛있게드세요.")
-        
-        _ = pickUpTable.removeFirst()
     }
 }
 

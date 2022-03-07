@@ -24,5 +24,5 @@ var yagombucks = CoffeeShop(baristas: misterLee)
 
 misterLee.buy(beverage: .americano(price: 4500), in: yagombucks)
 misterLee.buy(beverage: .tea(price: 2500), in: yagombucks)
-misterLee.buy(beverage: .tea(price: 3000), in: yagombucks)
+misterLee.buy(beverage: .tea(price: 2500), in: yagombucks)
 misterLee.buy(beverage: .tea(price: 3000), in: yagombucks)
