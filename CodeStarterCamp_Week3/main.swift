@@ -206,7 +206,29 @@ class CoffeeShop {
         self.cafeName = cafeName
     }
     
-    
+    func decideCoffeePrice() {
+            var loopCount = 0
+
+            while loopCount < Coffee.coffeeList.count {
+                print("\'\(Coffee.coffeeList[loopCount])\'의 가격을 숫자로 입력하여 결정하세요!")
+                let coffeePrice = readLine()
+                if let coffeePrice = coffeePrice {
+                    if coffeePrice.isEmpty {
+                        print("다시 입력 바랍니다!")
+                    } else {
+                    print("\'\(Coffee.coffeeList[loopCount])\'의 가격은 \(coffeePrice)원 입니다.")
+                    print()
+                    makeMenu(coffeeName: Coffee.coffeeList[loopCount], coffeePrice: coffeePrice)
+                        loopCount += 1
+                    }
+                }
+            }
+        }
+        
+        func makeMenu(coffeeName: Coffee, coffeePrice: String) {
+            menu[coffeeName] = coffeePrice
+        }
 
 
 
+}
