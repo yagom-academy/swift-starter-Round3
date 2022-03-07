@@ -17,9 +17,9 @@ class Person {
         self.money = money
     }
     
-    func buy(_ coffee: Coffee) {
-        self.inventory.append("\(coffee)")
-        print("\(self.name)의 인벤토리에 \(coffee) 이/가 추가되었습니다.")
+    func order(_ coffee: Coffee, at: CoffeeShop) {
+        print("\(self.name)이/가 \(at)에서 \(coffee)를 구입합니다.")
+        at.takeOrder(coffee)
     }
 }
 
@@ -34,7 +34,7 @@ class CoffeeShop {
         self.menu = menu
     }
     
-    func order(_ coffee: Coffee) {
+    func takeOrder(_ coffee: Coffee) {
         print("\(coffee) 주문 접수가 완료되었습니다.")
     }
     
