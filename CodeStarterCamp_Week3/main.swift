@@ -79,14 +79,14 @@ class CoffeeShop {
     
     func order(customer: Person, coffee: Coffee) {
         //        let coffePrice = menu[coffee]   // let coffePrice = menu[coffee] 를 하였더니 coffePrice의 값이 int? 값으로 반환됨
-        if let coffePrice = menu[coffee] {
-            if coffePrice > customer.money {
-                print("잔액이 \(coffePrice - customer.money)원만큼 부족합니다.")
+        if let coffeePrice = menu[coffee] {
+            if coffeePrice > customer.money {
+                print("잔액이 \(coffeePrice - customer.money)원만큼 부족합니다.")
             }
             else {
-                customer.money -= coffePrice
-                totalRevenue += coffePrice
-                print("\(coffePrice)원 짜리 \(coffee)주문을 받았습니다.")
+                customer.money -= coffeePrice
+                totalRevenue += coffeePrice
+                print("\(coffeePrice)원 짜리 \(coffee)주문을 받았습니다.")
                 makeCoffe()
                 let pickupTable = "\(customer.name)님의 \(coffee)가 준비되었습니다. 픽업대에서 가져가주세요."
                 print(pickupTable)
