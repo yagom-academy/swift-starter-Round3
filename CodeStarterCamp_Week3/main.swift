@@ -8,62 +8,36 @@
  2. 인종, 직업 등으로 사람들 분류해보기 위해
  */
 struct PersonalInformation {
-    // 주민등록번호
     var socialSecurityNumber = "999999-1111111"
-    
-    // 이름은 변경 가능하니 String
-    var name = "성 이름"
-    
-    // 나이
+    var name = "성이름"
     var age = 0
-    
-    // 거주지
     var residence = "서울"
-    
-    // 전화번호
     var phoneNumber = "010-0000-0000"
-    
-    // 학교
+    var job: String?
     var school: String?
-    
-    // 직장
     var company: String?
 }
 
 struct PhysicalInformation {
-    // 키
     var height = 0.0
-    // 몸무게
     var weight = 0.0
-    // 눈
     var eyes = 2
-    // 코
     var nose = true
-    // 입
     var mouse = true
-    // 귀
     var ears = 2
-    // 팔
     var arms = 2
-    // 손
     var hands = 2
-    // 다리
     var legs = 2
-    // 발
     var feet = 2
 }
-
-
-/* 개인 정보, 신체 정보 구조체를 var(변수)로 선언한 이유
+/*
+ 개인 정보, 신체 정보 구조체를 var(변수)로 선언한 이유
  let(상수)로 선언하면 구조체 내부의 멤버 값을 변경할 수 없다.
  */
 
 class Person {
-    // 개인 정보
     var personalInformation = PersonalInformation()
-    // 신체 정보
     var physicalInformation = PhysicalInformation()
-    // 돈
     var money: Int
     
     init?(socialSecurityNumber: String, name: String, age: Int, residence: String, phoneNumber: String, height: Double, weight: Double, money: Int) {
@@ -98,7 +72,7 @@ class Person {
         self.money = money
     }
     
-    init?(socialSecurityNumber: String, name: String, age: Int, residence: String, phoneNumber: String, school: String?, company: String?, height: Double, weight: Double, money: Int) {
+    init?(socialSecurityNumber: String, name: String, age: Int, residence: String, phoneNumber: String, job: String?, school: String?, company: String?, height: Double, weight: Double, money: Int) {
         if socialSecurityNumber.count == 0 {
             return nil
         }
@@ -125,12 +99,14 @@ class Person {
         self.personalInformation.age = age
         self.personalInformation.residence = residence
         self.personalInformation.phoneNumber = phoneNumber
+        self.personalInformation.job = job
         self.personalInformation.school = school
         self.personalInformation.company = company
         self.physicalInformation.height = height
         self.physicalInformation.weight = weight
         self.money = money
     }
+    
     deinit {
             print("\(personalInformation.name)이 사망하셨습니다.")
             }
@@ -143,6 +119,7 @@ class Person {
         }
         
     }
+    
     func breath() {
         if physicalInformation.nose == true {
             print("\(personalInformation.name)이 숨을 쉽니다.")
@@ -150,6 +127,7 @@ class Person {
             print("\(personalInformation.name)이 숨을 쉬지 못합니다")
         }
     }
+    
     func hear() {
         if physicalInformation.mouse == true {
             print("\(personalInformation.name)이 듣습니다.")
@@ -157,6 +135,7 @@ class Person {
             print("\(personalInformation.name)이 듣지 못합니다")
         }
     }
+    
     func clap() {
         if physicalInformation.arms > 1 , physicalInformation.hands > 1{
             print("\(personalInformation.name)이 박수를 칩니다.")
@@ -164,6 +143,7 @@ class Person {
             print("\(personalInformation.name)이 박수를 치지 못합니다")
         }
     }
+    
     func run() {
         if physicalInformation.legs > 1 , physicalInformation.feet > 1{
             print("\(personalInformation.name)이 달립니다.")
@@ -171,30 +151,62 @@ class Person {
             print("\(personalInformation.name)이 달리지 못합니다")
         }
     }
-    func buy(to things: [String: Int], name thingsName: String) {
+    
+    func buy(to things: [String: Int], _ thingsName: String) {
         guard let things = things[thingsName] else {
             print("물건이 없습니다.")
             return
         }
         print("\(personalInformation.name)이 \(thingsName)을(를) 구매하였습니다!")
-        money = money - things
+        money -= things
         print("현재 \(personalInformation.name)이 보유한 돈은 \(money)입니다.")
     }
 }
 
+/*
+CoffeeShop 타입을 생성합니다.
 
-var yujun: Person? = Person(socialSecurityNumber: "999999-1234567", name: "서유준", age: 24, residence: "서울", phoneNumber: "010-123405678", height: 175.5, weight: 68.5, money: 10000)
+세상에는 많은 카페들이 있습니다.
+카페들이 공통적으로 가지는 특성을 프로퍼티로 정의해봅시다.
+매출액을 속성으로 가질 수 있도록 해봅시다.
+메뉴판(커피 종류, 가격)을 가질 수 있도록 해봅시다.
+커피를 올려둘 수 있는 pickUpTable을 가질 수 있도록 해봅시다.
+카페들이 공통적으로 할 수 있는 동작을 메서드로 정의해봅시다.
+주문을 받고, 커피를 만들어낼 수 있는 동작을 가질 수 있도록 해봅시다.
+*/
 
-// Test - 사람 동작 메소드
-yujun?.see()
-yujun?.breath()
-yujun?.hear()
-yujun?.clap()
-yujun?.run()
-yujun?.physicalInformation.eyes = 0
-yujun?.see()
+class CoffeeShop {
+    enum Coffee: String {
+        case americano
+        case caffeeLatte
+        case caffeMocha
+        case cappuccino
+        case caramelMacchiato
+        case espresso
+        case hazlnutLatte
+        case vienna
+        
+        static let coffeeList = [americano, caffeeLatte, caffeMocha, cappuccino, caramelMacchiato, espresso, hazlnutLatte, vienna]
+    }
+    
+    var cafeName: String
+    var barista: Person?
+    var coffeeMachine = "DolcheGusto"
+    var table = 10
+    var chair = 10
+    var cup = 20
+    var straw = 20
+    var pos = 0
+    
+    var salesMoney = 100000
+    var menu: [Coffee: String] = [:]
+    var pickUpTable: [String: Int] = [:]
+
+    init(cafeName: String) {
+        self.cafeName = cafeName
+    }
+    
+    
 
 
-// Test - buy 메소드
-var things: [String: Int] = ["코카콜라": 2000, "칠성사이다": 1500]
-yujun?.buy(to: things, name: "칠성사이다")
+
