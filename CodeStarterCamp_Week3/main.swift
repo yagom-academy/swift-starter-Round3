@@ -27,8 +27,12 @@ class Person {
         self.money = money
     }
 
-    func buy(something: String) {
-        print("\(name)은 \(money)원으로 \(something)를 삽니다")
+    func buy(about: String) {
+        print("\(name)은 \(money)원으로 \(about)를 삽니다")
+    }
+
+    func asset() {
+        print("\(name)의 현재 자산은 \(money)입니다.")
     }
 }
 // Person 타입의 인스턴스로 misterLee, missKim 생성
@@ -55,14 +59,16 @@ class CoffeeShop {
     var customer: Person?
     var pickupTable: String?
     
-    convenience init(totalRevenue: Int, barista: Person, customer: Person, pickupTable: String) {
-        self.init(totalRevenue: totalRevenue, barista: barista)
+    init(totalRevenue: Int, barista: Person, customer: Person?, pickupTable: String?) {
+        self.totalRevenue = totalRevenue
+        self.barista = barista
         self.customer = customer
         self.pickupTable = pickupTable
     }
 
-    convenience init(totalRevenue: Int, barista: Person, customer: Person) {
-        self.init(totalRevenue: totalRevenue, barista: barista)
+    init(totalRevenue: Int, barista: Person, customer: Person) {
+        self.totalRevenue = totalRevenue
+        self.barista = barista
         self.customer = customer
     }
 
@@ -71,15 +77,29 @@ class CoffeeShop {
         self.barista = barista
     }
     
-    func order(coffee: Coffee) {
-        let coffePrice = menu[coffee]
-        if let price = coffePrice {
-            print("\(price)원 짜리 \(coffee)주문을 받았습니다.")
+    func order(customer: Person, coffee: Coffee) {
+        //        let coffePrice = menu[coffee]   // let coffePrice = menu[coffee] 를 하였더니 coffePrice의 값이 int? 값으로 반환됨
+        if let coffePrice = menu[coffee] {
+            if coffePrice > customer.money {
+                print("잔액이 \(coffePrice - customer.money)원만큼 부족합니다.")
+            }
+            else {
+                customer.money -= coffePrice
+                totalRevenue += coffePrice
+                print("\(coffePrice)원 짜리 \(coffee)주문을 받았습니다.")
+                makeCoffe()
+                let pickupTable = "\(customer.name)님의 \(coffee)가 준비되었습니다. 픽업대에서 가져가주세요."
+                print(pickupTable)
+            }
         }
     }
     
     func makeCoffe() {
         print("바리스타 \(barista.name)이 주문하신 음료를 제조중입니다.")
+    }
+    
+    func cafeAsset() {
+        print("카페의 현재 자산은 \(totalRevenue)입니다.")
     }
 }
 
