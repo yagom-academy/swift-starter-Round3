@@ -17,8 +17,8 @@ class Person {
         self.money = money
     }
     
-    func buy(_ coffee: String) {
-        self.inventory.append(coffee)
+    func buy(_ coffee: Coffee) {
+        self.inventory.append("\(coffee)")
         print("\(self.name)의 인벤토리에 \(coffee) 이/가 추가되었습니다.")
     }
 }
