@@ -8,11 +8,7 @@
 import Foundation
 
 enum Coffee: String {
-    case americano
-    case cafeLatte
-    case vanilaLatte
-    case cafeMoca
-    case chocoLatte
+    case americano, cafeLatte, vanilaLatte, cafeMoca, chocoLatte
 }
 
 struct Person {
