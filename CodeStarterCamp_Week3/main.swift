@@ -218,16 +218,16 @@ class CoffeeShop {
                     } else {
                     print("\'\(Coffee.coffeeList[loopCount])\'의 가격은 \(coffeePrice)원 입니다.")
                     print()
-                    makeMenu(coffeeName: Coffee.coffeeList[loopCount], coffeePrice: coffeePrice)
+                    storeMenu(coffeeName: Coffee.coffeeList[loopCount], coffeePrice: coffeePrice)
                         loopCount += 1
                     }
                 }
             }
         }
         
-        func makeMenu(coffeeName: Coffee, coffeePrice: String) {
-            menu[coffeeName] = coffeePrice
-        }
+    func storeMenu(coffeeName: Coffee, coffeePrice: String) {
+        menu[coffeeName] = coffeePrice
+    }
 
 
 
