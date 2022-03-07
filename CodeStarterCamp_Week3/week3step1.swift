@@ -53,12 +53,12 @@ class Items {
         case cappuccino
         
         var name: String {
-            switch self {
-            default:
-                return "\(self)".capitalized
-            }
+            return "\(self)".capitalized
         }
     }
+    // <비비 피드백 기록용 코멘트>
+    // var coffee = "\(Coffee.espresso)".capitalized
+    // "\(self)".capitalized 과 같다. 셀프가 에스프레소로 할당된 경우임
     
     enum Tea {
         case herbal
