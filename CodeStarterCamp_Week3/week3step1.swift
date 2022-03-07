@@ -25,16 +25,16 @@ class Person {
 
 class CoffeeShop {
     var salesRevenue: Int = 0
-    var menu: [Items.Coffee: Int] = [:]
+    var menu: [Beverages.Coffee: Int] = [:]
     var pickUpTable: Array<String> = []
     var baristas: Array<Person> = []
     
-    init(baristas: Array<Person>, menu: [Items.Coffee: Int]) {
+    init(baristas: Array<Person>, menu: [Beverages.Coffee: Int]) {
         self.baristas = baristas
         self.menu = menu
     }
     
-    func order(coffee: Items.Coffee) -> String {
+    func order(coffee: Beverages.Coffee) -> String {
         print("\(coffee) 주문 접수가 완료되었습니다.")
         return "\(coffee)"
     }
@@ -45,7 +45,8 @@ class CoffeeShop {
     }
 }
 
-class Items {
+struct Beverages {
+    
     enum Coffee {
         case espresso
         case americano
