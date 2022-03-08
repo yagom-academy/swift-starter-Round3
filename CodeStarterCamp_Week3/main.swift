@@ -38,7 +38,7 @@ class CoffeeShop  {
         print("\(coffee) 주문 받았습니다.")
     }
     
-    func pickupTable(coffee: coffee) {
+    func pickupTable() {
         print("주문하신 \(coffee) 나왔습니다.")
     }
 }
