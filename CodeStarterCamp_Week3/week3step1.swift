@@ -16,9 +16,9 @@ class Person {
         self.money = money
     }
     
-    func order(_ coffee: Coffee, at: CoffeeShop) {
-        print("\(self.name)(이)가 \(at.name)에서 \(coffee.name)를 구입합니다.")
-        at.takeOrder(coffee, from: self)
+    func order(_ coffee: Coffee, at coffeeshop: CoffeeShop) {
+        print("\(self.name)(이)가 \(coffeeshop.name)에서 \(coffee.name)를 구입합니다.")
+        coffeeshop.takeOrder(coffee, from: self)
     }
     
     func pay(for menuName: Coffee, at coffeeshop: CoffeeShop) -> Bool {
