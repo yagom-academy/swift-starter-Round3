@@ -12,7 +12,7 @@ class CoffeeShop {
     let americano = 1000
     let latte = 2000
     let cappuccino = 3000
-    var pickUpTable = false
+    var putOnThePickupTable = false
     var barista: Person?
     
     func takeOrder(_ coffee: Coffee, from person: Person) {
@@ -29,12 +29,12 @@ class CoffeeShop {
     func makecoffee(_ coffeePrice: Int, for person: Person) {
         if person.money >= coffeePrice {
             person.purchase(coffeePrice)
-            pickUpTable = true
+            putOnThePickupTable = true
             take += coffeePrice
             print("구매성공")
         } else {
             print("돈이 부족합니다.")
         }
-        pickUpTable = false
+        putOnThePickupTable = false
     }
 }

@@ -9,7 +9,7 @@ import Foundation
 
 class Person {
     var money: Int
-    var name:  String
+    var name: String
     
     init(money: Int, name: String) {
         self.money = money
