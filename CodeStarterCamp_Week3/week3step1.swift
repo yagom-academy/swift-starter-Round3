@@ -22,22 +22,22 @@ class Person {
         at.takeOrder(coffee, from: self)
     }
     
-    func pay(for menuName: Coffee, at coffeeshop: CoffeeShop) {
+    func pay(for menuName: Coffee, at coffeeshop: CoffeeShop) -> Bool {
         
         guard let coffeePrice = coffeeshop.menu[menuName] else {
             print("\(coffeeshop.name)에 \(menuName) 메뉴는 없습니다.")
-            return
+            return false
         }
         
         if coffeePrice < self.money {
             print("\(self.name)이/가 \(coffeeshop.name)에서 \(menuName)을/를 주문했습니다.")
             self.money = self.money - coffeePrice
             print("소요 비용은 \(coffeePrice)원이며, 잔액은 \(self.money)원 입니다.")
-            
+            return true
         } else {
             print("구입할 수 없습니다.")
             print("잔액이 \(coffeePrice - self.money)원 부족합니다.")
-
+            return false
         }
     }
 }
@@ -61,18 +61,20 @@ class CoffeeShop {
     }
     
     func takeOrder(_ coffee: Coffee, from client: Person) {
-        client.pay(for: coffee, at: self)
-        let orderInfo = (orderTime: Date(), client: client, order: coffee, barista: self.freeBaristas.removeFirst(), isReady: false)
-        
-        print("\(self.name): \(orderInfo.client.name)님의 \(orderInfo.order) 주문 접수가 완료되었습니다.")
-        print("바리스타 \(orderInfo.barista.name)님이 맛있게 만들어드릴 겁니다.")
-        print("(주문 timestamp: \(orderInfo.orderTime))")
-        
-        busyBaristas.append(orderInfo.barista)
-        orderQueue.append(orderInfo)
-        
-        make(orderInfo)
-        
+        if client.pay(for: coffee, at: self) == true {
+            let orderInfo = (orderTime: Date(), client: client, order: coffee, barista: self.freeBaristas.removeFirst(), isReady: false)
+            
+            print("\(self.name): \(orderInfo.client.name)님의 \(orderInfo.order) 주문 접수가 완료되었습니다.")
+            print("바리스타 \(orderInfo.barista.name)님이 맛있게 만들어드릴 겁니다.")
+            print("(주문 timestamp: \(orderInfo.orderTime))")
+            
+            busyBaristas.append(orderInfo.barista)
+            orderQueue.append(orderInfo)
+            
+            make(orderInfo)
+        } else {
+            print("\(self.name): 결제가 안 되네요...")
+        }
     } 
     
     
