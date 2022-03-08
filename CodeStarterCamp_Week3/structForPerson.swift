@@ -11,17 +11,20 @@ class Person {
     var name: String
     var age: Int
     var money: Int
-
+    
     init(name: String, age: Int, money: Int) {
         self.name = name
         self.age = age
         self.money = money
     }
     
-    func order(coffee: Coffee) {
+    func order(coffee: Coffee, coffeeShop: CoffeeShop, customerName: Person) {
         print("\(coffee)주세요")
-        if money < Coffee. {
-            print("잔액이 \(coffee.hashValue)원 만큼 부족합니다.")
+        if self.money < coffee.price {
+            print("잔액이 \(coffee.price - self.money)만큼 부족합니다.")
+        } else {
+            coffeeShop.takeOrder(coffee: coffee, customerName: customerName)
+            self.money -= coffee.price
         }
     }
 }
