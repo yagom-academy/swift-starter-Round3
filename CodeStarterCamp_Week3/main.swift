@@ -22,7 +22,7 @@ class Person {
     }
 }
 
-class coffeeShop  {
+class CoffeeShop  {
     var sales: Int = 0
     var coffee: coffee
     var price: Int
@@ -47,3 +47,7 @@ enum coffee: String {
     case latte = "라떼"
     case americano = "아메리카노"
 }
+
+var misterLee: Person = Person(name: "misterLee", money: 10000)
+var missKim: Person = Person(name: "missKim", money: 10000)
+var yagombucks:coffeeShop = coffeeShop(coffee: coffee.americano, price: 5000, barista: misterLee)
