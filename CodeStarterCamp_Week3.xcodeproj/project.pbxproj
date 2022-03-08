@@ -9,6 +9,7 @@
 /* Begin PBXBuildFile section */
 		34811DD5274B93EB00A1E994 /* main.swift in Sources */ = {isa = PBXBuildFile; fileRef = 34811DD4274B93EB00A1E994 /* main.swift */; };
 		5B4C645D27D65ABF00BA02FC /* structForCaffeeShop.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5B4C645C27D65ABF00BA02FC /* structForCaffeeShop.swift */; };
+		5BE13C1D27D7D8EE00AC2721 /* structForPerson.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5BE13C1C27D7D8EE00AC2721 /* structForPerson.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXCopyFilesBuildPhase section */
@@ -27,6 +28,7 @@
 		34811DD1274B93EB00A1E994 /* CodeStarterCamp_Week3 */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.executable"; includeInIndex = 0; path = CodeStarterCamp_Week3; sourceTree = BUILT_PRODUCTS_DIR; };
 		34811DD4274B93EB00A1E994 /* main.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = main.swift; sourceTree = "<group>"; };
 		5B4C645C27D65ABF00BA02FC /* structForCaffeeShop.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = structForCaffeeShop.swift; sourceTree = "<group>"; };
+		5BE13C1C27D7D8EE00AC2721 /* structForPerson.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = structForPerson.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -59,6 +61,7 @@
 		34811DD3274B93EB00A1E994 /* CodeStarterCamp_Week3 */ = {
 			isa = PBXGroup;
 			children = (
+				5BE13C1C27D7D8EE00AC2721 /* structForPerson.swift */,
 				5B4C645C27D65ABF00BA02FC /* structForCaffeeShop.swift */,
 				34811DD4274B93EB00A1E994 /* main.swift */,
 			);
@@ -124,6 +127,7 @@
 			files = (
 				5B4C645D27D65ABF00BA02FC /* structForCaffeeShop.swift in Sources */,
 				34811DD5274B93EB00A1E994 /* main.swift in Sources */,
+				5BE13C1D27D7D8EE00AC2721 /* structForPerson.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
