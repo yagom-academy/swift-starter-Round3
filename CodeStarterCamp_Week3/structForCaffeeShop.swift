@@ -7,20 +7,44 @@
 
 import Foundation
 
-struct CoffeeShop {
+class CoffeeShop {
     var totalRevenue: Int
-    var menu: [Coffee: Int] = [.americano: 5000, .latte: 5500, .cappuccino: 5500]
+    var menu: [Coffee: Int]
     var barista: Person
-
-    func takeOrder(coffee: Coffee) {
-        print("\(coffee)주문 받았습니다.")
-        }
     
-    func pickUpTable(coffee: Coffee) {
-        print("주문하신 \(coffee) 나왔습니다.")
+    init(totalRevenue: Int, menu: [Coffee: Int], barista: Person) {
+        self.totalRevenue = totalRevenue
+        self.menu = menu
+        self.barista = barista
+    }
+    
+    func takeOrder(coffee: Coffee, customerName: Person) {
+        print("네 \(coffee)주문 받았습니다.")
+        totalRevenue += coffee.price
+        pickUpTable(coffee: coffee, customerName: customerName)
+    }
+    
+    func pickUpTable(coffee: Coffee, customerName: Person) {
+        print("\(customerName.name) 님의 \(coffee)(이)가 준비되었습니다. 픽업대에서 가져가 주세요")
+        
+        
     }
 }
 
 enum Coffee {
-    case americano, latte, cappuccino
+    case americano
+    case latte
+    case cappuccino
+    
+    var price: Int {
+        switch self {
+        case .americano:
+            return 5000
+        case .latte:
+            return 5500
+        case .cappuccino:
+            return 5500
+        }
+        
+    }
 }
