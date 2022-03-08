@@ -49,8 +49,6 @@ class CoffeeShop {
     var busyBaristas: Array<Person> = []
     var orderQueue: Array<(Date, Person, Coffee, Person)> = []
     var completedOrderQueue: Array<(Date, Person, Coffee, Person)> = []
-
-    //var orderQueue: [orderInfo]
     
     init(name: String, baristas: Array<Person>, menu: [Coffee: Int]) {
         self.name = name
@@ -59,7 +57,13 @@ class CoffeeShop {
     }
     
     func takeOrder(_ coffee: Coffee, from client: Person) {
+        
         if client.pay(for: coffee, at: self) == true {
+            
+            if let payedMoney = self.menu[coffee]{
+                self.salesRevenue += payedMoney
+            }
+            
             let orderInfo = (orderTime: Date(), client: client, order: coffee, barista: self.freeBaristas.removeFirst())
             
             print("\(self.name): \(orderInfo.client.name)님의 \(orderInfo.order.name) 주문 접수가 완료되었습니다.")

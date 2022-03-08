@@ -17,6 +17,8 @@ let yagombuks = CoffeeShop(name: "yagombuks", baristas: [misterLee], menu: [Coff
 missKim.order(Coffee.espresso, at: yagombuks)
 print("=====================구분선=====================")
 misterJeong.order(Coffee.americano, at: yagombuks)
+print("=====================구분선=====================")
+print("yagombuks 매출액: \(yagombuks.salesRevenue)")
 //yagombuks.make(Coffee.espresso)
 //print(yagombuks.pickUpTable)
 //missKim.pay(for: Coffee.espresso, at: yagombuks)
