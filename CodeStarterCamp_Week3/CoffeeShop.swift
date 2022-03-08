@@ -9,20 +9,28 @@ import Foundation
 
 class CoffeeShop {
     var take = 0
-    let americano = 1000
-    let latte = 2000
-    let cappuccino = 3000
+    var menu = [Coffee: Int]()
     var putOnThePickupTable = false
     var barista: Person?
+    
+    init(menu: [Coffee: Int]) {
+        self.menu = menu
+    }
     
     func takeOrder(_ coffee: Coffee, from person: Person) {
         switch coffee{
         case .americano:
-            makecoffee(americano, for: person)
+            if let americano = menu[.americano]{
+                makecoffee(americano, for: person)
+            }
         case .latte:
-            makecoffee(latte, for: person)
+            if let latte = menu[.latte]{
+                makecoffee(latte, for: person)
+            }
         case .cappuccino:
-            makecoffee(cappuccino, for: person)
+            if let cappuccino = menu[.cappuccino]{
+                makecoffee(cappuccino, for: person)
+            }
         }
     }
     
