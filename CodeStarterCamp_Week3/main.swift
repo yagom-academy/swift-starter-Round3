@@ -8,5 +8,17 @@
 
 import Foundation
 
-print("Hello, World!")
+
+class Person {
+    var name: String
+    var money: Int
+    
+    init(name: String, money: Int) {
+        self.name = name
+        self.money = money
+    }
+    func toBuy(coffee: coffee) {
+        
+    }
+}
 
