@@ -50,7 +50,7 @@ class CoffeeShop {
     var pickUpTable: Array<String> = []
     var freeBaristas: Array<Person> = []
     var busyBaristas: Array<Person> = []
-
+    var orderQueue: Array<(Date, Person, Coffee, Person, Bool)> = []
 
     //var orderQueue: [orderInfo]
     
@@ -67,10 +67,11 @@ class CoffeeShop {
         print("\(orderInfo.client.name)님의 \(orderInfo.order) 주문 접수가 완료되었습니다.")
         print("바리스타 \(orderInfo.barista.name)님이 맛있게 만들어드릴 겁니다.")
         print("(주문 timestamp: \(orderInfo.orderTime))")
+        orderQueue.append(orderInfo)
 
         make(orderInfo)
-
-    }
+        
+    } 
     
     func make(_ orderInfo: (Date, Person, Coffee, Person, Bool)) {
         print("make 메서드 정상호출됨")
