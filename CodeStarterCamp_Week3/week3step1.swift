@@ -22,21 +22,19 @@ class Person {
         at.takeOrder(coffee, from: self)
     }
     
-    func pay(forWhat: Coffee, at: CoffeeShop) {
-        let menuName = forWhat
-        let cafeName = at.name
-
-        guard let coffeePrice = at.menu[menuName] else {
-            print("\(cafeName)에 \(menuName) 메뉴는 없습니다.")
+    func pay(for menuName: Coffee, at coffeeshop: CoffeeShop) {
+        
+        guard let coffeePrice = coffeeshop.menu[menuName] else {
+            print("\(coffeeshop.name)에 \(menuName) 메뉴는 없습니다.")
             return
         }
         
         if coffeePrice < self.money {
-            print("\(cafeName)에서 \(menuName)을/를 주문했습니다.")
+            print("\(coffeeshop.name)에서 \(menuName)을/를 주문했습니다.")
             print("소요 비용은 \(coffeePrice)원이며, 잔액은 \(self.money - coffeePrice)원 입니다.")
             self.money = self.money - coffeePrice
             
-            at.takeOrder(menuName, from: self)
+            coffeeshop.takeOrder(menuName, from: self)
             
         } else {
             print("구입할 수 없습니다.")
