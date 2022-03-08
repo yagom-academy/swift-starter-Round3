@@ -23,18 +23,20 @@ class Person {
     }
     
     func pay(forWhat: Coffee, at: CoffeeShop) {
-        
-        guard let coffeePrice = at.menu[forWhat] else {
-            print("\(at.name)에 \(forWhat)라는 메뉴는 없습니다.")
+        let menuName = forWhat
+        let cafeName = at.name
+
+        guard let coffeePrice = at.menu[menuName] else {
+            print("\(cafeName)에 \(menuName) 메뉴는 없습니다.")
             return
         }
         
         if coffeePrice < self.money {
-            print("\(at.name)에서 \(forWhat)을/를 주문했습니다.")
+            print("\(cafeName)에서 \(menuName)을/를 주문했습니다.")
             print("소요 비용은 \(coffeePrice)원이며, 잔액은 \(self.money - coffeePrice)원 입니다.")
             self.money = self.money - coffeePrice
             
-            at.takeOrder(forWhat, from: self)
+            at.takeOrder(menuName, from: self)
             
         } else {
             print("구입할 수 없습니다.")
