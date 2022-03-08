@@ -13,8 +13,7 @@ let missKim = Person(name: "Younghee", money: 10000)
 
 let yagombuks = CoffeeShop(name: "yagombuks", baristas: [misterLee], menu: [Coffee.espresso: 3000, Coffee.americano: 3500])
 
-print(Coffee.espresso.name)
-yagombuks.takeOrder(Coffee.espresso, from: missKim)
+missKim.order(Coffee.espresso, at: yagombuks)
 //yagombuks.make(Coffee.espresso)
 //print(yagombuks.pickUpTable)
 //missKim.pay(for: Coffee.espresso, at: yagombuks)

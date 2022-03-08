@@ -18,7 +18,7 @@ class Person {
     }
     
     func order(_ coffee: Coffee, at: CoffeeShop) {
-        print("\(self.name)이/가 \(at.name)에서 \(coffee)를 구입합니다.")
+        print("\(self.name)이/가 \(at.name)에서 \(coffee)을/를 구입합니다.")
         at.takeOrder(coffee, from: self)
     }
     
@@ -30,15 +30,14 @@ class Person {
         }
         
         if coffeePrice < self.money {
-            print("\(coffeeshop.name)에서 \(menuName)을/를 주문했습니다.")
-            print("소요 비용은 \(coffeePrice)원이며, 잔액은 \(self.money - coffeePrice)원 입니다.")
+            print("\(self.name)이/가 \(coffeeshop.name)에서 \(menuName)을/를 주문했습니다.")
             self.money = self.money - coffeePrice
-            
-            coffeeshop.takeOrder(menuName, from: self)
+            print("소요 비용은 \(coffeePrice)원이며, 잔액은 \(self.money)원 입니다.")
             
         } else {
             print("구입할 수 없습니다.")
             print("잔액이 \(coffeePrice - self.money)원 부족합니다.")
+
         }
     }
 }
@@ -62,10 +61,10 @@ class CoffeeShop {
     }
     
     func takeOrder(_ coffee: Coffee, from client: Person) {
-
+        client.pay(for: coffee, at: self)
         let orderInfo = (orderTime: Date(), client: client, order: coffee, barista: self.freeBaristas.removeFirst(), isReady: false)
         
-        print("\(orderInfo.client.name)님의 \(orderInfo.order) 주문 접수가 완료되었습니다.")
+        print("\(self.name): \(orderInfo.client.name)님의 \(orderInfo.order) 주문 접수가 완료되었습니다.")
         print("바리스타 \(orderInfo.barista.name)님이 맛있게 만들어드릴 겁니다.")
         print("(주문 timestamp: \(orderInfo.orderTime))")
         
