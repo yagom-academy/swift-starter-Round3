@@ -10,7 +10,6 @@ import Foundation
 class Person {
     var name: String
     var money: Int
-    var inventory: Array<String> = []
     
     init(name: String, money: Int) {
         self.name = name
@@ -18,19 +17,18 @@ class Person {
     }
     
     func order(_ coffee: Coffee, at: CoffeeShop) {
-        print("\(self.name)이/가 \(at.name)에서 \(coffee)을/를 구입합니다.")
+        print("\(self.name)(이)가 \(at.name)에서 \(coffee.name)를 구입합니다.")
         at.takeOrder(coffee, from: self)
     }
     
     func pay(for menuName: Coffee, at coffeeshop: CoffeeShop) -> Bool {
         
         guard let coffeePrice = coffeeshop.menu[menuName] else {
-            print("\(coffeeshop.name)에 \(menuName) 메뉴는 없습니다.")
             return false
         }
         
         if coffeePrice < self.money {
-            print("\(self.name)이/가 \(coffeeshop.name)에서 \(menuName)을/를 주문했습니다.")
+            print("\(self.name)(이)가 \(coffeeshop.name)에서 \(menuName.name)를 주문했습니다.")
             self.money = self.money - coffeePrice
             print("소요 비용은 \(coffeePrice)원이며, 잔액은 \(self.money)원 입니다.")
             return true
@@ -46,11 +44,11 @@ class CoffeeShop {
     var name: String
     var salesRevenue: Int = 0
     var menu: [Coffee: Int] = [:]
-    var pickUpTable: Array<(Date, Person, Coffee, Person, Bool)> = []
+    var pickUpTable: Array<(Date, Person, Coffee, Person)> = []
     var freeBaristas: Array<Person> = []
     var busyBaristas: Array<Person> = []
-    var orderQueue: Array<(Date, Person, Coffee, Person, Bool)> = []
-    var completedOrderQueue: Array<(Date, Person, Coffee, Person, Bool)> = []
+    var orderQueue: Array<(Date, Person, Coffee, Person)> = []
+    var completedOrderQueue: Array<(Date, Person, Coffee, Person)> = []
 
     //var orderQueue: [orderInfo]
     
@@ -62,9 +60,9 @@ class CoffeeShop {
     
     func takeOrder(_ coffee: Coffee, from client: Person) {
         if client.pay(for: coffee, at: self) == true {
-            let orderInfo = (orderTime: Date(), client: client, order: coffee, barista: self.freeBaristas.removeFirst(), isReady: false)
+            let orderInfo = (orderTime: Date(), client: client, order: coffee, barista: self.freeBaristas.removeFirst())
             
-            print("\(self.name): \(orderInfo.client.name)님의 \(orderInfo.order) 주문 접수가 완료되었습니다.")
+            print("\(self.name): \(orderInfo.client.name)님의 \(orderInfo.order.name) 주문 접수가 완료되었습니다.")
             print("바리스타 \(orderInfo.barista.name)님이 맛있게 만들어드릴 겁니다.")
             print("(주문 timestamp: \(orderInfo.orderTime))")
             
@@ -78,22 +76,19 @@ class CoffeeShop {
     } 
     
     
-    func make(_ orderInfo: (orderTime: Date, client: Person, order: Coffee, barista: Person, isReady: Bool)) {
+    func make(_ orderInfo: (orderTime: Date, client: Person, order: Coffee, barista: Person)) {
 
-        var completedOrderInfo = orderInfo
-        completedOrderInfo.isReady = true
-        
-        completedOrderQueue.append(completedOrderInfo)
+        completedOrderQueue.append(orderInfo)
 
-        putOnTable(completedOrderInfo)
+        putOnTable(orderInfo)
     }
     
-    func putOnTable(_ completedOrderInfo: (orderTime: Date, client: Person, order: Coffee, barista: Person, isReady: Bool)) {
+    func putOnTable(_ completedOrderInfo: (orderTime: Date, client: Person, order: Coffee, barista: Person)) {
         
         orderQueue.removeFirst()
         freeBaristas.append(busyBaristas.removeFirst())
         
-        print("\(completedOrderInfo.barista.name) 바리스타가 만든 \(completedOrderInfo.client.name)님의 \(completedOrderInfo.order)가 준비되었습니다. 픽업대에서 가져가주세요.")
+        print("\(completedOrderInfo.barista.name) 바리스타가 만든 \(completedOrderInfo.client.name)님의 \(completedOrderInfo.order.name)가 준비되었습니다. 픽업대에서 가져가주세요.")
     }
 }
 
