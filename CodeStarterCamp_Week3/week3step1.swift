@@ -75,11 +75,15 @@ class CoffeeShop {
         
     } 
     
-    func make(_ orderInfo: (Date, Person, Coffee, Person, Bool)) {
-        print("make 메서드 정상호출됨")
+    
+    func make(_ orderInfo: (orderTime: Date, client: Person, order: Coffee, barista: Person, isReady: Bool)) {
+
+        var completedOrderInfo = orderInfo
+        completedOrderInfo.isReady = true
         
-//        pickUpTable.append("\(beverage)")
-//        print("주문하신 \(beverage) 나왔습니다.")
+        orderQueue.removeFirst()
+        
+        freeBaristas.append(busyBaristas.removeFirst())
     }
 }
 
