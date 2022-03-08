@@ -62,19 +62,22 @@ class CoffeeShop {
     
     func takeOrder(_ coffee: Coffee, from client: Person) {
 
-        let orderInfo = (orderTime: Date(), client: client, order: coffee, barista: self.freeBaristas[0], isReady: false)
+        let orderInfo = (orderTime: Date(), client: client, order: coffee, barista: self.freeBaristas.removeFirst(), isReady: false)
         
         print("\(orderInfo.client.name)님의 \(orderInfo.order) 주문 접수가 완료되었습니다.")
         print("바리스타 \(orderInfo.barista.name)님이 맛있게 만들어드릴 겁니다.")
         print("(주문 timestamp: \(orderInfo.orderTime))")
+        
+        busyBaristas.append(orderInfo.barista)
         orderQueue.append(orderInfo)
-
+        
         make(orderInfo)
         
     } 
     
     func make(_ orderInfo: (Date, Person, Coffee, Person, Bool)) {
         print("make 메서드 정상호출됨")
+        
 //        pickUpTable.append("\(beverage)")
 //        print("주문하신 \(beverage) 나왔습니다.")
     }
