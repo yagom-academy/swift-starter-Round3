@@ -47,10 +47,11 @@ class CoffeeShop {
     var name: String
     var salesRevenue: Int = 0
     var menu: [Coffee: Int] = [:]
-    var pickUpTable: Array<String> = []
+    var pickUpTable: Array<(Date, Person, Coffee, Person, Bool)> = []
     var freeBaristas: Array<Person> = []
     var busyBaristas: Array<Person> = []
     var orderQueue: Array<(Date, Person, Coffee, Person, Bool)> = []
+    var completedOrderQueue: Array<(Date, Person, Coffee, Person, Bool)> = []
 
     //var orderQueue: [orderInfo]
     
@@ -81,9 +82,17 @@ class CoffeeShop {
         var completedOrderInfo = orderInfo
         completedOrderInfo.isReady = true
         
-        orderQueue.removeFirst()
+        completedOrderQueue.append(completedOrderInfo)
+
+        putOnTable(completedOrderInfo)
+    }
+    
+    func putOnTable(_ completedOrderInfo: (orderTime: Date, client: Person, order: Coffee, barista: Person, isReady: Bool)) {
         
+        orderQueue.removeFirst()
         freeBaristas.append(busyBaristas.removeFirst())
+        
+        print("\(completedOrderInfo.barista.name) 바리스타가 만든 \(completedOrderInfo.client.name)님의 \(completedOrderInfo.order)가 준비되었습니다. 픽업대에서 가져가주세요.")
     }
 }
 
