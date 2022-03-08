@@ -48,21 +48,34 @@ class CoffeeShop {
     var salesRevenue: Int = 0
     var menu: [Coffee: Int] = [:]
     var pickUpTable: Array<String> = []
-    var baristas: Array<Person> = []
+    var freeBaristas: Array<Person> = []
+    var busyBaristas: Array<Person> = []
+
+
+    //var orderQueue: [orderInfo]
     
     init(name: String, baristas: Array<Person>, menu: [Coffee: Int]) {
         self.name = name
-        self.baristas = baristas
+        self.freeBaristas = baristas
         self.menu = menu
     }
     
-    func takeOrder(_ coffee: Coffee, from: Person) {
-        print("\(from.name)님의 \(coffee) 주문 접수가 완료되었습니다.")
+    func takeOrder(_ coffee: Coffee, from client: Person) {
+
+        let orderInfo = (orderTime: Date(), client: client, order: coffee, barista: self.freeBaristas[0], isReady: false)
+        
+        print("\(orderInfo.client.name)님의 \(orderInfo.order) 주문 접수가 완료되었습니다.")
+        print("바리스타 \(orderInfo.barista.name)님이 맛있게 만들어드릴 겁니다.")
+        print("(주문 timestamp: \(orderInfo.orderTime))")
+
+        make(orderInfo)
+
     }
     
-    func make(_ beverage: Coffee) {
-        pickUpTable.append("\(beverage)")
-        print("주문하신 \(beverage) 나왔습니다.")
+    func make(_ orderInfo: (Date, Person, Coffee, Person, Bool)) {
+        print("make 메서드 정상호출됨")
+//        pickUpTable.append("\(beverage)")
+//        print("주문하신 \(beverage) 나왔습니다.")
     }
 }
 

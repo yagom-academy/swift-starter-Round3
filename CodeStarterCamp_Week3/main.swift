@@ -15,6 +15,15 @@ let yagombuks = CoffeeShop(name: "yagombuks", baristas: [misterLee], menu: [Coff
 
 print(Coffee.espresso.name)
 yagombuks.takeOrder(Coffee.espresso, from: missKim)
-yagombuks.make(Coffee.espresso)
-print(yagombuks.pickUpTable)
-missKim.pay(for: Coffee.espresso, at: yagombuks)
+//yagombuks.make(Coffee.espresso)
+//print(yagombuks.pickUpTable)
+//missKim.pay(for: Coffee.espresso, at: yagombuks)
+//
+//
+//
+//let a = Date()
+//
+//
+//
+
+
