@@ -10,6 +10,7 @@ import Foundation
 class Person {
     var name: String
     var money: Int
+    var inventory: Array<(Date, Person, Coffee, Person)> = []
     
     init(name: String, money: Int) {
         self.name = name
@@ -91,6 +92,7 @@ class CoffeeShop {
         
         orderQueue.removeFirst()
         freeBaristas.append(busyBaristas.removeFirst())
+        pickUpTable.append(completedOrderInfo)
         
         print("\(completedOrderInfo.barista.name) 바리스타가 만든 \(completedOrderInfo.client.name)님의 \(completedOrderInfo.order.name)가 준비되었습니다. 픽업대에서 가져가주세요.")
     }
