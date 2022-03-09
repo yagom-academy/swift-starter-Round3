@@ -7,31 +7,35 @@
 
 import Foundation
 
+
 class CoffeeShop {
     var totalRevenue: Int
-    var menu: [Coffee: Int]
+    var menu: [Coffee: Int] = [.americano: 5000, .latte: 5500, .cappuccino: 5500]
     var barista: Person
-    
-    init(totalRevenue: Int, menu: [Coffee: Int], barista: Person) {
+    var pickUpTable: String? = nil {
+        didSet {
+            print("\(pickUpTable!)가 준비되었습니다. 픽업대에서 가져가주세요.")
+        }
+    }
+    init(totalRevenue: Int, menu: [Coffee: Int] = [.americano: 5000, .latte: 5500, .cappuccino: 5500], barista: Person) {
         self.totalRevenue = totalRevenue
         self.menu = menu
         self.barista = barista
     }
     
-    func takeOrder(coffee: Coffee, customerName: Person) {
+    func takeOrder(coffee: Coffee, person: Person) {
         print("네 \(coffee)주문 받았습니다.")
         totalRevenue += coffee.price
-        customerName.money -= coffee.price
-        pickUpTable(coffee: coffee, customerName: customerName)
+        person.money -= coffee.price
+        takeOutCoffee(coffee: coffee)
     }
     
-    func pickUpTable(coffee: Coffee, customerName: Person) {
-        print("\(customerName.name) 님의 \(coffee)(이)가 준비되었습니다. 픽업대에서 가져가 주세요")
-        
-        
+    
+    func takeOutCoffee(coffee: Coffee) {
+        pickUpTable = String("\(coffee)")
     }
+    
 }
-
 enum Coffee {
     case americano
     case latte
