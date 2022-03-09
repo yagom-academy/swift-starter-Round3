@@ -11,6 +11,7 @@ class CoffeeShop {
     var take = 0
     var menu = [Coffee: Int]()
     var putOnThePickupTable = false
+    var customerName = ""
     var barista: Person?
     
     init(menu: [Coffee: Int]) {
@@ -21,27 +22,27 @@ class CoffeeShop {
         switch coffee{
         case .americano:
             if let americano = menu[.americano]{
-                makecoffee(americano, for: person)
+                makeCoffee(americano, for: person)
             }
         case .latte:
             if let latte = menu[.latte]{
-                makecoffee(latte, for: person)
+                makeCoffee(latte, for: person)
             }
         case .cappuccino:
             if let cappuccino = menu[.cappuccino]{
-                makecoffee(cappuccino, for: person)
+                makeCoffee(cappuccino, for: person)
             }
         }
     }
     
-    func makecoffee(_ coffeePrice: Int, for person: Person) {
+    func makeCoffee(_ coffeePrice: Int, for person: Person) {
         if person.money >= coffeePrice {
             person.purchase(coffeePrice)
+            customerName = person.name
             putOnThePickupTable = true
             take += coffeePrice
-            print("구매성공")
         } else {
-            print("돈이 부족합니다.")
+            print("잔액이 \(coffeePrice)만큼 부족합니다")
         }
         putOnThePickupTable = false
     }
