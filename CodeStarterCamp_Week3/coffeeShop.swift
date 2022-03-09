@@ -37,7 +37,8 @@ class CoffeeShop {
             totalRevenue += coffee.price
             takeOutCoffee(coffee: coffee)
         }
-
+    }
+    
     func takeOutCoffee(coffee: Coffee) {
         pickUpTable = String("\(coffee)")
     }

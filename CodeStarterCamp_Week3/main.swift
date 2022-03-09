@@ -13,4 +13,4 @@ var misterLee = Person(name: "misterLee", age: 25, money: 10000)
 var missKim = Person(name: "missKim", age: 27, money: 10000)
 var yagomBucks = CoffeeShop(totalRevenue: 0, barista: misterLee)
 
-missKim.order(shop: yagomBucks, coffee: Coffee.cappuccino)
+yagomBucks.takeOrder(coffee: Coffee.cappuccino, person: missKim)
