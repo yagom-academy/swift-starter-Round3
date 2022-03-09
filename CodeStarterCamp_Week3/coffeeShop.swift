@@ -12,9 +12,13 @@ class CoffeeShop {
     var totalRevenue: Int
     var menu: [Coffee: Int] = [.americano: 5000, .latte: 5500, .cappuccino: 5500]
     var barista: Person
-    var pickUpTable: String? = nil {
+    var pickUpTable: String? {
         didSet {
-            print("\(pickUpTable!)가 준비되었습니다. 픽업대에서 가져가주세요.")
+            if let pickUpTable = pickUpTable {
+                print("\(pickUpTable)가 준비되었습니다. 픽업대에서 가져가주세요.")
+            } else {
+                return
+            }
         }
     }
     
