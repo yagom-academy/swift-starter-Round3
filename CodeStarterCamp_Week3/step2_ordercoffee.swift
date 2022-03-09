@@ -22,10 +22,10 @@ class Person {
 
 class CoffeeShop {
     var sales: Int = 0
-    var pickUpTable: Coffee? {
-        willSet {
-             guard let newValue = newValue, let name = self.customer?.name else { return }
-             print("\(name)님의 \(newValue)가 준비되었습니다. 픽업대에서 가져가주세요.")
+    var pickUpTable: Coffee? = nil {
+        didSet {
+             guard let pickuptable = pickUpTable, let name = self.customer?.name else { return }
+             print("\(name)님의 \(pickuptable)가 준비되었습니다. 픽업대에서 가져가주세요.")
          }
      }
     var menu : [Coffee: Int] = [.americano: 1500, .latte: 3000, .cappuccino: 3500, .coldBrew: 4000]
@@ -59,22 +59,12 @@ class CoffeeShop {
         yagombucks.pickUpTable = coffee
     }
     
-    init(sales: Int, barista: Person, pickUpTable: Coffee) {
+    init(sales: Int, barista: Person, pickUpTable: Coffee?) {
         self.sales = sales
         self.barista = barista
         self.pickUpTable = pickUpTable
     }
-    
-    init(sales: Int, barista: Person) {
-        self.sales = sales
-        self.barista = barista
-    }
 }
-
-let misterLee = Person(name: "misterLee", money: 30000)
-let missKim = Person(name: "missKim", money: 3000)
-
-let yagombucks: CoffeeShop = CoffeeShop(sales: 300000, barista: misterLee)
 
 func hasAsset(of customer: Person, for coffee: Coffee) -> Bool {
     if let assetOfYagombucks = yagombucks.menu[coffee] {
