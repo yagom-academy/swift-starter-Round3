@@ -20,18 +20,21 @@ struct Person {
 struct CoffeeShop {
     var sales: Int
     var baristar: Person
-    var customerName: Person
-    // 변수를 밖으로 뺴내어 함수가 종료되어도 매모리애서 제거 되지 않도록 설정하고, 옵셔널 값으로 설정해 커피가 없을 수도 있도록 해 봤습니다
+    var customer: Person
     var pickUpTable: Coffee? {
         didSet {
             if let readyCoffee = pickUpTable {
-                print("\(customerName.name)님의  \(readyCoffee)가 준비 되었습니다 픽업대에서 가져가 주시길 바랍니다!")
+                print("\(customer.name)님의  \(readyCoffee)가 준비 되었습니다 픽업대에서 가져가 주시길 바랍니다!")
+            } else  {
+                print("커피를 올려주세요")
             }
         }
     }
-    // Person타입에 있는 checkMoney함수를 활용 하는 방법 힌트가 조금 있을까요??ㅎㅎ;;
+    
+    // 커피샵에서 주문을 받고 매출액을 계산하는 함수 구현
     func takeOrder(coffee: Coffee, person: Person, coffeeShop: CoffeeShop) {
         person.checkMoney(coffee: coffee, person: person)
+        person.orderCoffee(coffee: coffee, person: person)
         if coffee.rawValue <= person.money {
             // 원래 매출액에 커피값을 더해서 총 매출액을 작성해 봤습니다
             print("주문이 완료 되었습니다.(금일 매출액 : \(coffeeShop.sales)원 +\(coffee.rawValue)원, 총매출액 : \(coffeeShop.sales+coffee.rawValue)원)")
@@ -53,10 +56,7 @@ enum Coffee: Int {
 }
 let misterLee: Person = Person(money: 0, name: "misterLee")
 let missKim: Person = Person(money: 5000, name: "missKim")
-var yagomBucks: CoffeeShop = CoffeeShop(sales: 50000, baristar: misterLee, customerName: missKim)
+var yagomBucks: CoffeeShop = CoffeeShop(sales: 50000, baristar: misterLee, customer: missKim)
 
-// 통합 함수를 제거하고 각 메소드를 실행 시켜봤습니다!
-missKim.checkMoney(coffee: .cappuccino  , person: missKim)
-missKim.orderCoffee(coffee: .cappuccino, person: missKim)
 yagomBucks.takeOrder(coffee: .cappuccino, person: missKim, coffeeShop: yagomBucks)
 yagomBucks.makeCoffee(coffee: .cappuccino, person: missKim)
