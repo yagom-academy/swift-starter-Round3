@@ -17,6 +17,7 @@ class CoffeeShop {
             print("\(pickUpTable!)가 준비되었습니다. 픽업대에서 가져가주세요.")
         }
     }
+    
     init(totalRevenue: Int, menu: [Coffee: Int] = [.americano: 5000, .latte: 5500, .cappuccino: 5500], barista: Person) {
         self.totalRevenue = totalRevenue
         self.menu = menu
@@ -30,12 +31,12 @@ class CoffeeShop {
         takeOutCoffee(coffee: coffee)
     }
     
-    
     func takeOutCoffee(coffee: Coffee) {
         pickUpTable = String("\(coffee)")
     }
     
 }
+
 enum Coffee {
     case americano
     case latte
