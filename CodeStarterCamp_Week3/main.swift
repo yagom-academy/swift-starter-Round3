@@ -11,6 +11,6 @@ import Foundation
 
 var misterLee = Person(name: "misterLee", age: 25, money: 10000)
 var missKim = Person(name: "missKim", age: 27, money: 10000)
-var yagomBucks = CoffeeShop(totalRevenue: 0, menu: [Coffee.americano: Coffee.americano.price, Coffee.latte: Coffee.latte.price, Coffee.cappuccino: Coffee.cappuccino.price], barista: misterLee)
+var yagomBucks = CoffeeShop(totalRevenue: 0, barista: misterLee)
 
-missKim.order(coffee: .latte, coffeeShop: yagomBucks, customerName: missKim)
+missKim.order(shop: yagomBucks, coffee: Coffee.cappuccino)
