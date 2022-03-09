@@ -14,3 +14,5 @@ var missKim = Person(money: 2000, name: "missKim")
 
 var yagombucks = CoffeeShop(menu: [.americano: 2000, .latte: 3000, .cappuccino: 4000])
 yagombucks.barista = misterLee
+yagombucks.takeOrder(.americano, from: missKim)
+yagombucks.takeOrder(.americano, from: missKim)
