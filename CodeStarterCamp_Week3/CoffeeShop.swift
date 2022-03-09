@@ -10,7 +10,13 @@ import Foundation
 class CoffeeShop {
     var take = 0
     var menu = [Coffee: Int]()
-    var putOnThePickupTable = false
+    var isCompleted = false {
+        didSet {
+            if isCompleted {
+                print("\(customerName) 님의 커피가 준비되었습니다. 픽업대에서 가져가주세요.")
+            }
+        }
+    }
     var customerName = ""
     var barista: Person?
     
@@ -39,11 +45,11 @@ class CoffeeShop {
         if person.money >= coffeePrice {
             person.purchase(coffeePrice)
             customerName = person.name
-            putOnThePickupTable = true
+            isCompleted = true
             take += coffeePrice
         } else {
             print("잔액이 \(coffeePrice)만큼 부족합니다")
         }
-        putOnThePickupTable = false
+        isCompleted = false
     }
 }
