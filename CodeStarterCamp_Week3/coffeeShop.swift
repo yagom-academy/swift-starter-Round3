@@ -25,12 +25,15 @@ class CoffeeShop {
     }
     
     func takeOrder(coffee: Coffee, person: Person) {
-        print("네 \(coffee)주문 받았습니다.")
-        totalRevenue += coffee.price
-        person.money -= coffee.price
-        takeOutCoffee(coffee: coffee)
-    }
-    
+        if person.money < coffee.price {
+            print("잔액이 \(coffee.price - person.money)만큼 부족합니다.")
+        } else {
+            print("네 \(coffee)주문 받았습니다.")
+            person.money -= coffee.price
+            totalRevenue += coffee.price
+            takeOutCoffee(coffee: coffee)
+        }
+
     func takeOutCoffee(coffee: Coffee) {
         pickUpTable = String("\(coffee)")
     }
