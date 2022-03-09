@@ -21,6 +21,7 @@ class CoffeeShop {
     func takeOrder(coffee: Coffee, customerName: Person) {
         print("네 \(coffee)주문 받았습니다.")
         totalRevenue += coffee.price
+        customerName.money -= coffee.price
         pickUpTable(coffee: coffee, customerName: customerName)
     }
     
