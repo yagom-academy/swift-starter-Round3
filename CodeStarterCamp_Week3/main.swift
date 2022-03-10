@@ -1,152 +1,269 @@
-struct PersonalInformation {
-    var socialSecurityNumber = "999999-1111111"
-    var name = "성이름"
-    var age = 0
-    var residence = "서울"
-    var phoneNumber = "010-0000-0000"
-    var job: String?
-    var school: String?
-    var company: String?
+protocol AnimalAct {
+    func breath()
+    func eat()
+    func hear()
+    func move()
+    func see()
 }
 
-struct PhysicalInformation {
-    var height = 0.0
-    var weight = 0.0
-    var eyes = 2
-    var nose = true
-    var mouse = true
-    var ears = 2
-    var arms = 2
-    var hands = 2
-    var legs = 2
-    var feet = 2
+protocol AnimalBody {
+    var height: Double { get set }
+    var weight: Double { get set }
+    var eyes: Int { get }
+    var nose: Int { get }
+    var mouse: Int { get }
+    var ears: Int { get }
+    var arms: Int { get }
+    var hands: Int { get }
+    var legs: Int { get }
+    var feet: Int { get }
+    
+    mutating func setBreakBody()
 }
+
+struct PersonAct: AnimalAct {
+    func breath() {
+        print("이 숨을 쉽니다.")
+    }
+    
+    func eat() {
+        print("이 먹습니다.")
+    }
+    
+    func hear() {
+        print("이 듣습니다.")
+    }
+    
+    func move() {
+        print("이 움직입니다.")
+    }
+    
+    func see() {
+        print("이 봅니다.")
+    }
+}
+
+struct PersonBody: AnimalBody {
+    
+    var height: Double
+    var weight: Double
+    var breakEyes: Int = 0
+    var breakEars: Int = 0
+    var breakArms: Int = 0
+    var breakHands: Int = 0
+    var breakLegs: Int = 0
+    var breakFeet: Int = 0
+    var breakNose: Int = 0
+    var breakMouse: Int = 0
+    
+    var eyes: Int {
+        get {
+            return 2 - breakEyes
+        }
+    }
+    var ears: Int {
+        get {
+            return 2 - breakEars
+        }
+    }
+    var arms: Int {
+        get {
+            return 2 - breakArms
+        }
+    }
+    var hands: Int {
+        get {
+            return 2 - breakHands
+        }
+    }
+    var legs: Int {
+        get {
+            return 2 - breakLegs
+        }
+    }
+    var feet: Int {
+        get {
+            return 2 - breakFeet
+        }
+    }
+    var nose: Int {
+        get {
+            return 1 - breakNose
+        }
+    }
+    var mouse: Int {
+        get {
+            return 1 - breakMouse
+        }
+    }
+    
+    mutating func setBreakBody() {
+        print("""
+             신체의 어느 부분이 다치셨습니까?
+             1. 눈
+             2. 귀
+             3. 팔
+             4. 손
+             5. 다리
+             6. 발
+             7. 코
+             8. 입
+             
+             입력:
+             """, terminator: " ")
+        let bodyName = readLine()
+        
+        print("그 부분을 몇 군데 다치셨습니까?", terminator: " ")
+        let bodyNameCount = readLine()
+        
+        if let bodyName = bodyName, let bodyNameCount = bodyNameCount {
+            let bodyNameLiteral = bodyName
+            let bodyNameCountInteger = Int(bodyNameCount)
+            
+            if let bodyNameCountInteger = bodyNameCountInteger {
+                switch bodyNameLiteral {
+                case "1":
+                    breakEyes = bodyNameCountInteger
+                case "2":
+                    breakEars = bodyNameCountInteger
+                case "3":
+                    breakArms = bodyNameCountInteger
+                case "4":
+                    breakHands = bodyNameCountInteger
+                case "5":
+                    breakLegs = bodyNameCountInteger
+                case "6":
+                    breakFeet = bodyNameCountInteger
+                case "7":
+                    breakNose = bodyNameCountInteger
+                case "8":
+                    breakMouse = bodyNameCountInteger
+                default:
+                    print("잘못된 번호를 입력하셨습니다")
+                }
+            }
+        }
+    }
+}
+
+struct PersonInformation {
+    var name: String
+    var age: Int
+    var socialSecurityNumber: String
+    var residence: String
+    var phoneNumber: String? = nil
+    var job: String? = nil
+    var school: String? = nil
+    var company: String? = nil
+    var money: Int? = nil
+}
+
+
 
 class Person {
-    var personalInformation = PersonalInformation()
-    var physicalInformation = PhysicalInformation()
-    var money: Int
+    var personInformation: PersonInformation
+    var personBody: PersonBody
+    // personInformation, personBody 두 구조체를 외부에서 주입하였습니다.
+    // 변수로 선언한 이유는 구조체는 '값 타입'이므로 'Stack'에 저장되므로, let으로 선언할 경우 내부 프로퍼티의 값을 변경할 수 없기에
+    // var로 선언하였습니다!
+    // personBody구조체를 상위 프로토콜 타입을 만들어 사용한 이유는 '의존성 주입'때문입니다.
+    // 이를 통해, 구조체의 프로퍼티, 메소드가 변경되거나 제거될 경우,
+    // Person 클래스의 인스턴스에서 에러가 발생하는 것이 아닌, 프로토콜 타입의 구조체 인스턴스에서 에러가 발생하니,
+    // 어느 부분에서 에러가 발생한지 명확하게 파악할 수 있습니다.
     
-    init?(socialSecurityNumber: String, name: String, age: Int, residence: String, phoneNumber: String, height: Double, weight: Double, money: Int) {
-        if socialSecurityNumber.count == 0 {
-            return nil
-        }
-        if name.count == 0 {
-            return nil
-        }
-        if (0...130).contains(age) == false {
-            return nil
-        }
-        if residence.count == 0 {
-            return nil
-        }
-        if phoneNumber.count == 0 {
-            return nil
-        }
-        if height < 0 {
-            return nil
-        }
-        if weight < 0 {
-            return nil
-        }
-        self.personalInformation.socialSecurityNumber = socialSecurityNumber
-        self.personalInformation.name = name
-        self.personalInformation.age = age
-        self.personalInformation.residence = residence
-        self.personalInformation.phoneNumber = phoneNumber
-        self.physicalInformation.height = height
-        self.physicalInformation.weight = weight
-        self.money = money
-    }
+    // personInformation의 프로토콜을 만들지 않은 이유는 프로토콜로 상위 타입을 만들 수 없다고 생각했기 때문입니다.
+    // 동물 -> 사람의 관계를 '상위' '하위 관계로 생각해보았을때.
+    // 동물은 정보를 가질 수야 있지만, 사람처럼 '정보'를 꼭 가지고 있지는 않다고 생각하여
+    // personInformation은 구조체만 선언하였습니다.
     
-    init?(socialSecurityNumber: String, name: String, age: Int, residence: String, phoneNumber: String, job: String?, school: String?, company: String?, height: Double, weight: Double, money: Int) {
-        if socialSecurityNumber.count == 0 {
-            return nil
-        }
-        if name.count == 0 {
-            return nil
-        }
-        if (0...130).contains(age) == false {
-            return nil
-        }
-        if residence.count == 0 {
-            return nil
-        }
-        if phoneNumber.count == 0 {
-            return nil
-        }
-        if height < 0 {
-            return nil
-        }
-        if weight < 0 {
-            return nil
-        }
-        self.personalInformation.socialSecurityNumber = socialSecurityNumber
-        self.personalInformation.name = name
-        self.personalInformation.age = age
-        self.personalInformation.residence = residence
-        self.personalInformation.phoneNumber = phoneNumber
-        self.personalInformation.job = job
-        self.personalInformation.school = school
-        self.personalInformation.company = company
-        self.physicalInformation.height = height
-        self.physicalInformation.weight = weight
-        self.money = money
+    private let personAct: PersonAct
+    // personAct 구조체 역시 외부에서 주입하였습니다.
+    // personAct구조체를 상위 프로토콜 타입을 만들어 사용한 이유는 '의존성 주입'때문입니다.
+    // 이를 통해, 구조체의 프로퍼티, 메소드가 변경되거나 제거될 경우,
+    // Person 클래스의 인스턴스에서 에러가 발생하는 것이 아닌, 프로토콜 타입의 구조체 인스턴스에서 에러가 발생하니,
+    // 어느 부분에서 에러가 발생한지 명확하게 파악할 수 있습니다.
+    
+    
+    
+    init(personInformation: PersonInformation, personBody: PersonBody, personAct: PersonAct) {
+        self.personInformation = personInformation
+        self.personBody = personBody
+        self.personAct = personAct
     }
+    // 생성자는 모두 외부에서 구조체의 인스턴스를 주입하는 방식으로 짜보았습니다.
+    // 이를 통해, 1. 매개변수의 갯수를 줄일 수 있다. 2. 분기문을 제거하였다. 3. 코드의 간결성이 높아진다. 를 생각하여 작성해 보았습니다.
+    
     
     deinit {
-            print("\(personalInformation.name)이 사망하셨습니다.")
+        print("\(self.personInformation.name)이 사망하셨습니다.")
             }
     
     func see() {
-        if physicalInformation.eyes > 0 {
-            print("\(personalInformation.name)이 사물을 봅니다")
+        if self.personBody.eyes > 0 {
+            print(self.personInformation.name, terminator: "")
+            self.personAct.see()
         } else {
-            print("\(personalInformation.name)이 사물을 보지 못합니다")
+            print("\(self.personInformation.name)이 보지 못합니다.")
         }
         
     }
     
     func breath() {
-        if physicalInformation.nose == true {
-            print("\(personalInformation.name)이 숨을 쉽니다.")
+        if self.personBody.nose > 0 {
+            print(self.personInformation.name, terminator: "")
+            self.personAct.breath()
         } else {
-            print("\(personalInformation.name)이 숨을 쉬지 못합니다")
+            print("\(self.personInformation.name)이 숨을 쉬지 못합니다.")
         }
     }
     
     func hear() {
-        if physicalInformation.mouse == true {
-            print("\(personalInformation.name)이 듣습니다.")
+        if self.personBody.ears > 0 {
+            print(self.personInformation.name, terminator: "")
+            self.personAct.hear()
+
         } else {
-            print("\(personalInformation.name)이 듣지 못합니다")
+            print("\(self.personInformation.name)이 듣지 못합니다.")
+        }
+    }
+    
+    func move() {
+        if self.personBody.legs > 1 , self.personBody.feet > 1 {
+            print(self.personInformation.name, terminator: "")
+            self.personAct.move()
+        } else {
+            print("\(self.personInformation.name)이 움직이지 못합니다.")
+        }
+    }
+    
+    func eat() {
+        if self.personBody.mouse > 0 {
+            print(self.personInformation.name, terminator: "")
+            self.personAct.eat()
+        } else {
+            print("\(self.personInformation.name)이 먹지 못합니다.")
         }
     }
     
     func clap() {
-        if physicalInformation.arms > 1 , physicalInformation.hands > 1{
-            print("\(personalInformation.name)이 박수를 칩니다.")
+        if self.personBody.arms > 1 , self.personBody.hands > 1{
+            print("\(self.personInformation.name)이 박수를 칩니다.")
         } else {
-            print("\(personalInformation.name)이 박수를 치지 못합니다")
+            print("\(self.personInformation.name)이 박수를 치지 못합니다")
         }
     }
-    
-    func run() {
-        if physicalInformation.legs > 1 , physicalInformation.feet > 1{
-            print("\(personalInformation.name)이 달립니다.")
-        } else {
-            print("\(personalInformation.name)이 달리지 못합니다")
-        }
-    }
-    
+}
+
+class CoffeeCustomer: Person {
     func buy(to things: [String: Int], _ thingsName: String) {
-        guard let things = things[thingsName] else {
+        guard let things = things[thingsName], var money = self.personInformation.money else {
             print("물건이 없습니다.")
             return
         }
-        print("\(personalInformation.name)이 \(thingsName)을(를) 구매하였습니다!")
+        print("\(self.personInformation.name)이 \(thingsName)을(를) 구매하였습니다!")
         money -= things
-        print("현재 \(personalInformation.name)이 보유한 돈은 \(money)입니다.")
+        self.personInformation.money = money
+        print("현재 \(self.personInformation.name)이 보유한 돈은 \(money))입니다.")
     }
 }
 
@@ -165,7 +282,7 @@ class CoffeeShop {
     }
     
     var cafeName: String
-    var barista: Person?
+    var barista: Person
     var coffeeMachine = "DolcheGusto"
     var table = 10
     var chair = 10
@@ -315,8 +432,15 @@ class CoffeeShop {
     }
 }
 
+
+var personBody = PersonBody(height: 175, weight: 50)
+
+
+
+/*
 var misterLee = Person(socialSecurityNumber: "999999-1111111", name: "misterLee", age: 24, residence: "서울", phoneNumber: "010-1234-5678", height: 170.5, weight: 80.3, money: 100000)
 var missKim = Person(socialSecurityNumber: "999999-4444444", name: "missKim", age: 20, residence: "경기도", phoneNumber: "010-5678-1234", height: 161.3, weight: 50.2, money: 100000)
 var yagombucks = CoffeeShop(cafeName: "yagombucks")
 
 yagombucks.playCoffeeShopGame(misterLee, missKim, yagombucks)
+*/
