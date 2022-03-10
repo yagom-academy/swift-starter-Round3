@@ -151,11 +151,11 @@ struct PersonInformation {
     var age: Int
     var socialSecurityNumber: String
     var residence: String
+    var money: Int
     var phoneNumber: String? = nil
     var job: String? = nil
     var school: String? = nil
     var company: String? = nil
-    var money: Int? = nil
 }
 
 
@@ -256,14 +256,13 @@ class Person {
 
 class CoffeeCustomer: Person {
     func buy(to things: [String: Int], _ thingsName: String) {
-        guard let things = things[thingsName], var money = self.personInformation.money else {
+        guard let things = things[thingsName] else {
             print("물건이 없습니다.")
             return
         }
         print("\(self.personInformation.name)이 \(thingsName)을(를) 구매하였습니다!")
-        money -= things
-        self.personInformation.money = money
-        print("현재 \(self.personInformation.name)이 보유한 돈은 \(money))입니다.")
+        self.personInformation.money -= things
+        print("현재 \(self.personInformation.name)이 보유한 돈은 \(self.personInformation.money))입니다.")
     }
 }
 
@@ -300,8 +299,9 @@ class CoffeeShop {
     lazy var cup: Int = 0
     lazy var straw: Int = 0
     
-    init(cafeName: String) {
+    init(cafeName: String, barista: Person) {
         self.cafeName = cafeName
+        self.barista = barista
     }
     
     func setCafeObject() {
@@ -356,17 +356,28 @@ class CoffeeShop {
         while loopCount < Coffee.coffeeList.count {
             print("\'\(Coffee.coffeeList[loopCount])\'의 가격을 숫자로 입력하여 결정하세요!")
             let coffeePrice = readLine()
-            if let coffeePrice = coffeePrice {
-                if coffeePrice.isEmpty {
+            guard let coffeePrice = coffeePrice else {
+                continue
+            }
+                
+            var loopIsNumberCount = 0
+                
+            for coffeePriceChar in coffeePrice {
+                if !coffeePriceChar.isNumber {
                     print("다시 입력 바랍니다!")
-                } else {
-                print("\'\(Coffee.coffeeList[loopCount])\'의 가격은 \(coffeePrice)원 입니다.")
-                print()
-                storeMenu(coffeeName: Coffee.coffeeList[loopCount], coffeePrice: coffeePrice)
-                    loopCount += 1
+                    print()
+                    loopCount -= 1
+                    break
+                }
+                loopIsNumberCount += 1
+                if loopIsNumberCount == coffeePrice.count {
+                    print("\'\(Coffee.coffeeList[loopCount])\'의 가격은 \(coffeePrice)원 입니다.")
+                    print()
+                    storeMenu(coffeeName: Coffee.coffeeList[loopCount], coffeePrice: coffeePrice)
                 }
             }
-            }
+            loopCount += 1
+        }
     }
         
     func storeMenu(coffeeName: Coffee, coffeePrice: String) {
@@ -375,8 +386,8 @@ class CoffeeShop {
     
     func order(to barista: Person?, for customer: Person?) {
         if let customer = customer, let barista = barista {
-            print("\(customer.personalInformation.name): 메뉴판을 보여주세요.")
-            print("\(barista.personalInformation.name): 메뉴판을 보여준다.")
+            print("\(customer.personInformation.name): 메뉴판을 보여주세요.")
+            print("\(barista.personInformation.name): 메뉴판을 보여준다.")
             printMenu()
             print()
             print("메뉴를 골라 말해주세요.")
@@ -414,7 +425,7 @@ class CoffeeShop {
                     
                 while count < Coffee.coffeeList.count {
                     if coffeeName == Coffee.coffeeList[count].rawValue {
-                        print("\(customer.personalInformation.name)님이 \(coffeeName) 커피: \(coffeeCount)잔을 골랐습니다!")
+                        print("\(customer.personInformation.name)님이 \(coffeeName) 커피: \(coffeeCount)잔을 골랐습니다!")
                         calculateNowPrice(coffeeName, coffeeCount, menu)
                         pickUpTable[coffeeName] = Int(coffeeCount)
                 }
@@ -435,8 +446,8 @@ class CoffeeShop {
                        let resultCoffeeCount = Int(coffeecount)
                        
                        if let resultPrice = resultPrice, let resultCoffeeCount = resultCoffeeCount {
-                        counterPosMachine += resultPrice * resultCoffeeCount
-                       print("현재까지 계산 가격은 \(counterPosMachine)원 입니다!")
+                        counterPosMachineMoney += resultPrice * resultCoffeeCount
+                       print("현재까지 계산 가격은 \(counterPosMachineMoney)원 입니다!")
                        print()
                        }
                    }
@@ -450,9 +461,9 @@ class CoffeeShop {
             print()
             print("!!*** 계산 내역입니다 ***!!")
             print("카페의 이전 매출은 \(salesMoney)입니다.")
-            print("총 지불할 가격은 \(counterPosMachine)입니다.")
-            print("카페의 현재 매출은 \(salesMoney + counterPosMachine)입니다.")
-            print("손님의 남은 돈은 \(customer.money - counterPosMachine)입니다.")
+            print("총 지불할 가격은 \(counterPosMachineMoney)입니다.")
+            print("카페의 현재 매출은 \(salesMoney + counterPosMachineMoney)입니다.")
+            print("손님의 남은 돈은 \(customer.personInformation.money - counterPosMachineMoney)입니다.")
         }
     }
        
@@ -471,12 +482,12 @@ class CoffeeShop {
            
         if let customer = customer {
             print()
-            print("\(customer.personalInformation.name)님! 커피 준비가 완료되었습니다. 가져가주시기 바랍니다!")
+            print("\(customer.personInformation.name)님! 커피 준비가 완료되었습니다. 가져가주시기 바랍니다!")
         }
     }
     
-    func playCoffeeShopGame(_ baristaPlayer: Person?, _ customerPlayer: Person?, _ coffeeShop: CoffeeShop) {
-        barista = baristaPlayer
+    func playCoffeeShopGame(_ customerPlayer: Person, _ coffeeShop: CoffeeShop) {
+        
         decideCoffeePrice()
         order(to: barista, for: customerPlayer)
         calculateAllPricePay(to: coffeeShop, for: customerPlayer)
@@ -486,14 +497,18 @@ class CoffeeShop {
 }
 
 
-var personBody = PersonBody(height: 175, weight: 50)
+var personBodyLee = PersonBody(height: 175, weight: 60)
+var personActLee = PersonAct()
+var personInformationLee = PersonInformation(name: "Lee", age: 24, socialSecurityNumber: "999999-2222222", residence: "서울", money: 100000)
 
+var personBodyKim = PersonBody(height: 160, weight: 50)
+var personActKim = PersonAct()
+var personInformationKim = PersonInformation(name: "Kim", age: 30, socialSecurityNumber: "999999-1111111", residence: "경기도", money: 200000)
 
+var misterLee = Person(personInformation: personInformationLee, personBody: personBodyLee, personAct: personActLee)
+var missKim = Person(personInformation: personInformationKim, personBody: personBodyKim, personAct: personActKim)
 
-/*
-var misterLee = Person(socialSecurityNumber: "999999-1111111", name: "misterLee", age: 24, residence: "서울", phoneNumber: "010-1234-5678", height: 170.5, weight: 80.3, money: 100000)
-var missKim = Person(socialSecurityNumber: "999999-4444444", name: "missKim", age: 20, residence: "경기도", phoneNumber: "010-5678-1234", height: 161.3, weight: 50.2, money: 100000)
-var yagombucks = CoffeeShop(cafeName: "yagombucks")
+var yagombucks = CoffeeShop(cafeName: "yagombucks", barista: misterLee)
 
-yagombucks.playCoffeeShopGame(misterLee, missKim, yagombucks)
-*/
+yagombucks.playCoffeeShopGame(missKim, yagombucks)
+
