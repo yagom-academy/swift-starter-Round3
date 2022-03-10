@@ -7,6 +7,6 @@
 
 import Foundation
 
-enum Coffee {
-    case americano, latte, cappuccino
+enum Coffee: String{
+    case americano = "Americano", latte = "CaffeLatte", cappuccino = "Cappuccino"
 }
