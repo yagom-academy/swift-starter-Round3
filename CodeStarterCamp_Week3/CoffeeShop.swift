@@ -35,15 +35,16 @@ class CoffeeShop {
             }
         }
     
-    func makeCoffee(_ coffeePrice: Int, for person: Person) {
-        if person.money >= coffeePrice {
-            person.purchase(coffeePrice)
-            customerName = person.name
-            pickUpTable = true
-            totalSales += coffeePrice
-        } else {
-            print("현재 잔액이 \(coffeePrice - person.money)원 부족합니다.")
+    func makeCoffee(_ coffee: Coffee, for person: Person) {
+            guard let coffeePrice = menu[coffee] else { return }
+            if person.money >= coffeePrice {
+                person.purchase(coffeePrice)
+                customerName = person.name
+                pickUpTable = [coffee]
+                totalSales += coffeePrice
+            } else {
+                print("현재 잔액이 \(coffeePrice - person.money)원 부족합니다.")
+            }
+            pickUpTable.removeAll()
         }
-        pickUpTable = false
     }
-}
