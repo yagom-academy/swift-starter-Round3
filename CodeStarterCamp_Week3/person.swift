@@ -17,5 +17,10 @@ class Person {
         self.age = age
         self.money = money
     }
+    
+    func order(coffee: Coffee) {
+        print("\(coffee) 주세요")
+    }
 }
+
 

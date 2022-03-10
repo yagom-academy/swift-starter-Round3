@@ -29,6 +29,7 @@ class CoffeeShop {
     }
     
     func takeOrder(coffee: Coffee, person: Person) {
+        person.order(coffee: coffee)
         if person.money < coffee.price {
             print("잔액이 \(coffee.price - person.money)만큼 부족합니다.")
         } else {
