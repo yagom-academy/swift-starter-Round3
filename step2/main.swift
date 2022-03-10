@@ -63,9 +63,13 @@ struct CoffeeShop{
     
     var cafeName: String
     var cafeProfit: Int
-    var pickUpTable: String = "주방" {
+    var pickUpTable: Coffee? = nil {
         didSet {
-            print("커피는 \(oldValue)에서 만든 후, \(pickUpTable)에 올려 놓을게요!")
+            if let pickUpTable = pickUpTable {
+                print("커피 나왔습니다!, 픽업대에 \(pickUpTable)를 올려 놓을게요!")
+            } else {
+                print("커피가 없어요 ㅠㅠ")
+            }
         }
     }
     var barista: Person
@@ -94,7 +98,7 @@ struct CoffeeShop{
     mutating func makeCoffee(coffee: Coffee, customer: Person){
 
         print("\(coffee)는 바리스타 \(barista.name)님이 만들고 있습니다!")
-        print("\(customer.name) 님의 커피가 준비되었습니다! \(pickUpTable)에서 가져가주세요!")
+        print("\(customer.name) 님의 커피가 준비되었습니다! 픽업대에서 가져가주세요!")
         print("카페 이익 : \(cafeProfit), \(customer.name)님의 남은 돈 : \(customer.money)")
     }
     
@@ -108,7 +112,7 @@ var yagombucks = CoffeeShop(cafeName: "yagombucks", cafeProfit: 100000, barista:
 
 print("**카페메뉴** \n[\(yagombucks.cafeMenu)]")
 
-yagombucks.pickUpTable = "픽업 테이블"
+yagombucks.pickUpTable = .americano
 
 yagombucks.order(coffee: .americano, customer: &missKim)
 yagombucks.order(coffee: .vanillaLatte, customer: &seok)
