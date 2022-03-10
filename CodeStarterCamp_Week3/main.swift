@@ -268,7 +268,7 @@ class CoffeeCustomer: Person {
 }
 
 class CoffeeShop {
-    enum Coffee: String {
+    enum Coffee: String, CaseIterable {
         case americano
         case caffeeLatte
         case caffeMocha
@@ -283,18 +283,71 @@ class CoffeeShop {
     
     var cafeName: String
     var barista: Person
-    var coffeeMachine = "DolcheGusto"
-    var table = 10
-    var chair = 10
-    var cup = 20
-    var straw = 20
-    var counterPosMachine = 0
+    
+    
+    
+    var counterPosMachineMoney = 0
     var salesMoney = 100000
     var menu: [Coffee: String] = [:]
     var pickUpTable: [String: Int] = [:]
 
+    // 카페의 물건들은 setCafeObject 메소드를 이용해 초기화를 하는 방법으로 작성해보았습니다.
+    // lazy(지연 저장 프로퍼티)를 통해 카페의 물건을 세팅할 시점에 저장 프로퍼티 값을 초기화하도록 하였습니다.
+    // 중요: lazy 키워드는 생성자에서 초기화 하지 않기 때문에 선언 시점에 기본값을 저장해주어야 합니다.
+    lazy var coffeeMachine: String = ""
+    lazy var table: Int = 0
+    lazy var chair: Int = 0
+    lazy var cup: Int = 0
+    lazy var straw: Int = 0
+    
     init(cafeName: String) {
         self.cafeName = cafeName
+    }
+    
+    func setCafeObject() {
+        print("\(self.cafeName)카페의 물건들을 세팅해봅시다!")
+        
+        print("커피 머신 브랜드:", terminator: " ")
+        let coffeeMachineSelect = readLine()
+        if let coffeeMachineSelect = coffeeMachineSelect {
+            self.coffeeMachine = coffeeMachineSelect
+        }
+        
+        print("책상 갯수:", terminator: " ")
+        let tableSelect = readLine()
+        if let tableSelect = tableSelect {
+            let tableInteger = Int(tableSelect)
+            if let tableInteger = tableInteger {
+                self.table = tableInteger
+            }
+        }
+        
+        print("의자 갯수:", terminator: " ")
+        let chairSelect = readLine()
+        if let chairSelect = chairSelect {
+            let chairInteger = Int(chairSelect)
+            if let chairInteger = chairInteger {
+                self.chair = chairInteger
+            }
+        }
+        
+        print("컵 갯수:", terminator: " ")
+        let cupSelect = readLine()
+        if let cupSelect = cupSelect {
+            let cupInteger = Int(cupSelect)
+            if let cupInteger = cupInteger {
+                self.cup = cupInteger
+            }
+        }
+        
+        print("빨대 갯수:", terminator: " ")
+        let strawSelect = readLine()
+        if let strawSelect = strawSelect {
+            let strawInteger = Int(strawSelect)
+            if let strawInteger = strawInteger {
+                self.straw = strawInteger
+            }
+        }
     }
     
     func decideCoffeePrice() {
