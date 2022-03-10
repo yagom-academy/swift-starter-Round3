@@ -25,21 +25,15 @@ class CoffeeShop {
     }
     
     func takeOrder(_ coffee: Coffee, from person: Person) {
-        switch coffee {
-        case .americano:
-            if let americano = menu[.americano]{
-                makeCoffee(americano, for: person)
-            }
-        case .latte:
-            if let latte = menu[.latte]{
-                makeCoffee(latte, for: person)
-            }
-        case .cappuccino:
-            if let cappuccino = menu[.cappuccino]{
-                makeCoffee(cappuccino, for: person)
+            switch coffee {
+            case .americano:
+                makeCoffee(.americano, for: person)
+            case .latte:
+                makeCoffee(.latte, for: person)
+            case .cappuccino:
+                makeCoffee(.cappuccino, for: person)
             }
         }
-    }
     
     func makeCoffee(_ coffeePrice: Int, for person: Person) {
         if person.money >= coffeePrice {
