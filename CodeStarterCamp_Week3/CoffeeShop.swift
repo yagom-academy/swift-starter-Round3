@@ -8,7 +8,7 @@
 import Foundation
 
 class CoffeeShop {
-    var take = 0
+    var totalSales = 0
     var menu = [Coffee: Int]()
     var isCompleted = false {
         didSet {
@@ -25,7 +25,7 @@ class CoffeeShop {
     }
     
     func takeOrder(_ coffee: Coffee, from person: Person) {
-        switch coffee{
+        switch coffee {
         case .americano:
             if let americano = menu[.americano]{
                 makeCoffee(americano, for: person)
@@ -46,9 +46,9 @@ class CoffeeShop {
             person.purchase(coffeePrice)
             customerName = person.name
             isCompleted = true
-            take += coffeePrice
+            totalSales += coffeePrice
         } else {
-            print("잔액이 \(coffeePrice)만큼 부족합니다")
+            print("현재 잔액이 \(coffeePrice - person.money)원 부족합니다.")
         }
         isCompleted = false
     }
