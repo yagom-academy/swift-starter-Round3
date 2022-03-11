@@ -277,7 +277,9 @@ class CoffeeShop {
         case hazlnutLatte
         case vienna
         
+        /*
         static let coffeeList = [americano, caffeeLatte, caffeMocha, cappuccino, caramelMacchiato, espresso, hazlnutLatte, vienna]
+         */
     }
     
     var cafeName: String
@@ -287,7 +289,7 @@ class CoffeeShop {
     
     var counterPosMachineMoney = 0
     var salesMoney = 100000
-    var menu: [Coffee: Int] = [:]
+    var menu: [String: Int] = [:]
     var pickUpTable: [String: Int] = [:]
 
     // 카페의 물건들은 setCafeObject 메소드를 이용해 초기화를 하는 방법으로 작성해보았습니다.
@@ -354,9 +356,10 @@ class CoffeeShop {
     // isNumber 메소드를 사용하여, Character 타입의 값이 '숫자'가 아닌 다른 값일 경우에 대한 조건을 작성해보았다.
     func decideCoffeePrice() {
         var loopCount = 0
-
-        while loopCount < Coffee.coffeeList.count {
-            print("\'\(Coffee.coffeeList[loopCount])\'의 가격을 숫자로 입력하여 결정하세요!")
+        let coffeeList = Coffee.allCases.map({ "\($0)" })
+        
+        while loopCount < coffeeList.count {
+            print("\'\(coffeeList[loopCount])\'의 가격을 숫자로 입력하여 결정하세요!")
             let coffeePrice = readLine()
             guard let coffeePrice = coffeePrice else {
                 continue
@@ -373,16 +376,16 @@ class CoffeeShop {
                 }
                 loopIsNumberCount += 1
                 if loopIsNumberCount == coffeePrice.count {
-                    print("\'\(Coffee.coffeeList[loopCount])\'의 가격은 \(coffeePrice)원 입니다.")
+                    print("\'\(coffeeList[loopCount])\'의 가격은 \(coffeePrice)원 입니다.")
                     print()
-                    storeMenu(coffeeName: Coffee.coffeeList[loopCount], coffeePrice: Int(coffeePrice)!)
+                    storeMenu(coffeeName: coffeeList[loopCount], coffeePrice: Int(coffeePrice)!)
                 }
             }
             loopCount += 1
         }
     }
         
-    func storeMenu(coffeeName: Coffee, coffeePrice: Int) {
+    func storeMenu(coffeeName: String, coffeePrice: Int) {
         menu[coffeeName] = coffeePrice
     }
     
@@ -419,41 +422,44 @@ class CoffeeShop {
                 
             print("잔: ", terminator: " ")
             let coffeeCount = readLine()
-                
-            if let coffeeName = coffeeName, let coffeeCount = coffeeCount {
-                var count = 0
-                    
-                while count < Coffee.coffeeList.count {
-                    if coffeeName == Coffee.coffeeList[count].rawValue {
-                        print("\(customer.personInformation.name)님이 \(coffeeName) 커피: \(coffeeCount)잔을 골랐습니다!")
-                        calculateNowPrice(coffeeName, coffeeCount, menu)
-                        pickUpTable[coffeeName] = Int(coffeeCount)
-                    }
-                    count += 1
+            var coffeeCountInteger = 0
+            var loopIsNumberCount = 0
+            
+            guard let coffeeName = coffeeName, let coffeeCount = coffeeCount else {
+                continue
+            }
+            for coffeeCountChar in coffeeCount {
+                if !coffeeCountChar.isNumber {
+                    print("다시 잔 수를 '숫자'로 입력 바랍니다!")
+                    print()
+                    loopIsNumberCount += 1
+                    break
+                }
+            }
+            if loopIsNumberCount == 1 {
+                continue
+            } else {
+                coffeeCountInteger = Int(coffeeCount)!
+            }
+            
+            menu.forEach { (menuName, price) in
+                if coffeeName == menuName {
+                    print("\(customer.personInformation.name)님이 \(coffeeName) 커피: \(coffeeCountInteger)잔을 골랐습니다!")
+                    calculateNowPrice(coffeeName: coffeeName, coffeeCount: coffeeCountInteger)
+                    pickUpTable[coffeeName] = Int(coffeeCount)
                 }
             }
         }
     }
     
-    func calculateNowPrice(_ coffeeName: String, _ coffeecount: String, _ menu: [Coffee: Int]) {
-           var count = 0
-           
-           while count < Coffee.coffeeList.count {
-               if coffeeName == Coffee.coffeeList[count].rawValue {
-                   if let price = menu[Coffee.coffeeList[count]] {
-                       
-                       
-                       let resultCoffeeCount = Int(coffeecount)
-                       
-                       if let resultCoffeeCount = resultCoffeeCount {
-                        counterPosMachineMoney += price * resultCoffeeCount
-                       print("현재까지 계산 가격은 \(counterPosMachineMoney)원 입니다!")
-                       print()
-                       }
+    func calculateNowPrice(coffeeName: String, coffeeCount: Int) {
+        menu.forEach { (menuName, price) in
+                   if coffeeName == menuName {
+                       counterPosMachineMoney += price * coffeeCount
                    }
                }
-               count += 1
-           }
+               print("현재까지 계산 가격은 \(counterPosMachineMoney)원 입니다!")
+               print()
        }
        
     func calculateAllPricePay(to cafe: CoffeeShop, for customer: Person?) {
