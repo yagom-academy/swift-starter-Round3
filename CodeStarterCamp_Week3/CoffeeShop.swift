@@ -8,9 +8,16 @@
 import Foundation
 
 class CoffeeShop {
-    var take = 0
+    var totalSales = 0
     var menu = [Coffee: Int]()
-    var putOnThePickupTable = false
+    var pickUpTable = [Coffee]() {
+            didSet {
+                if pickUpTable.count > 0 {
+                    print("\(customerName) 님의 \(pickUpTable[0].rawValue)가 준비되었습니다. 픽업대에서 가져가주세요.")
+                }
+            }
+        }
+    var customerName = ""
     var barista: Person?
     
     init(menu: [Coffee: Int]) {
@@ -18,31 +25,26 @@ class CoffeeShop {
     }
     
     func takeOrder(_ coffee: Coffee, from person: Person) {
-        switch coffee{
-        case .americano:
-            if let americano = menu[.americano]{
-                makecoffee(americano, for: person)
-            }
-        case .latte:
-            if let latte = menu[.latte]{
-                makecoffee(latte, for: person)
-            }
-        case .cappuccino:
-            if let cappuccino = menu[.cappuccino]{
-                makecoffee(cappuccino, for: person)
+            switch coffee {
+            case .americano:
+                makeCoffee(.americano, for: person)
+            case .latte:
+                makeCoffee(.latte, for: person)
+            case .cappuccino:
+                makeCoffee(.cappuccino, for: person)
             }
         }
-    }
     
-    func makecoffee(_ coffeePrice: Int, for person: Person) {
-        if person.money >= coffeePrice {
-            person.purchase(coffeePrice)
-            putOnThePickupTable = true
-            take += coffeePrice
-            print("구매성공")
-        } else {
-            print("돈이 부족합니다.")
+    func makeCoffee(_ coffee: Coffee, for person: Person) {
+            guard let coffeePrice = menu[coffee] else { return }
+            if person.money >= coffeePrice {
+                person.purchase(coffeePrice)
+                customerName = person.name
+                pickUpTable = [coffee]
+                totalSales += coffeePrice
+            } else {
+                print("현재 잔액이 \(coffeePrice - person.money)원 부족합니다.")
+            }
+            pickUpTable.removeAll()
         }
-        putOnThePickupTable = false
     }
-}
