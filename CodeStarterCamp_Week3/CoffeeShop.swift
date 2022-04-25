@@ -7,6 +7,11 @@
 
 import Foundation
 
+enum Coffee {
+    case americano, caffeelatte, espresso, deCaffeine
+}
+
+
 class CoffeeShop {
     var barista: Person? = nil
     var coffeeMenu: CoffeeMenu
