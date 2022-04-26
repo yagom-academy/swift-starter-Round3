@@ -32,14 +32,13 @@ class Person {
 class CoffeeShop {
     var isFranchise: Bool
     var isPickUpTable: Bool
-    var yearTotalSale: Int
+    var totalSale = 0
     var barista: Array<String>
     var menuCoffeeAndPrice: Dictionary<String, Int>
     
-    init(isFranchise: Bool, isPickUpTable: Bool, yearTotalSale: Int, barista: Array<String>, menuCoffeeAndPrice: Dictionary<String, Int>) {
+    init(isFranchise: Bool, isPickUpTable: Bool, barista: Array<String>, menuCoffeeAndPrice: Dictionary<String, Int>) {
         self.isFranchise = isFranchise
         self.isPickUpTable = isPickUpTable
-        self.yearTotalSale = yearTotalSale
         self.barista = barista
         self.menuCoffeeAndPrice = menuCoffeeAndPrice
     }
@@ -51,6 +50,7 @@ class CoffeeShop {
         print("주문 받았습니다! \(kindCoffee) \(drinkCount)잔 준비해 드리겠습니다!")
         print("예상 시간 \(makeTime)분 입니다.")
         print("총 \(totalPrice)원 입니다.")
+        self.totalSale += totalPrice
     }
     
     func isMakeCoffee(kindCoffee: String, drinkCount: Int) {
@@ -96,7 +96,6 @@ var missKim = Person(
 var yagombucks = CoffeeShop(
     isFranchise: true,
     isPickUpTable: true,
-    yearTotalSale: 30000,
     barista: ["yagom", "dylan", "tommy"],
     menuCoffeeAndPrice: [
         Coffee.espresso.rawValue: 4000,
