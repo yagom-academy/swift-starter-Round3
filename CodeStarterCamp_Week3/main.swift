@@ -25,7 +25,7 @@ struct CoffeeShop {
     var isFranchise: Bool
     var isPickUpTable: Bool
     var yearTotalSale: Int
-    var staff: Array<String>
+    var barista: Array<String>
     var menuCoffeeAndPrice: Dictionary<String, Int>
     
     func acceptOrderCoffee(kindCoffee: String, drinkCount: Int, coffeePrice: Int) {
@@ -38,7 +38,7 @@ struct CoffeeShop {
     }
     
     func isMakeCoffee(kindCoffee: String, drinkCount: Int) {
-        let staffname = self.staff.randomElement() ?? "무인 커피숍"
+        let staffname = self.barista.randomElement() ?? "무인 커피숍"
         print("\(staffname) 파트너가 준비합니다.")
         print("만...드...는...중...")
         print("주문하신 \(kindCoffee) \(drinkCount)잔 나왔습니다.")
@@ -61,3 +61,32 @@ enum Coffee : String {
     case rollinMintChocoColdBrew = "롤린민트초콜릿브루"
     case pomeloFlowGreenTea = "포멜로그린티"
 }
+
+var misterLee = Person(
+    gender: "man",
+    age: 22,
+    nickname: "앱등이",
+    money: 0,
+    pointLevel: 1
+)
+var missKim = Person(
+    gender: "woman",
+    age: 34,
+    nickname: "커리어우먼",
+    money: 3000,
+    pointLevel: 5
+)
+
+var yagombucks = CoffeeShop(
+    isFranchise: true,
+    isPickUpTable: true,
+    yearTotalSale: 30000,
+    barista: ["yagom", "dylan", "tommy"],
+    menuCoffeeAndPrice: [
+        Coffee.espresso.rawValue: 4000,
+        Coffee.amricano.rawValue: 4500,
+        Coffee.doubleEspressoChipFrappuccino.rawValue: 6300,
+        Coffee.punchGraffitiBlended.rawValue: 6300,
+        Coffee.rollinMintChocoColdBrew.rawValue: 6100
+    ]
+)
