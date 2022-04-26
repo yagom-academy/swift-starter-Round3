@@ -8,13 +8,22 @@
 
 import Foundation
 
-struct Person {
+class Person {
     var name: String
     var nickname: String
     var gender: String
     var age: Int
-    var money: Int
+    var moneyOnHand: Int
     var pointLevel: Int
+    
+    init(name: String, nickname: String, gender: String, age: Int, moneyOnHand: Int, pointLevel: Int) {
+        self.name = name
+        self.nickname = nickname
+        self.gender = gender
+        self.age = age
+        self.moneyOnHand = moneyOnHand
+        self.pointLevel = pointLevel
+    }
 
     func orderCoffee(drink: String, drinkCount: Int) -> ([String: Int]) {
         print("주문할게요! \(drink) \(drinkCount)잔 주세요!")
@@ -22,12 +31,20 @@ struct Person {
     }
 }
 
-struct CoffeeShop {
+class CoffeeShop {
     var isFranchise: Bool
     var isPickUpTable: Bool
     var yearTotalSale: Int
     var barista: Array<String>
     var menuCoffeeAndPrice: Dictionary<String, Int>
+    
+    init(isFranchise: Bool, isPickUpTable: Bool, yearTotalSale: Int, barista: Array<String>, menuCoffeeAndPrice: Dictionary<String, Int>) {
+        self.isFranchise = isFranchise
+        self.isPickUpTable = isPickUpTable
+        self.yearTotalSale = yearTotalSale
+        self.barista = barista
+        self.menuCoffeeAndPrice = menuCoffeeAndPrice
+    }
     
     func acceptOrderCoffee(kindCoffee: String, drinkCount: Int, coffeePrice: Int) {
         let makeTime = drinkCount * 2
@@ -68,7 +85,7 @@ var misterLee = Person(
     nickname: "앱등이",
     gender: "man",
     age: 22,
-    money: 0,
+    moneyOnHand: 0,
     pointLevel: 1
 )
 var missKim = Person(
@@ -76,7 +93,7 @@ var missKim = Person(
     nickname: "커리어우먼",
     gender: "woman",
     age: 34,
-    money: 3000,
+    moneyOnHand: 3000,
     pointLevel: 5
 )
 
