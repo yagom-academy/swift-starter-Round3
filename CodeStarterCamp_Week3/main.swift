@@ -14,15 +14,13 @@ class Person {
     var gender: String
     var age: Int
     var moneyOnHand: Int
-    var pointLevel: Int
     
-    init(name: String, nickname: String, gender: String, age: Int, moneyOnHand: Int, pointLevel: Int) {
+    init(name: String, nickname: String, gender: String, age: Int, moneyOnHand: Int) {
         self.name = name
         self.nickname = nickname
         self.gender = gender
         self.age = age
         self.moneyOnHand = moneyOnHand
-        self.pointLevel = pointLevel
     }
 
     func orderCoffee(drink: String, drinkCount: Int) -> ([String: Int]) {
@@ -85,16 +83,14 @@ var misterLee = Person(
     nickname: "앱등이",
     gender: "man",
     age: 22,
-    moneyOnHand: 0,
-    pointLevel: 1
+    moneyOnHand: 0
 )
 var missKim = Person(
     name: "김미스",
     nickname: "커리어우먼",
     gender: "woman",
     age: 34,
-    moneyOnHand: 3000,
-    pointLevel: 5
+    moneyOnHand: 3000
 )
 
 var yagombucks = CoffeeShop(
