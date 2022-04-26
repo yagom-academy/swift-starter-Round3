@@ -11,79 +11,61 @@ import Foundation
 // MARK: - STEP1
 
 class Person {
+    var name: String = ""
     var defaultBuget: Int = 0
     
-    func buyDrink(at coffeeShop: CoffeeShop, which menuName: String) {
+    func buyDrink(at coffeeShop: CoffeeShop, which menuName: String){
         guard let menu = coffeeShop.menuList[menuName] else { return }
-        
+
         switch menu {
-        case .coffee(let price):
+        case .americano(let price):
             self.defaultBuget -= price
-        case .nonCoffee(let price):
+        case .einspanner(let price):
+            self.defaultBuget -= price
+        case .vanillaLatte(let price):
+            self.defaultBuget -= price
+        case .latte(let price):
             self.defaultBuget -= price
         }
     }
-    init(defaultBuget: Int) {
-        self.defaultBuget = defaultBuget
+    
+    init(name: String) {
+        self.name = name
     }
 }
 
 enum Coffee {
-    case coffee(price: Int)
-    case nonCoffee(price: Int)
+    case americano(price: Int)
+    case latte(price: Int)
+    case vanillaLatte(price: Int)
+    case einspanner(price: Int)
 }
 
-
-// Store 에 상속하기 위해 class 선언
 class CoffeeShop {
-    var 매출액: Int = 0
-    
+    var revenue: Int = 0
+    var barista: Person?
+    var pickUpTable: Array<String?> = []
     var menuList: Dictionary<String, Coffee> = [
-        // coffee
-        "Americano": .coffee(price: 0),
-        "Einspanner": .coffee(price: 0),
-        "Latte": .coffee(price: 0),
-        "Vanilla Latte" : .coffee(price: 0),
-        // nonCoffee
-        "Pineapple Ade": .nonCoffee(price: 0),
-        "Milk Tea": .nonCoffee(price: 0)
+        "Americano": .americano(price: 3500) ,
+        "Einspanner": .einspanner(price: 5500),
+        "Latte": .latte(price: 4000),
+        "Vanilla Latte" : .vanillaLatte(price: 4500)
     ]
     
-    func getOrder() { } // order 에 따라 매출액 추가
-    func makeMenu() { }
+    // STEP1 에선 아래 method 에 대하여
+    // "동작을 가질 수 있도록" 을 요했기 때문에
+    // method 생성만 해둠
+    // STEP2 에서 디테일화 예정
+    func order(_ coffee: Coffee) { }
     
+    func makeCoffee() { }
 }
 
-// CoffeeShop 상속받기 위해 class Type
-class Store: CoffeeShop  {
-    
-    var test: Dictionary<String, Coffee> = [
-        "Special Americano": .coffee(price: 50000)
-    ]
-    
-    override var menuList: Dictionary<String, Coffee> {
-        get {
-            return test
-        }
-        set {
-            
-        }
-    }
-}
+// MARK: - 실행부
 
+let misterLee: Person = Person(name: "이미남")
+let missKim: Person = Person(name: "김미녀")
+missKim.defaultBuget = 100000
 
-let yagombucks: Store = Store()
-
-let misterLee: Person = Person(defaultBuget: 100000)
-
-print(misterLee.defaultBuget)
-misterLee.buyDrink(at: yagombucks, which: "Americano")
-// 여기서 작동안함 > Americano 가 menuList 에 없음
-print(misterLee.defaultBuget)
-misterLee.buyDrink(at: yagombucks, which: "Special Americano")
-print(misterLee.defaultBuget)
-// 값을 받아와서 함수가 작동하는 건 확인함
-// 각 Store 별 메뉴 가격이 다르니 이 부분을 Override 해서 수정해야함
-
-
-
+let yagombucks: CoffeeShop = CoffeeShop()
+yagombucks.barista = misterLee
