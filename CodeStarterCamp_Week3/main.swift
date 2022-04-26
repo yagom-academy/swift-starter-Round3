@@ -9,21 +9,27 @@
 import Foundation
 
 class Person {
-    var money: Int
+    private var money: Int
     
     init(money: Int) {
         self.money = money
     }
     
-    func buyCoffee(_ coffeeMenu: Coffee, _ coffeShop: CoffeShop) {
-        if let data = coffeShop.menu[coffeeMenu] {
-                money = money - data
+    func buyCoffee(_ coffee: Coffee, _ coffeeShop: CoffeeShop) {
+        if let coffeePrice = coffeeShop.menu[coffee] {
+                money = money - coffeePrice
         }
-        coffeShop.orderCoffee(coffeeMenu)
+        coffeeShop.orderCoffee(coffee)
+    }
+    
+    var getMoney: Int {
+        get {
+            return money
+        }
     }
 }
 
-class CoffeShop {
+class CoffeeShop {
     var sales: Int
     var barista: Person?
     var pickUpTable: Bool = false
@@ -36,11 +42,16 @@ class CoffeShop {
     
     func orderCoffee(_ coffee: Coffee) {
         pickUpTable = true
-        print("\(coffee.rawValue)가 주문되엇습니다.")
+        
+        if let coffeePrice = menu[coffee] {
+            self.sales += coffeePrice
+        }
+
+        print("\(coffee.rawValue)가 주문 되었습니다.")
     }
 }
 
-enum Coffee: String{
+enum Coffee: String {
     case espresso = "에스프레소"
     case americano = "아메리카노"
     case macchiato = "마끼아또"
@@ -49,13 +60,17 @@ enum Coffee: String{
     case affogato = "아포가토"
 }
 
-var missKim: Person = Person(money: 10000)
-var misterLee: Person = Person(money: 4000)
+let missKim: Person = Person(money: 10000)
+let misterLee: Person = Person(money: 4000)
 
-var yagombucks: CoffeShop = CoffeShop(sales: 0)
+let yagombucks: CoffeeShop = CoffeeShop(sales: 0)
 
 yagombucks.barista = misterLee
 
 missKim.buyCoffee(Coffee.espresso, yagombucks)
+
+//잔액출력
+print(missKim.getMoney)
+
 
 
