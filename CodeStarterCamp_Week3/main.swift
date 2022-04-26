@@ -9,9 +9,10 @@
 import Foundation
 
 struct Person {
+    var name: String
+    var nickname: String
     var gender: String
     var age: Int
-    var nickname: String
     var money: Int
     var pointLevel: Int
 
@@ -63,16 +64,18 @@ enum Coffee : String {
 }
 
 var misterLee = Person(
+    name: "이미스터",
+    nickname: "앱등이",
     gender: "man",
     age: 22,
-    nickname: "앱등이",
     money: 0,
     pointLevel: 1
 )
 var missKim = Person(
+    name: "김미스",
+    nickname: "커리어우먼",
     gender: "woman",
     age: 34,
-    nickname: "커리어우먼",
     money: 3000,
     pointLevel: 5
 )
@@ -90,3 +93,5 @@ var yagombucks = CoffeeShop(
         Coffee.rollinMintChocoColdBrew.rawValue: 6100
     ]
 )
+
+yagombucks.barista.append(misterLee.name)
