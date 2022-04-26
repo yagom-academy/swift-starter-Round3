@@ -14,17 +14,10 @@ struct Person {
     var nickname: String
     var money: Int
     var pointLevel: Int
-    
-    func orderCoffee() {
-        
-    }
-    
-    func bringCoffee() {
-        
-    }
-    
-    func payMoney() {
-        
+
+    func orderCoffee(drink: String, manyDrink number: Int) -> ([String: Int]) {
+        print("주문할게요! \(drink) \(number)잔 주세요!")
+        return [drink: number]
     }
 }
 
