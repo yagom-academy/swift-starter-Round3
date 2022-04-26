@@ -16,9 +16,9 @@ struct Person {
     var money: Int
     var pointLevel: Int
 
-    func orderCoffee(drink: String, manyDrink number: Int) -> ([String: Int]) {
-        print("주문할게요! \(drink) \(number)잔 주세요!")
-        return [drink: number]
+    func orderCoffee(drink: String, drinkCount: Int) -> ([String: Int]) {
+        print("주문할게요! \(drink) \(drinkCount)잔 주세요!")
+        return [drink: drinkCount]
     }
 }
 
