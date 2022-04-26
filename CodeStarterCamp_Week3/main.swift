@@ -35,7 +35,6 @@ class CoffeeShop {
     
     func makeCoffee(_ coffee: Coffee) {
         print("\(coffee)를 만듭니다.")
-        
     }
 }
 
@@ -43,14 +42,11 @@ enum Coffee {
     case americano, latte, espresso, coldBrew
 }
 
-var defaultCoffeeMenu = [Coffee.americano: 4000,
-                         Coffee.coldBrew: 4500,
-                         Coffee.espresso: 3600,
-                         Coffee.latte: 4600]
+var yagombucksCoffeeMenu: [Coffee: Int] = [.americano: 4000, .coldBrew: 4500, .espresso: 3600, .latte: 4600]
 
 let misterLee = Person(name: "misterlee")
 let missKim = Person(name: "missKim", money: 10000)
 
 var yagombucks = CoffeeShop(name: "yagombucks")
 yagombucks.barista = misterLee
-yagombucks.menu = defaultCoffeeMenu
+yagombucks.menu = yagombucksCoffeeMenu
