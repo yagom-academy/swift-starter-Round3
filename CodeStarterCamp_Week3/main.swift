@@ -8,5 +8,22 @@
 
 import Foundation
 
-print("Hello, World!")
-
+struct Person {
+    var gender: String
+    var age: Int
+    var nickname: String
+    var money: Int
+    var pointLevel: Int
+    
+    func orderCoffee() {
+        
+    }
+    
+    func bringCoffee() {
+        
+    }
+    
+    func payMoney() {
+        
+    }
+}
