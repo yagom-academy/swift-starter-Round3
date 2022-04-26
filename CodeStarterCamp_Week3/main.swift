@@ -24,11 +24,16 @@ struct Person {
 struct CoffeeShop {
     var isFranchise: Bool
     var isPickUpTable: Bool
-    var totalSale: Int
-    var menuCoffee = [String: Int]()
+    var yearTotalSale: Int
+    var menuCoffeeAndPrice = [String: Int]()
     
-    func acceptOrderCoffee() {
+    func acceptOrderCoffee(kindCoffee: String, drinkCount: Int, coffeePrice: Int) {
+        let makeTime = drinkCount * 2
+        let totalPrice = drinkCount * coffeePrice
         
+        print("주문 받았습니다! \(kindCoffee) \(drinkCount)잔 준비해 드리겠습니다!")
+        print("예상 시간 \(makeTime)분 입니다.")
+        print("총 \(totalPrice)원 입니다.")
     }
     
     func isMakeCoffee() {
