@@ -59,3 +59,10 @@ struct CoffeeShop {
         
     }
 }
+
+enum Coffee {
+    case newDrink
+    case espresso
+    case frappuccino
+    case fizzio
+}
