@@ -61,8 +61,20 @@ struct CoffeeShop {
 }
 
 enum Coffee {
-    case newDrink
     case espresso
-    case frappuccino
-    case fizzio
+    case amricano
+    case coldbrew
+    case cafeLatte
+    case caramelMacchiato
+    case whiteChochlateMocha
+    case dolceLatte
+    
+    case doubleEspressoChipFrappuccino
+    case chocolateCreamChipFrappuccino
+    case javaChipFrappuccino
+    case caramelFrappuccino
+    
+    case punchGraffitiBlended
+    case rollinMintChocoColdBrew
+    case pomeloFlowGreenTea
 }
