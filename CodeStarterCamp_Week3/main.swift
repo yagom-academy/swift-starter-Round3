@@ -25,6 +25,7 @@ struct CoffeeShop {
     var isFranchise: Bool
     var isPickUpTable: Bool
     var yearTotalSale: Int
+    var staff: Array<String>
     var menuCoffeeAndPrice = [String: Int]()
     
     func acceptOrderCoffee(kindCoffee: String, drinkCount: Int, coffeePrice: Int) {
@@ -36,8 +37,11 @@ struct CoffeeShop {
         print("총 \(totalPrice)원 입니다.")
     }
     
-    func isMakeCoffee() {
-        
+    func isMakeCoffee(kindCoffee: String, drinkCount: Int) {
+        let staffname = self.staff
+        print("\(staffname) 파트너가 준비합니다.")
+        print("만...드...는...중...")
+        print("주문하신 \(kindCoffee) \(drinkCount)잔 나왔습니다.")
     }
 }
 
