@@ -38,7 +38,7 @@ struct CoffeeShop {
     }
     
     func isMakeCoffee(kindCoffee: String, drinkCount: Int) {
-        let staffname = self.staff
+        let staffname = self.staff.randomElement() ?? "무인 커피숍"
         print("\(staffname) 파트너가 준비합니다.")
         print("만...드...는...중...")
         print("주문하신 \(kindCoffee) \(drinkCount)잔 나왔습니다.")
