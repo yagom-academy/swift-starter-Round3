@@ -26,7 +26,7 @@ struct CoffeeShop {
     var isPickUpTable: Bool
     var yearTotalSale: Int
     var staff: Array<String>
-    var menuCoffeeAndPrice = [String: Int]()
+    var menuCoffeeAndPrice: Dictionary<String, Int>
     
     func acceptOrderCoffee(kindCoffee: String, drinkCount: Int, coffeePrice: Int) {
         let makeTime = drinkCount * 2
@@ -45,21 +45,19 @@ struct CoffeeShop {
     }
 }
 
-enum Coffee {
-    case espresso
-    case amricano
-    case coldbrew
-    case cafeLatte
-    case caramelMacchiato
-    case whiteChochlateMocha
-    case dolceLatte
-    
-    case doubleEspressoChipFrappuccino
-    case chocolateCreamChipFrappuccino
-    case javaChipFrappuccino
-    case caramelFrappuccino
-    
-    case punchGraffitiBlended
-    case rollinMintChocoColdBrew
-    case pomeloFlowGreenTea
+enum Coffee : String {
+    case espresso = "에스프레소"
+    case amricano = "아메리카노"
+    case coldbrew = "콜드브루"
+    case cafeLatte = "카페라떼"
+    case caramelMacchiato = "카라멜마끼아또"
+    case whiteChocolateMocha = "화이트초코라떼"
+    case dolceLatte = "돌체라떼"
+    case doubleEspressoChipFrappuccino = "더블에스프레소칩프라푸치노"
+    case chocolateCreamChipFrappuccino = "초콜릿크림칩푸라푸치노"
+    case javaChipFrappuccino = "자바칩푸라푸치노"
+    case caramelFrappuccino = "카라멜푸라푸치노"
+    case punchGraffitiBlended = "펀치그레피트블랜디드"
+    case rollinMintChocoColdBrew = "롤린민트초콜릿브루"
+    case pomeloFlowGreenTea = "포멜로그린티"
 }
