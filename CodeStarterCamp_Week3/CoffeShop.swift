@@ -6,26 +6,29 @@
 //
 
 struct CoffeeShop {
-    var owner: String
-    var location: String
+    private(set) var owner: String
+    private(set) var location: String
+    private(set) var sales: Int = 0
+    private(set) var menu: [Coffee: Int] = [:]
     var pickUpTable: Bool
-    var sales: Int = 0
-    var menu: Dictionary<Coffee,Int> = [:]
     var barista: Person?
     
     init(owner: String, location: String, pickUpTable: Bool) {
         self.owner = owner
         self.location = location
         self.pickUpTable = pickUpTable
-        
-        makeMenu()
     }
     
-    mutating func makeMenu() {
-        self.menu[.americano] = 2500
-        self.menu[.caffeMocha] = 3000
-        self.menu[.caffelatte] = 2500
-        self.menu[.caramelMacchiato] = 3000
+    mutating func change(in coffee: Coffee, price: Int) {
+        guard self.menu.keys.contains(coffee) else {
+            print("No Exist \(coffee.rawValue) in Menu")
+            return
+        }
+        self.menu[coffee] = price
+    }
+    
+    mutating func add(menu: [Coffee: Int]){
+        self.menu = self.menu.merging(menu, uniquingKeysWith: { $1 })
     }
     
     func order(_ coffee: Coffee) {

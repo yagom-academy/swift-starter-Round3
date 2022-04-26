@@ -12,4 +12,12 @@ var misterLee = Person(name: "misterLee", height: 180.0, weight: 70.0, money: 10
 var missKim = Person(name: "missKim", height: 165.0, weight: 55.0, money: 200_000)
 
 var yagombucks = CoffeeShop(owner: "yagom", location: "seoul", pickUpTable: true)
+var yagomsMenu: [Coffee: Int] = [
+    .americano: 2500,
+    .caffelatte: 2500,
+    .caffeMocha: 3000,
+    .caramelMacchiato: 3000
+]
+
+yagombucks.add(menu: yagomsMenu)
 yagombucks.barista = misterLee
