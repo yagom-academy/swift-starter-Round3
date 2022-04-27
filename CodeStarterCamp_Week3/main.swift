@@ -71,7 +71,7 @@ struct CoffeShop {
         return "저희 \(cafeName)는(은) \(adress)에 위치한 카페입니다!!!"
     }
     mutating func introduceMenu() -> String {
-        var menuContents = "\(cafeName)는(은)의 메뉴판\n"
+        var menuContents = "\(cafeName) 메뉴판\n"
         if !menu.isEmpty {
             for (coffe, price) in self.menu {
                 menuContents += "\(coffe.rawValue) : \(price)원\n"
@@ -113,3 +113,5 @@ struct CoffeShop {
 var misterLee = Person(name: "이병현", age: 23, gender: Gender.men, hight: 183, weight: 84)
 var missKim = Person(name: "김태희", age: 21, gender: Gender.women, hight: 168, weight: 48)
 var yagombuks = CoffeShop(cafeName: "Yagom Bucks", adress: "서울시 강남구 강남대로 390")
+yagombuks?.barista = misterLee
+
