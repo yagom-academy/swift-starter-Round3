@@ -12,20 +12,14 @@ import Foundation
 
 class Person {
     var name: String = ""
-    var defaultBuget: Int = 0
+    var buget: Int = 0
     
     func buyDrink(at coffeeShop: CoffeeShop, which menuName: String){
         guard let menu = coffeeShop.menuList[menuName] else { return }
 
         switch menu {
-        case .americano(let price):
-            self.defaultBuget -= price
-        case .einspanner(let price):
-            self.defaultBuget -= price
-        case .vanillaLatte(let price):
-            self.defaultBuget -= price
-        case .latte(let price):
-            self.defaultBuget -= price
+        case .americano(let price), .vanillaLatte(let price), .latte(let price), .einspanner(let price):
+            self.buget -= price
         }
     }
     
@@ -61,7 +55,7 @@ class CoffeeShop {
 
 let misterLee: Person = Person(name: "이미남")
 let missKim: Person = Person(name: "김미녀")
-missKim.defaultBuget = 100000
+missKim.buget = 100000
 
 let yagombucks: CoffeeShop = CoffeeShop()
 yagombucks.barista = misterLee
