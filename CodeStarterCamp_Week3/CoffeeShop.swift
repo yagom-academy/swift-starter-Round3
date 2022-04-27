@@ -27,7 +27,7 @@ struct CoffeeShop {
         self.menu[coffee] = price
     }
     
-    mutating func add(menu: [Coffee: Int]){
+    mutating func add(menu: [Coffee: Int]) {
         self.menu = self.menu.merging(menu, uniquingKeysWith: { $1 })
     }
     
