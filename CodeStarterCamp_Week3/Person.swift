@@ -7,9 +7,9 @@
 
 struct Person {
     private(set) var name: String
-    private(set) var money: Int
     var height: Double
     var weight: Double
+    private(set) var money: Int
     
     init(name: String, height: Double, weight: Double, money: Int) {
         self.name = name
