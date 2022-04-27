@@ -110,4 +110,6 @@ struct CoffeShop {
     }
 }
 
-
+var misterLee = Person(name: "이병현", age: 23, gender: Gender.men, hight: 183, weight: 84)
+var missKim = Person(name: "김태희", age: 21, gender: Gender.women, hight: 168, weight: 48)
+var yagombuks = CoffeShop(cafeName: "Yagom Bucks", adress: "서울시 강남구 강남대로 390")
