@@ -11,11 +11,12 @@ struct CoffeeShop {
     private(set) var sales: Int = 0
     private(set) var menu: [Coffee: Int] = [:]
     var pickUpTable: Coffee?
-    var barista: Person?
+    var barista: Person
     
-    init(owner: String, location: String) {
+    init(owner: String, location: String, barista: Person) {
         self.owner = owner
         self.location = location
+        self.barista = barista
     }
     
     mutating func change(in coffee: Coffee, price: Int) {
@@ -38,8 +39,6 @@ struct CoffeeShop {
     }
     
     private func makeCoffee(by person: String) {
-        if let barista = barista {
-            print("\(barista.name)가 커피를 만듭니다.")
-        }
+        print("\(barista.name)가 커피를 만듭니다.")
     }
 }
