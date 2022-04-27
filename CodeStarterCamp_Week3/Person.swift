@@ -18,7 +18,7 @@ struct Person {
         self.money = money
     }
     
-    func buyCoffee(type coffee: Coffee) {
+    func buy(coffee: Coffee) {
         print("\(coffee.rawValue)를 구매합니다")
     }
 }
