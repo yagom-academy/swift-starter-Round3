@@ -10,13 +10,12 @@ struct CoffeeShop {
     private(set) var location: String
     private(set) var sales: Int = 0
     private(set) var menu: [Coffee: Int] = [:]
-    var pickUpTable: Bool
+    var pickUpTable: Coffee?
     var barista: Person?
     
-    init(owner: String, location: String, pickUpTable: Bool) {
+    init(owner: String, location: String) {
         self.owner = owner
         self.location = location
-        self.pickUpTable = pickUpTable
     }
     
     mutating func change(in coffee: Coffee, price: Int) {
