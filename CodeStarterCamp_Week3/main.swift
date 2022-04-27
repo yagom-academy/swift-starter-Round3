@@ -104,6 +104,9 @@ struct CoffeShop {
     }
     
     init?(cafeName: String, adress: String) {
+        if cafeName.isEmpty || adress.isEmpty {
+            return nil
+        }
         self.cafeName = cafeName
         self.adress = adress
         menu = [Coffe: Int]()
