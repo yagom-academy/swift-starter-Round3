@@ -40,9 +40,8 @@ enum Coffee {
     case americano, latte, espresso, coldBrew
 }
 
-let yagombucksCoffeeMenu: [Coffee: Int] = [.americano: 4000, .coldBrew: 4500, .espresso: 3600, .latte: 4600]
-
 let misterLee = Person(name: "misterlee")
 let missKim = Person(name: "missKim", money: 10000)
 
+let yagombucksCoffeeMenu: [Coffee: Int] = [.americano: 4000, .coldBrew: 4500, .espresso: 3600, .latte: 4600]
 let yagombucks = CoffeeShop(name: "yagombucks", barista: misterLee, menu: yagombucksCoffeeMenu)
