@@ -19,32 +19,36 @@ struct Person {
 
 struct CoffeeShop {
     var sales: Int = 0
+    enum Coffee {
+        case americano, latte, milkTea, vanillaLatte
+    }
     let menuList: [Coffee: Int] = [.americano: 4000, .latte: 4500, .milkTea: 4500, .vanillaLatte: 5000]
     var pickUpTable: Bool = false
-    var barista: Person?
+    var barista: Person!
     
-    func getOrder() {
+    func order() {
         if let worker = barista {
             print("\(worker.name): 무엇을 주문하시겠습니까?")
         }
     }
 
     func makeCoffee() {
-        if let worker = barista {
-            print("\(worker.name)이(가) 커피를 만들고 있습니다.")
+        print("커피를 만들고 있습니다.")
+    }
+    
+    func giveCoffee() {
+        if pickUpTable == true {
+            print("음료가 준비되었습니다.")
         }
     }
 }
 
-enum Coffee {
-    case americano, latte, milkTea, vanillaLatte
-}
-
-var misterLee = Person(name: "misterLee", money: 10000)
-var missKim = Person(name: "missKim", money: 10000)
-
+let misterLee = Person(name: "misterLee", money: 10000)
+let missKim = Person(name: "missKim", money: 10000)
 var yagombucks = CoffeeShop(barista: misterLee)
+yagombucks.pickUpTable = true
 
 missKim.buyCoffee()
-yagombucks.getOrder()
+yagombucks.order()
 yagombucks.makeCoffee()
+yagombucks.giveCoffee()
