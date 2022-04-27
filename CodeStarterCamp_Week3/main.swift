@@ -1,14 +1,10 @@
 import Foundation
 
-class Person {
+struct Person {
     let name: String
-    var money: Int = 0
+    var money: Int
     
-    init(name: String) {
-        self.name = name
-    }
-    
-    init(name: String, money: Int) {
+    init(name: String, money: Int = 0) {
         self.name = name
         self.money = money
     }
@@ -18,15 +14,17 @@ class Person {
     }
 }
 
-class CoffeeShop {
+struct CoffeeShop {
     let name: String
-    var barista: Person!
-    var menu: [Coffee: Int]!
+    let barista: Person
+    let menu: [Coffee: Int]
     var revenue: Int = 0
-    var isCoffeeOnPickupTable: Bool = false
+    var PickupTable: Coffee? = nil
     
-    init(name: String) {
+    init(name: String, barista: Person, menu: [Coffee: Int]) {
         self.name = name
+        self.barista = barista
+        self.menu = menu
     }
     
     func order(_ coffee: Coffee) {
@@ -34,7 +32,7 @@ class CoffeeShop {
     }
     
     func makeCoffee(_ coffee: Coffee) {
-        print("\(coffee)를 만듭니다.")
+        print("\(self.barista)가 \(coffee)를 만듭니다.")
     }
 }
 
@@ -42,11 +40,9 @@ enum Coffee {
     case americano, latte, espresso, coldBrew
 }
 
-var yagombucksCoffeeMenu: [Coffee: Int] = [.americano: 4000, .coldBrew: 4500, .espresso: 3600, .latte: 4600]
+let yagombucksCoffeeMenu: [Coffee: Int] = [.americano: 4000, .coldBrew: 4500, .espresso: 3600, .latte: 4600]
 
 let misterLee = Person(name: "misterlee")
 let missKim = Person(name: "missKim", money: 10000)
 
-var yagombucks = CoffeeShop(name: "yagombucks")
-yagombucks.barista = misterLee
-yagombucks.menu = yagombucksCoffeeMenu
+let yagombucks = CoffeeShop(name: "yagombucks", barista: misterLee, menu: yagombucksCoffeeMenu)
