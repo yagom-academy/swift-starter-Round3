@@ -51,11 +51,7 @@ class CoffeeShop {
         "Latte": .latte(price: 4000),
         "Vanilla Latte" : .vanillaLatte(price: 4500)
     ]
-    
-    // STEP1 에선 아래 method 에 대하여
-    // "동작을 가질 수 있도록" 을 요했기 때문에
-    // method 생성만 해둠
-    // STEP2 에서 디테일화 예정
+
     func order(_ coffee: Coffee) { }
     
     func makeCoffee() { }
