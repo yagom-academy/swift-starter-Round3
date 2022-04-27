@@ -13,6 +13,10 @@ enum Gender: String {
     case women = "여자"
 }
 
+enum Coffe: String {
+    case americano, espresso, cafeLatte, coldBrew, milkTea, lomonAde, earlGrey
+}
+
 struct Person {
     let name: String
     var age: Int
@@ -51,3 +55,59 @@ struct Person {
         self.weight = weight
     }
 }
+
+struct CoffeShop {
+    let cafeName: String
+    var adress: String
+    var sales = 0
+    var menu: [Coffe: Int]
+    var pickUpTable: Coffe?
+    var barista: Person?
+    
+    mutating func greetToCustomer() -> String {
+        return "어서오세요!! \(cafeName)입니다!!"
+    }
+    mutating func introduceCoffeShop() -> String {
+        return "저희 \(cafeName)는(은) \(adress)에 위치한 카페입니다!!!"
+    }
+    mutating func introduceMenu() -> String {
+        var menuContents = "\(cafeName)는(은)의 메뉴판\n"
+        if !menu.isEmpty {
+            for (coffe, price) in self.menu {
+                menuContents += "\(coffe.rawValue) : \(price)원\n"
+            }
+        } else {
+            menuContents = "죄송합니다! 현재 오픈 준비중 입니다."
+        }
+        return menuContents
+    }
+    mutating func takeAnOrder(_ coffe: Coffe) {
+        if let _ = menu[coffe] {
+            print("\(coffe)이 주문이 접수되었습니다.")
+        } else {
+            print("죄송합니다. 주문하신 메뉴는 저희 가게에서 판매하지 않습니다.")
+        }
+    }
+    mutating func makeCoffe(_ coffe: Coffe) {
+        if let _ = self.barista {
+            print("주문하신 \(coffe)가 준비되었습니다.")
+        } else {
+            print("죄송합니다. 현재 바리스타가 출근하지 않았습니다.")
+        }
+    }
+    mutating func upsertCoffe(coffe: Coffe, price: Int) {
+        if let oldprice = self.menu.updateValue(price, forKey: coffe){
+            print("\(coffe)의 가격이 \(oldprice)에서 \(price)로 변경되었습니다.")
+        } else {
+            print("가격이 \(price)인 \(coffe)가 추가되었습니다.")
+        }
+    }
+    
+    init?(cafeName: String, adress: String) {
+        self.cafeName = cafeName
+        self.adress = adress
+        menu = [Coffe: Int]()
+    }
+}
+
+
