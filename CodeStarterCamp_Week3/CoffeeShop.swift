@@ -30,7 +30,16 @@ struct CoffeeShop {
         self.menu = self.menu.merging(menu, uniquingKeysWith: { $1 })
     }
     
-    func order(_ coffee: Coffee) {
-        print("\(coffee.rawValue)가 준비되었습니다.")
+    mutating func order(_ coffee: Coffee, by person: String) {
+        makeCoffee(by: person)
+        if let price = self.menu[coffee] {
+            sales += price
+        }
+    }
+    
+    private func makeCoffee(by person: String) {
+        if let barista = barista {
+            print("\(barista.name)가 커피를 만듭니다.")
+        }
     }
 }
