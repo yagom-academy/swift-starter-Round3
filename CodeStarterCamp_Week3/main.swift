@@ -79,3 +79,10 @@ class CoffeeShop {
 }
 
 // MARK: - 실행부
+
+let missKim = Customer(name: "missKim")
+let yagombucks = CoffeeShop()
+
+missKim.buget = 3500
+missKim.buyDrink(at: yagombucks, which: "Americano")
+missKim.buyDrink(at: yagombucks, which: "Americano")
