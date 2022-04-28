@@ -44,8 +44,7 @@ enum Coffee {
     case vanillaLatte(price: Int, kr: String)
     case einspanner(price: Int, kr: String)
 }
-
-
+    
 class CoffeeShop {
     var revenue: Int = 0
     var barista: Person?
@@ -53,6 +52,9 @@ class CoffeeShop {
         willSet(newValue) {
             let name = newValue.keys.joined()
             print("\(name) 님의 커피가 준비되었습니다. 픽업대에서 가져가주세요.")
+        }
+        didSet {
+            pickUpTable.removeAll()
         }
     }
     var menuList: Dictionary<String, Coffee> = [
@@ -75,7 +77,6 @@ class CoffeeShop {
             pickUpTable[name] = menu
         }
     }
-
 }
 
 // MARK: - 실행부
