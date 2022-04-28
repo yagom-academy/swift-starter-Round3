@@ -6,41 +6,32 @@
 //
 
 import Foundation
-class CoffeeShop {
+
+struct CoffeeShop {
     var owner: String
     var openingHours: String
-    var coffeeShopSales: Int?
-    var menu: Dictionary<Coffee, Int> = [:]
-    var pickUpTable: Bool?
+    var coffeeShopProfit: Int?
+    var menu: [Coffee: Int]
+    var pickUpTable: Coffee? = nil
     var barista: Person?
-    init(owner: String, openingHours: String, coffeeShopSales: Int, menu: Dictionary<Coffee, Int> = [:], pickUpTable: Bool, barista: Person) {
+    init(owner: String, openingHours: String, coffeeShopProfit: Int? = nil, menu: [Coffee: Int] = [:], pickUpTable: Coffee? = nil, barista: Person? = nil) {
         self.owner = owner
         self.openingHours = openingHours
-        self.coffeeShopSales = coffeeShopSales
+        self.coffeeShopProfit = coffeeShopProfit
         self.menu = menu
         self.pickUpTable = pickUpTable
         self.barista = barista
     }
-    init(owner: String, openingHours: String) {
-        self.owner = owner
-        self.openingHours = openingHours
-    }
-    func orderCoffee() {
-        print("커피를 주문합니다.")
-    }
-    func makeCoffee() {
-        print("커피를 만드는 중입니다.")
+    func makeCoffee(_ coffee: Coffee) {
+        print("\(coffee)를 만드는 중입니다.")
     }
 }
 
 //커피 종류 열거형 생성
 enum Coffee: String {
-    case Americano, CaffeLatte, CaramelMacchiato
+    case americano, caffeLatte, caramelMacchiato
+    
+    static var menu: [Coffee: Int] {
+        return [.americano: 4000, .caffeLatte: 4500, .caramelMacchiato: 5000]
+    }
 }
-
-//커피 종류 열거형이 key가 되어 coffeeMenu 딕셔너라 생성
-let coffeeMenu: [Coffee: Int] = [
-        .Americano: 4000,
-        .CaffeLatte: 4500,
-        .CaramelMacchiato: 5000
-    ]
