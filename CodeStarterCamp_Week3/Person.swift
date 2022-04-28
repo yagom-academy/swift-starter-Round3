@@ -11,21 +11,17 @@ struct Person {
     var name: String
     var age: Int
     var habit: String?
-    var mbti: String?
-    var getMoney: Int
-    init(name: String, age: Int, habit: String?, mbti: String?, getMoney: Int) {
+    var personalMBTI: String?
+    var walletInCash: Int
+    init(name: String, age: Int, habit: String? = nil, personalMBTI: String? = nil, walletInCash: Int) {
         self.name = name
         self.age = age
         self.habit = habit
-        self.mbti = mbti
-        self.getMoney = getMoney
+        self.personalMBTI = personalMBTI
+        self.walletInCash = walletInCash
     }
-    init(name: String, age: Int, getMoney: Int){
-        self.name = name
-        self.age = age
-        self.getMoney = getMoney
-    }
-    func buyCoffee() {
-        print("\(name)이 커피를 삽니다.")
+    func buyCoffee(_ coffee: Coffee) {
+        print("\(name)이 \(coffee)를 삽니다.")
+        print("\(name)에게 \(walletInCash)원이 남았어요")
     }
 }
