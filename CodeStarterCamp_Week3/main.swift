@@ -77,8 +77,8 @@ struct Person {
 struct CoffeeShop {
     let name: String
     var address: String
-    var sales = 0
-    var menu: [Coffee: Int]
+    var totalIncome = 0
+    var menu = [Coffee: Int]()
     var pickUpTable: Coffee?
     var barista: Person?
     
@@ -94,7 +94,7 @@ struct CoffeeShop {
         var menuContents = "\(name) 메뉴판\n"
         if !menu.isEmpty {
             for (coffee, price) in menu {
-                menuContents += "\(coffee.rawValue) : \(price)원\n"
+                menuContents += "\(coffee) : \(price)원\n"
             }
         } else {
             menuContents = "죄송합니다! 현재 오픈 준비중 입니다."
@@ -118,7 +118,7 @@ struct CoffeeShop {
         }
     }
     
-    mutating func upsertCoffee(coffee: Coffee, price: Int) {
+    mutating func updateMenuUsing(coffee: Coffee, price: Int) {
         if let oldPrice = menu.updateValue(price, forKey: coffee){
             print("\(coffee)의 가격이 \(oldPrice)에서 \(price)로 변경되었습니다.")
         } else {
@@ -132,7 +132,6 @@ struct CoffeeShop {
         }
         self.name = name
         self.address = address
-        menu = [Coffee: Int]()
     }
 }
 
@@ -140,4 +139,3 @@ var misterLee = Person(name: "이병현", age: 23, gender: Gender.men, height: 1
 var missKim = Person(name: "김태희", age: 21, gender: Gender.women, height: 168, weight: 48)
 var yagombucks = CoffeeShop(name: "Yagom Bucks", address: "서울시 강남구 강남대로 390")
 yagombucks?.barista = misterLee
-
