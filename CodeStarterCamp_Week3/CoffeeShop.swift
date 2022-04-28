@@ -7,19 +7,14 @@
 
 import Foundation
 
-enum Coffee {
-    case americano, caffeelatte, espresso, deCaffeine
-}
-
-
 class CoffeeShop {
     var barista: Person? = nil
     var coffeeMenu: CoffeeMenu
-    var todaysSalesMoney: Int
+    var salesMoney: Int
     var pickUpTable: PickUpTable = PickUpTable()
     
     init(coffeeMenu: CoffeeMenu) {
-        todaysSalesMoney = 0
+        salesMoney = 0
         self.coffeeMenu = coffeeMenu
     }
     
