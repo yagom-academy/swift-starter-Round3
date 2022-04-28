@@ -37,11 +37,18 @@ struct Person {
         age += 1
     }
     
-    mutating func spendMoney(amount: Int) -> Bool {
+    mutating func spendMoney(amount: Int) {
+        if !isSpendable(amount) {
+            print("잔액이 부족합니다.")
+        } else {
+            money -= amount
+        }
+    }
+    
+    func isSpendable(_ amount: Int) -> Bool {
         if money < amount {
             return false
         } else {
-            money -= amount
             return true
         }
     }
@@ -92,22 +99,32 @@ struct CoffeeShop {
     
     func introduceMenu() -> String {
         var menuContents = "\(name) 메뉴판\n"
-        if !menu.isEmpty {
+        if isEmptyMenu() {
+            return "죄송합니다! 현재 오픈 준비 중 입니다!!!!!"
+        } else {
             for (coffee, price) in menu {
                 menuContents += "\(coffee) : \(price)원\n"
             }
-        } else {
-            menuContents = "죄송합니다! 현재 오픈 준비중 입니다."
         }
         return menuContents
     }
     
+    func isEmptyMenu() -> Bool {
+        return menu.isEmpty
+    }
+    
     func order(_ coffee: Coffee) {
-        if menu.contains(where: {$0.key == coffee}) {
+        if isEmptyMenu() {
+            print("죄송합니다! 현재 오픈 준비 중 입니다!!!!!")
+        } else if isItOnMenu(that: coffee) {
             print("\(coffee) 주문이 접수되었습니다.")
         } else {
             print("죄송합니다. 주문하신 메뉴는 저희 가게에서 판매하지 않습니다.")
         }
+    }
+    
+    func isItOnMenu(that coffee: Coffee) -> Bool {
+        return menu.contains(where: {$0.key == coffee})
     }
     
     func makeCoffee(_ coffee: Coffee) {
