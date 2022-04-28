@@ -103,7 +103,7 @@ struct CoffeeShop {
     }
     
     func order(_ coffee: Coffee) {
-        if let _ = menu[coffee] {
+        if menu.contains(where: {$0.key == coffee}) {
             print("\(coffee) 주문이 접수되었습니다.")
         } else {
             print("죄송합니다. 주문하신 메뉴는 저희 가게에서 판매하지 않습니다.")
@@ -111,7 +111,7 @@ struct CoffeeShop {
     }
     
     func makeCoffee(_ coffee: Coffee) {
-        if let _ = barista {
+        if barista != nil {
             print("주문하신 \(coffee)가 준비되었습니다.")
         } else {
             print("죄송합니다. 현재 바리스타가 출근하지 않았습니다.")
