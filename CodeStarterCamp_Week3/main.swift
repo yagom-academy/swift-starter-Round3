@@ -50,6 +50,18 @@ struct Person {
         money += amount
     }
     
+    mutating func buyCoffee(_ coffee: Coffee, at coffeeShop: CoffeeShop?) -> (Int?, String)  {
+        if let cafe = coffeeShop {
+            if let price = cafe.menu[coffee] {
+                return (price, "구매를 하였습니다.")
+            } else {
+                return (nil, "메뉴판을 다시 확인하세요.")
+            }
+        } else {
+            return (nil, "현재 커피숍이 존재하지 않습니다.")
+        }
+    }
+    
     init?(name: String, age: Int, gender: Gender, height: Int, weight: Int) {
         if name.isEmpty || !(0...120).contains(age) || height <= 0 || weight <= 0 {
             return nil
@@ -92,7 +104,7 @@ struct CoffeeShop {
     
     mutating func order(_ coffee: Coffee) {
         if let _ = menu[coffee] {
-            print("\(coffee)이 주문이 접수되었습니다.")
+            print("\(coffee) 주문이 접수되었습니다.")
         } else {
             print("죄송합니다. 주문하신 메뉴는 저희 가게에서 판매하지 않습니다.")
         }
