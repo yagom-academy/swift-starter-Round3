@@ -30,19 +30,19 @@ struct Person {
     }
     
     mutating func introduce() -> String {
-        return "저의 이름은 \(self.name)입니다. 저는 \(self.age)살이고 키는 \(self.height)cm 몸무게는 \(self.weight)kg 입니다."
+        return "저의 이름은 \(name)입니다. 저는 \(age)살이고 키는 \(height)cm 몸무게는 \(weight)kg 입니다."
     }
     
     mutating func addOneToAge() {
-        self.age += 1
+        age += 1
     }
     
     mutating func calculateMoney(by amount: Int, sign: Int) -> Bool {
         if sign == -1 {
-            if self.money < amount { return false }
-            self.money -= amount
+            if money < amount { return false }
+            money -= amount
         } else {
-            self.money += amount
+            money += amount
         }
         return true
     }
@@ -68,17 +68,17 @@ struct CoffeeShop {
     var barista: Person?
     
     mutating func greetToCustomer() -> String {
-        return "어서오세요!! \(self.name)입니다!!"
+        return "어서오세요!! \(name)입니다!!"
     }
     
     mutating func introduceCoffeShop() -> String {
-        return "저희 \(self.name)는(은) \(self.address)에 위치한 카페입니다!!!"
+        return "저희 \(name)는(은) \(address)에 위치한 카페입니다!!!"
     }
     
     mutating func introduceMenu() -> String {
-        var menuContents = "\(self.name) 메뉴판\n"
-        if !self.menu.isEmpty {
-            for (coffee, price) in self.menu {
+        var menuContents = "\(name) 메뉴판\n"
+        if !menu.isEmpty {
+            for (coffee, price) in menu {
                 menuContents += "\(coffee.rawValue) : \(price)원\n"
             }
         } else {
@@ -96,7 +96,7 @@ struct CoffeeShop {
     }
     
     mutating func makeCoffee(_ coffee: Coffee) {
-        if let _ = self.barista {
+        if let _ = barista {
             print("주문하신 \(coffee)가 준비되었습니다.")
         } else {
             print("죄송합니다. 현재 바리스타가 출근하지 않았습니다.")
@@ -104,7 +104,7 @@ struct CoffeeShop {
     }
     
     mutating func upsertCoffee(coffee: Coffee, price: Int) {
-        if let oldPrice = self.menu.updateValue(price, forKey: coffee){
+        if let oldPrice = menu.updateValue(price, forKey: coffee){
             print("\(coffee)의 가격이 \(oldPrice)에서 \(price)로 변경되었습니다.")
         } else {
             print("가격이 \(price)인 \(coffee)가 추가되었습니다.")
