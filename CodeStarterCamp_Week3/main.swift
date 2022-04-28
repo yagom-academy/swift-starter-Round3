@@ -69,8 +69,14 @@ class CoffeeShop {
         case .americano(let price, let kr), .vanillaLatte(let price, let kr), .latte(let price, let kr), .einspanner(let price, let kr):
             revenue += price
             self.revenue = revenue
+            makeCoffee(info: [order.name: kr])
         }
     }
     
-    func makeCoffee() { }
+    func makeCoffee(info: [String: String]) {
+        for (name, menu) in info {
+            pickUpTable[name] = menu
+        }
+    }
+
 }
