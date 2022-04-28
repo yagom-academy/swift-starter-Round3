@@ -49,7 +49,12 @@ enum Coffee {
 class CoffeeShop {
     var revenue: Int?
     var barista: Person?
-    var pickUpTable: Array<String?> = []
+    var pickUpTable: [String: String] = [:] {
+        willSet(newValue) {
+            let name = newValue.keys.joined()
+            print("\(name) 님의 커피가 준비되었습니다. 픽업대에서 가져가주세요.")
+        }
+    }
     var menuList: Dictionary<String, Coffee> = [
         "Americano": .americano(price: 3500, kr :"아메리카노"),
         "Einspanner": .einspanner(price: 5500, kr: "아인슈페너"),
