@@ -14,6 +14,12 @@ class Person {
     var name: String = ""
     var buget: Int?
     
+    init(name: String) {
+        self.name = name
+    }
+}
+
+class Customer: Person {
     func buyDrink(at coffeeShop: CoffeeShop, which menuName: String){
         guard let menu = coffeeShop.menuList[menuName] else { return }
         guard var buget = self.buget else { return }
@@ -23,11 +29,8 @@ class Person {
             self.buget = buget
         }
     }
-    
-    init(name: String) {
-        self.name = name
-    }
 }
+
 
 enum Coffee {
     case americano(price: Int)
@@ -53,13 +56,4 @@ class CoffeeShop {
 }
 
 // MARK: - 실행부
-
-let misterLee: Person = Person(name: "이미남")
-let missKim: Person = Person(name: "김미녀")
-missKim.buget = 100000
-
-
-let yagombucks: CoffeeShop = CoffeeShop()
-yagombucks.barista = misterLee
-missKim.buyDrink(at: yagombucks, which: "Latte")
 
