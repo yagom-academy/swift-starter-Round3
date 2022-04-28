@@ -37,14 +37,17 @@ struct Person {
         age += 1
     }
     
-    mutating func calculateMoney(by amount: Int, sign: Int) -> Bool {
-        if sign == -1 {
-            if money < amount { return false }
-            money -= amount
+    mutating func spendMoney(amount: Int) -> Bool {
+        if money < amount {
+            return false
         } else {
-            money += amount
+            money -= amount
+            return true
         }
-        return true
+    }
+    
+    mutating func saveMoney(amount: Int) {
+        money += amount
     }
     
     init?(name: String, age: Int, gender: Gender, height: Int, weight: Int) {
