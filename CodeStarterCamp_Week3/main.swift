@@ -47,7 +47,7 @@ enum Coffee {
 
 
 class CoffeeShop {
-    var revenue: Int?
+    var revenue: Int = 0
     var barista: Person?
     var pickUpTable: [String: String] = [:] {
         willSet(newValue) {
@@ -63,12 +63,9 @@ class CoffeeShop {
     ]
     
     func order(_ coffee: Coffee, who order: Person) {
-        guard var revenue = self.revenue else { return }
-        
         switch coffee {
         case .americano(let price, let kr), .vanillaLatte(let price, let kr), .latte(let price, let kr), .einspanner(let price, let kr):
             revenue += price
-            self.revenue = revenue
             makeCoffee(info: [order.name: kr])
         }
     }
@@ -80,3 +77,5 @@ class CoffeeShop {
     }
 
 }
+
+// MARK: - 실행부
