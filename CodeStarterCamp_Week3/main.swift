@@ -8,23 +8,43 @@
 
 import Foundation
 
-class Person {
-    private var money: Int
+//class Person {
+//    private var money: Int
+//
+//    init(money: Int) {
+//        self.money = money
+//    }
+//
+//    func buyCoffee(_ coffee: Coffee, _ coffeeShop: CoffeeShop) {
+//        if let coffeePrice = coffeeShop.menu[coffee] {
+//                money = money - coffeePrice
+//        }
+//        coffeeShop.orderCoffee(coffee)
+//    }
+//
+//    var getMoney: Int {
+//        get {
+//            return money
+//        }
+//    }
+//}
+
+struct Person {
+    private var _money: Int = 0
     
-    init(money: Int) {
-        self.money = money
-    }
-    
-    func buyCoffee(_ coffee: Coffee, _ coffeeShop: CoffeeShop) {
+    mutating func buyCoffee(_ coffee: Coffee, _ coffeeShop: CoffeeShop) {
         if let coffeePrice = coffeeShop.menu[coffee] {
-                money = money - coffeePrice
+            _money = _money - coffeePrice
         }
         coffeeShop.orderCoffee(coffee)
     }
     
-    var getMoney: Int {
+    var money: Int {
         get {
-            return money
+            return self._money
+        }
+        set {
+            self._money = newValue
         }
     }
 }
@@ -60,8 +80,10 @@ enum Coffee: String {
     case affogato = "아포가토"
 }
 
-let missKim: Person = Person(money: 10000)
-let misterLee: Person = Person(money: 4000)
+var missKim: Person = Person()
+missKim.money = 10000
+var misterLee: Person = Person()
+misterLee.money = 50000
 
 let yagombucks: CoffeeShop = CoffeeShop(sales: 0)
 
@@ -70,7 +92,7 @@ yagombucks.barista = misterLee
 missKim.buyCoffee(Coffee.espresso, yagombucks)
 
 //잔액출력
-print(missKim.getMoney)
+print(missKim.money)
 
 
 
