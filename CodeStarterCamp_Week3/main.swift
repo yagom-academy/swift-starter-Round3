@@ -25,11 +25,11 @@ struct Person {
     var weight: Int
     var money: Int = 0
     
-    mutating func greet() -> String {
+    func greet() -> String {
         return "안녕하세요!!!"
     }
     
-    mutating func introduce() -> String {
+    func introduce() -> String {
         return "저의 이름은 \(name)입니다. 저는 \(age)살이고 키는 \(height)cm 몸무게는 \(weight)kg 입니다."
     }
     
@@ -50,7 +50,7 @@ struct Person {
         money += amount
     }
     
-    mutating func buyCoffee(_ coffee: Coffee, at coffeeShop: CoffeeShop?) -> (Int?, String)  {
+    func buyCoffee(_ coffee: Coffee, at coffeeShop: CoffeeShop?) -> (Int?, String)  {
         if let cafe = coffeeShop {
             if let price = cafe.menu[coffee] {
                 return (price, "구매를 하였습니다.")
@@ -82,15 +82,15 @@ struct CoffeeShop {
     var pickUpTable: Coffee?
     var barista: Person?
     
-    mutating func greetToCustomer() -> String {
+    func greetToCustomer() -> String {
         return "어서오세요!! \(name)입니다!!"
     }
     
-    mutating func introduceCoffeShop() -> String {
+    func introduceCoffeShop() -> String {
         return "저희 \(name)는(은) \(address)에 위치한 카페입니다!!!"
     }
     
-    mutating func introduceMenu() -> String {
+    func introduceMenu() -> String {
         var menuContents = "\(name) 메뉴판\n"
         if !menu.isEmpty {
             for (coffee, price) in menu {
@@ -102,7 +102,7 @@ struct CoffeeShop {
         return menuContents
     }
     
-    mutating func order(_ coffee: Coffee) {
+    func order(_ coffee: Coffee) {
         if let _ = menu[coffee] {
             print("\(coffee) 주문이 접수되었습니다.")
         } else {
@@ -110,7 +110,7 @@ struct CoffeeShop {
         }
     }
     
-    mutating func makeCoffee(_ coffee: Coffee) {
+    func makeCoffee(_ coffee: Coffee) {
         if let _ = barista {
             print("주문하신 \(coffee)가 준비되었습니다.")
         } else {
