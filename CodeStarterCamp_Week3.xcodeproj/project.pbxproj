@@ -8,6 +8,7 @@
 
 /* Begin PBXBuildFile section */
 		34811DD5274B93EB00A1E994 /* main.swift in Sources */ = {isa = PBXBuildFile; fileRef = 34811DD4274B93EB00A1E994 /* main.swift */; };
+		7B8437CA281A9DEA0040030C /* Coffee.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7B8437C9281A9DEA0040030C /* Coffee.swift */; };
 		7BF55CBB28175DB4005FA560 /* Person.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7BF55CBA28175DB4005FA560 /* Person.swift */; };
 		7BF55CBD28175E86005FA560 /* CoffeeShop.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7BF55CBC28175E86005FA560 /* CoffeeShop.swift */; };
 		7BF55CBF28176024005FA560 /* CoffeeMenu.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7BF55CBE28176024005FA560 /* CoffeeMenu.swift */; };
@@ -29,6 +30,7 @@
 /* Begin PBXFileReference section */
 		34811DD1274B93EB00A1E994 /* CodeStarterCamp_Week3 */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.executable"; includeInIndex = 0; path = CodeStarterCamp_Week3; sourceTree = BUILT_PRODUCTS_DIR; };
 		34811DD4274B93EB00A1E994 /* main.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = main.swift; sourceTree = "<group>"; };
+		7B8437C9281A9DEA0040030C /* Coffee.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Coffee.swift; sourceTree = "<group>"; };
 		7BF55CBA28175DB4005FA560 /* Person.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Person.swift; sourceTree = "<group>"; };
 		7BF55CBC28175E86005FA560 /* CoffeeShop.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CoffeeShop.swift; sourceTree = "<group>"; };
 		7BF55CBE28176024005FA560 /* CoffeeMenu.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CoffeeMenu.swift; sourceTree = "<group>"; };
@@ -70,6 +72,7 @@
 				7BF55CBC28175E86005FA560 /* CoffeeShop.swift */,
 				7BF55CBE28176024005FA560 /* CoffeeMenu.swift */,
 				7BF55CC0281760D1005FA560 /* PickUpTable.swift */,
+				7B8437C9281A9DEA0040030C /* Coffee.swift */,
 			);
 			path = CodeStarterCamp_Week3;
 			sourceTree = "<group>";
@@ -136,6 +139,7 @@
 				7BF55CBB28175DB4005FA560 /* Person.swift in Sources */,
 				7BF55CC1281760D1005FA560 /* PickUpTable.swift in Sources */,
 				34811DD5274B93EB00A1E994 /* main.swift in Sources */,
+				7B8437CA281A9DEA0040030C /* Coffee.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
