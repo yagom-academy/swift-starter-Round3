@@ -18,10 +18,11 @@ struct Person {
 }
 
 struct CoffeeShop {
-    var sales: Int = 0
     enum Coffee {
         case americano, latte, milkTea, vanillaLatte
     }
+    
+    var sales: Int = 0
     let menuList: [Coffee: Int] = [.americano: 4000, .latte: 4500, .milkTea: 4500, .vanillaLatte: 5000]
     var pickUpTable: Bool = false
     var barista: Person!
