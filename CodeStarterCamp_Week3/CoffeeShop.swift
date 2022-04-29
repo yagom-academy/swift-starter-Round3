@@ -32,6 +32,10 @@ class CoffeeShop {
     
     func order(coffee: Coffee) {
         let coffeePrice = coffeeMenu.getPriceOfCoffee(coffee: coffee)
+        if coffeePrice == CoffeeMenuError.notExistCoffee.rawValue {
+            print("존재하지 않는 커피 메뉴입니다.")
+            return
+        }
         
         depositMoney(coffeePrice: coffeePrice)
         barista?.makeCoffeeOrderFromShop(coffee: coffee)
