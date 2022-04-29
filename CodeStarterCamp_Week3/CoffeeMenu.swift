@@ -16,7 +16,7 @@ class CoffeeMenu {
     
     func getPriceOfCoffee(coffee: Coffee) -> Int {
         guard let coffeePrice = coffeeListsInShop[coffee] else {
-            return -1
+            return CoffeeMenuError.notExistCoffee.rawValue
         }
         
         return coffeePrice

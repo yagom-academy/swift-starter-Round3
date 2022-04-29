@@ -11,6 +11,7 @@
 		7B8437CA281A9DEA0040030C /* Coffee.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7B8437C9281A9DEA0040030C /* Coffee.swift */; };
 		7B8437D9281C02CB0040030C /* Barista.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7B8437D8281C02CB0040030C /* Barista.swift */; };
 		7B8437DB281C03F60040030C /* Shop.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7B8437DA281C03F60040030C /* Shop.swift */; };
+		7B8437DD281C08470040030C /* CoffeeMenuError.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7B8437DC281C08470040030C /* CoffeeMenuError.swift */; };
 		7BF55CBB28175DB4005FA560 /* Person.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7BF55CBA28175DB4005FA560 /* Person.swift */; };
 		7BF55CBD28175E86005FA560 /* CoffeeShop.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7BF55CBC28175E86005FA560 /* CoffeeShop.swift */; };
 		7BF55CBF28176024005FA560 /* CoffeeMenu.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7BF55CBE28176024005FA560 /* CoffeeMenu.swift */; };
@@ -35,6 +36,7 @@
 		7B8437C9281A9DEA0040030C /* Coffee.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Coffee.swift; sourceTree = "<group>"; };
 		7B8437D8281C02CB0040030C /* Barista.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Barista.swift; sourceTree = "<group>"; };
 		7B8437DA281C03F60040030C /* Shop.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Shop.swift; sourceTree = "<group>"; };
+		7B8437DC281C08470040030C /* CoffeeMenuError.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CoffeeMenuError.swift; sourceTree = "<group>"; };
 		7BF55CBA28175DB4005FA560 /* Person.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Person.swift; sourceTree = "<group>"; };
 		7BF55CBC28175E86005FA560 /* CoffeeShop.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CoffeeShop.swift; sourceTree = "<group>"; };
 		7BF55CBE28176024005FA560 /* CoffeeMenu.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CoffeeMenu.swift; sourceTree = "<group>"; };
@@ -79,6 +81,7 @@
 				7BF55CC0281760D1005FA560 /* PickUpTable.swift */,
 				7B8437C9281A9DEA0040030C /* Coffee.swift */,
 				7B8437DA281C03F60040030C /* Shop.swift */,
+				7B8437DC281C08470040030C /* CoffeeMenuError.swift */,
 			);
 			path = CodeStarterCamp_Week3;
 			sourceTree = "<group>";
@@ -141,6 +144,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				7BF55CBF28176024005FA560 /* CoffeeMenu.swift in Sources */,
+				7B8437DD281C08470040030C /* CoffeeMenuError.swift in Sources */,
 				7BF55CBD28175E86005FA560 /* CoffeeShop.swift in Sources */,
 				7BF55CBB28175DB4005FA560 /* Person.swift in Sources */,
 				7BF55CC1281760D1005FA560 /* PickUpTable.swift in Sources */,
