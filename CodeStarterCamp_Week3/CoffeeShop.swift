@@ -14,12 +14,11 @@ struct CoffeeShop {
     var menu: [Coffee: Int]
     var pickUpTable: Coffee? = nil
     var barista: Person?
-    init(owner: String, openingHours: String, coffeeShopProfit: Int? = nil, menu: [Coffee: Int] = [:], pickUpTable: Coffee? = nil, barista: Person? = nil) {
+    init(owner: String, openingHours: String, coffeeShopProfit: Int? = nil, menu: [Coffee: Int] = [:], barista: Person? = nil) {
         self.owner = owner
         self.openingHours = openingHours
         self.coffeeShopProfit = coffeeShopProfit
         self.menu = menu
-        self.pickUpTable = pickUpTable
         self.barista = barista
     }
     func makeCoffee(_ coffee: Coffee) {
