@@ -16,9 +16,22 @@ class Person {
         self.money = money
     }
     
+    func isSufficeMoney(coffeePrice: Int) -> Bool {
+        return coffeePrice <= money
+    }
+    
     func submitMoney(coffeePrice: Int) {
+        money -= coffeePrice
     }
     
     func orderCoffee(coffee: Coffee, coffeeShop: CoffeeShop) {
+        let coffeePrice = coffeeShop.coffeeMenu.getPriceOfCoffee(coffee: coffee)
+        if !isSufficeMoney(coffeePrice: coffeePrice) {
+            print("잔액이 \(coffeePrice - money)만큼 부족합니다.")
+            return
+        }
+        submitMoney(coffeePrice: coffeePrice)
+        coffeeShop.insertOrderToPickUpTable(orderMan: name, coffee: coffee)
+        coffeeShop.order(coffee: coffee)
     }
 }
