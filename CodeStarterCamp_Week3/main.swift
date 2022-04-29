@@ -10,12 +10,12 @@ import Foundation
 
 class Person {
     let name: String
-    let gender: String
+    let gender: Gender
     var nickname: String
     var age: Int
     var moneyOnHand: Int
     
-    init(name: String, nickname: String, gender: String, age: Int, moneyOnHand: Int) {
+    init(name: String, nickname: String, gender: Gender, age: Int, moneyOnHand: Int) {
         self.name = name
         self.nickname = nickname
         self.gender = gender
@@ -27,6 +27,11 @@ class Person {
         print("주문할게요! \(drink) \(drinkCount)잔 주세요!")
         return [drink: drinkCount]
     }
+}
+
+enum Gender {
+    case man
+    case woman
 }
 
 class CoffeeShop {
@@ -53,7 +58,7 @@ class CoffeeShop {
         self.totalSale += totalPrice
     }
     
-    func makeCoffee(kindCoffee: String, drinkCount: Int) {
+    func makeCoffee(kindCoffee: Coffee, drinkCount: Int) {
         let staffname = self.barista.randomElement() ?? "무인 커피숍"
         print("\(staffname) 파트너가 준비합니다.")
         print("만...드...는...중...")
@@ -78,17 +83,18 @@ enum Coffee: String {
     case pomeloFlowGreenTea = "포멜로그린티"
 }
 
-var misterLee = Person(
+let misterLee = Person(
     name: "이미스터",
     nickname: "앱등이",
-    gender: "man",
+    gender: .man,
     age: 22,
     moneyOnHand: 0
 )
-var missKim = Person(
+
+let missKim = Person(
     name: "김미스",
     nickname: "커리어우먼",
-    gender: "woman",
+    gender: .woman,
     age: 34,
     moneyOnHand: 3000
 )
