@@ -68,7 +68,8 @@ class CoffeeShop {
         switch coffee {
         case .americano(let price, let kr), .vanillaLatte(let price, let kr), .latte(let price, let kr), .einspanner(let price, let kr):
             revenue += price
-            putCoffeeOnPickUpTable(coffee: makeCoffee(which: [order.name: kr], who: self.barista)) 
+            let coffee = makeCoffee(which: [order.name: kr], who: self.barista)
+            putCoffeeOnPickUpTable(coffee: coffee)
         }
     }
     
