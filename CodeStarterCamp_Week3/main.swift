@@ -14,15 +14,17 @@ class Person {
 
 class CoffeeShop {
     var sales: Int
-    let coffeeOptions: String
+    let coffeeMenu: Coffee
     let price: Int
     let pickUpTable: Bool
+    let barista: Person
 
-    init(sales: Int, coffeeOptions: String, price: Int, pickUpTable: Bool) {
+    init(sales: Int, coffeeMenu: Coffee, price: Int, pickUpTable: Bool, barista: Person) {
         self.sales = sales
-        self.coffeeOptions = coffeeOptions
+        self.coffeeMenu = coffeeMenu
         self.price = price
         self.pickUpTable = pickUpTable
+        self.barista = barista
     }
 
     func getOrder() {
@@ -32,4 +34,10 @@ class CoffeeShop {
     func makeCoffee() {
         print("making Coffee")
     }
+}
+
+enum Coffee: String {
+    case americano = "Americano"
+    case capouccino = "Cappuccino"
+    case latte = "Latte"
 }
