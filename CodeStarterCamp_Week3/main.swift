@@ -83,33 +83,3 @@ enum Coffee: String {
     case pomeloFlowGreenTea = "포멜로그린티"
 }
 
-let misterLee = Person(
-    name: "이미스터",
-    nickname: "앱등이",
-    gender: .man,
-    age: 22,
-    moneyOnHand: 0
-)
-
-let missKim = Person(
-    name: "김미스",
-    nickname: "커리어우먼",
-    gender: .woman,
-    age: 34,
-    moneyOnHand: 3000
-)
-
-var yagombucks = CoffeeShop(
-    isFranchise: true,
-    isPickUpTable: true,
-    barista: ["yagom", "dylan", "tommy"],
-    menuCoffeeAndPrice: [
-        Coffee.espresso.rawValue: 4000,
-        Coffee.amricano.rawValue: 4500,
-        Coffee.doubleEspressoChipFrappuccino.rawValue: 6300,
-        Coffee.punchGraffitiBlended.rawValue: 6300,
-        Coffee.rollinMintChocoColdBrew.rawValue: 6100
-    ]
-)
-
-yagombucks.barista.append(misterLee.name)
