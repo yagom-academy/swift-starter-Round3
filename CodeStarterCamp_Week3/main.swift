@@ -68,7 +68,7 @@ class CoffeeShop {
         switch coffee {
         case .americano(let price, let kr), .vanillaLatte(let price, let kr), .latte(let price, let kr), .einspanner(let price, let kr):
             revenue += price
-            makeCoffee(which: [order.name: kr], who: self.barista)
+            putCoffeeOnPickUpTable(coffee: makeCoffee(which: [order.name: kr], who: self.barista)) 
         }
     }
     
@@ -78,6 +78,12 @@ class CoffeeShop {
             return info
         }
         return info
+    }
+    
+    func putCoffeeOnPickUpTable(coffee: [String: String]) {
+        for (name, menu) in coffee {
+            pickUpTable[name] = menu
+        }
     }
 }
 
