@@ -20,7 +20,7 @@ class Person {
 }
 
 class Customer: Person {
-    func buyDrink(at coffeeShop: CoffeeShop, which menuName: String) {
+    func buyDrink(which menuName: String, at coffeeShop: CoffeeShop) {
         guard let menu = coffeeShop.menuList[menuName] else { return }
         guard var buget = self.buget else { return }
         
@@ -88,5 +88,5 @@ let missKim = Customer(name: "missKim")
 let yagombucks = CoffeeShop()
 
 missKim.buget = 3500
-missKim.buyDrink(at: yagombucks, which: "Americano")
-missKim.buyDrink(at: yagombucks, which: "Americano")
+missKim.buyDrink(which: "Americano", at: yagombucks)
+missKim.buyDrink(which: "Americano", at: yagombucks)
