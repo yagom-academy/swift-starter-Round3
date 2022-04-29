@@ -48,7 +48,7 @@ class CoffeeShop {
         self.menuCoffeeAndPrice = menuCoffeeAndPrice
     }
     
-    func acceptOrderCoffee(drink: String, count: Int, price: Int, money: Int) {
+    func acceptOrderCoffee(drink: Coffee, count: Int, price: Int, money: Int, name: String) {
         let makeTime = count * 2
         let totalPrice = count * price
         
@@ -57,6 +57,7 @@ class CoffeeShop {
             print("예상 시간 \(makeTime)분 입니다.")
             print("총 \(totalPrice)원 입니다.")
             self.totalSale += totalPrice
+            makeCoffee(kindCoffee: drink, drinkCount: count, name: name)
         } else {
             let insufficient = totalPrice - money
             print("잔액이 \(insufficient)원 만큼 부족합니다.")
@@ -64,11 +65,11 @@ class CoffeeShop {
 
     }
     
-    func makeCoffee(kindCoffee: Coffee, drinkCount: Int) {
+    func makeCoffee(kindCoffee: Coffee, drinkCount: Int, name: String) {
         let staffname = self.barista.randomElement() ?? "무인 커피숍"
         print("\(staffname) 파트너가 준비합니다.")
-        print("만...드...는...중...")
         print("주문하신 \(kindCoffee) \(drinkCount)잔 나왔습니다.")
+        print("\(name) 님의 커피가 준비되었습니다. 픽업대에서 가져가주세요.")
     }
 }
 
@@ -105,6 +106,6 @@ let yagombucks = CoffeeShop(
         Coffee.espresso.rawValue : 3000,
         Coffee.amricano.rawValue : 4500,
         Coffee.coldbrew.rawValue : 5500,
-        Coffee.dolceLatte.rawValue : 6000,
+        Coffee.dolceLatte.rawValue : 6500,
     ]
 )
