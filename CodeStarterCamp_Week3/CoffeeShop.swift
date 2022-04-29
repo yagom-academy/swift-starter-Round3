@@ -30,8 +30,12 @@ class CoffeeShop {
         pickUpTable.insertOrderToPickUpTable(name: orderMan, coffee: coffee)
     }
     
+    func getPriceOfCoffeeFromMenu(coffee: Coffee) -> Int {
+        return coffeeMenu.getPriceOfCoffee(coffee: coffee)
+    }
+    
     func order(coffee: Coffee) {
-        let coffeePrice = coffeeMenu.getPriceOfCoffee(coffee: coffee)
+        let coffeePrice = getPriceOfCoffeeFromMenu(coffee: coffee)
         if coffeePrice == CoffeeMenuError.notExistCoffee.rawValue {
             print("존재하지 않는 커피 메뉴입니다.")
             return

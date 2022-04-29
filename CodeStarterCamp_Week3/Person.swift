@@ -25,7 +25,7 @@ class Person {
     }
     
     func orderCoffee(coffee: Coffee, coffeeShop: CoffeeShop) {
-        let coffeePrice = coffeeShop.coffeeMenu.getPriceOfCoffee(coffee: coffee)
+        let coffeePrice = coffeeShop.getPriceOfCoffeeFromMenu(coffee: coffee)
         
         if coffeePrice == CoffeeMenuError.notExistCoffee.rawValue {
             print("존재하지 않는 메뉴입니다.")
