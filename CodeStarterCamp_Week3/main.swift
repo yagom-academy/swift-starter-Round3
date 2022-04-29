@@ -61,7 +61,7 @@ class CoffeeShop {
     }
 }
 
-enum Coffee : String {
+enum Coffee: String {
     case espresso = "에스프레소"
     case amricano = "아메리카노"
     case coldbrew = "콜드브루"
