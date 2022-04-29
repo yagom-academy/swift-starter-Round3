@@ -34,12 +34,13 @@ struct Person {
 
 class CoffeeShop {
     let name: String
+    var customerName: String = ""
     let barista: Person
     let menu: [Coffee: Int]
     var revenue: Int = 0
     var pickUpTable: Coffee? = nil {
         didSet {
-            print(" 님의 커피가 준비되었습니다. 픽업대에서 가져가주세요.")
+            print("\(customerName)님의 커피가 준비되었습니다. 픽업대에서 가져가주세요.")
         }
     }
     
@@ -50,7 +51,10 @@ class CoffeeShop {
     }
     
     func order(_ coffee: Coffee,  by name: String) {
+        self.customerName = name
+        
         guard let coffeePrice = self.menu[coffee] else {
+            print("주문하신 메뉴는 없는 메뉴입니다.")
             return
         }
         self.revenue += coffeePrice
@@ -60,7 +64,6 @@ class CoffeeShop {
     
     func makeCoffee(_ coffee: Coffee, for name: String) {
         print("\(self.barista.name)가 \(coffee)를 만듭니다.")
-        print(name, terminator: "")
         self.pickUpTable = coffee
     }
 }
