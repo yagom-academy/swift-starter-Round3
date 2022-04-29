@@ -85,7 +85,9 @@ class CoffeeShop {
 // MARK: - 실행부
 
 let missKim = Customer(name: "missKim")
+let misterLee = Person(name: "misterLee")
 let yagombucks = CoffeeShop()
+yagombucks.barista = misterLee
 
 missKim.buget = 3500
 missKim.buyDrink(which: "Americano", at: yagombucks)
