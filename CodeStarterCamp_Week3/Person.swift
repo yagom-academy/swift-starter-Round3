@@ -30,7 +30,7 @@ class Person {
             print("잔액이 \(coffeePrice - money)만큼 부족합니다.")
             return
         }
-        submitMoney(coffeePrice: coffeePrice)
+        submitMoney(coffeePrice: coffeePrice)        
         coffeeShop.insertOrderToPickUpTable(orderMan: name, coffee: coffee)
         coffeeShop.order(coffee: coffee)
     }
