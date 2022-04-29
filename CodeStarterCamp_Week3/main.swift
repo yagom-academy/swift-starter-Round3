@@ -1,12 +1,13 @@
-//
-//  main.swift
-//  CodeStarterCamp_Week3
-//
-//  Created by yagom.
-//  Copyright © yagom academy. All rights reserved.
-//
-
 import Foundation
 
-print("Hello, World!")
+class Person {
+    var money: Int
 
+    init(money: Int) {
+        self.money = money
+    }
+
+    func buyCoffee() {
+        print("bought Coffee")
+    }
+}
