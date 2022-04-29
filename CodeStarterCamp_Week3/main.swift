@@ -9,9 +9,9 @@
 import Foundation
 
 class Person {
-    var name: String
+    let name: String
+    let gender: String
     var nickname: String
-    var gender: String
     var age: Int
     var moneyOnHand: Int
     
