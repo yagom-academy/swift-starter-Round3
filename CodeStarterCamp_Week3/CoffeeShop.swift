@@ -19,14 +19,6 @@ struct CoffeeShop {
         self.barista = barista
     }
     
-    mutating func change(in coffee: Coffee, price: Int) {
-        guard self.menu.keys.contains(coffee) else {
-            print("No Exist \(coffee.rawValue) in Menu")
-            return
-        }
-        self.menu[coffee] = price
-    }
-    
     mutating func add(menu: [Coffee: Int]) {
         self.menu = self.menu.merging(menu, uniquingKeysWith: { $1 })
     }
