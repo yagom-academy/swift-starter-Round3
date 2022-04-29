@@ -30,7 +30,7 @@ class Person {
 }
 
 class CoffeeShop {
-    var isFranchise: Bool
+    let isFranchise: Bool
     var isPickUpTable: Bool
     var totalSale = 0
     var barista: Array<String>
@@ -43,17 +43,17 @@ class CoffeeShop {
         self.menuCoffeeAndPrice = menuCoffeeAndPrice
     }
     
-    func acceptOrderCoffee(kindCoffee: String, drinkCount: Int, coffeePrice: Int) {
-        let makeTime = drinkCount * 2
-        let totalPrice = drinkCount * coffeePrice
+    func acceptOrderCoffee(drink: String, count: Int, price: Int) {
+        let makeTime = count * 2
+        let totalPrice = count * price
         
-        print("주문 받았습니다! \(kindCoffee) \(drinkCount)잔 준비해 드리겠습니다!")
+        print("주문 받았습니다! \(drink) \(count)잔 준비해 드리겠습니다!")
         print("예상 시간 \(makeTime)분 입니다.")
         print("총 \(totalPrice)원 입니다.")
         self.totalSale += totalPrice
     }
     
-    func isMakeCoffee(kindCoffee: String, drinkCount: Int) {
+    func makeCoffee(kindCoffee: String, drinkCount: Int) {
         let staffname = self.barista.randomElement() ?? "무인 커피숍"
         print("\(staffname) 파트너가 준비합니다.")
         print("만...드...는...중...")
