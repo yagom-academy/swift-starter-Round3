@@ -72,13 +72,12 @@ class CoffeeShop {
         }
     }
     
-    func makeCoffee(which info: [String: String], who barista: Person?) {
-        guard let barista = barista else { return }
-        
-        print("\(barista.name) 가 커피를 제조하는 중 입니다.")
-        for (name, menu) in info {
-            pickUpTable[name] = menu
+    func makeCoffee(which info: [String: String], who barista: Person?) -> [String: String] {
+        if let barista = barista {
+            print("\(barista.name) 가 커피를 제조하는 중 입니다.")
+            return info
         }
+        return info
     }
 }
 
