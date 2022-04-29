@@ -48,14 +48,20 @@ class CoffeeShop {
         self.menuCoffeeAndPrice = menuCoffeeAndPrice
     }
     
-    func acceptOrderCoffee(drink: String, count: Int, price: Int) {
+    func acceptOrderCoffee(drink: String, count: Int, price: Int, money: Int) {
         let makeTime = count * 2
         let totalPrice = count * price
         
-        print("주문 받았습니다! \(drink) \(count)잔 준비해 드리겠습니다!")
-        print("예상 시간 \(makeTime)분 입니다.")
-        print("총 \(totalPrice)원 입니다.")
-        self.totalSale += totalPrice
+        if totalPrice <= money{
+            print("주문 받았습니다! \(drink) \(count)잔 준비해 드리겠습니다!")
+            print("예상 시간 \(makeTime)분 입니다.")
+            print("총 \(totalPrice)원 입니다.")
+            self.totalSale += totalPrice
+        } else {
+            let insufficient = totalPrice - money
+            print("잔액이 \(insufficient)원 만큼 부족합니다.")
+        }
+
     }
     
     func makeCoffee(kindCoffee: Coffee, drinkCount: Int) {
