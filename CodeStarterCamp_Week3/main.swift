@@ -32,11 +32,11 @@ import Foundation
 struct Person {
     private var _money: Int = 0
     
-    mutating func buyCoffee(_ coffee: Coffee, _ coffeeShop: CoffeeShop) {
+    mutating func buyCoffee(_ coffee: Coffee, _ coffeeShop: CoffeeShop) -> Coffee {
         if let coffeePrice = coffeeShop.menu[coffee] {
             _money = _money - coffeePrice
         }
-        coffeeShop.orderCoffee(coffee)
+        return coffee
     }
     
     var money: Int {
@@ -49,18 +49,14 @@ struct Person {
     }
 }
 
-class CoffeeShop {
-    var sales: Int
+struct CoffeeShop {
+    var sales: Int = 0
     var barista: Person?
     var pickUpTable: Bool = false
     let menu: [Coffee: Int] = [Coffee.espresso: 100, Coffee.americano: 200, Coffee.macchiato: 300,
                                Coffee.cappuccino: 400, Coffee.caffeLatte: 500, Coffee.affogato: 600]
     
-    init(sales: Int) {
-        self.sales = sales
-    }
-    
-    func orderCoffee(_ coffee: Coffee) {
+    mutating func orderCoffee(_ coffee: Coffee) {
         pickUpTable = true
         
         if let coffeePrice = menu[coffee] {
@@ -70,6 +66,7 @@ class CoffeeShop {
         print("\(coffee.rawValue)가 주문 되었습니다.")
     }
 }
+
 
 enum Coffee: String {
     case espresso = "에스프레소"
@@ -85,12 +82,11 @@ missKim.money = 10000
 var misterLee: Person = Person()
 misterLee.money = 50000
 
-let yagombucks: CoffeeShop = CoffeeShop(sales: 0)
+var yagombucks: CoffeeShop = CoffeeShop(sales: 0)
 
 yagombucks.barista = misterLee
 
-missKim.buyCoffee(Coffee.espresso, yagombucks)
-
+yagombucks.orderCoffee(missKim.buyCoffee(Coffee.espresso, yagombucks))
 //잔액출력
 print(missKim.money)
 
