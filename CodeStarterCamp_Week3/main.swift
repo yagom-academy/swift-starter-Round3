@@ -20,9 +20,8 @@ class Person {
 }
 
 class Customer: Person {
-    func buyDrink(which menuName: String, at coffeeShop: CoffeeShop) {
-        guard let menu = coffeeShop.menuList[menuName] else { return }
-        guard var buget = self.buget else { return }
+    func buyDrink(which menuName: String, at coffeeShop: CoffeeShop) {        
+        guard let menu = coffeeShop.menuList[menuName], var buget = self.buget else { return }
         
         switch menu {
         case .americano(let price, _), .vanillaLatte(let price, _), .latte(let price, _), .einspanner(let price, _):
