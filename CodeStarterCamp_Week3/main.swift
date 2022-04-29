@@ -36,7 +36,7 @@ class CoffeeShop {
     func getOrder(menu: CoffeeMenu, size: Size, iceOrHot: IceOrHot, quantity: Int) {
         var price: Int = 0
         if let defaultPrice = coffeeMenuWithPrice[menu] {
-            price =  (defaultPrice + size.rawValue + iceOrHot.rawValue) * quantity
+            price = (defaultPrice + size.rawValue + iceOrHot.rawValue) * quantity
         }
         print("감사합니다 주문하신 음료 총 가격은 \(price)원 입니다~")
     }
@@ -52,15 +52,15 @@ enum CoffeeMenu: String {
     case latte = "라떼"
 }
 
-enum IceOrHot: Int {
-    case ice = 300
-    case hot = 0
-}
-
 enum Size: Int {
     case small = 0
     case medium = 500
     case large = 1000
+}
+
+enum IceOrHot: Int {
+    case ice = 300
+    case hot = 0
 }
 
 let misterLee = Person(name: "Lee", age: 26, money: 10000)
