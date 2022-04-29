@@ -83,3 +83,22 @@ enum Coffee: String {
     case pomeloFlowGreenTea = "포멜로그린티"
 }
 
+let missKim = Person(
+    name: "김미스",
+    nickname: "야곰여자친구",
+    gender: .woman,
+    age: 21,
+    moneyOnHand: 6000
+)
+
+let yagombucks = CoffeeShop(
+    isFranchise: true,
+    isPickUpTable: true,
+    barista: ["yagom", "TimCook"],
+    menuCoffeeAndPrice: [
+        Coffee.espresso.rawValue : 3000,
+        Coffee.amricano.rawValue : 4500,
+        Coffee.coldbrew.rawValue : 5500,
+        Coffee.dolceLatte.rawValue : 6000,
+    ]
+)
