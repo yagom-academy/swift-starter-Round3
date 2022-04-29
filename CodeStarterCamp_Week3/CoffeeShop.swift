@@ -8,10 +8,10 @@
 import Foundation
 
 class CoffeeShop {
-    var barista: Barista? = nil
-    var coffeeMenu: CoffeeMenu
-    var salesMoney: Int
-    var pickUpTable: PickUpTable = PickUpTable()
+    private var barista: Barista? = nil
+    private var coffeeMenu: CoffeeMenu
+    private var salesMoney: Int
+    private var pickUpTable: PickUpTable = PickUpTable()
     
     init(coffeeMenu: CoffeeMenu) {
         salesMoney = 0
