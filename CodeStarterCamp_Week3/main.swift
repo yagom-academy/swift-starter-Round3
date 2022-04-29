@@ -1,9 +1,13 @@
 import Foundation
 
 class Person {
-    var money: Int
+    let name: String
+    let age: Int
+    let money: Int
 
-    init(money: Int) {
+    init(name: String, age: Int, money: Int) {
+        self.name = name
+        self.age = age
         self.money = money
     }
 
@@ -41,3 +45,6 @@ enum Coffee: String {
     case capouccino = "Cappuccino"
     case latte = "Latte"
 }
+
+let misterLee = Person(name: "Lee", age: 26, money: 10000)
+let missKim = Person(name: "Kim", age: 31, money: 15000)
