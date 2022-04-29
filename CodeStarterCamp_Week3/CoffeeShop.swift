@@ -20,6 +20,7 @@ class CoffeeShop {
     
     func hireBarista(barista: Barista) {
         self.barista = barista
+        self.barista?.getJob(coffeeShop: self)
     }
     
     func depositMoney(coffeePrice: Int) {
