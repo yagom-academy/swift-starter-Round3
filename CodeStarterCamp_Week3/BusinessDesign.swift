@@ -1,16 +1,20 @@
 import Foundation
 
 struct Person {
+    let name: String
     var money: Int
-    func buyCoffee() {}
+    
+    func buyCoffee(_ coffee: Coffee) {
+        print("\(name)이(가) \(coffee)를 샀습니다")
+    }
 }
 
 struct CoffeeShop {
     var sales: Int
     var barista: Person
+    var pickUpTable: Coffee?
     let menu = ["americano": 3000, "latte": 4000, "cafeMocha": 5000, "iceChoco": 10000]
-    
-    func pickUpTable() {}
+
     func takeOrder() {}
     func makeCoffee() {}
 }
