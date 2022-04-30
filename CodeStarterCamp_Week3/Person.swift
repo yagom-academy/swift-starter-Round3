@@ -5,7 +5,7 @@
 //  Created by 이정민 on 2022/04/26.
 //
 
-struct Person {
+class Person {
     private(set) var name: String
     var height: Double
     var weight: Double
