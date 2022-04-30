@@ -20,30 +20,33 @@ class Person {
 }
 
 class Customer: Person {
-    func buyDrink(which menuName: String, at coffeeShop: CoffeeShop) {        
-        guard let menu = coffeeShop.menuList[menuName], var buget = self.buget else { return }
+    func buyDrink(which menuName: String, at coffeeShop: CoffeeShop) {
+        let coffeeAllCases = Coffee.allCases
         
-        switch menu {
-        case .americano(let price, _), .vanillaLatte(let price, _), .latte(let price, _), .einspanner(let price, _):
-            if buget >= price {
-                let coffeeShop = coffeeShop
-                coffeeShop.order(menu, who: self)
-                buget -= price
-                self.buget = buget
-            } else {
-                print("잔액이 \(price)원만큼 부족합니다")
+        for coffee in coffeeAllCases {
+            guard let price = coffeeShop.menuList[coffee], var buget = self.buget else { return }
+            if menuName == coffee.rawValue {
+                if buget >= price {
+                    let coffeeShop = coffeeShop
+                    coffeeShop.order(coffee, who: self)
+                    buget -= price
+                    self.buget = buget
+                } else {
+                    print("잔액이 \(price)원만큼 부족합니다")
+                }
             }
         }
     }
+    
 }
 
-enum Coffee {
-    case americano(price: Int, kr: String)
-    case latte(price: Int, kr: String)
-    case vanillaLatte(price: Int, kr: String)
-    case einspanner(price: Int, kr: String)
+enum Coffee: String, CaseIterable {
+    case americano = "Americano"
+    case latte = "Latte"
+    case vanillaLatte = "Vanila Latte"
+    case einspanner = "Einspanner"
 }
-    
+
 class CoffeeShop {
     var revenue: Int = 0
     var barista: Person?
@@ -56,21 +59,15 @@ class CoffeeShop {
             pickUpTable.removeAll()
         }
     }
-    var menuList: Dictionary<String, Coffee> = [
-        "Americano": .americano(price: 3500, kr :"아메리카노"),
-        "Einspanner": .einspanner(price: 5500, kr: "아인슈페너"),
-        "Latte": .latte(price: 4000, kr: "라떼"),
-        "Vanilla Latte" : .vanillaLatte(price: 4500, kr: "바닐라 라떼")
+    
+    var menuList: Dictionary<Coffee, Int> = [
+        .americano : 3500,
+        .latte : 4000,
+        .vanillaLatte : 4500,
+        .einspanner : 5500
     ]
     
-    func order(_ coffee: Coffee, who order: Person) {
-        switch coffee {
-        case .americano(let price, let kr), .vanillaLatte(let price, let kr), .latte(let price, let kr), .einspanner(let price, let kr):
-            revenue += price
-            let coffee = makeCoffee(which: [order.name: kr], who: self.barista)
-            putCoffeeOnPickUpTable(coffee: coffee)
-        }
-    }
+    func order(_ coffee: Coffee, who order: Person) { }
     
     func makeCoffee(which info: [String: String], who barista: Person?) -> [String: String] {
         if let barista = barista {
