@@ -19,6 +19,6 @@ class Person {
     }
     
     func buy(coffee: Coffee, at shop: CoffeeShop) {
-        print("\(coffee.rawValue)를 구매합니다")
+        shop.order(coffee, by: self)
     }
 }

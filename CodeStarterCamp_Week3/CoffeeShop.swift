@@ -23,14 +23,27 @@ class CoffeeShop {
         self.menu = self.menu.merging(menu, uniquingKeysWith: { $1 })
     }
     
-    func order(_ coffee: Coffee, by person: String) {
-        if let price = self.menu[coffee] {
-            sales += price
+    func order(_ coffee: Coffee, by person: Person) {
+        if let coffeePrice = self.menu[coffee] {
+            if coffeePrice > person.money {
+                print("잔액이 \(coffeePrice)원만큼 부족합니다.")
+            } else {
+                sales += coffeePrice
+                person.money -= coffeePrice
+                make(coffee: coffee, by: person)
+            }
         }
-        make(coffee: coffee, by: person)
     }
     
-    private func make(coffee: Coffee, by person: String) {
-        print("\(barista.name)가 커피를 만듭니다.")
+    private func make(coffee: Coffee, by person: Person) {
+        var servingComment = "\(person.name) 님의 커피가 준비되었습니다."
+        putOnTable(coffee: coffee)
+        
+        servingComment += pickUpTable != nil ? " 픽업대에서 가져가주세요." : ""
+        print(servingComment)
+    }
+    
+    private func putOnTable(coffee: Coffee){
+        pickUpTable = coffee
     }
 }
