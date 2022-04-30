@@ -22,7 +22,7 @@ class Person {
         shop.order(coffee, for: self)
     }
     
-    func pay(money: Int){
+    func pay(money: Int) {
         self.money -= money
     }
 }

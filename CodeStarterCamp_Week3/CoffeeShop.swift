@@ -50,7 +50,7 @@ class CoffeeShop {
         print(servingComment)
     }
     
-    private func putOnTable(coffee: Coffee){
+    private func putOnTable(coffee: Coffee) {
         pickUpTable = coffee
     }
 }
