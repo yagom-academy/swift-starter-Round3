@@ -22,13 +22,14 @@ class Person {
         self.age = age
         self.moneyOnHand = moneyOnHand
     }
-
+    
     func orderCoffee(shop :CoffeeShop, drink: Coffee, drinkCount: Int) {
         print("주문할게요! \(drink) \(drinkCount)잔 주세요!")
-        if let price = shop.menuCoffeeAndPrice[drink.rawValue] {
+        guard let price = shop.menuCoffeeAndPrice[drink.rawValue] else {
             print("주문하신 음료를 판매하지 않습니다.")
-            shop.acceptOrderCoffee(drink: drink, count: drinkCount, price: price , money: self.moneyOnHand, name: self.name)
+            return
         }
+        shop.acceptOrderCoffee(drink: drink, count: drinkCount, price: price, money: self.moneyOnHand, name: self.name)
     }
 }
 
@@ -55,7 +56,7 @@ class CoffeeShop {
         let makeTime = count * 2
         let totalPrice = count * price
         
-        if totalPrice <= money{
+        if totalPrice <= money {
             print("주문 받았습니다! \(drink) \(count)잔 준비해 드리겠습니다!")
             print("예상 시간 \(makeTime)분 입니다.")
             print("총 \(totalPrice)원 입니다.")
@@ -112,4 +113,4 @@ let yagombucks = CoffeeShop(
     ]
 )
 
-missKim.orderCoffee(shop: yagombucks, drink: .amricano, drinkCount: 1)
+missKim.orderCoffee(shop: yagombucks, drink: .cafeLatte, drinkCount: 1)
