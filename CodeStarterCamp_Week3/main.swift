@@ -10,23 +10,32 @@ import Foundation
 
 class Person {
     let name: String
-    let gender: String
+    let gender: Gender
     var nickname: String
     var age: Int
     var moneyOnHand: Int
     
-    init(name: String, nickname: String, gender: String, age: Int, moneyOnHand: Int) {
+    init(name: String, nickname: String, gender: Gender, age: Int, moneyOnHand: Int) {
         self.name = name
         self.nickname = nickname
         self.gender = gender
         self.age = age
         self.moneyOnHand = moneyOnHand
     }
-
-    func orderCoffee(drink: String, drinkCount: Int) -> ([String: Int]) {
+    
+    func orderCoffee(shop :CoffeeShop, drink: Coffee, drinkCount: Int) {
         print("주문할게요! \(drink) \(drinkCount)잔 주세요!")
-        return [drink: drinkCount]
+        guard let price = shop.menuCoffeeAndPrice[drink.rawValue] else {
+            print("주문하신 음료를 판매하지 않습니다.")
+            return
+        }
+        shop.acceptOrderCoffee(drink: drink, count: drinkCount, price: price, money: self.moneyOnHand, name: self.name)
     }
+}
+
+enum Gender {
+    case man
+    case woman
 }
 
 class CoffeeShop {
@@ -43,21 +52,27 @@ class CoffeeShop {
         self.menuCoffeeAndPrice = menuCoffeeAndPrice
     }
     
-    func acceptOrderCoffee(drink: String, count: Int, price: Int) {
+    func acceptOrderCoffee(drink: Coffee, count: Int, price: Int, money: Int, name: String) {
         let makeTime = count * 2
         let totalPrice = count * price
         
-        print("주문 받았습니다! \(drink) \(count)잔 준비해 드리겠습니다!")
-        print("예상 시간 \(makeTime)분 입니다.")
-        print("총 \(totalPrice)원 입니다.")
-        self.totalSale += totalPrice
+        if totalPrice <= money {
+            print("주문 받았습니다! \(drink) \(count)잔 준비해 드리겠습니다!")
+            print("예상 시간 \(makeTime)분 입니다.")
+            print("총 \(totalPrice)원 입니다.")
+            self.totalSale += totalPrice
+            makeCoffee(kindCoffee: drink, drinkCount: count, name: name)
+        } else {
+            let insufficient = totalPrice - money
+            print("잔액이 \(insufficient)원 만큼 부족합니다.")
+        }
     }
     
-    func makeCoffee(kindCoffee: String, drinkCount: Int) {
+    func makeCoffee(kindCoffee: Coffee, drinkCount: Int, name: String) {
         let staffname = self.barista.randomElement() ?? "무인 커피숍"
         print("\(staffname) 파트너가 준비합니다.")
-        print("만...드...는...중...")
         print("주문하신 \(kindCoffee) \(drinkCount)잔 나왔습니다.")
+        print("\(name) 님의 커피가 준비되었습니다. 픽업대에서 가져가주세요.")
     }
 }
 
@@ -78,32 +93,24 @@ enum Coffee: String {
     case pomeloFlowGreenTea = "포멜로그린티"
 }
 
-var misterLee = Person(
-    name: "이미스터",
-    nickname: "앱등이",
-    gender: "man",
-    age: 22,
-    moneyOnHand: 0
-)
-var missKim = Person(
+let missKim = Person(
     name: "김미스",
-    nickname: "커리어우먼",
-    gender: "woman",
-    age: 34,
-    moneyOnHand: 3000
+    nickname: "야곰여자친구",
+    gender: .woman,
+    age: 21,
+    moneyOnHand: 6000
 )
 
-var yagombucks = CoffeeShop(
+let yagombucks = CoffeeShop(
     isFranchise: true,
     isPickUpTable: true,
-    barista: ["yagom", "dylan", "tommy"],
+    barista: ["yagom", "TimCook"],
     menuCoffeeAndPrice: [
-        Coffee.espresso.rawValue: 4000,
-        Coffee.amricano.rawValue: 4500,
-        Coffee.doubleEspressoChipFrappuccino.rawValue: 6300,
-        Coffee.punchGraffitiBlended.rawValue: 6300,
-        Coffee.rollinMintChocoColdBrew.rawValue: 6100
+        Coffee.espresso.rawValue : 3000,
+        Coffee.amricano.rawValue : 4500,
+        Coffee.coldbrew.rawValue : 5500,
+        Coffee.dolceLatte.rawValue : 6500,
     ]
 )
 
-yagombucks.barista.append(misterLee.name)
+missKim.orderCoffee(shop: yagombucks, drink: .cafeLatte, drinkCount: 1)
