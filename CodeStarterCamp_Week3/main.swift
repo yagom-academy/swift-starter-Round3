@@ -8,5 +8,12 @@
 
 import Foundation
 
-print("Hello, World!")
+let misterLee: Person = Person(name: "misterLee", age: 25, money: 25000)
+let missKim: Person = Person(name: "missKim", age: 24, money: 20000)
+let yagombucks: CoffeeShop = CoffeeShop(barista: misterLee)
 
+misterLee.introduce()
+missKim.introduce()
+missKim.buyCoffee()
+yagombucks.getOrder()
+yagombucks.makeCoffee()
