@@ -13,7 +13,7 @@ struct CoffeeShop {
     var sales: Int
     var barista: Person
     var pickUpTable: Coffee?
-    let menu = ["americano": 3000, "latte": 4000, "cafeMocha": 5000, "iceChoco": 10000]
+    let menu: [Coffee: Int] = [.americano: 3000, .latte: 4000, .cafeMocha: 5000, .iceChoco: 10000]
 
     func takeOrder() {}
     func makeCoffee() {}
