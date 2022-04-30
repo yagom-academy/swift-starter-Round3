@@ -23,9 +23,12 @@ class Person {
         self.moneyOnHand = moneyOnHand
     }
 
-    func orderCoffee(drink: String, drinkCount: Int) -> ([String: Int]) {
+    func orderCoffee(shop :CoffeeShop, drink: Coffee, drinkCount: Int) {
         print("주문할게요! \(drink) \(drinkCount)잔 주세요!")
-        return [drink: drinkCount]
+        if let price = shop.menuCoffeeAndPrice[drink.rawValue] {
+            print("주문하신 음료를 판매하지 않습니다.")
+            shop.acceptOrderCoffee(drink: drink, count: drinkCount, price: price , money: self.moneyOnHand, name: self.name)
+        }
     }
 }
 
@@ -109,3 +112,5 @@ let yagombucks = CoffeeShop(
         Coffee.dolceLatte.rawValue : 6500,
     ]
 )
+
+missKim.orderCoffee(shop: yagombucks, drink: .amricano, drinkCount: 1)
