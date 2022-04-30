@@ -1,7 +1,7 @@
 import Foundation
 
-let misterLee = Person(name: "미스터 이", money: 5000)
-let missKim = Person(name: "미스 김", money: 10000)
-let yagomBucks = CoffeeShop(sales: 500000, barista: misterLee)
+let missKim = Person(name: "미스 김", money: 500000)
+let misterLee = Person(name: "미스터 이", money: 0)
+var yagombucks = CoffeeShop(consumer: missKim, barista: misterLee)
 
-misterLee.buyCoffee(.americano)
+yagombucks.takeOrder(consumer: missKim, coffee: .americano, barista: misterLee)
