@@ -25,18 +25,25 @@ class CoffeeShop {
     
     func order(_ coffee: Coffee, by person: Person) {
         if let coffeePrice = self.menu[coffee] {
-            if coffeePrice > person.money {
-                print("잔액이 \(coffeePrice)원만큼 부족합니다.")
-            } else {
-                sales += coffeePrice
+            if isEnough(money: person.money, for: coffeePrice) {
                 person.pay(money: coffeePrice)
-                make(coffee: coffee, by: person)
+                sales += coffeePrice
+                make(coffee: coffee, by: person.name)
             }
         }
     }
     
-    private func make(coffee: Coffee, by person: Person) {
-        var servingComment = "\(person.name) 님의 커피가 준비되었습니다."
+    private func isEnough(money: Int, for coffeePrice: Int) -> Bool {
+        if money < coffeePrice {
+            print("잔액이 \(coffeePrice)원만큼 부족합니다")
+            return false
+        } else {
+            return true
+        }
+    }
+    
+    private func make(coffee: Coffee, by person: String) {
+        var servingComment = "\(person) 님의 커피가 준비되었습니다."
         putOnTable(coffee: coffee)
         
         servingComment += pickUpTable != nil ? " 픽업대에서 가져가주세요." : ""
