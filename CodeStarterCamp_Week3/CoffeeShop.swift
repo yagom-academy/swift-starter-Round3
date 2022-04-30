@@ -23,7 +23,7 @@ class CoffeeShop {
         self.menu = self.menu.merging(menu, uniquingKeysWith: { $1 })
     }
     
-    func order(_ coffee: Coffee, by person: Person) {
+    func order(_ coffee: Coffee, for person: Person) {
         if let coffeePrice = self.menu[coffee] {
             if isEnough(money: person.money, for: coffeePrice) {
                 person.pay(money: coffeePrice)
