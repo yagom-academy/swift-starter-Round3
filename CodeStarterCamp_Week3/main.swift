@@ -65,7 +65,6 @@ class CoffeeShop {
             let insufficient = totalPrice - money
             print("잔액이 \(insufficient)원 만큼 부족합니다.")
         }
-
     }
     
     func makeCoffee(kindCoffee: Coffee, drinkCount: Int, name: String) {
