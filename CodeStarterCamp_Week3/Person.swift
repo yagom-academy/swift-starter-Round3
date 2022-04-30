@@ -21,4 +21,8 @@ class Person {
     func buy(coffee: Coffee, at shop: CoffeeShop) {
         shop.order(coffee, by: self)
     }
+    
+    func pay(money: Int){
+        self.money -= money
+    }
 }

@@ -29,7 +29,7 @@ class CoffeeShop {
                 print("잔액이 \(coffeePrice)원만큼 부족합니다.")
             } else {
                 sales += coffeePrice
-                person.money -= coffeePrice
+                person.pay(money: coffeePrice)
                 make(coffee: coffee, by: person)
             }
         }
