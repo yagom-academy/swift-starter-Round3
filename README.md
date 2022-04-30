@@ -15,13 +15,13 @@ todo 리스트에 "주문과 동시에 missKim의 돈은 커피의 가격만큼 
          고객의 돈을 가격만큼 빼고 매출에 더해주는 연산을 해줍니다.            
          이후에 makeCoffee 메서드를 호출합니다.        
 42 - makeCoffee 함수에서 사실 barista는 굳이 인잘 안받아도 되지만 선언해준게 아까워서 43번째 줄에 출력했습니다.       
-44 - 커피가 만들어졌으므로 pickUpTable에 coffee를 넣어줍니다.      
+44 - 커피가 만들어졌으므로 pickUpTable에 coffee를 넣어줍니다.                     
 45 - 픽업대에 가져가달라고 출력합니다.       
 49 - 커피를 열거형으로 선언해줍니다. (달라진거. 없습니당).       
        
-<br>          
----------main 파일-----------      
-3 - misKim을 Person 타입으로 선언하여 name과 money에 임의의 값을 넣어줍니다.      
-4 - misterLee 역시 임의의 값을 넣어줍니다. 이 때 misterLee는 바리스타이므로 money 값은 0을 넣어줬습니다.      
-5 - yagomBucks를 CoffeeShop 타입으로 선언하여 고객은 missKim. 바리스타는 misterLee로 넣어줍니다.      
-7 - 모든 출력 메서드를 모아놓은 CoffeeShop.takeOrder를 호출합니다.      
+<br>                          
+---------main 파일-----------                                               
+3 - misKim을 Person 타입으로 선언하여 name과 money에 임의의 값을 넣어줍니다.                         
+4 - misterLee 역시 임의의 값을 넣어줍니다. 이 때 misterLee는 바리스타이므로 money 값은 0을 넣어줬습니다.                                        
+5 - yagomBucks를 CoffeeShop 타입으로 선언하여 고객은 missKim. 바리스타는 misterLee로 넣어줍니다.                                     
+7 - 모든 출력 메서드를 모아놓은 CoffeeShop.takeOrder를 호출합니다.                                          
