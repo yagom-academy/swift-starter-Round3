@@ -9,7 +9,7 @@
 import Foundation
 
 
-let missKim: Customoer = Customoer(name: "missKim", money: 5000)
+let missKim: Customer = Customer(name: "missKim", money: 5000)
 let misterLee: Barista = Barista(name: "misterLEe", money: 2000)
 
 let coffeeShop: CoffeeShop = CoffeeShop()

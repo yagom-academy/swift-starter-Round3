@@ -7,7 +7,7 @@
 
 import Foundation
 
-class Customoer: Person {
+class Customer: Person {
     override init(name: String, money: Int) {
         super.init(name: name, money: money)
     }
@@ -22,7 +22,7 @@ class Customoer: Person {
             return
         }
         
-        if !isSufficeMoney(coffeePrice: coffeePrice) {
+        if isSufficeMoney(coffeePrice: coffeePrice) == false {
             print("잔액이 \(coffeePrice - money)만큼 부족합니다.")
             return
         }
