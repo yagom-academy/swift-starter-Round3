@@ -8,5 +8,7 @@
 
 import Foundation
 
-print("Hello, World!")
-
+// Week3Step1
+let misterLee: Person = Person(name: "misterLee", money: 10000)
+let misKim: Person = Person(name: "misKim", money: 10000)
+var yagombucks: CoffeeShop = CoffeeShop(barista: misterLee)
