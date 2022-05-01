@@ -25,12 +25,11 @@ class Person {
     }
     
     func orderCoffee(coffee: Coffee, coffeeShop: CoffeeShop) {
-        let coffeePrice = coffeeShop.getPriceOfCoffeeFromMenu(coffee: coffee)
-        
-        if coffeePrice == CoffeeMenuError.notExistCoffee.rawValue {
+        guard let coffeePrice = coffeeShop.getPriceOfCoffeeFromMenu(coffee: coffee) else {
             print("존재하지 않는 메뉴입니다.")
             return
         }
+        
         if !isSufficeMoney(coffeePrice: coffeePrice) {
             print("잔액이 \(coffeePrice - money)만큼 부족합니다.")
             return
