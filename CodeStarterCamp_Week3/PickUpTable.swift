@@ -17,7 +17,7 @@ struct PickUpTable {
         return false
     }
     
-    mutating func releasePickUpTable(coffee: Coffee) {
+    mutating func release(coffee: Coffee) {
         if checkTable(coffee: coffee) { return }
         guard let orderManName = pickUpTable[coffee]?.removeFirst() else {
             print("커피 주문자가 없습니다.")
@@ -26,7 +26,7 @@ struct PickUpTable {
         print("\(orderManName) 님의 커피가 준비되었습니다. 픽업대에서 가져가주세요.")
     }
     
-    mutating func insertOrderToPickUpTable(name: String, coffee: Coffee) {
+    mutating func insertOrder(name: String, coffee: Coffee) {
         pickUpTable[coffee, default: []].append(name)
     }
 }

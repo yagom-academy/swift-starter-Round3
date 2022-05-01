@@ -27,7 +27,7 @@ class CoffeeShop {
     }
     
     func insertOrderToPickUpTable(orderMan: String, coffee: Coffee) {
-        pickUpTable.insertOrderToPickUpTable(name: orderMan, coffee: coffee)
+        pickUpTable.insertOrder(name: orderMan, coffee: coffee)
     }
     
     func getPriceOfCoffeeFromMenu(coffee: Coffee) -> Int? {
@@ -47,6 +47,6 @@ class CoffeeShop {
 
 extension CoffeeShop: Shop {
     func insertCoffeeToPickUpTable(coffee: Coffee) {
-        pickUpTable.releasePickUpTable(coffee: coffee)
+        pickUpTable.release(coffee: coffee)
     }
 }
