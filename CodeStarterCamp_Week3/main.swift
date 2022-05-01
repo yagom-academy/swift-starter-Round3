@@ -21,7 +21,22 @@ class Person {
 
 class Customer: Person {
     func buyDrink(which menuName: String, at coffeeShop: CoffeeShop) {
-        let coffeeAllCases = Coffee.allCases
+        
+        let coffeeRawValues = Coffee.allCases.map { $0.rawValue }
+        print(coffeeRawValues)
+        
+        if coffeeRawValues.contains(menuName) {
+            guard let caseValues = Coffee(rawValue: menuName), let price = coffeeShop.menuList[caseValues], var buget = self.buget else { return }
+            
+            print(caseValues, price)
+            
+            if buget >= price {
+
+            } else {
+                
+            }
+            
+        }
     }
 }
 
@@ -59,5 +74,4 @@ let yagombucks = CoffeeShop()
 yagombucks.barista = misterLee
 
 missKim.buget = 3500
-missKim.buyDrink(which: "Americano", at: yagombucks)
 missKim.buyDrink(which: "Americano", at: yagombucks)
