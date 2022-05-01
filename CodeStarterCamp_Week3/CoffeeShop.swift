@@ -9,13 +9,12 @@ import Foundation
 
 class CoffeeShop {
     private var barista: Barista? = nil
-    private var coffeeMenu: CoffeeMenu
+    private var coffeeMenu: CoffeeMenu = CoffeeMenu(coffeeListsInShop: [.americano: 3000, .caffeelatte: 4000, .deCaffeine: 5000, .espresso: 1500])
     private var salesMoney: Int
     private var pickUpTable: PickUpTable = PickUpTable()
     
-    init(coffeeMenu: CoffeeMenu) {
+    init() {
         salesMoney = 0
-        self.coffeeMenu = coffeeMenu
     }
     
     func hireBarista(barista: Barista) {

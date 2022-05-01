@@ -7,7 +7,7 @@
 
 import Foundation
 
-class PickUpTable {
+struct PickUpTable {
     private var pickUpTable: [Coffee: [String]] = [:]
     
     func checkTable(coffee: Coffee) -> Bool {
@@ -17,7 +17,7 @@ class PickUpTable {
         return false
     }
     
-    func releasePickUpTable(coffee: Coffee) {
+    mutating func releasePickUpTable(coffee: Coffee) {
         if checkTable(coffee: coffee) { return }
         guard let orderManName = pickUpTable[coffee]?.removeFirst() else {
             print("커피 주문자가 없습니다.")
@@ -26,7 +26,7 @@ class PickUpTable {
         print("\(orderManName) 님의 커피가 준비되었습니다. 픽업대에서 가져가주세요.")
     }
     
-    func insertOrderToPickUpTable(name: String, coffee: Coffee) {
+    mutating func insertOrderToPickUpTable(name: String, coffee: Coffee) {
         pickUpTable[coffee, default: []].append(name)
     }
 }

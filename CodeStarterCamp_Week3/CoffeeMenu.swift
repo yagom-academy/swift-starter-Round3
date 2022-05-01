@@ -7,12 +7,8 @@
 
 import Foundation
 
-class CoffeeMenu {
-    private var coffeeListsInShop: [Coffee: Int] = [:]
-    
-    init(coffeeList: [Coffee: Int]) {
-        coffeeListsInShop = coffeeList
-    }
+struct CoffeeMenu {
+    var coffeeListsInShop: [Coffee: Int] = [:]
     
     func getPriceOfCoffee(coffee: Coffee) -> Int? {
         guard let coffeePrice = coffeeListsInShop[coffee] else {
