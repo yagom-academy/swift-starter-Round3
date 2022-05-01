@@ -31,12 +31,18 @@ import Foundation
 
 struct Person {
     private var _money: Int = 0
+    var name: String = ""
     
-    mutating func buyCoffee(_ coffee: Coffee, _ coffeeShop: CoffeeShop) -> Coffee {
+    mutating func buyCoffee(_ coffee: Coffee, _ coffeeShop: CoffeeShop) {
         if let coffeePrice = coffeeShop.menu[coffee] {
-            _money = _money - coffeePrice
+            if _money >= coffeePrice {
+                _money = _money - coffeePrice
+            } else {
+                print("잔액이 \(coffeePrice - _money)원 만큼 부족합니다. ")
+                return
+            }
         }
-        return coffee
+        coffeeShop.orderCoffee(coffee, name)
     }
     
     var money: Int {
@@ -49,24 +55,32 @@ struct Person {
     }
 }
 
-struct CoffeeShop {
-    var sales: Int = 0
+class CoffeeShop {
+    var sales: Int
     var barista: Person?
-    var pickUpTable: Bool = false
+    var orderer: String = ""
     let menu: [Coffee: Int] = [Coffee.espresso: 100, Coffee.americano: 200, Coffee.macchiato: 300,
                                Coffee.cappuccino: 400, Coffee.caffeLatte: 500, Coffee.affogato: 600]
+    var pickUpTable: Bool = false {
+        didSet {
+            if pickUpTable {
+                print("\(orderer) 님의 커피가 준비되엇습니다. 픽업대에서 가져가주세요.")
+            }
+        }
+    }
     
-    mutating func orderCoffee(_ coffee: Coffee) {
-        pickUpTable = true
-        
+    init(sales: Int) {
+        self.sales = sales
+    }
+    
+    func orderCoffee(_ coffee: Coffee, _ orderer: String) {
         if let coffeePrice = menu[coffee] {
             self.sales += coffeePrice
+            self.orderer = orderer
+            pickUpTable = true
         }
-
-        print("\(coffee.rawValue)가 주문 되었습니다.")
     }
 }
-
 
 enum Coffee: String {
     case espresso = "에스프레소"
@@ -79,16 +93,13 @@ enum Coffee: String {
 
 var missKim: Person = Person()
 missKim.money = 10000
+missKim.name = "missKim"
+
 var misterLee: Person = Person()
 misterLee.money = 50000
+misterLee.name = "miserLee"
 
 var yagombucks: CoffeeShop = CoffeeShop(sales: 0)
-
 yagombucks.barista = misterLee
 
-yagombucks.orderCoffee(missKim.buyCoffee(Coffee.espresso, yagombucks))
-//잔액출력
-print(missKim.money)
-
-
-
+missKim.buyCoffee(Coffee.espresso, yagombucks)
