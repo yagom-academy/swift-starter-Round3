@@ -44,10 +44,10 @@ enum Coffee: String, CaseIterable {
 }
 
 class CoffeeShop {
+    typealias MenuNameAndCustomerSet = (String, Customer)?
+    
     var revenue: Int = 0
     var barista: Person?
-    var pickUpTable: String?
-    
     var menuList: Dictionary<Coffee, Int> = [
         .americano : 3500,
         .latte : 4000,
@@ -55,7 +55,21 @@ class CoffeeShop {
         .einspanner : 5500
     ]
     
-    var menuInfo: (String?, Customer?)
+    var pickUpTable: MenuNameAndCustomerSet = nil {
+        willSet(newInfo) {
+            guard let name = newInfo?.1.name, let menu = newInfo?.0 else { return }
+            print("\(name)님의 \(menu)가 준비되었습니다. 픽업대에서 가져가주세요.")
+        }
+    }
+    
+    var menuInfo: MenuNameAndCustomerSet {
+        get {
+            return self.menuInfo
+        }
+        set(newInfo) {
+            self.pickUpTable = newInfo
+        }
+    }
     
     func order(_ coffee: Coffee) {
 
