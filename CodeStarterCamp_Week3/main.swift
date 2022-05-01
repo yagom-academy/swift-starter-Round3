@@ -9,11 +9,10 @@
 import Foundation
 
 
-let missKim: Person = Person(name: "missKim", money: 5000)
+let missKim: Customoer = Customoer(name: "missKim", money: 5000)
 let misterLee: Barista = Barista(name: "misterLEe", money: 2000)
 
-let coffeeMenu = CoffeeMenu(coffeeList: [.americano: 3000, .espresso: 1000, .caffeelatte: 4000, .deCaffeine: 4000])
-let coffeeShop: CoffeeShop = CoffeeShop(coffeeMenu: coffeeMenu)
+let coffeeShop: CoffeeShop = CoffeeShop()
 
 coffeeShop.hireBarista(barista: misterLee)
 
