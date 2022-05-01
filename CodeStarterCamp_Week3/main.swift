@@ -18,6 +18,9 @@ struct CoffeeShop {
 	func order(_ coffee: Coffee) {
 		print("\(coffee.getName()) 골랐군요!")
 	}
+	func makeCoffee(_ coffee: Coffee) {
+		print("\(coffee.getName())를 만듭니다.")
+	}
 }
 
 enum Coffee: CaseIterable {
