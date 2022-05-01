@@ -21,21 +21,17 @@ class Person {
 
 class Customer: Person {
     func buyDrink(which menuName: String, at coffeeShop: CoffeeShop) {
-        
         let coffeeRawValues = Coffee.allCases.map { $0.rawValue }
-        print(coffeeRawValues)
         
         if coffeeRawValues.contains(menuName) {
-            guard let caseValues = Coffee(rawValue: menuName), let price = coffeeShop.menuList[caseValues], var buget = self.buget else { return }
-            
-            print(caseValues, price)
+            guard let caseValues = Coffee(rawValue: menuName), let price = coffeeShop.menuList[caseValues], let buget = self.buget else { return }
             
             if buget >= price {
-
+                coffeeShop.menuInfo = (menuName, self)
+                coffeeShop.order(caseValues)
             } else {
-                
+                print("잔액이 \(price)원만큼 부족합니다")
             }
-            
         }
     }
 }
@@ -59,7 +55,11 @@ class CoffeeShop {
         .einspanner : 5500
     ]
     
-    func order(_ coffee: Coffee, who order: Person) { }
+    var menuInfo: (String?, Customer?)
+    
+    func order(_ coffee: Coffee) {
+
+    }
     
     func makeCoffee(who barista: Person?) { }
     
