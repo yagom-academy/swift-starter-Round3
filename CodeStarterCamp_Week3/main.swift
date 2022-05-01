@@ -22,22 +22,7 @@ class Person {
 class Customer: Person {
     func buyDrink(which menuName: String, at coffeeShop: CoffeeShop) {
         let coffeeAllCases = Coffee.allCases
-        
-        for coffee in coffeeAllCases {
-            guard let price = coffeeShop.menuList[coffee], var buget = self.buget else { return }
-            if menuName == coffee.rawValue {
-                if buget >= price {
-                    let coffeeShop = coffeeShop
-                    coffeeShop.order(coffee, who: self)
-                    buget -= price
-                    self.buget = buget
-                } else {
-                    print("잔액이 \(price)원만큼 부족합니다")
-                }
-            }
-        }
     }
-    
 }
 
 enum Coffee: String, CaseIterable {
@@ -50,15 +35,7 @@ enum Coffee: String, CaseIterable {
 class CoffeeShop {
     var revenue: Int = 0
     var barista: Person?
-    var pickUpTable: [String: String] = [:] {
-        willSet(newValue) {
-            let name = newValue.keys.joined()
-            print("\(name) 님의 커피가 준비되었습니다. 픽업대에서 가져가주세요.")
-        }
-        didSet {
-            pickUpTable.removeAll()
-        }
-    }
+    var pickUpTable: String?
     
     var menuList: Dictionary<Coffee, Int> = [
         .americano : 3500,
@@ -69,19 +46,9 @@ class CoffeeShop {
     
     func order(_ coffee: Coffee, who order: Person) { }
     
-    func makeCoffee(which info: [String: String], who barista: Person?) -> [String: String] {
-        if let barista = barista {
-            print("\(barista.name) 가 커피를 제조하는 중 입니다.")
-            return info
-        }
-        return info
-    }
+    func makeCoffee(who barista: Person?) { }
     
-    func putCoffeeOnPickUpTable(coffee: [String: String]) {
-        for (name, menu) in coffee {
-            pickUpTable[name] = menu
-        }
-    }
+    func putCoffeeOnPickUpTable() { }
 }
 
 // MARK: - 실행부
