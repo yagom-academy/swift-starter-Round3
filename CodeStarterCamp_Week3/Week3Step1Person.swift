@@ -9,11 +9,16 @@ import Foundation
 
 class Person {
     let name: String
-    var money: Int
+    var money: Int = 10000
+    var job: String?
     
-    init(name: String, money: Int) {
+    init(name: String) {
         self.name = name
-        self.money = money
+    }
+    
+    init(name: String, job: String) {
+        self.name = name
+        self.job = job
     }
     
     func buy(kindOf drink: Coffee) {
