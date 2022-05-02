@@ -8,55 +8,52 @@
 
 import Foundation
 
-class Person {
-    var name: String
+struct Person {
+    let name: String
     var money: Int
     
-    init(name: String, money: Int) {
-        self.name = name
-        self.money = money
-    }
-
     func buy(_ coffee: Coffee, at coffeeShop: CoffeeShop) {
-        coffeeShop.customer?.name = name
         coffeeShop.order(coffee)
-    }
-}
-
-class Barista: Person {
-    var coffeeReady = false
-    
-    func makeCoffee() {
-        coffeeReady = true
     }
 }
 
 class CoffeeShop {
     var sales: Int = 0
     let menuList: [Coffee: Int] = [.americano: 4000, .latte: 4500, .milkTea: 4500, .vanillaLatte: 5000, .strawberryLatte: 5500]
-    var pickUpTable: Bool = false
-    var barista: Barista?
+    var barista: Person
     var customer: Person?
-    
-    func order(_ coffee: Coffee) {
-        if let worker = barista, let buyer = customer, let coffeePrice = menuList[coffee] {
-            if buyer.money < coffeePrice {
-                print("잔액이 \(coffeePrice - buyer.money)원만큼 부족합니다. ")
-            } else {
-                buyer.money -= coffeePrice
-                worker.makeCoffee()
-                pickUpTable = worker.coffeeReady
-                giveCoffee(to: buyer.name)
+    var pickUpTable: Bool = false {
+        didSet {
+            if let buyer = customer, pickUpTable == true {
+                print("\(buyer.name) 님의 커피가 준비되었습니다. 픽업대에서 가져가주세요.")
+                pickUpTable = false
             }
-            sales += coffeePrice
-            pickUpTable = false
         }
     }
     
-    func giveCoffee(to customer: String) {
-        if pickUpTable == true {
-            print("\(customer) 님의 커피가 준비되었습니다. 픽업대에서 가져가주세요.")
+    init(barista: Person) {
+        self.barista = barista
+    }
+    
+    func order(_ coffee: Coffee) {
+        if let coffeePrice = menuList[coffee], let buyer = customer {
+            if buyer.money < coffeePrice {
+                print("잔액이 \(coffeePrice - buyer.money)원만큼 부족합니다.")
+            } else {
+                makeCoffee()
+                calculate(coffeePrice)
+            }
         }
+    }
+    
+    func makeCoffee() {
+        print("\(barista.name)이(가) 커피를 만들었습니다.")
+        pickUpTable = true
+    }
+    
+    func calculate(_ price: Int) {
+        customer?.money -= price
+        sales += price
     }
 }
 
@@ -64,10 +61,9 @@ enum Coffee {
     case americano, latte, milkTea, vanillaLatte, strawberryLatte
 }
 
-var missKim = Person(name: "missKim", money: 13000)
-let misterLee = Barista(name: "misterLee", money: 10000)
-var yagombucks = CoffeeShop()
-yagombucks.barista = misterLee
+var missKim = Person(name: "missKim", money: 12000)
+let misterLee = Person(name: "misterLee", money: 10000)
+var yagombucks = CoffeeShop(barista: misterLee)
 yagombucks.customer = missKim
 
 missKim.buy(.strawberryLatte, at: yagombucks)
