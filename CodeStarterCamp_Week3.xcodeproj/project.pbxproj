@@ -10,6 +10,7 @@
 		34811DD5274B93EB00A1E994 /* main.swift in Sources */ = {isa = PBXBuildFile; fileRef = 34811DD4274B93EB00A1E994 /* main.swift */; };
 		5760517D28200EB10090109D /* CoffeeShop.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5760517C28200EB10090109D /* CoffeeShop.swift */; };
 		5760517F28200EE60090109D /* Person.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5760517E28200EE60090109D /* Person.swift */; };
+		5760518128201B260090109D /* Coffee.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5760518028201B260090109D /* Coffee.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXCopyFilesBuildPhase section */
@@ -29,6 +30,7 @@
 		34811DD4274B93EB00A1E994 /* main.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = main.swift; sourceTree = "<group>"; };
 		5760517C28200EB10090109D /* CoffeeShop.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CoffeeShop.swift; sourceTree = "<group>"; };
 		5760517E28200EE60090109D /* Person.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Person.swift; sourceTree = "<group>"; };
+		5760518028201B260090109D /* Coffee.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Coffee.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -64,6 +66,7 @@
 				34811DD4274B93EB00A1E994 /* main.swift */,
 				5760517C28200EB10090109D /* CoffeeShop.swift */,
 				5760517E28200EE60090109D /* Person.swift */,
+				5760518028201B260090109D /* Coffee.swift */,
 			);
 			path = CodeStarterCamp_Week3;
 			sourceTree = "<group>";
@@ -128,6 +131,7 @@
 				5760517F28200EE60090109D /* Person.swift in Sources */,
 				34811DD5274B93EB00A1E994 /* main.swift in Sources */,
 				5760517D28200EB10090109D /* CoffeeShop.swift in Sources */,
+				5760518128201B260090109D /* Coffee.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
