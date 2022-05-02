@@ -10,7 +10,7 @@ import Foundation
 class CoffeeShop {
     var sales: Int = 0
     var barista: Person
-    var cafeMenu: [Coffee] = [.espresso, .americano, .latte]
+    var cafeMenu = Coffee.allCases
     var pickUpTable: Coffee?
     
     init(barista: Person) {
