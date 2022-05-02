@@ -9,8 +9,9 @@ class Person {
         self.money = money
     }
     
-    func order(_ coffee: Coffee) {
+    func order(coffee: Coffee, at coffeeShop: CoffeeShop) {
         print("\(name)이(가) \(coffee)를 주문했습니다.")
+        coffeeShop.takeOrder(coffee: coffee)
     }
 }
 
@@ -26,23 +27,26 @@ class CoffeeShop {
         self.barista = barista
     }
     
-    func takeOrder(consumer: Person, coffee: Coffee, barista: Person) {
-        if let price = menu[coffee] {
-            if consumer.money < price {
-                print("잔액이 \(price - consumer.money)원만큼 부족합니다.")
-            } else {
-                consumer.order(coffee)
-                consumer.money -= price
-                sales += price
-                makeCoffee(consumer, coffee, barista)
-            }
+    func takeOrder(coffee: Coffee) {
+        guard let price = menu[coffee] else {
+            print("메뉴에 없는 주문입니다.")
+            return
+        }
+        
+        if price <= consumer.money {
+            print("주문이 완료되었습니다.")
+            consumer.money -= price
+            sales += price
+            makeCoffee(name: consumer.name, coffee: coffee)
+        } else {
+            print("잔액이 \(price - consumer.money)원만큼 부족합니다.")
         }
     }
     
-    func makeCoffee(_ consumer: Person, _ coffee: Coffee, _ barista: Person) {
+    func makeCoffee(name: String, coffee: Coffee) {
         print("\(barista.name)이 커피를 만들고 있습니다.")
         pickUpTable = coffee
-        print("\(consumer.name) 님의 커피가 준비되었습니다. 픽업대에서 가져가주세요.")
+        print("\(name) 님의 커피가 준비되었습니다. 픽업대에서 가져가주세요.")
     }
 }
 
