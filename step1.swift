@@ -16,14 +16,15 @@ class Person {
 
 class CoffeeShop {
     var sales: Int = 0
-    var barista: Person?
+    var barista: Person
     var menuBoard: [Coffee: Int] = [:]
+    var pickUpTable = [Coffee]()
+
     
     init(barista: Person) {
         self.barista = barista
     }
     
-    var pickUpTable = [String]()
     
     func receiveOrder() {
         

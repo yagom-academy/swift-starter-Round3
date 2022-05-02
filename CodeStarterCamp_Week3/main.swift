@@ -12,6 +12,4 @@ import Foundation
 var misterLee: Person = Person()
 var missKim: Person = Person()
 
-var yagombucks: CoffeeShop = CoffeeShop(barista: <#Person#>)
-
-yagombucks.barista = misterLee
+var yagombucks: CoffeeShop = CoffeeShop(barista: misterLee)
