@@ -11,7 +11,7 @@ class Person {
     var weight: Double
     private(set) var money: Int
     
-    init(name: String, height: Double, weight: Double, money: Int) {
+    init(name: String, height: Double, weight: Double, money: Int = 0) {
         self.name = name
         self.height = height
         self.weight = weight
