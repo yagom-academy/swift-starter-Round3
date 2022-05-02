@@ -84,7 +84,7 @@ struct CoffeeShop {
     var address: String
     var totalIncome = 0
     var menu = [Coffee: Int]()
-    var pickUpTable: Coffee?
+    var pickUpTable = [String: Coffee]()
     var barista: Person?
     
     init?(name: String, address: String) {
@@ -123,34 +123,35 @@ struct CoffeeShop {
         if isEmptyMenu() {
             print("죄송합니다! 현재 오픈 준비 중 입니다!!!!!")
             return nil
-        } else {
-            if let price = menu[coffee] {
-                if customer.isSpendable(price) {
-                    print("\(coffee)가 주문되었습니다.")
-                    totalIncome += price
-                    make(coffee)
-                    return price
-                } else {
-                    print("잔액이 \(price - customer.money)만큼 부족합니다")
-                    return nil
-                }
+        }
+        if barista == nil {
+            print("현재 출근한 바리스타가 없습니다. 잠시 후에 다시 주문해 주세요.")
+            return nil
+        }
+        if let price = menu[coffee] {
+            if customer.isSpendable(price) {
+                print("\(coffee)가 주문되었습니다.")
+                totalIncome += price
+                make(coffee, orderedBy: customer)
+                return price
             } else {
-                print("해당 메뉴는 저희 매장에서 판매하지 않습니다.")
+                print("잔액이 \(price - customer.money)만큼 부족합니다")
                 return nil
             }
+        } else {
+            print("해당 메뉴는 저희 매장에서 판매하지 않습니다.")
+            return nil
         }
+        
     }
     
     func isItOnMenu(that coffee: Coffee) -> Bool {
         return menu.contains(where: {$0.key == coffee})
     }
     
-    func make(_ coffee: Coffee) -> Coffee? {
-        if barista != nil {
-            return coffee
-        } else {
-            return nil
-        }
+    mutating func make(_ coffee: Coffee, orderedBy customer: Person) {
+        pickUpTable.updateValue(coffee, forKey: customer.name)
+        print("\(customer.name)님이 주문하신 \(coffee)가 준비되었습니다. 픽업대에서 가져가주세요")
     }
     
     mutating func updateMenuUsing(coffee: Coffee, price: Int) {
@@ -173,3 +174,6 @@ yagombucks?.updateMenuUsing(coffee: Coffee.espresso, price: 3000)
 yagombucks?.updateMenuUsing(coffee: Coffee.earlGrey, price: 4500)
 yagombucks?.barista = misterLee
 
+missKim?.buyCoffee(Coffee.americano, at: yagombucks)
+missKim?.saveMoney(amount: 10000)
+missKim?.buyCoffee(Coffee.coldBrew, at: yagombucks)
