@@ -22,6 +22,6 @@ class Person {
     }
     
     func buy(kindOf drink: Coffee) {
-        print("\(name)이(가) \(drink)을(를) 구매하였습니다. 가격은 \(drink.rawValue)원 입니다!")
+        print("\(name)이(가) \(drink)을(를) 구매하였습니다. 가격은 \(drink.price)원 입니다!")
     }
 }
