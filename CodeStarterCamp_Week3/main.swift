@@ -89,6 +89,14 @@ struct CoffeeShop {
     var pickUpTable: Coffee?
     var barista: Person?
     
+    init?(name: String, address: String) {
+        if name.isEmpty || address.isEmpty {
+            return nil
+        }
+        self.name = name
+        self.address = address
+    }
+    
     func greetToCustomer() -> String {
         return "어서오세요!! \(name)입니다!!"
     }
@@ -141,14 +149,6 @@ struct CoffeeShop {
         } else {
             print("가격이 \(price)인 \(coffee)가 추가되었습니다.")
         }
-    }
-    
-    init?(name: String, address: String) {
-        if name.isEmpty || address.isEmpty {
-            return nil
-        }
-        self.name = name
-        self.address = address
     }
 }
 
