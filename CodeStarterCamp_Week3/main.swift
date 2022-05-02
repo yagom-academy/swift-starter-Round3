@@ -68,15 +68,13 @@ struct Person {
         money += amount
     }
     
-    func buyCoffee(_ coffee: Coffee, at coffeeShop: CoffeeShop?) -> (Int?, String)  {
-        if let cafe = coffeeShop {
-            if let price = cafe.menu[coffee] {
-                return (price, "구매를 하였습니다.")
-            } else {
-                return (nil, "메뉴판을 다시 확인하세요.")
+    mutating func buyCoffee(_ coffee: Coffee, at coffeeShop: CoffeeShop?) {
+        if var cafe = coffeeShop {
+            if let price = cafe.order(coffee, by: self){
+                money -= price
             }
         } else {
-            return (nil, "현재 커피숍이 존재하지 않습니다.")
+            print("현재 커피숍이 존재하지 않습니다.")
         }
     }
 }
@@ -121,13 +119,25 @@ struct CoffeeShop {
         return menu.isEmpty
     }
     
-    func order(_ coffee: Coffee) {
+    mutating func order(_ coffee: Coffee, by customer: Person) -> Int? {
         if isEmptyMenu() {
             print("죄송합니다! 현재 오픈 준비 중 입니다!!!!!")
-        } else if isItOnMenu(that: coffee) {
-            print("\(coffee) 주문이 접수되었습니다.")
+            return nil
         } else {
-            print("죄송합니다. 주문하신 메뉴는 저희 가게에서 판매하지 않습니다.")
+            if let price = menu[coffee] {
+                if customer.isSpendable(price) {
+                    print("\(coffee)가 주문되었습니다.")
+                    totalIncome += price
+                    make(coffee)
+                    return price
+                } else {
+                    print("잔액이 \(price - customer.money)만큼 부족합니다")
+                    return nil
+                }
+            } else {
+                print("해당 메뉴는 저희 매장에서 판매하지 않습니다.")
+                return nil
+            }
         }
     }
     
@@ -135,11 +145,11 @@ struct CoffeeShop {
         return menu.contains(where: {$0.key == coffee})
     }
     
-    func makeCoffee(_ coffee: Coffee) {
+    func make(_ coffee: Coffee) -> Coffee? {
         if barista != nil {
-            print("주문하신 \(coffee)가 준비되었습니다.")
+            return coffee
         } else {
-            print("죄송합니다. 현재 바리스타가 출근하지 않았습니다.")
+            return nil
         }
     }
     
@@ -155,4 +165,11 @@ struct CoffeeShop {
 var misterLee = Person(name: "이병현", age: 23, gender: Gender.men, height: 183, weight: 84)
 var missKim = Person(name: "김태희", age: 21, gender: Gender.women, height: 168, weight: 48)
 var yagombucks = CoffeeShop(name: "Yagom Bucks", address: "서울시 강남구 강남대로 390")
+
+yagombucks?.updateMenuUsing(coffee: Coffee.americano, price: 3500)
+yagombucks?.updateMenuUsing(coffee: Coffee.cafeLatte, price: 4800)
+yagombucks?.updateMenuUsing(coffee: Coffee.coldBrew, price: 5500)
+yagombucks?.updateMenuUsing(coffee: Coffee.espresso, price: 3000)
+yagombucks?.updateMenuUsing(coffee: Coffee.earlGrey, price: 4500)
 yagombucks?.barista = misterLee
+
