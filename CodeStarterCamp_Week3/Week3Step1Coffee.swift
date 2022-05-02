@@ -7,8 +7,17 @@
 
 import Foundation
 
-enum Coffee: Int {
-    case espresso = 3000
-    case americano = 3500
-    case latte = 4500
+enum Coffee: CaseIterable {
+    case espresso, americano, latte
+    
+    var price: Int {
+        switch self {
+        case .espresso:
+            return 3000
+        case .americano:
+            return 3500
+        case .latte:
+            return 4500
+        }
+    }
 }
