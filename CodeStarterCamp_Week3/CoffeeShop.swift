@@ -10,7 +10,13 @@ class CoffeeShop {
     private(set) var location: String
     private(set) var sales: Int = 0
     private(set) var menu: [Coffee: Int] = [:]
-    private var pickUpTable: Coffee?
+    private var pickUpTable: PickUpTableInfo? {
+        willSet(newOrder) {
+            if let order = newOrder {
+                print("\(order.customer) 님의 커피가 준비되었습니다. 픽업대에서 가져가주세요.")
+            }
+        }
+    }
     var barista: Person
     
     init(owner: String, location: String, barista: Person) {
@@ -28,7 +34,7 @@ class CoffeeShop {
             if isEnough(money: person.money, for: coffeePrice) {
                 person.pay(money: coffeePrice)
                 sales += coffeePrice
-                make(coffee: coffee, by: person.name)
+                pickUpTable = PickUpTableInfo(customer: person.name, coffee: coffee)
             }
         }
     }
@@ -40,17 +46,5 @@ class CoffeeShop {
             print("잔액이 \(coffeePrice)원만큼 부족합니다")
             return false
         }
-    }
-    
-    private func make(coffee: Coffee, by person: String) {
-        var servingComment = "\(person) 님의 커피가 준비되었습니다."
-        putOnTable(coffee: coffee)
-        
-        servingComment += pickUpTable != nil ? " 픽업대에서 가져가주세요." : ""
-        print(servingComment)
-    }
-    
-    private func putOnTable(coffee: Coffee) {
-        pickUpTable = coffee
     }
 }
