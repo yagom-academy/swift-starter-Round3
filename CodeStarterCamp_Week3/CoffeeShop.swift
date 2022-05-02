@@ -34,11 +34,11 @@ class CoffeeShop {
     }
     
     private func isEnough(money: Int, for coffeePrice: Int) -> Bool {
-        if money < coffeePrice {
+        if money > coffeePrice {
+            return true
+        } else {
             print("잔액이 \(coffeePrice)원만큼 부족합니다")
             return false
-        } else {
-            return true
         }
     }
     
