@@ -8,5 +8,14 @@
 
 import Foundation
 
-print("Hello, World!")
+
+let missKim: Customer = Customer(name: "missKim", money: 5000)
+let misterLee: Barista = Barista(name: "misterLEe", money: 2000)
+
+let coffeeShop: CoffeeShop = CoffeeShop()
+
+coffeeShop.hireBarista(barista: misterLee)
+
+missKim.orderCoffee(coffee: .americano, coffeeShop: coffeeShop)
+
 
