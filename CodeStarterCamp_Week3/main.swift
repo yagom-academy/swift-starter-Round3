@@ -9,8 +9,8 @@
 import Foundation
 
 
-var misterLee: Person = Person(money: 0)
-var missKim: Person = Person(money: 0)
+var misterLee: Person = Person()
+var missKim: Person = Person()
 
 var yagombucks: CoffeeShop = CoffeeShop(barista: <#Person#>)
 

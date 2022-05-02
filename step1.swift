@@ -8,11 +8,7 @@
 import Foundation
 
 class Person {
-    var money: Int
-    
-    init(money: Int) {
-        self.money = money
-    }
+    var money: Int = 0
     
     func buyCoffee(coffee: Coffee) {
     }
