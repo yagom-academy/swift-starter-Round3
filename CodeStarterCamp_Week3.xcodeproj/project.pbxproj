@@ -11,7 +11,6 @@
 		ACA559112818366300F5D8EB /* Person.swift in Sources */ = {isa = PBXBuildFile; fileRef = ACA559102818366300F5D8EB /* Person.swift */; };
 		ACA55913281843E900F5D8EB /* CoffeeShop.swift in Sources */ = {isa = PBXBuildFile; fileRef = ACA55912281843E900F5D8EB /* CoffeeShop.swift */; };
 		ACA559152818477E00F5D8EB /* Coffee.swift in Sources */ = {isa = PBXBuildFile; fileRef = ACA559142818477E00F5D8EB /* Coffee.swift */; };
-		ACA5591C281FE0AF00F5D8EB /* PickUpTableInfo.swift in Sources */ = {isa = PBXBuildFile; fileRef = ACA5591B281FE0AF00F5D8EB /* PickUpTableInfo.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXCopyFilesBuildPhase section */
@@ -32,7 +31,6 @@
 		ACA559102818366300F5D8EB /* Person.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Person.swift; sourceTree = "<group>"; };
 		ACA55912281843E900F5D8EB /* CoffeeShop.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = CoffeeShop.swift; path = CodeStarterCamp_Week3/CoffeeShop.swift; sourceTree = SOURCE_ROOT; };
 		ACA559142818477E00F5D8EB /* Coffee.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = Coffee.swift; path = CodeStarterCamp_Week3/Coffee.swift; sourceTree = SOURCE_ROOT; };
-		ACA5591B281FE0AF00F5D8EB /* PickUpTableInfo.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PickUpTableInfo.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -69,7 +67,6 @@
 				ACA559142818477E00F5D8EB /* Coffee.swift */,
 				ACA55912281843E900F5D8EB /* CoffeeShop.swift */,
 				ACA559102818366300F5D8EB /* Person.swift */,
-				ACA5591B281FE0AF00F5D8EB /* PickUpTableInfo.swift */,
 			);
 			path = CodeStarterCamp_Week3;
 			sourceTree = "<group>";
@@ -133,7 +130,6 @@
 			files = (
 				ACA559112818366300F5D8EB /* Person.swift in Sources */,
 				ACA55913281843E900F5D8EB /* CoffeeShop.swift in Sources */,
-				ACA5591C281FE0AF00F5D8EB /* PickUpTableInfo.swift in Sources */,
 				34811DD5274B93EB00A1E994 /* main.swift in Sources */,
 				ACA559152818477E00F5D8EB /* Coffee.swift in Sources */,
 			);
