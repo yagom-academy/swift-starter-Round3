@@ -19,9 +19,11 @@ struct Person {
     }
 
     func introduce() {
-      print("안녕하세요 저는\(self.name)입니다. 저는 \(self.age)살 입니다.")
+        print("안녕하세요 저는\(self.name)입니다. 저는 \(self.age)살 입니다.")
     }
-    func buyCoffee() {
-       print("\(self.money)원으로 커피를 구매하였습니다.")
+    mutating func buyCoffee(_ coffee: Coffee, _ coffeeShop: CoffeeShop) {
+        print("\(coffee) 주세요")
+        coffeeShop.getOrder(coffee, self)
     }
 }
+
