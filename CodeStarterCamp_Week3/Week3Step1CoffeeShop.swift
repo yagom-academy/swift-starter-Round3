@@ -18,10 +18,10 @@ class CoffeeShop {
     }
     
     func order(_ order: Coffee) {
-        print("주문 받기")
+        print("\(order)를 주문하였습니다.")
     }
     
-    func brewCoffee() {
-        print("커피 만들기")
+    func brewCoffee(_ drink: Coffee) {
+        print("\(drink)를 제조합니다.")
     }
 }
