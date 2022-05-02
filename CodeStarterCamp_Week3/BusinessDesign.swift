@@ -10,43 +10,40 @@ class Person {
     }
     
     func order(coffee: Coffee, at coffeeShop: CoffeeShop) {
-        print("\(name)이(가) \(coffee)를 주문했습니다.")
-        coffeeShop.takeOrder(coffee: coffee)
+        guard let price = coffeeShop.menu[coffee] else {
+            print("메뉴에 없는 주문입니다.")
+            return
+        }
+        if price <= money {
+            print("\(name)이(가) \(coffee)를 주문했습니다.")
+            money -= price
+            coffeeShop.takeOrder(name: name, coffee: coffee, pay: price)
+        } else {
+            print("잔액이 \(price - money)원만큼 부족합니다.")
+        }
     }
 }
 
 class CoffeeShop {
     var sales = 0
-    var consumer: Person
     var barista: Person
     var pickUpTable: Coffee?
     let menu: [Coffee: Int] = [.americano: 3000, .latte: 4000, .cafeMocha: 5000, .iceChoco: 10000]
 
-    init(consumer: Person, barista: Person) {
-        self.consumer = consumer
+    init(barista: Person) {
         self.barista = barista
     }
     
-    func takeOrder(coffee: Coffee) {
-        guard let price = menu[coffee] else {
-            print("메뉴에 없는 주문입니다.")
-            return
-        }
-        
-        if price <= consumer.money {
-            print("주문이 완료되었습니다.")
-            consumer.money -= price
-            sales += price
-            makeCoffee(name: consumer.name, coffee: coffee)
-        } else {
-            print("잔액이 \(price - consumer.money)원만큼 부족합니다.")
-        }
+    func takeOrder(name customerName: String, coffee: Coffee, pay: Int) {
+        print("커피샵: \(coffee.rawValue) 주문이 들어왔습니다.")
+        sales += pay
+        makeCoffee(customerName: customerName, coffee: coffee)
     }
     
-    func makeCoffee(name: String, coffee: Coffee) {
-        print("\(barista.name)이 커피를 만들고 있습니다.")
+    func makeCoffee(customerName: String, coffee: Coffee) {
+        print("커피샵: \(barista.name) 바리스타가 커피를 만들고 있습니다.")
         pickUpTable = coffee
-        print("\(name) 님의 커피가 준비되었습니다. 픽업대에서 가져가주세요.")
+        print("커피샵: \(customerName) 님의 커피가 준비되었습니다. 픽업대에서 가져가주세요.")
     }
 }
 
