@@ -8,10 +8,10 @@
 
 import Foundation
 
-var misterLee = Person(name: "misterLee", height: 180.0, weight: 70.0, money: 100_000)
-var missKim = Person(name: "missKim", height: 165.0, weight: 55.0, money: 200_000)
+let misterLee = Person(name: "misterLee", height: 180.0, weight: 70.0)
+let missKim = Person(name: "missKim", height: 165.0, weight: 55.0, money: 200_000)
 
-var yagombucks = CoffeeShop(owner: "yagom", location: "seoul", barista: misterLee)
+let yagombucks = CoffeeShop(owner: "yagom", location: "seoul", barista: misterLee)
 var yagomsMenu: [Coffee: Int] = [
     .americano: 2500,
     .caffelatte: 2500,
@@ -20,3 +20,5 @@ var yagomsMenu: [Coffee: Int] = [
 ]
 
 yagombucks.add(menu: yagomsMenu)
+
+missKim.buy(coffee: .americano, at: yagombucks)

@@ -5,13 +5,13 @@
 //  Created by 이정민 on 2022/04/26.
 //
 
-struct Person {
+class Person {
     private(set) var name: String
     var height: Double
     var weight: Double
     private(set) var money: Int
     
-    init(name: String, height: Double, weight: Double, money: Int) {
+    init(name: String, height: Double, weight: Double, money: Int = 0) {
         self.name = name
         self.height = height
         self.weight = weight
@@ -19,6 +19,10 @@ struct Person {
     }
     
     func buy(coffee: Coffee, at shop: CoffeeShop) {
-        print("\(coffee.rawValue)를 구매합니다")
+        shop.order(coffee, for: self)
+    }
+    
+    func pay(money: Int) {
+        self.money -= money
     }
 }
