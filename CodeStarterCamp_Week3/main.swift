@@ -8,12 +8,9 @@
 
 import Foundation
 
-let misterLee: Person = Person(name: "misterLee", age: 25, money: 25000)
-let missKim: Person = Person(name: "missKim", age: 24, money: 20000)
-let yagombucks: CoffeeShop = CoffeeShop(barista: misterLee)
+var missKim: Person = Person(name: "missKim", age: 24, money: 10000)
+let misterHong: Person = Person(name: "misterHong", age: 26, money: 40000)
+let yagombucks: CoffeeShop = CoffeeShop(sales: 0)
 
-misterLee.introduce()
-missKim.introduce()
-missKim.buyCoffee()
-yagombucks.getOrder()
-yagombucks.makeCoffee()
+yagombucks.barista = misterHong
+missKim.buyCoffee(.복숭아스무디, yagombucks)
