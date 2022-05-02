@@ -25,6 +25,17 @@ struct Person {
     var weight: Int
     var money: Int = 0
     
+    init?(name: String, age: Int, gender: Gender, height: Int, weight: Int) {
+        if name.isEmpty || !(0...120).contains(age) || height <= 0 || weight <= 0 {
+            return nil
+        }
+        self.name = name
+        self.age = age
+        self.gender = gender
+        self.height = height
+        self.weight = weight
+    }
+    
     func greet() -> String {
         return "안녕하세요!!!"
     }
@@ -67,17 +78,6 @@ struct Person {
         } else {
             return (nil, "현재 커피숍이 존재하지 않습니다.")
         }
-    }
-    
-    init?(name: String, age: Int, gender: Gender, height: Int, weight: Int) {
-        if name.isEmpty || !(0...120).contains(age) || height <= 0 || weight <= 0 {
-            return nil
-        }
-        self.name = name
-        self.age = age
-        self.gender = gender
-        self.height = height
-        self.weight = weight
     }
 }
 
