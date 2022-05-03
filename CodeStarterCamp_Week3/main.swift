@@ -76,7 +76,7 @@ class CoffeeShop {
         let coffeeMenuName = coffee.rawValue
 
         calculate(menuPrice: price)
-        makeCoffee(who: self.barista, which: coffeeMenuName)
+        makeCoffee(which: coffeeMenuName)
     }
     
     func calculate(menuPrice: Int) {
@@ -84,13 +84,8 @@ class CoffeeShop {
         print("self.revenue : \(self.revenue)")
     }
     
-    func makeCoffee(who barista: Person?, which menu: String) -> String {
-        let error: String = "Error"
-        if let barista = barista?.name {
-            print("\(barista)가 \(menu)를 만들고 있습니다.")
-            return menu
-        }
-        return error
+    func makeCoffee(which menu: String){
+        self.menuInfo = menu
     }
 }
 
