@@ -76,7 +76,7 @@ class CoffeeShop {
         let coffeeMenuName = coffee.rawValue
 
         calculate(menuPrice: price)
-        putCoffeeOnPickUpTable(coffee: makeCoffee(who: self.barista, which: coffeeMenuName))
+        makeCoffee(who: self.barista, which: coffeeMenuName)
     }
     
     func calculate(menuPrice: Int) {
@@ -91,10 +91,6 @@ class CoffeeShop {
             return menu
         }
         return error
-    }
-    
-    func putCoffeeOnPickUpTable(coffee: String) {
-        self.pickUpTable = coffee
     }
 }
 
