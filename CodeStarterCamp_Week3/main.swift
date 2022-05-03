@@ -45,7 +45,6 @@ enum Coffee: String, CaseIterable {
 }
 
 class CoffeeShop {
-
     var revenue: Int = 0
     var barista: Person?
     var menuList: Dictionary<Coffee, Int> = [
@@ -54,6 +53,15 @@ class CoffeeShop {
         .vanillaLatte : 4500,
         .einspanner : 5500
     ]
+    
+    var menuInfo: String? {
+        get {
+            return pickUpTable
+        }
+        set(newMenu) {
+            pickUpTable = newMenu
+        }
+    }
     
     var pickUpTable: String? {
         willSet(newMenu) {
