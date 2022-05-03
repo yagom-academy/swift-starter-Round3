@@ -84,7 +84,7 @@ class CoffeeShop {
         self.revenue += menuPrice
     }
     
-    func makeCoffee(which menu: String){
+    func makeCoffee(which menu: String) {
         self.menuInfo = menu
     }
 }
