@@ -68,15 +68,21 @@ struct Person {
         money += amount
     }
     
-    func buyCoffee(_ coffee: Coffee, at coffeeShop: CoffeeShop?) -> (Int?, String)  {
-        if let cafe = coffeeShop {
-            if let price = cafe.menu[coffee] {
-                return (price, "구매를 하였습니다.")
+    mutating func buyCoffee(_ coffee: Coffee, at coffeeShop: CoffeeShop?) {
+        if var cafe = coffeeShop {
+            let price = cafe.informThePrice(of: coffee)
+            if isSpendable(price) {
+                if let orderResult = cafe.order(coffee, by: name) {
+                    spendMoney(amount: price)
+                    cafe.make(orderResult)
+                } else {
+                    print("주문이 실패하였습니다.")
+                }
             } else {
-                return (nil, "메뉴판을 다시 확인하세요.")
+                print("잔액이 \(price - money)만큼 부족합니다")
             }
         } else {
-            return (nil, "현재 커피숍이 존재하지 않습니다.")
+            print("현재 커피숍이 존재하지 않습니다.")
         }
     }
 }
@@ -86,8 +92,15 @@ struct CoffeeShop {
     var address: String
     var totalIncome = 0
     var menu = [Coffee: Int]()
-    var pickUpTable: Coffee?
+    var pickUpTable: Coffee? {
+        didSet {
+            if let coffee = pickUpTable {
+                print("\(customerName)님의 \(coffee)가 준비되었습니다. 픽업대에서 가져가주세요.")
+            }
+        }
+    }
     var barista: Person?
+    var customerName = ""
     
     init?(name: String, address: String) {
         if name.isEmpty || address.isEmpty {
@@ -121,13 +134,23 @@ struct CoffeeShop {
         return menu.isEmpty
     }
     
-    func order(_ coffee: Coffee) {
+    mutating func order(_ coffee: Coffee, by customer: String) -> Coffee? {
         if isEmptyMenu() {
             print("죄송합니다! 현재 오픈 준비 중 입니다!!!!!")
-        } else if isItOnMenu(that: coffee) {
-            print("\(coffee) 주문이 접수되었습니다.")
+            return nil
+        }
+        if barista == nil {
+            print("현재 출근한 바리스타가 없습니다. 잠시 후에 다시 주문해 주세요.")
+            return nil
+        }
+        if let price = menu[coffee] {
+            print("\(customer)님이 \(coffee)를 주문하였습니다.")
+            customerName = customer
+            totalIncome += price
+            return coffee
         } else {
-            print("죄송합니다. 주문하신 메뉴는 저희 가게에서 판매하지 않습니다.")
+            print("주문하신 메뉴는 저희 매장에서 판매하지 않습니다.")
+            return nil
         }
     }
     
@@ -135,12 +158,12 @@ struct CoffeeShop {
         return menu.contains(where: {$0.key == coffee})
     }
     
-    func makeCoffee(_ coffee: Coffee) {
-        if barista != nil {
-            print("주문하신 \(coffee)가 준비되었습니다.")
-        } else {
-            print("죄송합니다. 현재 바리스타가 출근하지 않았습니다.")
-        }
+    func informThePrice(of coffee: Coffee) -> Int {
+        return menu[coffee] ?? 0
+    }
+    
+    mutating func make(_ coffee: Coffee) {
+        pickUpTable = coffee
     }
     
     mutating func updateMenuUsing(coffee: Coffee, price: Int) {
@@ -155,4 +178,17 @@ struct CoffeeShop {
 var misterLee = Person(name: "이병현", age: 23, gender: Gender.men, height: 183, weight: 84)
 var missKim = Person(name: "김태희", age: 21, gender: Gender.women, height: 168, weight: 48)
 var yagombucks = CoffeeShop(name: "Yagom Bucks", address: "서울시 강남구 강남대로 390")
+
+yagombucks?.updateMenuUsing(coffee: Coffee.americano, price: 3500)
+yagombucks?.updateMenuUsing(coffee: Coffee.cafeLatte, price: 4800)
+yagombucks?.updateMenuUsing(coffee: Coffee.coldBrew, price: 5500)
+yagombucks?.updateMenuUsing(coffee: Coffee.espresso, price: 3000)
+yagombucks?.updateMenuUsing(coffee: Coffee.earlGrey, price: 4500)
 yagombucks?.barista = misterLee
+
+missKim?.buyCoffee(Coffee.americano, at: yagombucks)
+missKim?.saveMoney(amount: 10000)
+missKim?.buyCoffee(Coffee.lemonAde, at: yagombucks)
+missKim?.buyCoffee(Coffee.earlGrey, at: yagombucks)
+
+
