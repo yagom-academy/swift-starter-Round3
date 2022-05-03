@@ -70,8 +70,16 @@ struct Person {
     
     mutating func buyCoffee(_ coffee: Coffee, at coffeeShop: CoffeeShop?) {
         if var cafe = coffeeShop {
-            if let price = cafe.order(coffee, by: self){
-                money -= price
+            let price = cafe.informThePrice(of: coffee)
+            if isSpendable(price) {
+                if let orderResult = cafe.order(coffee, by: self) {
+                    spendMoney(amount: price)
+                    cafe.make(orderResult, orderedBy: self)
+                } else {
+                    print("주문이 실패하였습니다.")
+                }
+            } else {
+                print("잔액이 \(price - money)만큼 부족합니다")
             }
         } else {
             print("현재 커피숍이 존재하지 않습니다.")
@@ -84,7 +92,7 @@ struct CoffeeShop {
     var address: String
     var totalIncome = 0
     var menu = [Coffee: Int]()
-    var pickUpTable = [String: Coffee]()
+    var pickUpTable: Coffee?
     var barista: Person?
     
     init?(name: String, address: String) {
@@ -119,7 +127,7 @@ struct CoffeeShop {
         return menu.isEmpty
     }
     
-    mutating func order(_ coffee: Coffee, by customer: Person) -> Int? {
+    mutating func order(_ coffee: Coffee, by customer: Person) -> Coffee? {
         if isEmptyMenu() {
             print("죄송합니다! 현재 오픈 준비 중 입니다!!!!!")
             return nil
@@ -128,10 +136,14 @@ struct CoffeeShop {
             print("현재 출근한 바리스타가 없습니다. 잠시 후에 다시 주문해 주세요.")
             return nil
         }
-        if isItOnMenu(that: coffee) {
-            return menu[coffee] ?? nil
+        if let price = menu[coffee] {
+            print("\(customer.name)님이 \(coffee)를 주문하였습니다.")
+            self.totalIncome += price
+            return coffee
+        } else {
+            print("주문하신 메뉴는 저희 매장에서 판매하지 않습니다.")
+            return nil
         }
-        return 1
     }
     
     func isItOnMenu(that coffee: Coffee) -> Bool {
@@ -139,15 +151,11 @@ struct CoffeeShop {
     }
     
     func informThePrice(of coffee: Coffee) -> Int {
-        if let price = menu[coffee] {
-            return price
-        } else {
-            return 0
-        }
+        return menu[coffee] ?? 0
     }
     
     mutating func make(_ coffee: Coffee, orderedBy customer: Person) {
-        pickUpTable.updateValue(coffee, forKey: customer.name)
+        pickUpTable = coffee
         print("\(customer.name)님이 주문하신 \(coffee)가 준비되었습니다. 픽업대에서 가져가주세요")
     }
     
@@ -173,6 +181,7 @@ yagombucks?.barista = misterLee
 
 missKim?.buyCoffee(Coffee.americano, at: yagombucks)
 missKim?.saveMoney(amount: 10000)
-missKim?.buyCoffee(Coffee.coldBrew, at: yagombucks)
+missKim?.buyCoffee(Coffee.lemonAde, at: yagombucks)
+missKim?.buyCoffee(Coffee.earlGrey, at: yagombucks)
 
 
