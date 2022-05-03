@@ -74,7 +74,7 @@ struct Person {
             if isSpendable(price) {
                 if let orderResult = cafe.order(coffee, by: self) {
                     spendMoney(amount: price)
-                    cafe.make(orderResult, orderedBy: self)
+                    cafe.make(orderResult)
                 } else {
                     print("주문이 실패하였습니다.")
                 }
@@ -92,8 +92,15 @@ struct CoffeeShop {
     var address: String
     var totalIncome = 0
     var menu = [Coffee: Int]()
-    var pickUpTable: Coffee?
+    var pickUpTable: Coffee? {
+        didSet {
+            if let coffee = pickUpTable {
+                print("\(customerName)님의 \(coffee)가 준비되었습니다. 픽업대에서 가져가주세요.")
+            }
+        }
+    }
     var barista: Person?
+    var customerName = ""
     
     init?(name: String, address: String) {
         if name.isEmpty || address.isEmpty {
@@ -138,6 +145,7 @@ struct CoffeeShop {
         }
         if let price = menu[coffee] {
             print("\(customer.name)님이 \(coffee)를 주문하였습니다.")
+            self.customerName = customer.name
             self.totalIncome += price
             return coffee
         } else {
@@ -154,9 +162,8 @@ struct CoffeeShop {
         return menu[coffee] ?? 0
     }
     
-    mutating func make(_ coffee: Coffee, orderedBy customer: Person) {
+    mutating func make(_ coffee: Coffee) {
         pickUpTable = coffee
-        print("\(customer.name)님이 주문하신 \(coffee)가 준비되었습니다. 픽업대에서 가져가주세요")
     }
     
     mutating func updateMenuUsing(coffee: Coffee, price: Int) {
