@@ -24,10 +24,12 @@ class Customer: Person {
         let menuNameArr = Coffee.allCases.map { $0.rawValue }
         
         if menuNameArr.contains(menuName) {
-            guard let coffee = Coffee(rawValue: menuName), let price = coffeeShop.menuList[coffee], let buget = self.buget else { return }
+            guard let coffee = Coffee(rawValue: menuName), let price = coffeeShop.menuList[coffee], var buget = self.buget else { return }
             
             if buget >= price {
                 coffeeShop.order(coffee)
+                buget -= price
+                self.buget = buget
             } else {
                 print("잔액이 \(price)원만큼 부족합니다")
             }
