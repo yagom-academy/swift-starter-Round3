@@ -61,7 +61,12 @@ class CoffeeShop {
     }
     
     func order(_ coffee: Coffee) {
+        guard let price = self.menuList[coffee] else { return }
+            
+        let coffeeMenuName = coffee.rawValue
 
+        calculate(menuPrice: price)
+        putCoffeeOnPickUpTable(coffee: makeCoffee(who: self.barista, which: coffeeMenuName))
     }
     
     func calculate(menuPrice: Int) {
