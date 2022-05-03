@@ -11,8 +11,8 @@ class Person {
         self.money = money
     }
 
-    func buyCoffee() {
-        print("bought Coffee")
+    func buyCoffee(menu: CoffeeMenu, size: Size, iceOrHot: IceOrHot) {
+        print("안녕하세요~ \(iceOrHot.orderIceOrHot)\(menu.coffeeMenuInKorean), \(size.orderBySize)사이즈로 주문하겠습니다!")
     }
 }
 
@@ -41,7 +41,7 @@ class CoffeeShop {
         print("감사합니다 주문하신 음료 총 가격은 \(price)원 입니다~")
     }
 
-    func makeCoffee(coffee: CoffeeMenu) {
+    func makeCoffee(menu coffee: CoffeeMenu) {
         print("맛있게 \(coffee.coffeeMenuInKorean)를 만들어 보겠습니다!")
     }
 }
@@ -70,6 +70,19 @@ enum Size {
     case medium
     case large
 
+    var orderBySize: String {
+        get {
+            switch self {
+            case .small:
+                return "스몰"
+            case .medium:
+                return "미디엄"
+            case .large:
+                return "라지"
+            }
+        }
+    }
+
     var priceBySize: Int {
         get {
             switch self {
@@ -87,6 +100,17 @@ enum Size {
 enum IceOrHot {
     case ice
     case hot
+
+    var orderIceOrHot: String {
+        get {
+            switch self {
+            case .ice:
+                return "아이스"
+            case .hot:
+                return "핫"
+            }
+        }
+    }
 
     var priceByIceOrHot: Int {
         get {
