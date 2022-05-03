@@ -43,3 +43,6 @@ enum Coffee {
     case cafeMocha
 }
 
+let misterLee = Person(name: "Lee JongSuk", money: 10000)
+let missKim = Person(name: "Kim Yuna", money: 20000)
+let yagombucks = CoffeeShop(revenue: 0, menu: [.espresso : 1000, .americano: 2000, .vanillaLatte: 3000, .cafeMocha: 3500])
