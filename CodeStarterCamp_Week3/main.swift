@@ -47,7 +47,6 @@ enum Coffee: String, CaseIterable {
 }
 
 class CoffeeShop {
-
     var revenue: Int = 0
     var barista: Person?
     var menuList: Dictionary<Coffee, Int> = [
@@ -56,6 +55,15 @@ class CoffeeShop {
         .vanillaLatte : 4500,
         .einspanner : 5500
     ]
+    
+    var menuInfo: String? {
+        get {
+            return pickUpTable
+        }
+        set(newMenu) {
+            pickUpTable = newMenu
+        }
+    }
     
     var pickUpTable: String? {
         willSet(newMenu) {
@@ -66,29 +74,18 @@ class CoffeeShop {
     
     func order(_ coffee: Coffee) {
         guard let price = self.menuList[coffee] else { return }
-            
         let coffeeMenuName = coffee.rawValue
 
         calculate(menuPrice: price)
-        putCoffeeOnPickUpTable(coffee: makeCoffee(who: self.barista, which: coffeeMenuName))
+        makeCoffee(which: coffeeMenuName)
     }
     
     func calculate(menuPrice: Int) {
         self.revenue += menuPrice
-        print("self.revenue : \(self.revenue)")
     }
     
-    func makeCoffee(who barista: Person?, which menu: String) -> String {
-        let error: String = "Error"
-        if let barista = barista?.name {
-            print("\(barista)가 \(menu)를 만들고 있습니다.")
-            return menu
-        }
-        return error
-    }
-    
-    func putCoffeeOnPickUpTable(coffee: String) {
-        self.pickUpTable = coffee
+    func makeCoffee(which menu: String){
+        self.menuInfo = menu
     }
 }
 
