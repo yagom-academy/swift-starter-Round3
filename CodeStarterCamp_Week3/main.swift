@@ -64,7 +64,14 @@ class CoffeeShop {
 
     }
     
-    func makeCoffee(who barista: Person?) { }
+    func makeCoffee(who barista: Person?, which menu: String) -> String {
+        let error: String = "Error"
+        if let barista = barista?.name {
+            print("\(barista)가 \(menu)를 만들고 있습니다.")
+            return menu
+        }
+        return error
+    }
     
     func putCoffeeOnPickUpTable(coffee: String) {
         self.pickUpTable = coffee
