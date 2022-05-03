@@ -72,7 +72,7 @@ struct Person {
         if var cafe = coffeeShop {
             let price = cafe.informThePrice(of: coffee)
             if isSpendable(price) {
-                if let orderResult = cafe.order(coffee, by: self) {
+                if let orderResult = cafe.order(coffee, by: name) {
                     spendMoney(amount: price)
                     cafe.make(orderResult)
                 } else {
@@ -134,7 +134,7 @@ struct CoffeeShop {
         return menu.isEmpty
     }
     
-    mutating func order(_ coffee: Coffee, by customer: Person) -> Coffee? {
+    mutating func order(_ coffee: Coffee, by customer: String) -> Coffee? {
         if isEmptyMenu() {
             print("죄송합니다! 현재 오픈 준비 중 입니다!!!!!")
             return nil
@@ -144,9 +144,9 @@ struct CoffeeShop {
             return nil
         }
         if let price = menu[coffee] {
-            print("\(customer.name)님이 \(coffee)를 주문하였습니다.")
-            self.customerName = customer.name
-            self.totalIncome += price
+            print("\(customer)님이 \(coffee)를 주문하였습니다.")
+            customerName = customer
+            totalIncome += price
             return coffee
         } else {
             print("주문하신 메뉴는 저희 매장에서 판매하지 않습니다.")
