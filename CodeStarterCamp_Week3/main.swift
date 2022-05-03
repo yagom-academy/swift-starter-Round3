@@ -27,7 +27,6 @@ class Customer: Person {
             guard let caseValues = Coffee(rawValue: menuName), let price = coffeeShop.menuList[caseValues], let buget = self.buget else { return }
             
             if buget >= price {
-                coffeeShop.menuInfo = (menuName, self)
                 coffeeShop.order(caseValues)
             } else {
                 print("잔액이 \(price)원만큼 부족합니다")
@@ -44,8 +43,7 @@ enum Coffee: String, CaseIterable {
 }
 
 class CoffeeShop {
-    typealias MenuNameAndCustomerSet = (String, Customer)?
-    
+
     var revenue: Int = 0
     var barista: Person?
     var menuList: Dictionary<Coffee, Int> = [
@@ -55,19 +53,10 @@ class CoffeeShop {
         .einspanner : 5500
     ]
     
-    var pickUpTable: MenuNameAndCustomerSet = nil {
-        willSet(newInfo) {
-            guard let name = newInfo?.1.name, let menu = newInfo?.0 else { return }
-            print("\(name)님의 \(menu)가 준비되었습니다. 픽업대에서 가져가주세요.")
-        }
-    }
-    
-    var menuInfo: MenuNameAndCustomerSet {
-        get {
-            return self.menuInfo
-        }
-        set(newInfo) {
-            self.pickUpTable = newInfo
+    var pickUpTable: String? {
+        willSet(newMenu) {
+            guard let newMenu = newMenu else { return }
+            print("\(newMenu)가 준비되었습니다. 픽업대에서 가져가주세요.")
         }
     }
     
@@ -88,4 +77,5 @@ let yagombucks = CoffeeShop()
 yagombucks.barista = misterLee
 
 missKim.buget = 3500
+missKim.buyDrink(which: "Americano", at: yagombucks)
 missKim.buyDrink(which: "Americano", at: yagombucks)
