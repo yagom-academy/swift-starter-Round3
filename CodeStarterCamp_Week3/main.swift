@@ -64,6 +64,11 @@ class CoffeeShop {
 
     }
     
+    func calculate(menuPrice: Int) {
+        self.revenue += menuPrice
+        print("self.revenue : \(self.revenue)")
+    }
+    
     func makeCoffee(who barista: Person?, which menu: String) -> String {
         let error: String = "Error"
         if let barista = barista?.name {
