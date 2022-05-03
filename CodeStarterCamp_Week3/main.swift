@@ -31,7 +31,7 @@ import Foundation
 
 struct Person {
     private var _money: Int = 0
-    var name: String = ""
+    var name: String
     
     mutating func buyCoffee(_ coffee: Coffee, _ coffeeShop: CoffeeShop) {
         if let coffeePrice = coffeeShop.menu[coffee] {
@@ -43,6 +43,10 @@ struct Person {
             }
         }
         coffeeShop.orderCoffee(coffee, name)
+    }
+    
+    init(name: String) {
+        self.name = name
     }
     
     var money: Int {
@@ -58,13 +62,14 @@ struct Person {
 class CoffeeShop {
     var sales: Int
     var barista: Person?
-    var orderer: String = ""
+    var orderer: String?
     let menu: [Coffee: Int] = [Coffee.espresso: 100, Coffee.americano: 200, Coffee.macchiato: 300,
                                Coffee.cappuccino: 400, Coffee.caffeLatte: 500, Coffee.affogato: 600]
     var pickUpTable: Bool = false {
         didSet {
-            if pickUpTable {
+            if pickUpTable, let orderer = orderer  {
                 print("\(orderer) 님의 커피가 준비되엇습니다. 픽업대에서 가져가주세요.")
+                pickUpTable = false                 //주문된 커피가 픽업테이블에 올라갔기 때문에 다시 false로 변경.
             }
         }
     }
@@ -91,15 +96,16 @@ enum Coffee: String {
     case affogato = "아포가토"
 }
 
-var missKim: Person = Person()
+var missKim: Person = Person(name: "missKim")
 missKim.money = 10000
-missKim.name = "missKim"
 
-var misterLee: Person = Person()
-misterLee.money = 50000
-misterLee.name = "miserLee"
+var misterLee: Person = Person(name: "misterLee")
+
 
 var yagombucks: CoffeeShop = CoffeeShop(sales: 0)
 yagombucks.barista = misterLee
 
 missKim.buyCoffee(Coffee.espresso, yagombucks)
+
+print("주문후 잔액은 \(missKim.money) 입니다.")
+
