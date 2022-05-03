@@ -128,25 +128,22 @@ struct CoffeeShop {
             print("현재 출근한 바리스타가 없습니다. 잠시 후에 다시 주문해 주세요.")
             return nil
         }
-        if let price = menu[coffee] {
-            if customer.isSpendable(price) {
-                print("\(coffee)가 주문되었습니다.")
-                totalIncome += price
-                make(coffee, orderedBy: customer)
-                return price
-            } else {
-                print("잔액이 \(price - customer.money)만큼 부족합니다")
-                return nil
-            }
-        } else {
-            print("해당 메뉴는 저희 매장에서 판매하지 않습니다.")
-            return nil
+        if isItOnMenu(that: coffee) {
+            return menu[coffee] ?? nil
         }
-        
+        return 1
     }
     
     func isItOnMenu(that coffee: Coffee) -> Bool {
         return menu.contains(where: {$0.key == coffee})
+    }
+    
+    func informThePrice(of coffee: Coffee) -> Int {
+        if let price = menu[coffee] {
+            return price
+        } else {
+            return 0
+        }
     }
     
     mutating func make(_ coffee: Coffee, orderedBy customer: Person) {
@@ -177,3 +174,5 @@ yagombucks?.barista = misterLee
 missKim?.buyCoffee(Coffee.americano, at: yagombucks)
 missKim?.saveMoney(amount: 10000)
 missKim?.buyCoffee(Coffee.coldBrew, at: yagombucks)
+
+
