@@ -31,8 +31,10 @@ class Customer: Person {
                 buget -= price
                 self.buget = buget
             } else {
-                print("잔액이 \(price)원만큼 부족합니다")
+                print("잔액이 \(price)원만큼 부족합니다.")
             }
+        } else {
+            print("\(menuName)이 메뉴리스트에 없습니다.")
         }
     }
 }
