@@ -72,7 +72,6 @@ class CoffeeShop {
     
     func order(_ coffee: Coffee) {
         guard let price = self.menuList[coffee] else { return }
-            
         let coffeeMenuName = coffee.rawValue
 
         calculate(menuPrice: price)
@@ -81,7 +80,6 @@ class CoffeeShop {
     
     func calculate(menuPrice: Int) {
         self.revenue += menuPrice
-        print("self.revenue : \(self.revenue)")
     }
     
     func makeCoffee(which menu: String){
