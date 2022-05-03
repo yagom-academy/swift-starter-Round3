@@ -27,7 +27,7 @@ class CoffeeShop {
             price = (defaultPrice + size.priceBySize + iceOrHot.priceByIceOrHot) * quantity
         }
         if customer.money < price {
-            print("잔액이 \(price)만큼 부족합니다. ")
+            print("잔액이 \(abs(customer.money - price))만큼 부족합니다. ")
         } else {
             pickUpTable = (iceOrHot, menu, size)
             sales += price
