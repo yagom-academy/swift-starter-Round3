@@ -66,7 +66,9 @@ class CoffeeShop {
     
     func makeCoffee(who barista: Person?) { }
     
-    func putCoffeeOnPickUpTable() { }
+    func putCoffeeOnPickUpTable(coffee: String) {
+        self.pickUpTable = coffee
+    }
 }
 
 // MARK: - 실행부
