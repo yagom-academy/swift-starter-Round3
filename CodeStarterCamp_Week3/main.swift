@@ -68,4 +68,3 @@ let missKim: Person = Person(money: 5000)
 let yagombucks: CoffeShop = CoffeShop(salse: 0, menu: " ", menuPrice: 0, pickupTable: true, barista: misterLee)
 yagombucks.menu = "\(coffeMenu.카라멜마끼야또)"
 yagombucks.menuPrice = coffeMenu.카라멜마끼야또.coffeePrice
-print(coffeMenu.카라멜마끼야또.coffeePrice)
