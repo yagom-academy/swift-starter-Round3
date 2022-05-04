@@ -17,11 +17,11 @@ class Person {
         self.money = money
     }
     
-    func buyCoffee(ordered: Coffee, shop: CoffeeShop) {
-        guard let coffeePrice = shop.menu[ordered] else {
+    func buy(coffee: Coffee, shop: CoffeeShop) {
+        guard let price = shop.menu[coffee] else {
             return
         }
-        self.money -= coffeePrice
+        self.money -= price
     }
 }
 
@@ -56,5 +56,5 @@ let missKim = Person(name: "Kim Yuna", money: 20000)
 let yagombucks = CoffeeShop(revenue: 0, menu: [.espresso : 1000, .americano: 2000, .vanillaLatte: 3000, .cafeMocha: 3500])
 
 yagombucks.barista.append(misterLee)
-missKim.buyCoffee(ordered: .espresso, shop: yagombucks)
+missKim.buy(coffee: .espresso, shop: yagombucks)
 yagombucks.orderedCoffee(coffee: .espresso)
