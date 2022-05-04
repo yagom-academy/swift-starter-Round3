@@ -12,7 +12,13 @@ class CoffeeShop {
     var barista: Person
     var cafeName: String
     var cafeMenu = Coffee.allCases
-    var pickUpTable: Coffee?
+    var pickUpTable: Coffee? {
+        didSet {
+            if let drink = pickUpTable {
+                print("[안내] \(drink) 제조가 완료되었습니다. 픽업대에서 가져가주세요.")
+            }
+        }
+    }
     
     init(barista: Person, cafeName: String) {
         self.barista = barista
@@ -29,11 +35,12 @@ class CoffeeShop {
                 print("[안내] 현재 \(cafeName)의 매출액은 \(sales)원 입니다.")
                 customer.money -= order.price
                 print("[안내] \(customer.name)님의 잔액은 \(customer.money)원 입니다.")
-                brewCoffee(order)
+                brewCoffee(order, for: customer)
             }
         }
     
-    func brewCoffee(_ drink: Coffee) {
-        print("\(drink)를 제조합니다.")
+    func brewCoffee(_ drink: Coffee, for customer: Person) {
+        print("[커피숍] \(barista.name)이(가) \(customer.name)님의 \(drink)를 제조합니다.")
+        pickUpTable = drink
     }
 }
