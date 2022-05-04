@@ -18,7 +18,7 @@ class CoffeeShop {
     var sales: Int = 0
     var barista: Person
     var menuBoard: [Coffee: Int] = [:]
-    var pickUpTable = [Coffee]()
+    var pickUpTable: Array<Coffee>?
 
     
     init(barista: Person) {
@@ -26,11 +26,11 @@ class CoffeeShop {
     }
     
     
-    func receiveOrder() {
+    func receiveOrder(coffee: Coffee) {
         
     }
     
-    func makeCoffee() {
+    func makeCoffee(by barista: Person, making coffee: Coffee) {
         
     }
 }
