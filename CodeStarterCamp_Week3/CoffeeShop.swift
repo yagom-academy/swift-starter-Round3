@@ -33,7 +33,7 @@ class CoffeeShop {
         return menuDetail
     }
     
-    func order(_ coffee: Coffee, by customer: Person) -> Int {
+    func order(_ coffee: Coffee, by customer: Person) -> Coffee? {
         if openingHours.isEmpty {
             print("아직 오픈 시간이 아닙니다.")
         } else {
@@ -42,12 +42,13 @@ class CoffeeShop {
                     print("\(coffee)가 주문 되었습니다.")
                     coffeeShopProfit += price
                     makeCoffee(coffee)
-                    return price
+                    return coffee
                 } else {
                     print("잔액이 \(price - customer.walletInCash)만큼 부족합니다.")
                 }
             }
         }
+        return coffee
     }
     
     func makeCoffee(_ coffee: Coffee) {
