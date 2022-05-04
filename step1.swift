@@ -8,25 +8,26 @@
 import Foundation
 
 class Person {
-    var money: Int = 0
+    var money: Int
     var name: String
     
-    init(name: String) {
+    init(name: String, money: Int) {
         self.name = name
+        self.money = money
     }
     
-    func buyCoffee(coffee: Coffee) {
-        let coffeeShop: CoffeeShop = CoffeeShop()
-        let coffeePrice = coffeeShop.menuBoard[coffee]
+    func buyCoffee(at cafe: CoffeeShop, coffee: Coffee) -> Int {
+        let coffeePrice = cafe.menuBoard[coffee]
         
         if money >= coffeePrice ?? 0 {
             money -= coffeePrice ?? 0
-            coffeeShop.order(coffee)
+            cafe.order(coffee)
             print("\(name)님의 \(coffee)가 준비되었습니다. 픽업대에서 가져가주세요.")
+            return money
         } else {
             print("잔액이 \((coffeePrice ?? 0) - money)원만큼 부족합니다.")
+            return money
         }
-                
     }
 }
 
