@@ -30,11 +30,15 @@ import Foundation
 //}
 
 struct Person {
-    private var money: Int
+    private var money: Int {
+        didSet {
+            print("주문후 잔액은 \(money) 입니다.")
+        }
+    }
     var name: String
     
     mutating func buyCoffee(_ coffee: Coffee, _ coffeeShop: CoffeeShop) {
-        if let coffeePrice = coffee.getPrice {
+        if let coffeePrice = coffee.menuPrice {
             if money >= coffeePrice {
                 money = money - coffeePrice
             } else {
@@ -49,25 +53,19 @@ struct Person {
         self.name = name
         self.money = money
     }
-    
-    var getMoney: Int {
-        get {
-            return self.money
-        }
-    }
 }
 
 class CoffeeShop {
     var sales: Int
     var barista: Person?
     var orderer: String?
-    let menu: [Coffee] = [Coffee.espresso, Coffee.americano, Coffee.macchiato,
-                               Coffee.cappuccino, Coffee.caffeLatte, Coffee.affogato]
+    var coffee: String?
+    let menu: [Coffee] = [.espresso, .americano, .macchiato, .cappuccino, .caffeLatte, .affogato]
     
     var pickUpTable: Bool = false {
         didSet {
-            if pickUpTable, let orderer = orderer  {
-                print("\(orderer) 님의 커피가 준비되엇습니다. 픽업대에서 가져가주세요.")
+            if pickUpTable, let orderer = orderer, let coffee = coffee  {
+                print("\(orderer) 님의 \(coffee)가 준비되엇습니다. 픽업대에서 가져가주세요.")
                 pickUpTable = false                 //주문된 커피가 픽업테이블에 올라갔기 때문에 다시 false로 변경.
             }
         }
@@ -78,23 +76,24 @@ class CoffeeShop {
     }
     
     func orderCoffee(_ coffee: Coffee, _ orderer: String) {
-        if let coffeePrice = coffee.getPrice {
+        if let coffeePrice = coffee.menuPrice {
             self.sales += coffeePrice
             self.orderer = orderer
+            self.coffee = coffee.menuName
             pickUpTable = true
         }
     }
 }
 
-enum Coffee: String {
-    case espresso = "에스프레소"
-    case americano = "아메리카노"
-    case macchiato = "마끼아또"
-    case cappuccino = "카푸치노"
-    case caffeLatte = "카페라떼"
-    case affogato = "아포가토"
+enum Coffee{
+    case espresso
+    case americano
+    case macchiato
+    case cappuccino
+    case caffeLatte
+    case affogato
     
-    var getPrice: Int? {   // 구조체 타입의 연산프로퍼티 (열거형에선 저장프로퍼티X)
+    var menuPrice: Int? {   // 구조체 타입의 연산프로퍼티 (열거형에선 저장프로퍼티X)
         switch self {   // self = Rank
         case .espresso:
             return 1000  // Value 타입의 인스턴스 반환
@@ -108,7 +107,25 @@ enum Coffee: String {
             return nil
         }
     }
+    
+    var menuName: String {
+        switch self {
+        case .espresso:
+            return "에스프레소"
+        case .americano:
+            return "아메리카노"
+        case .caffeLatte:
+            return "카페라떼"
+        case .macchiato:
+            return "마끼아또"
+        case .cappuccino:
+            return "카푸치노"
+        case .affogato:
+            return "아포카토"
+        }
+    }
 }
+
 
 var missKim: Person = Person(name: "missKim", money: 10000)
 
@@ -120,5 +137,4 @@ yagombucks.barista = misterLee
 
 missKim.buyCoffee(Coffee.espresso, yagombucks)
 
-print("주문후 잔액은 \(missKim.getMoney) 입니다.")
 
