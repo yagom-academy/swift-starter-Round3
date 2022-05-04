@@ -29,6 +29,14 @@ class Person {
         }
     }
     
+    func isPayable(_ amount: Int) -> Bool {
+        if walletInCash > amount {
+            return false
+        } else {
+            return true
+        }
+    }
+    
     func buyCoffee(_ coffee: Coffee) {
         print("\(name)이 \(coffee)를 삽니다.")
         print("\(name)에게 \(walletInCash)원이 남았어요")
