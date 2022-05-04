@@ -21,7 +21,12 @@ class Person {
         guard let price = shop.menu[coffee] else {
             return
         }
-        self.money -= price
+        if self.money > price {
+            self.money -= price
+        } else {
+            let lack = price - self.money
+            print("잔액이 \(lack)원만큼 부족합니다.")
+        }
     }
 }
 
