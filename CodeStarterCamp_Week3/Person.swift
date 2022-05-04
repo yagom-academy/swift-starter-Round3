@@ -13,7 +13,7 @@ class Person {
         willSet(newValue) {
             if self.money > 0 {
                 let willUse = self.money - newValue
-                print("\(willUse)원을 사용합니다")
+                print("\(willUse)원이 차감됩니다")
             }
         }
         
@@ -33,7 +33,7 @@ class Person {
         }
         
         if self.money >= price {
-            shop.order(coffee: coffee)
+            shop.order(coffee: coffee, name: self.name)
             self.money -= price
         } else {
             let lack = price - self.money
