@@ -22,7 +22,17 @@ class CoffeeShop {
     }
     
     func order(_ coffee: Coffee) {
-        
+        func showMenu() -> String {
+            var menuDetail = "\(owner) 카페 메뉴판\n"
+            if menu.isEmpty {
+                return "현재 메뉴 준비 중입니다."
+            } else {
+                for (coffee, price) in menu {
+                    menuDetail += "|| \(coffee) - \(price)원 ||\n"
+                }
+            }
+            return menuDetail
+        }
     }
     
     func makeCoffee(_ coffee: Coffee) {
