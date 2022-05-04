@@ -14,4 +14,3 @@ let yagombucks = CoffeeShop(revenue: 0, menu: [.espresso : 1000, .americano: 200
 
 yagombucks.barista.append(misterLee)
 missKim.buy(coffee: .espresso, shop: yagombucks)
-yagombucks.order(coffee: .espresso)

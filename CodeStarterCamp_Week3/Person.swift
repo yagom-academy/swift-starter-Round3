@@ -9,7 +9,18 @@ import Foundation
 
 class Person {
     var name: String
-    var money: Int
+    var money: Int {
+        willSet(newValue) {
+            if self.money > 0 {
+                let willUse = self.money - newValue
+                print("\(willUse)원을 사용합니다")
+            }
+        }
+        
+        didSet {
+            print("잔액이 \(self.money)원 남았습니다.")
+        }
+    }
     
     init(name: String, money: Int) {
         self.name = name
@@ -21,7 +32,7 @@ class Person {
             return
         }
         
-        if self.money > price {
+        if self.money >= price {
             shop.order(coffee: coffee)
             self.money -= price
         } else {
