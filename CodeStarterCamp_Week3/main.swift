@@ -21,7 +21,9 @@ yagombucks.addMenu(coffee: Coffee.latte, price: 4000)
 
 missKim.buyCoffee(at: yagombucks, coffee: Coffee.latte)
 print("잔액: \(missKim.money)")
+print("yagombucks 매출: \(yagombucks.sales)")
 
 missKim.money = 10000
 missKim.buyCoffee(at: yagombucks, coffee: Coffee.latte)
 print("잔액: \(missKim.money)")
+print("yagombucks 매출: \(yagombucks.sales)")
