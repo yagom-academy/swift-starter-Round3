@@ -11,13 +11,13 @@ class Person {
     let name: String
     let age: Int
     var habit: String?
-    var personalMBTI: String?
+    var MBTI: String?
     var walletInCash: Int
-    init(name: String, age: Int, habit: String? = nil, personalMBTI: String? = nil, walletInCash: Int) {
+    init(name: String, age: Int, habit: String? = nil, MBTI: String? = nil, walletInCash: Int) {
         self.name = name
         self.age = age
         self.habit = habit
-        self.personalMBTI = personalMBTI
+        self.MBTI = MBTI
         self.walletInCash = walletInCash
     }
     
