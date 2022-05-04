@@ -12,60 +12,90 @@ import Foundation
 
 class Person {
     var name: String = ""
-    var defaultBuget: Int = 0
-    
-    func buyDrink(at coffeeShop: CoffeeShop, which menuName: String){
-        guard let menu = coffeeShop.menuList[menuName] else { return }
-
-        switch menu {
-        case .americano(let price):
-            self.defaultBuget -= price
-        case .einspanner(let price):
-            self.defaultBuget -= price
-        case .vanillaLatte(let price):
-            self.defaultBuget -= price
-        case .latte(let price):
-            self.defaultBuget -= price
-        }
-    }
+    var buget: Int?
     
     init(name: String) {
         self.name = name
     }
 }
 
-enum Coffee {
-    case americano(price: Int)
-    case latte(price: Int)
-    case vanillaLatte(price: Int)
-    case einspanner(price: Int)
+class Customer: Person {
+    func buyDrink(which menuName: String, at coffeeShop: CoffeeShop) {
+        let menuNameArr = Coffee.allCases.map { $0.rawValue }
+        
+        if menuNameArr.contains(menuName) {
+            guard let coffee = Coffee(rawValue: menuName), let price = coffeeShop.menuList[coffee], var buget = self.buget else { return }
+            
+            if buget >= price {
+                coffeeShop.order(coffee)
+                buget -= price
+                self.buget = buget
+            } else {
+                print("잔액이 \(price)원만큼 부족합니다.")
+            }
+        } else {
+            print("\(menuName)이 메뉴리스트에 없습니다.")
+        }
+    }
+}
+
+enum Coffee: String, CaseIterable {
+    case americano = "Americano"
+    case latte = "Latte"
+    case vanillaLatte = "Vanila Latte"
+    case einspanner = "Einspanner"
 }
 
 class CoffeeShop {
     var revenue: Int = 0
     var barista: Person?
-    var pickUpTable: Array<String?> = []
-    var menuList: Dictionary<String, Coffee> = [
-        "Americano": .americano(price: 3500) ,
-        "Einspanner": .einspanner(price: 5500),
-        "Latte": .latte(price: 4000),
-        "Vanilla Latte" : .vanillaLatte(price: 4500)
+    var menuList: Dictionary<Coffee, Int> = [
+        .americano : 3500,
+        .latte : 4000,
+        .vanillaLatte : 4500,
+        .einspanner : 5500
     ]
     
-    // STEP1 에선 아래 method 에 대하여
-    // "동작을 가질 수 있도록" 을 요했기 때문에
-    // method 생성만 해둠
-    // STEP2 에서 디테일화 예정
-    func order(_ coffee: Coffee) { }
+    var menuInfo: String? {
+        get {
+            return pickUpTable
+        }
+        set(newMenu) {
+            pickUpTable = newMenu
+        }
+    }
     
-    func makeCoffee() { }
+    var pickUpTable: String? {
+        willSet(newMenu) {
+            guard let newMenu = newMenu else { return }
+            print("\(newMenu)가 준비되었습니다. 픽업대에서 가져가주세요.")
+        }
+    }
+    
+    func order(_ coffee: Coffee) {
+        guard let price = self.menuList[coffee] else { return }
+        let coffeeMenuName = coffee.rawValue
+
+        calculate(menuPrice: price)
+        makeCoffee(which: coffeeMenuName)
+    }
+    
+    func calculate(menuPrice: Int) {
+        self.revenue += menuPrice
+    }
+    
+    func makeCoffee(which menu: String) {
+        self.menuInfo = menu
+    }
 }
 
 // MARK: - 실행부
 
-let misterLee: Person = Person(name: "이미남")
-let missKim: Person = Person(name: "김미녀")
-missKim.defaultBuget = 100000
-
-let yagombucks: CoffeeShop = CoffeeShop()
+let missKim = Customer(name: "missKim")
+let misterLee = Person(name: "misterLee")
+let yagombucks = CoffeeShop()
 yagombucks.barista = misterLee
+
+missKim.buget = 3500
+missKim.buyDrink(which: "Americano", at: yagombucks)
+missKim.buyDrink(which: "Americano", at: yagombucks)
