@@ -36,7 +36,7 @@ class CoffeeShop {
     var revenue: Int
     var menu: [Coffee : Int]
     var barista: [Person] = []
-    var pickUpTable: String?
+    var pickUpTable: Coffee?
     
     init(revenue: Int, menu: [Coffee: Int]) {
         self.revenue = revenue
@@ -48,6 +48,7 @@ class CoffeeShop {
             return
         }
         self.revenue += coffeePrice
+        self.pickUpTable = coffee
     }
 }
 
