@@ -10,11 +10,13 @@ import Foundation
 class CoffeeShop {
     var sales: Int = 0
     var barista: Person
+    var cafeName: String
     var cafeMenu = Coffee.allCases
     var pickUpTable: Coffee?
     
-    init(barista: Person) {
+    init(barista: Person, cafeName: String) {
         self.barista = barista
+        self.cafeName = cafeName
     }
     
     func order(_ order: Coffee) {
