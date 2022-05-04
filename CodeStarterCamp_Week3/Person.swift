@@ -21,6 +21,10 @@ class Person {
         self.job = job
     }
     
+    deinit {
+        print("[안내] \(name)님이 카페를 나갑니다.")
+    }
+    
     func buy(kindOf drink: Coffee, at cafe: CoffeeShop) {
         cafe.order(drink, for: self)
     }
