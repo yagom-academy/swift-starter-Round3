@@ -43,6 +43,7 @@ class Person {
                 if walletInCash > price {
                     walletInCash -= price
                     print("\(coffee)를 구매하였습니다.")
+                    coffeeShop?.order(coffee, by: self)
                 } else {
                     print("잔액이 \(price - walletInCash)원 만큼 부족합니다.")
                 }

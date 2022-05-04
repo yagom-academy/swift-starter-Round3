@@ -12,8 +12,15 @@ class CoffeeShop {
     let openingHours: String
     var coffeeShopProfit: Int = 0
     var menu: [Coffee: Int]
-    var pickUpTable: Coffee? = nil
+    var pickUpTable: Coffee? {
+        didSet {
+            if let coffee = pickUpTable {
+                print("\(customerName)님, \(coffee)가 완성되어 픽업 테이블에 올라왔습니다.")
+            }
+        }
+    }
     var barista: Person?
+    var customerName: String = ""
     init(owner: String, openingHours: String, menu: [Coffee: Int] = [:], barista: Person?) {
         self.owner = owner
         self.openingHours = openingHours
@@ -39,7 +46,8 @@ class CoffeeShop {
         } else {
             if let price = menu[coffee] {
                 if customer.isPayable(price) {
-                    print("\(coffee)가 주문 되었습니다.")
+                    print("\(customer.name)님의 \(coffee)가 주문 되었습니다.")
+                    self.customerName = customer.name
                     coffeeShopProfit += price
                     makeCoffee(coffee)
                     return coffee
@@ -53,7 +61,6 @@ class CoffeeShop {
     
     func makeCoffee(_ coffee: Coffee) {
         pickUpTable = coffee
-        print("\(coffee)가 완성되어 픽업 테이블에 올라왔습니다.")
     }
 }
 
