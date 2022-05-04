@@ -44,7 +44,7 @@ class Person {
                     walletInCash -= price
                     print("\(coffee)를 구매하였습니다.")
                 } else {
-                    print("잔돈이 부족합니다.")
+                    print("잔액이 \(price - walletInCash)원 만큼 부족합니다.")
                 }
             }
         }
