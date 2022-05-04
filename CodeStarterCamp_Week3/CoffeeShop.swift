@@ -21,10 +21,13 @@ class CoffeeShop {
         if let coffeePrice = menu[coffee] {
             if coffeePrice <= person.money {
                 self.sales += coffeePrice
+                person.money -= coffeePrice
                 makeCoffee(coffee, person)
             } else {
                 print("잔액이 \(coffeePrice - person.money)원 만큼 부족합니다.")
             }
+        } else {
+            print("주문하신 음료는 없는 음료입니다.")
         }
     }
    
