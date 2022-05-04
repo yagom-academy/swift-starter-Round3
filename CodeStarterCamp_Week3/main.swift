@@ -21,7 +21,9 @@ class Person {
         guard let price = shop.menu[coffee] else {
             return
         }
+        
         if self.money > price {
+            shop.order(coffee: coffee)
             self.money -= price
         } else {
             let lack = price - self.money
