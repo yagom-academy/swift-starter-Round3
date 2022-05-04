@@ -7,7 +7,7 @@
 
 import Foundation
 
-struct Person {
+class Person {
     let name: String
     let age: Int
     var money: Int
@@ -21,7 +21,7 @@ struct Person {
     func introduce() {
         print("안녕하세요 저는\(self.name)입니다. 저는 \(self.age)살 입니다.")
     }
-    mutating func buyCoffee(_ coffee: Coffee, _ coffeeShop: CoffeeShop) {
+    func buyCoffee(_ coffee: Coffee, _ coffeeShop: CoffeeShop) {
         print("\(coffee) 주세요")
         coffeeShop.getOrder(coffee, self)
     }
