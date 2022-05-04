@@ -21,7 +21,7 @@ class Person {
         self.job = job
     }
     
-    func buy(kindOf drink: Coffee) {
-        print("\(name)이(가) \(drink)을(를) 구매하였습니다. 가격은 \(drink.price)원 입니다!")
+    func buy(kindOf drink: Coffee, at cafe: CoffeeShop) {
+        cafe.order(drink, for: self)
     }
 }
