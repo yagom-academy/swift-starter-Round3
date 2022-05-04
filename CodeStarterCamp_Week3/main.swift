@@ -14,5 +14,3 @@ let misterLee = Person(name: "misterLee", age: 31, habit: "농구", personalMBTI
 
 //CoffeeShop 타입의 인스턴스로 yagombucks 을 생성
 var yagombucks = CoffeeShop(owner: "야곰", openingHours: "10:00 ~ 20:00", menu: Coffee.menu, barista: misterLee)
-
-

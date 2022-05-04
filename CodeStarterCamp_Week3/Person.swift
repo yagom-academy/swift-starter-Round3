@@ -37,8 +37,17 @@ class Person {
         }
     }
     
-    func buyCoffee(_ coffee: Coffee) {
-        print("\(name)이 \(coffee)를 삽니다.")
-        print("\(name)에게 \(walletInCash)원이 남았어요")
+    func buyCoffee(_ coffee: Coffee, at coffeeShop: CoffeeShop?) {
+        if let cafe = coffeeShop {
+            if let price = cafe.menu[coffee] {
+                if walletInCash > price {
+                    walletInCash -= price
+                    print("\(coffee)를 구매하였습니다.")
+                } else {
+                    print("잔돈이 부족합니다.")
+                }
+            }
+        }
     }
 }
+
