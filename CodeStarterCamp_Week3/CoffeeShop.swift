@@ -7,22 +7,27 @@
 
 import Foundation
 
-struct CoffeeShop {
-    var owner: String
-    var openingHours: String
-    var coffeeShopProfit: Int?
+class CoffeeShop {
+    let owner: String
+    let openingHours: String
+    var coffeeShopProfit: Int = 0
     var menu: [Coffee: Int]
     var pickUpTable: Coffee? = nil
     var barista: Person?
-    init(owner: String, openingHours: String, coffeeShopProfit: Int? = nil, menu: [Coffee: Int] = [:], barista: Person? = nil) {
+    init(owner: String, openingHours: String, menu: [Coffee: Int] = [:], barista: Person?) {
         self.owner = owner
         self.openingHours = openingHours
-        self.coffeeShopProfit = coffeeShopProfit
         self.menu = menu
         self.barista = barista
     }
+    
+    func order(_ coffee: Coffee) {
+        
+    }
+    
     func makeCoffee(_ coffee: Coffee) {
-        print("\(coffee)를 만드는 중입니다.")
+        pickUpTable = coffee
+        print("\(coffee)가 완성되어 픽업 테이블에 올라왔습니다.")
     }
 }
 

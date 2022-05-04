@@ -7,9 +7,9 @@
 
 import Foundation
 
-struct Person {
-    var name: String
-    var age: Int
+class Person {
+    let name: String
+    let age: Int
     var habit: String?
     var personalMBTI: String?
     var walletInCash: Int
