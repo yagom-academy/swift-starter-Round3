@@ -38,14 +38,13 @@ struct Person {
     var name: String
     
     mutating func buyCoffee(_ coffee: Coffee, _ coffeeShop: CoffeeShop) {
-        if let coffeePrice = coffee.menuPrice {
-            if money >= coffeePrice {
-                money = money - coffeePrice
-            } else {
-                print("잔액이 \(coffeePrice - money)원 만큼 부족합니다. ")
-                return
-            }
+        if money >= coffee.menuPrice {
+            money = money - coffee.menuPrice
+        } else {
+            print("잔액이 \(coffee.menuPrice - money)원 만큼 부족합니다. ")
+            return
         }
+        
         coffeeShop.orderCoffee(coffee, name)
     }
     
@@ -76,12 +75,10 @@ class CoffeeShop {
     }
     
     func orderCoffee(_ coffee: Coffee, _ orderer: String) {
-        if let coffeePrice = coffee.menuPrice {
-            self.sales += coffeePrice
-            self.orderer = orderer
-            self.coffee = coffee.menuName
-            pickUpTable = true
-        }
+        self.sales += coffee.menuPrice
+        self.orderer = orderer
+        self.coffee = coffee.menuName
+        pickUpTable = true
     }
 }
 
@@ -93,7 +90,7 @@ enum Coffee{
     case caffeLatte
     case affogato
     
-    var menuPrice: Int? {   // 구조체 타입의 연산프로퍼티 (열거형에선 저장프로퍼티X)
+    var menuPrice: Int {   // 구조체 타입의 연산프로퍼티 (열거형에선 저장프로퍼티X)
         switch self {   // self = Rank
         case .espresso:
             return 1000  // Value 타입의 인스턴스 반환
@@ -103,8 +100,6 @@ enum Coffee{
             return 2000
         case .affogato:
             return 2500
-        default:
-            return nil
         }
     }
     
