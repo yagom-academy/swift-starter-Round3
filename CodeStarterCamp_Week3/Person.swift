@@ -13,6 +13,7 @@ class Person {
     var habit: String?
     var MBTI: String?
     var walletInCash: Int
+    
     init(name: String, age: Int, habit: String? = nil, MBTI: String? = nil, walletInCash: Int) {
         self.name = name
         self.age = age
