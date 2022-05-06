@@ -29,7 +29,7 @@ class CoffeeShop {
     }
     
     func order(_ order: Coffee, for customer: Person) {
-        print("[커피숍] \(customer.name)님, 결제가 완료되었습니다.")
+        print("[커피숍] \(customer.name)님, \(order.name) \(order.price)원 결제가 완료되었습니다.")
         sales += order.price
         print("[안내] 현재 \(cafeName)의 매출액은 \(sales)원 입니다.")
         customer.money -= order.price
