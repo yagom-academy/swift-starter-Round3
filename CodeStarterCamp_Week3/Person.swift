@@ -14,7 +14,7 @@ class Person {
     
     init(name: String) {
         self.name = name
-        print("[안내] \(name)님이 카페에 들어왔습니다.", "\n")
+        print("[System] \(name)님이 카페에 들어왔습니다.", "\n")
     }
     
     init(name: String, job: String) {
@@ -23,15 +23,15 @@ class Person {
     }
     
     deinit {
-        print("[안내] \(name)님이 카페를 나갑니다.")
+        print("[System] \(name)님이 카페를 나갑니다.")
     }
     
     func buy(kindOf drink: Coffee, at cafe: CoffeeShop) {
         if money < drink.price {
             let changes = drink.price - money
-            print("[안내] \(drink)을(를) 주문하기에는 \(name)님의 잔액이 \(changes)원 부족합니다.")
+            print("[System] \(drink)을(를) 주문하기에는 \(name)님의 잔액이 \(changes)원 부족합니다.")
         } else {
-            print("[손님] 안녕하세요, \(cafe.barista.name)! \(drink.name) 주문할게요.")
+            print("[\(name)] 안녕하세요, \(cafe.barista.name)! \(drink.name) 주문할게요.")
             cafe.order(drink, for: self)
         }
         
