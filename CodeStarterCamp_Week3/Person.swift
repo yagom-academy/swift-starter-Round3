@@ -14,6 +14,7 @@ class Person {
     
     init(name: String) {
         self.name = name
+        print("[안내] \(name)님이 카페에 들어왔습니다.", "\n")
     }
     
     init(name: String, job: String) {
