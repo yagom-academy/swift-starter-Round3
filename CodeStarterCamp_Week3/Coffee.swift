@@ -20,4 +20,14 @@ enum Coffee: CaseIterable {
             return 4500
         }
     }
+    var name: String {
+        switch self {
+        case .espresso:
+            return "Espresso"
+        case .americano:
+            return "Americano"
+        case .latte:
+            return "CafeLatte"
+        }
+    }
 }
