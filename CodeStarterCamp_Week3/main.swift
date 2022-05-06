@@ -27,8 +27,7 @@ struct Person {
         self.money = money
     }
     
-    mutating func buyCoffee() -> String {
-        
+   func buyCoffee() -> String {
         let order = "\(name)은 커피를 주문합니다."
         return order
     }
@@ -126,4 +125,3 @@ enum Manu {
 let misterLee : Person = Person(name: "misterLee", age: 30, money: 100000)
 let missKim : Person = Person(name: "missKim", age: 20, money: 10000, pastime: "커피숍투어🍰☕️")
 var yagombucks : CoffeeShop = CoffeeShop(salesRevenue: 0, pickUpTable: "좌측 픽업바", music: "Oasis - Wonderwall", barista: misterLee, mood: "Woody")
-
