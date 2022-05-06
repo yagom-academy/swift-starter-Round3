@@ -34,17 +34,15 @@ class Person {
         return walletInCash >= amount
     }
     
-    func buyCoffee(_ coffee: Coffee, at coffeeShop: CoffeeShop?) {
-        if let cafe = coffeeShop {
-            if let price = cafe.menu[coffee] {
-                if walletInCash > price {
-                    walletInCash -= price
-                    print("\(coffee)를 구매하였습니다.")
-                    coffeeShop?.order(coffee, by: self)
-                } else {
-                    print("잔액이 \(price - walletInCash)원 만큼 부족합니다.")
-                }
-            }
+    func buyCoffee(_ coffee: Coffee, at coffeeShop: CoffeeShop) {
+        guard let price = coffeeShop.menu[coffee] else {
+            print("주문한 커피가 메뉴에 없습니다.")
+        }
+        if isPayable(price) {
+            walletInCash -= price
+            coffeeShop.order(coffee, price: price, customerName: name)
+        } else {
+            print("\(coffee) 를 주문하기엔 잔액이 \(price - walletInCash)원 부족합니다.")
         }
     }
 }
