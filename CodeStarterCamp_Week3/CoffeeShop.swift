@@ -11,7 +11,7 @@ class CoffeeShop {
     var sales: Int = 0
     var barista: Person
     var cafeName: String
-    var cafeMenu = Coffee.allCases
+    var cafeMenu = Coffee.allCases.map( { $0.name + ": " + String($0.price) + "원" } )
     var pickUpTable: Coffee? {
         didSet {
             if let drink = pickUpTable {
@@ -23,6 +23,7 @@ class CoffeeShop {
     init(barista: Person, cafeName: String) {
         self.barista = barista
         self.cafeName = cafeName
+        print("[메뉴판] \(cafeMenu)", "\n")
     }
     
     func order(_ order: Coffee, for customer: Person) {
