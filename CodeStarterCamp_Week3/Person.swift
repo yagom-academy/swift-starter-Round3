@@ -31,7 +31,7 @@ class Person {
             let changes = drink.price - money
             print("[안내] \(drink)을(를) 주문하기에는 \(name)님의 잔액이 \(changes)원 부족합니다.")
         } else {
-            print("[손님] 안녕하세요, \(cafe.barista.name)! \(drink) 주문할게요.")
+            print("[손님] 안녕하세요, \(cafe.barista.name)! \(drink.name) 주문할게요.")
             cafe.order(drink, for: self)
         }
         
