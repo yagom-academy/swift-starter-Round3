@@ -42,3 +42,65 @@ struct Person {
     }
 }
 
+//MARK: - 커피샵차리기
+
+class CoffeeShop {
+    var salesRevenue : Int
+    var pickUpTable : String?
+    var music : String
+    var barista : Person!
+    var mood : String
+    
+    convenience init(salesRevenue: Int, pickUpTable: String, music: String, barista: Person, mood: String) {
+        self.init(salesRevenue: salesRevenue, music: music, mood: mood, barista: barista)
+        self.pickUpTable = pickUpTable
+    }
+    
+    init(salesRevenue: Int, music: String, mood: String, barista: Person) {
+        self.salesRevenue = salesRevenue
+        self.music = music
+        self.barista = barista
+        self.mood = mood
+    }
+    
+    func takeOrder(manu: Manu, takeOutOrIn: String) -> String {
+        var orderMent : String =
+"""
+"안녕하세요 Yagombucks입니다. 저는 바리스타 \(barista.name)입니다. 방문해주셔셔 감사합니다.
+\(manu), \(takeOutOrIn)으로 주문하셨습니다.
+"""
+        
+        if let pickUpTable = pickUpTable {
+            orderMent += " \n 진동벨이 울리면 \(pickUpTable)로 와주세요😎"
+        }
+        return orderMent
+    }
+    
+    func Calculate(price: Int) -> String {
+        let numberFormatter = NumberFormatter()
+        numberFormatter.numberStyle = .decimal
+        let price = price
+        let result = numberFormatter.string(for: price)!
+        let count : String = "가격은 \(result)원입니다."
+        
+        salesRevenue += price
+        return count
+    }
+    
+    func createDrick(manu: Manu) {
+        print("\(manu)를 만든다.")
+    }
+    
+    func giveDrink() {
+        print("감사합니다. 맛있게 드세요😊")
+    }
+    
+    func sayTodaySalesRevenue() -> String {
+        let numberFormatter = NumberFormatter()
+        numberFormatter.numberStyle = .decimal
+        let result = numberFormatter.string(for: salesRevenue)!
+        let todaySalesRevenue = "오늘 총매출은 \(result)입니다."
+        return todaySalesRevenue
+    }
+}
+
