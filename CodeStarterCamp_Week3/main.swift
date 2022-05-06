@@ -8,5 +8,11 @@
 
 import Foundation
 
-print("Hello, World!")
 
+
+let misterLee: Person = Person(name: "Mr.Lee", money: 0, job: "barista")
+let missKim: Person = Person(name: "Miss.Kim", money: 10000, job: "worker")
+
+
+let yagombucks: CoffeeShop = CoffeeShop(dailyTotal: 0, menu: "", pickUpTable: true)
+let yagombucksBarista = misterLee
