@@ -18,3 +18,4 @@ var yagombucks = CoffeeShop(owner: "야곰", openingHours: "10:00 ~ 20:00", menu
 missKim.buyCoffee(Coffee.caramelMacchiato, at: yagombucks)
 missKim.walletInCash = 4000
 missKim.buyCoffee(Coffee.caramelMacchiato, at: yagombucks)
+

@@ -21,7 +21,7 @@ class Person {
         self.walletInCash = walletInCash
     }
     
-    func spandCash (amount: Int) {
+    func spandCash(amount: Int) {
         if isPayable(amount) == false {
             print("잔돈이 부족합니다.")
         } else {
@@ -30,11 +30,7 @@ class Person {
     }
     
     func isPayable(_ amount: Int) -> Bool {
-        if walletInCash > amount {
-            return false
-        } else {
-            return true
-        }
+        return walletInCash >= amount
     }
     
     func buyCoffee(_ coffee: Coffee, at coffeeShop: CoffeeShop?) {
