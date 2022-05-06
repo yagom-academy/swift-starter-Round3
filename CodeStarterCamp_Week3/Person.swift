@@ -9,7 +9,7 @@ struct Person {
 			print("잔액이 \(coffee.price - money)원만큼 부족합니다.")
 		} else {
 			money -= coffee.price
-			shop.order(coffee, name)
+			shop.order(coffee, self)
 		}
 	}
 }
