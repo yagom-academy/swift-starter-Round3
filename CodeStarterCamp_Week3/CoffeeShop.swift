@@ -12,10 +12,10 @@ class CoffeeShop {
     var barista: Person
     var cafeName: String
     var cafeMenu = Coffee.allCases.map( { $0.name + ": " + String($0.price) + "원" } )
-    var pickUpTable: Coffee? {
+    var pickUpTable: (Coffee: Coffee, Person: Person)? {
         didSet {
-            if let drink = pickUpTable {
-                print("[\(cafeName)] \(drink.name) 제조가 완료되었습니다. 픽업대에서 가져가주세요.")
+            if let customer = pickUpTable {
+                print("[\(cafeName)] \(customer.Person.name)님의 \(customer.Coffee.name) 제조가 완료되었습니다. 픽업대에서 가져가주세요.")
                 pickUpTable = nil
                 print("[System] 픽업테이블이 비어있습니다.")
             }
@@ -39,6 +39,6 @@ class CoffeeShop {
     
     func take(_ order: Coffee, for customer: Person) {
         print("[System] \(barista.name)이(가) \(customer.name)님의 \(order.name)를 제조합니다.")
-        pickUpTable = order
+        pickUpTable = (Coffee: order, Person: customer)
     }
 }
