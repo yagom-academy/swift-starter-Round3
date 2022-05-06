@@ -38,7 +38,7 @@ class CoffeeShop {
     }
     
     func take(_ order: Coffee, for customer: Person) {
-        print("[커피숍] \(barista.name)이(가) \(customer.name)님의 \(order)를 제조합니다.")
+        print("[안내] \(barista.name)이(가) \(customer.name)님의 \(order)를 제조합니다.")
         pickUpTable = order
     }
 }
