@@ -35,12 +35,12 @@ class CoffeeShop {
             print("[안내] 현재 \(cafeName)의 매출액은 \(sales)원 입니다.")
             customer.money -= order.price
             print("[안내] \(customer.name)님의 잔액은 \(customer.money)원 입니다.")
-            brewCoffee(order, for: customer)
+            take(order, for: customer)
         }
     }
     
-    func brewCoffee(_ drink: Coffee, for customer: Person) {
-        print("[커피숍] \(barista.name)이(가) \(customer.name)님의 \(drink)를 제조합니다.")
-        pickUpTable = drink
+    func take(_ order: Coffee, for customer: Person) {
+        print("[커피숍] \(barista.name)이(가) \(customer.name)님의 \(order)를 제조합니다.")
+        pickUpTable = order
     }
 }
