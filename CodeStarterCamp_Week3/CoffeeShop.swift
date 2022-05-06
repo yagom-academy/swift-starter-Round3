@@ -15,7 +15,7 @@ class CoffeeShop {
     var pickUpTable: Coffee? {
         didSet {
             if let drink = pickUpTable {
-                print("[안내] \(drink) 제조가 완료되었습니다. 픽업대에서 가져가주세요.")
+                print("[커피숍] \(drink) 제조가 완료되었습니다. 픽업대에서 가져가주세요.")
                 pickUpTable = nil
                 print("[안내] 픽업테이블이 비어있습니다.")
             }
