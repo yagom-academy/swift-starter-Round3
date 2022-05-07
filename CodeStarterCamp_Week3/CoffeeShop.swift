@@ -51,7 +51,7 @@ class CoffeeShop {
     }
     
     func order(_ coffee: Coffee, price: Int, customerName: String) {
-        openCafe()
+        openStateOfCafe()
         showMenu()
         print("\(customerName) 님의 \(coffee) 주문이 들어왔습니다.")
         self.customerName = customerName
