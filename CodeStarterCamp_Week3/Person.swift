@@ -37,6 +37,7 @@ class Person {
     func buyCoffee(_ coffee: Coffee, at coffeeShop: CoffeeShop) {
         guard let price = coffeeShop.menu[coffee] else {
             print("주문한 커피가 메뉴에 없습니다.")
+            return
         }
         if isPayable(price) {
             walletInCash -= price
