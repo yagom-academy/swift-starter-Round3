@@ -7,21 +7,36 @@
 
 import Foundation
 
-struct Person {
-    var name: String
-    var age: Int
+class Person {
+    let name: String
+    let age: Int
     var habit: String?
-    var personalMBTI: String?
+    var MBTI: String?
     var walletInCash: Int
-    init(name: String, age: Int, habit: String? = nil, personalMBTI: String? = nil, walletInCash: Int) {
+    
+    init(name: String, age: Int, habit: String? = nil, MBTI: String? = nil, walletInCash: Int) {
         self.name = name
         self.age = age
         self.habit = habit
-        self.personalMBTI = personalMBTI
+        self.MBTI = MBTI
         self.walletInCash = walletInCash
     }
-    func buyCoffee(_ coffee: Coffee) {
-        print("\(name)이 \(coffee)를 삽니다.")
-        print("\(name)에게 \(walletInCash)원이 남았어요")
+    
+    func isPayable(_ amount: Int) -> Bool {
+        return walletInCash >= amount
+    }
+    
+    func buyCoffee(_ coffee: Coffee, at coffeeShop: CoffeeShop) {
+        guard let price = coffeeShop.menu[coffee] else {
+            print("주문한 커피가 메뉴에 없습니다.")
+            return
+        }
+        if isPayable(price) {
+            walletInCash -= price
+            coffeeShop.order(coffee, price: price, customerName: name)
+        } else {
+            print("\(coffee) 를 주문하기엔 잔액이 \(price - walletInCash)원 부족합니다.")
+        }
     }
 }
+
