@@ -29,6 +29,14 @@ class CoffeeShop {
         self.barista = barista
     }
     
+    func openStateOfCafe() {
+        if openingHours.isEmpty {
+            print("[CLOSE]")
+        } else {
+            print("[OPEN]")
+        }
+    }
+    
     func showMenu() {
         if menu.isEmpty {
             print("현재 메뉴 준비 중입니다.")
@@ -43,11 +51,12 @@ class CoffeeShop {
     }
     
     func order(_ coffee: Coffee, price: Int, customerName: String) {
-        showMenu() // 이거 여기에 끼워넣었어요. ㅎㅎ
+        openCafe()
+        showMenu()
         print("\(customerName) 님의 \(coffee) 주문이 들어왔습니다.")
         self.customerName = customerName
-        coffeeShopProfit += price // 파라미터로 들어온 돈을, 가게의 매출에 더해줘요.
-        makeCoffee(menu: coffee) // 진짜로 커피를 만드는 메서드 호출
+        coffeeShopProfit += price
+        makeCoffee(menu: coffee)
     }
     
     func makeCoffee(menu coffee: Coffee) {
