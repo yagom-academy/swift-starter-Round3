@@ -39,25 +39,15 @@ class CoffeeShop {
             }
             print("----------------------------")
         }
+
     }
     
-    func order(_ coffee: Coffee, by customer: Person) -> Coffee? {
-        if openingHours.isEmpty {
-            print("아직 오픈 시간이 아닙니다.")
-        } else {
-            if let price = menu[coffee] {
-                if customer.isPayable(price) {
-                    print("\(customer.name)님의 \(coffee)가 주문 되었습니다.")
-                    self.customerName = customer.name
-                    coffeeShopProfit += price
-                    makeCoffee(coffee)
-                    return coffee
-                } else {
-                    print("잔액이 \(price - customer.walletInCash)만큼 부족합니다.")
-                }
-            }
-        }
-        return coffee
+    func order(_ coffee: Coffee, price: Int, customerName: String) {
+        showMenu() // 이거 여기에 끼워넣었어요. ㅎㅎ
+        print("\(customerName) 님의 \(coffee) 주문이 들어왔습니다.")
+        self.customerName = customerName
+        coffeeShopProfit += price // 파라미터로 들어온 돈을, 가게의 매출에 더해줘요.
+        makeCoffee(menu: coffee) // 진짜로 커피를 만드는 메서드 호출
     }
     
     func makeCoffee(_ coffee: Coffee) {
