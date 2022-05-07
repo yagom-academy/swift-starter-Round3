@@ -21,6 +21,7 @@ class CoffeeShop {
     }
     var barista: Person?
     var customerName: String = ""
+    
     init(owner: String, openingHours: String, menu: [Coffee: Int] = [:], barista: Person?) {
         self.owner = owner
         self.openingHours = openingHours
@@ -28,16 +29,16 @@ class CoffeeShop {
         self.barista = barista
     }
     
-    func showMenu() -> String {
-        var menuDetail = "\(owner) 카페 메뉴판\n"
+    func showMenu() {
         if menu.isEmpty {
-            return "현재 메뉴 준비 중입니다."
+            print("현재 메뉴 준비 중입니다.")
         } else {
+            print("☕️☕️☕️ \(owner) 카페 메뉴판 ☕️☕️☕️")
             for (coffee, price) in menu {
-                menuDetail += "|| \(coffee) - \(price)원 ||\n"
+                print("|| \(coffee) - \(price)원 ||")
             }
+            print("----------------------------")
         }
-        return menuDetail
     }
     
     func order(_ coffee: Coffee, by customer: Person) -> Coffee? {
