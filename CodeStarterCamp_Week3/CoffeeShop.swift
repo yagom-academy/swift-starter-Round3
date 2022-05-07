@@ -60,6 +60,13 @@ class CoffeeShop {
     }
     
     func makeCoffee(menu coffee: Coffee) {
+        Thread.sleep(forTimeInterval: 1)
+        print("\(coffee) 내리는 중...")
+        Thread.sleep(forTimeInterval: 1)
+        print("재료 섞는 중...")
+        Thread.sleep(forTimeInterval: 1)
+        print("포장 중...")
+        Thread.sleep(forTimeInterval: 1)
         pickUpTable = coffee
     }
 }
