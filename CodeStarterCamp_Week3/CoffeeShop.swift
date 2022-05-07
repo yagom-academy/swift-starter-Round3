@@ -50,7 +50,7 @@ class CoffeeShop {
         makeCoffee(menu: coffee) // 진짜로 커피를 만드는 메서드 호출
     }
     
-    func makeCoffee(_ coffee: Coffee) {
+    func makeCoffee(menu coffee: Coffee) {
         pickUpTable = coffee
     }
 }
