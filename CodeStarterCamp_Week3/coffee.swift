@@ -8,7 +8,7 @@
 import Foundation
 
 
-enum Coffee {
+enum Coffee: CaseIterable {
     case americano
     case cafeLatte
     case cafeMocha
@@ -16,11 +16,11 @@ enum Coffee {
     var menuName: String {
         switch self {
         case .americano:
-            return "americano"
+            return "아메리카노"
         case .cafeLatte:
-            return "cafeLatte"
+            return "카페라떼"
         case .cafeMocha:
-            return "cafeMocha"
+            return "카페모카"
         }
     }
     var price: Int {
