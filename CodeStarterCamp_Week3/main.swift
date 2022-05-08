@@ -7,16 +7,22 @@
 //
 import Foundation
 
-struct Person {
+class Person {
     var name: String
     var age: Int
     var hight: Int
     var money: Int
     
+    init(name: String, age: Int, hight: Int, money: Int) {
+        self.name = name
+        self.age = age
+        self.hight = hight
+        self.money = money
+    }
+    
     func enterCoffeShop() {
         print("커피를 사러 도착했습니다.")
     }
-
     func buyCoffee(price: Int) {
         if money >= price {
             let change = money - price
@@ -51,5 +57,3 @@ enum Coffee: String {
 let missKim: Person = Person(name: "MissKim", age: 23, hight: 160, money: 50000)
 let misterLee: Person = Person(name: "MisterLee", age: 26, hight: 180, money: 30000)
 let yagombucks: CoffeeShop = CoffeeShop(barista: misterLee)
-
-
