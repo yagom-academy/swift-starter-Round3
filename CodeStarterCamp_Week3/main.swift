@@ -10,8 +10,11 @@ import Foundation
 
 
 
-var misterLee: Person = Person(name: "Mr.Lee", money: 0, job: "barista")
-var missKim: Person = Person(name: "Miss.Kim", money: 10000, job: "worker")
+var misterLee: Person = Person(name: "Mr.Lee", money: 0)
+var missKim: Person = Person(name: "Miss.Kim", money: 10000)
+var yagombucks: CoffeeShop = CoffeeShop(name: "YAGOMBUCKS", dailyTotal: 0, pickUpTable: true, barista: misterLee)
 
 
-let yagombucks: CoffeeShop = CoffeeShop(dailyTotal: 0, menu: "", pickUpTable: true)
+missKim.buyCoffee(coffee: .americano, cafe: yagombucks)
+missKim.buyCoffee(coffee: .americano, cafe: yagombucks)
+missKim.buyCoffee(coffee: .americano, cafe: yagombucks)
