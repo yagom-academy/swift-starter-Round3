@@ -11,14 +11,14 @@ import Foundation
 class CoffeeShop {
     var name: String
     var dailyTotal: Int
-    var pickUpTable: Bool
+    var pickUpTable: Bool = false
     var barista: Person
     
-    init(name: String, dailyTotal: Int, pickUpTable: Bool, barista: Person) {
+    init(name: String, dailyTotal: Int, barista: Person) {
         self.name = name
         self.dailyTotal = dailyTotal
-        self.pickUpTable = pickUpTable
         self.barista = barista
+        greeting()
     }
     
     func greeting() {
@@ -31,12 +31,19 @@ class CoffeeShop {
     }
     
     func order(_ coffee: Coffee, _ customer: Person, _ cafe: CoffeeShop) {
+        print("\(cafe.barista.name): \(coffee.menuName) 주문 받았습니다.")
         dailyTotal += coffee.price
-        print("〰️ 음료 만드는 중 〰️")
+        makeCoffee()
         if pickUpTable == true {
             print("\(customer.name) 님의 커피가 준비되었습니다. 픽업대에서 가져가주세요.")
+            pickUpTable.toggle()
         }
         print("\(cafe.name) 매출: \(cafe.dailyTotal) 원")
+    }
+    
+    func makeCoffee() {
+        print("〰️ 음료 만드는 중 〰️")
+        return pickUpTable.toggle()
     }
 }
 
