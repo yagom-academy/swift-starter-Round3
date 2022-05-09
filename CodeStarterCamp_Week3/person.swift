@@ -17,16 +17,14 @@ struct Person {
         }
     
     mutating func buyCoffee(coffee: Coffee, cafe: CoffeeShop) {
-        cafe.greeting()
+        print("\(name): \(coffee.menuName) 주세요.")
         if money < coffee.price {
             print("잔액이 \(coffee.price - money)원만큼 부족합니다.")
-        }
-        else {
-            print("\(name): \(coffee.menuName) 주세요.")
-            print("\(cafe.barista.name): \(coffee.menuName) 주문 받았습니다.")
+        } else {
             cafe.order(coffee, self, cafe)
             money -= coffee.price
         }
         print("\(name) 잔액: \(money) 원\n")
     }
 }
+
