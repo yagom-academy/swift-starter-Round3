@@ -10,13 +10,15 @@ import Foundation
 
 class Person {
     var money: Int
+    var name: String
     
-    init(money: Int) {
+    init(money: Int, name: String) {
         self.money = money
+        self.name = name
     }
     
     func buyCoffee(coffee: coffeeMenu) {
-            print("\(coffee)를 구매합니다.")
+        print("\(coffee)를 구매합니다.")
     }
 }
 
@@ -44,6 +46,6 @@ enum coffeeMenu {
     case 아메리카노, 카페라떼, 카페모카, 에스프레소, 카라멜마끼야또
 }
 
-let misterLee: Person = Person(money: 10000)
-let missKim: Person = Person(money: 0)
+let misterLee: Person = Person(money: 10000, name: "misterLee")
+let missKim: Person = Person(money: 0, name: "missKim")
 let yagombucks = CoffeeShop(sales: 0, menu: [.카라멜마끼야또: 3800, .카페모카: 3500, .카페라떼: 3000, .아메리카노: 2500, .에스프레소: 2500], barista: misterLee)
