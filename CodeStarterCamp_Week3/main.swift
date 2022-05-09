@@ -8,7 +8,7 @@
 
 import Foundation
 
-class Person {
+struct Person {
     var money: Int
     var name: String
     
