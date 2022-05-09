@@ -16,11 +16,6 @@ struct Person {
     var money: Int
     var pastime: String?
     
-    init(name: String, age: Int, money: Int,  pastime: String) {
-        self.init(name: name, age: age, money: money)
-        self.pastime = pastime
-    }
-    
     init(name: String, age: Int, money: Int) {
         self.name = name
         self.age = age
@@ -121,6 +116,7 @@ enum Menu {
 
 //MARK: - 인스턴스 생성
 
-let misterLee: Person = Person(name: "misterLee", age: 30, money: 100000)
-let missKim: Person = Person(name: "missKim", age: 20, money: 10000, pastime: "커피숍투어🍰☕️")
+var misterLee: Person = Person(name: "misterLee", age: 30, money: 100000)
+var missKim: Person = Person(name: "missKim", age: 20, money: 10000)
+missKim.pastime = "커피숍투어🍰☕️"
 var yagombucks: CoffeeShop = CoffeeShop(salesRevenue: 0, pickUpTable: "좌측 픽업바", music: "Oasis - Wonderwall", barista: misterLee, mood: "Woody")
