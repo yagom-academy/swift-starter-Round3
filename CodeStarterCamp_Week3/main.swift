@@ -11,12 +11,12 @@ import Foundation
 //MARK: - Person 만들기
 
 struct Person {
-    var name : String
-    var age : Int
-    var money : Int
-    var pastime : String?
+    var name: String
+    var age: Int
+    var money: Int
+    var pastime: String?
     
- init(name: String, age: Int, money: Int,  pastime: String) {
+    init(name: String, age: Int, money: Int,  pastime: String) {
         self.init(name: name, age: age, money: money)
         self.pastime = pastime
     }
@@ -27,7 +27,7 @@ struct Person {
         self.money = money
     }
     
-   func buyCoffee() -> String {
+    func buyCoffee() -> String {
         let order = "\(name)은 커피를 주문합니다."
         return order
     }
@@ -44,11 +44,11 @@ struct Person {
 //MARK: - 커피샵차리기
 
 class CoffeeShop {
-    var salesRevenue : Int
-    var pickUpTable : String?
-    var music : String
-    var barista : Person!
-    var mood : String
+    var salesRevenue: Int
+    var pickUpTable: String?
+    var music: String
+    var barista: Person!
+    var mood: String
     
     convenience init(salesRevenue: Int, pickUpTable: String, music: String, barista: Person, mood: String) {
         self.init(salesRevenue: salesRevenue, music: music, mood: mood, barista: barista)
@@ -62,12 +62,12 @@ class CoffeeShop {
         self.mood = mood
     }
     
-    func takeOrder(manu: Manu, takeOutOrIn: String) -> String {
+    func takeOrder(menu: Menu, takeOutOrIn: String) -> String {
         var orderMent : String =
-"""
-"안녕하세요 Yagombucks입니다. 저는 바리스타 \(barista.name)입니다. 방문해주셔셔 감사합니다.
-\(manu), \(takeOutOrIn)으로 주문하셨습니다.
-"""
+        """
+        "안녕하세요 Yagombucks입니다. 저는 바리스타 \(barista.name)입니다. 방문해주셔셔 감사합니다.
+        \(menu), \(takeOutOrIn)으로 주문하셨습니다.
+        """
         
         if let pickUpTable = pickUpTable {
             orderMent += " \n 진동벨이 울리면 \(pickUpTable)로 와주세요😎"
@@ -75,19 +75,19 @@ class CoffeeShop {
         return orderMent
     }
     
-    func Calculate(price: Int) -> String {
+    func calculate(price: Int) -> String {
         let numberFormatter = NumberFormatter()
         numberFormatter.numberStyle = .decimal
         let price = price
         let result = numberFormatter.string(for: price)!
-        let count : String = "가격은 \(result)원입니다."
+        let count: String = "가격은 \(result)원입니다."
         
         salesRevenue += price
         return count
     }
     
-    func createDrick(manu: Manu) {
-        print("\(manu)를 만든다.")
+    func createDrick(menu: Menu) {
+        print("\(menu)를 만든다.")
     }
     
     func giveDrink() {
@@ -110,18 +110,17 @@ enum Beans {
 }
 
 enum CoffeeCatagory {
-    case iceAmericano, hotAmericano
-    case iceCateLatte, hotCateLatte
+    case iceAmericano, hotAmericano, iceCateLatte, hotCateLatte
     case onlyIceEinspener
 }
 
-enum Manu {
+enum Menu {
     case coffee(coffee: CoffeeCatagory, beans: Beans)
     case herbalTea
 }
 
 //MARK: - 인스턴스 생성
 
-let misterLee : Person = Person(name: "misterLee", age: 30, money: 100000)
-let missKim : Person = Person(name: "missKim", age: 20, money: 10000, pastime: "커피숍투어🍰☕️")
-var yagombucks : CoffeeShop = CoffeeShop(salesRevenue: 0, pickUpTable: "좌측 픽업바", music: "Oasis - Wonderwall", barista: misterLee, mood: "Woody")
+let misterLee: Person = Person(name: "misterLee", age: 30, money: 100000)
+let missKim: Person = Person(name: "missKim", age: 20, money: 10000, pastime: "커피숍투어🍰☕️")
+var yagombucks: CoffeeShop = CoffeeShop(salesRevenue: 0, pickUpTable: "좌측 픽업바", music: "Oasis - Wonderwall", barista: misterLee, mood: "Woody")
