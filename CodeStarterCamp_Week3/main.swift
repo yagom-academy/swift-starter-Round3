@@ -8,53 +8,48 @@
 
 import Foundation
 
-class Person {
-    let name: String
-    let age: Int
-    let gender: String
+struct Person {
+    var name: String
+    var age: Int
+    var gender: genderList
+    enum genderList {
+        case male
+        case female
+    }
     var money: Int
     
-    func placeOrder() {} // 커피를 주문 합니다.
-    func payMoney() {}  // 돈을 지불합니다.
-    func getCoffee() {} // 주문한 커피를 받습니다.
-    
-    init(name: String, age: Int, gender: String, money: Int) {
-        self.name = name
-        self.age = age
-        self.gender = gender
-        self.money = money
-    }
+    mutating func placeOrder(with coffee: Coffee, to coffeeShop: CoffeeShop) {} // 커피를 주문 합니다.
+    mutating func payMoney(with money: Int, to coffeeShop: CoffeeShop) {}  // 돈을 지불합니다.
+    mutating func getCoffee(from coffeeShop: CoffeeShop, with coffee: Coffee) {} // 주문한 커피를 받습니다.
 }
 
-class CoffeeShop {
-    let shopName: String
+struct CoffeeShop {
+    var shopName: String
     var employeeNumber: Int
-    var revenue: Int
+    var revenue: Int?
     var barista: Person
+    struct pickUpTable {
+        var pickUpCoffee: String?
+        var isExist: Bool?
+    }
     var pickUpTable: Bool?
+    var menu: Dictionary<String, Int> = ["americano" : 2000, "espresso" : 2500, "cafeLatte" : 3000, "cafeMoca" : 3500, "vanilaLatte" : 4000]
     
-    func takeOrder() {} // 주문을 받습니다.
-    func makeCoffee() {} // 커피를 만듭니다.
-    func giveCoffee() {} // 커피를 고객에게 전달합니다.
-    
-    struct Menu {
-        let coffeeKind: String
-        let cost: Int
-    }
-    
-    init(shopName: String, employeeNumber: Int, revenue: Int, barista: Person, pickUpTable: Bool) {
-        self.shopName = shopName
-        self.employeeNumber = employeeNumber
-        self.revenue = revenue
-        self.barista = barista
-        self.pickUpTable = pickUpTable
-    }
+    mutating func takeOrder(from customer: Person, what coffee: Coffee, with money: Int) {} // 주문을 받습니다.
+    mutating func makeCoffee(what coffee: Coffee) {} // 커피를 만듭니다.
+    mutating func giveCoffee(to customer: Person, with coffee: Coffee) {} // 커피를 고객에게 전달합니다.
 }
 
 enum Coffee {
-    case americano, espresso, cafeLatte, cafeMoca, vanilaLatte
+    case americano
+    case espresso
+    case cafeLatte
+    case cafeMoca
+    case vanilaLatte
 }
 
-var misterLee: Person = Person(name: "misterLee", age: 20, gender: "male", money: 10000)
-var missKim: Person = Person(name: "missKim", age: 20, gender: "female", money: 15000)
-var yagombucks: CoffeeShop = CoffeeShop(shopName: "yagombucks", employeeNumber: 5, revenue: 200000, barista: misterLee, pickUpTable: true)
+var misterLee = Person(name: "misterLee", age: 20, gender: .male, money: 10000)
+var missKim = Person(name: "missKim", age: 20, gender: .female, money: 15000)
+var yagombucks = CoffeeShop(shopName: "yagombucks", employeeNumber: 5, barista: misterLee)
+
+
