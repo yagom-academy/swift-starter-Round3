@@ -48,16 +48,24 @@ class CoffeeShop {
     var barista: Person
     var sales: Int
     var coffeeMenuboard = [Coffee : Int]()
-    var pickupTable: Coffee? = nil {
-        willSet(orderedCoffee) {
-            print("\(String(describing: orderedCoffee)))가 준비되었습니다. 픽업 테이블에서 가져가주세요.")
+    var customer: Person?
+    var pickupTable: Coffee? {
+        didSet {
+            if let coffeeMenu = pickupTable {
+                if let customer = self.customer{
+                    print("\(customer.name)의 \(coffeeMenu.rawValue)가 준비되었습니다. 픽업 테이블에서 가져가주세요.")
+                }
+
+            }
         }
     }
+
     
-    init(barista: Person, sales: Int = 0, coffeeMenuBoard: [Coffee : Int], pickupTable: Coffee?) {
+    init(barista: Person, sales: Int = 0, coffeeMenuBoard: [Coffee : Int], pickupTable: Coffee?, customer: Person?) {
         self.barista = barista
         self.sales = sales
         self.coffeeMenuboard = coffeeMenuBoard
+        self.customer = customer
     }
     
     func order(_ coffee: Coffee) {
@@ -67,7 +75,7 @@ class CoffeeShop {
     
     func make(_ coffee: Coffee) {
         print("\(coffee.rawValue)를 제조 중입니다.")
-        yagomBucks.pickupTable = coffee
+        pickupTable = coffee
     }
 }
 
@@ -79,7 +87,7 @@ let yagomBucks: CoffeeShop = CoffeeShop(barista: misterLee, coffeeMenuBoard:
                                              Coffee.cafeLatte: 4200,
                                              Coffee.cafeMocha: 4500,
                                              Coffee.cappuccino: 4600,
-                                             Coffee.caramelMacchiato: 5000], pickupTable: nil)
+                                             Coffee.caramelMacchiato: 5000],
+                                        pickupTable: nil, customer: missKim)
 
 missKim.buy(.cappuccino)
-misterLee.buy(.caramelMacchiato)
