@@ -73,12 +73,11 @@ class CoffeeShop {
     func calculate(price: Int) -> String {
         let numberFormatter = NumberFormatter()
         numberFormatter.numberStyle = .decimal
-        let price = price
         let result = numberFormatter.string(for: price)!
-        let count: String = "가격은 \(result)원입니다."
+        let paymentMent: String = "가격은 \(result)원입니다."
         
         salesRevenue += price
-        return count
+        return paymentMent
     }
     
     func createDrick(menu: Menu) {

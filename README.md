@@ -24,7 +24,7 @@ _즉, 속성이나 동작을 복사했을 뿐, 이후 변경사항이 생겼을 
         let result = numberFormatter.string(for: price)!
         let count : String = "가격은 \(result)원입니다."
 ```
-- `let price = price`해준 이유는 아래 매출 누적연산을 위한 코드`salesRevenue += price`는 `Int` 타입이기 때문이다.
+- ~~`let price = price`해준 이유는 아래 매출 누적연산을 위한 코드`salesRevenue += price`는 `Int` 타입이기 때문이다.~~
 - `NumberFormatter()`은 옵셔널처리를 해주기 때문에 `result`에서 옵셔널을 강제추출해준다.
 - `sayTodaySalesRevenue()`에서도 똑같이 쉼표로 천단위를 구분하여 매출을 말하게한다.
 4. `salesRevenue += price`은 계산하는 순간 매출로 잡히게 하기위함이다.
