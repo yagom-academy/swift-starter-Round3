@@ -42,7 +42,7 @@ class CoffeeShop {
     var salesRevenue: Int
     var pickUpTable: String?
     var music: String
-    var barista: Person!
+    var barista: Person
     var mood: String
     
     convenience init(salesRevenue: Int, pickUpTable: String, music: String, barista: Person, mood: String) {
