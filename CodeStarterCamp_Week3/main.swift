@@ -12,10 +12,9 @@ var misterLee = Person(name: "misterLee", money: 0)
 var missKim = Person(name: "missKim", money: 10000)
 var yagomBucks = CoffeeShop(barista: misterLee)
 
-yagomBucks.settingPrice(menu: .americano, .latte, .mocha, .macchiato, price: 4000, 4500, 4500, 5000)
-
-missKim.buyCoffee(where: yagomBucks, coffee: .latte)
+missKim.buyCoffee(where: &yagomBucks, coffee: .latte)
 print("")
 missKim.money = 4000
-missKim.buyCoffee(where: yagomBucks, coffee: .latte)
-missKim.buyCoffee(where: yagomBucks, coffee: .americano)
+missKim.buyCoffee(where: &yagomBucks, coffee: .latte)
+print("")
+missKim.buyCoffee(where: &yagomBucks, coffee: .americano)

@@ -10,21 +10,24 @@ import Foundation
 struct Person {
     let name: String
     var money: Int
-    var payment: Int?
     
-    mutating func buyCoffee(where shop: CoffeeShop, coffee: Coffee) {
-        payment = shop.menuPlate[coffee]
-        if let payment = payment {
-            print("\(self.name)님이 주문하신 메뉴는 \(coffee.rawValue)입니다. 가격은 \(payment)입니다.")
-            if money >= payment {
-                payMoney(payment)
-                shop.order(coffee, who: self)
-                pickUp(where: shop)
-            } else {
-                print("잔액이 \(payment - money)원만큼 부족합니다.")
-            }
+    mutating func buyCoffee(where shop: inout CoffeeShop, coffee: Coffee) {
+        shop.checkMenu(orderer: self, menu: coffee)
+        if canBuyCoffee(from: shop) {
+            payMoney(shop.orderList.price)
+            shop.order(coffee, from: self)
+            pickUpCoffee(from: &shop)
         } else {
-            print("매장 준비중입니다.")
+            print("잔액이 \(shop.orderList.price - money)원만큼 부족합니다.")
+            shop.orderList = (.none, 0)
+        }
+    }
+    
+    func canBuyCoffee(from shop: CoffeeShop) -> Bool {
+        if money >= shop.orderList.price {
+            return true
+        } else {
+            return false
         }
     }
     
@@ -32,13 +35,12 @@ struct Person {
         print("돈을 \(selectedMenuPrice)원 지불합니다.")
         self.money -= selectedMenuPrice
         print("수중에 남은 돈은 \(self.money)원 입니다.")
-        self.payment = 0
     }
     
-    func pickUp(where shop: CoffeeShop) {
-        if shop.pickUpTable {
+    func pickUpCoffee(from shop: inout CoffeeShop) {
+        if shop.isOrderReady {
             print("주문한 메뉴를 픽업합니다. ☕️")
-            shop.pickUpTable = false
+            shop.isOrderReady = false
         } else {
             print("메뉴가 아직 준비되지 않았습니다.")
         }

@@ -7,23 +7,15 @@
 
 import Foundation
 
-class CoffeeShop {
+struct CoffeeShop {
     var salesRevenue: Int = 0
-    var menuPlate: Dictionary<Coffee, Int> = [:]
+    let menuPlate: Dictionary<Coffee, Int> = [.americano: 4000, .latte: 4500, .mocha: 4500, .macchiato: 5000]
     var barista: Person
-    var orderList: (Person, Coffee)?
-    var pickUpTable: Bool = false {
+    var orderList: (menu: Coffee, price: Int) = (.none, 0)
+    var isOrderReady: Bool = false {
         willSet {
-            if !pickUpTable {
+            if !isOrderReady {
                 print("메뉴 완성!")
-            }
-        }
-        didSet {
-            if pickUpTable {
-                if let orderList = orderList {
-                    putDownOrderedMenu(from: orderList)
-                    self.orderList = nil
-                }
             }
         }
     }
@@ -32,40 +24,34 @@ class CoffeeShop {
         self.barista = barista
     }
     
-    func order(_ coffee: Coffee, who person: Person) {
-        orderList = (person, coffee)
-        if let orderList = orderList {
-            takeMoney(from: orderList)
-            makeOrderedMenu(from: orderList)
+    mutating func order(_ coffee: Coffee, from orderer: Person) {
+        takeMoney()
+        makeCoffee(menu: coffee)
+        tellOrderIsReady(menu: coffee, to: orderer)
+    }
+    
+    mutating func checkMenu(orderer: Person, menu: Coffee) {
+        if let payment = menuPlate[menu] {
+            print("\(orderer.name)님이 주문하신 메뉴는 \(menu.rawValue)입니다. 가격은 \(payment)입니다.")
+            orderList = (menu, payment)
         } else {
-            print("먼저 주문을 해주십시오.")
+            print("없는 메뉴입니다.")
         }
     }
     
-    func settingPrice(menu: Coffee..., price: Int...) {
-        if menu.count == price.count {
-            for index in 0..<menu.count {
-                menuPlate[menu[index]] = price[index]
-            }
-        } else {
-            print("메뉴의 갯수와 가격의 갯수가 일치하지 않습니다.")
-        }
+    mutating func takeMoney() {
+        print("\(orderList.price)원 받았습니다.")
+        salesRevenue += orderList.price
     }
     
-    func takeMoney(from orderList: (Person, Coffee)) {
-        if let orderedMenuPrice = menuPlate[orderList.1] {
-            print("\(orderedMenuPrice)원 받았습니다.")
-            salesRevenue += orderedMenuPrice
-        }
+    mutating func makeCoffee(menu: Coffee) {
+        print("\(self.barista.name) 바리스타가 \(menu.rawValue) 메뉴를 만듭니다.")
+        isOrderReady = true
     }
     
-    func makeOrderedMenu(from orderList: (Person, Coffee)) {
-        print("\(self.barista.name) 바리스타가 \(orderList.1.rawValue) 메뉴를 만듭니다.")
-        pickUpTable = true
-    }
-    
-    func putDownOrderedMenu(from orderList: (Person, Coffee)) {
-        print("\(orderList.0.name)님이 주문하신 \(orderList.1.rawValue) 메뉴가 준비되었습니다. 픽업대에서 가져가주세요.")
+    mutating func tellOrderIsReady(menu: Coffee, to orderer: Person) {
+        print("\(orderer.name)님이 주문하신 \(menu.rawValue) 메뉴가 준비되었습니다. 픽업대에서 가져가주세요.")
+        orderList = (.none, 0)
     }
 }
 
@@ -74,4 +60,5 @@ enum Coffee: String {
     case latte = "라떼"
     case mocha = "모카"
     case macchiato = "마끼아또"
+    case none = "없음"
 }
