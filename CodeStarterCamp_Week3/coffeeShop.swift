@@ -24,8 +24,8 @@ class CoffeeShop {
     func greeting() {
         print("\(barista.name): 어서오세요. \(name)입니다.")
         print(" ☕️ MENU ☕️ ")
-        for Coffee in Coffee.allCases {
-            print("\(Coffee.menuName): \(Coffee.price)")
+        for coffee in Coffee.allCases {
+            print("\(coffee.menuName): \(coffee.price)")
         }
         print("")
     }
