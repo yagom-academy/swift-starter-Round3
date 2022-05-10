@@ -55,12 +55,10 @@ class CoffeeShop {
                 if let customer = self.customer{
                     print("\(customer.name)의 \(coffeeMenu.rawValue)가 준비되었습니다. 픽업 테이블에서 가져가주세요.")
                 }
-
             }
         }
     }
 
-    
     init(barista: Person, sales: Int = 0, coffeeMenuBoard: [Coffee : Int], pickupTable: Coffee?, customer: Person?) {
         self.barista = barista
         self.sales = sales
