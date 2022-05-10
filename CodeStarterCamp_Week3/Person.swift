@@ -15,10 +15,10 @@ struct Person {
         shop.checkMenu(orderer: self, menu: coffee)
         if canBuyCoffee(from: shop) {
             payMoney(shop.orderList.price)
-            shop.order(coffee, from: self)
+            shop.order(from: self)
             pickUpCoffee(from: &shop)
         } else {
-            print("잔액이 \(shop.orderList.price - money)원만큼 부족합니다.")
+            print("잔액이 \(shop.orderList.price - money)원만큼 부족합니다. 주문을 취소합니다.")
             shop.orderList = (.none, 0)
         }
     }

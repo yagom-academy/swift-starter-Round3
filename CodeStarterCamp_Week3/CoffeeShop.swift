@@ -24,10 +24,10 @@ struct CoffeeShop {
         self.barista = barista
     }
     
-    mutating func order(_ coffee: Coffee, from orderer: Person) {
+    mutating func order(from orderer: Person) {
         takeMoney()
-        makeCoffee(menu: coffee)
-        tellOrderIsReady(menu: coffee, to: orderer)
+        makeCoffee()
+        tellOrderIsReady(to: orderer)
     }
     
     mutating func checkMenu(orderer: Person, menu: Coffee) {
@@ -44,13 +44,13 @@ struct CoffeeShop {
         salesRevenue += orderList.price
     }
     
-    mutating func makeCoffee(menu: Coffee) {
-        print("\(self.barista.name) 바리스타가 \(menu.rawValue) 메뉴를 만듭니다.")
+    mutating func makeCoffee() {
+        print("\(self.barista.name) 바리스타가 \(orderList.menu.rawValue) 메뉴를 만듭니다.")
         isOrderReady = true
     }
     
-    mutating func tellOrderIsReady(menu: Coffee, to orderer: Person) {
-        print("\(orderer.name)님이 주문하신 \(menu.rawValue) 메뉴가 준비되었습니다. 픽업대에서 가져가주세요.")
+    mutating func tellOrderIsReady(to orderer: Person) {
+        print("\(orderer.name)님이 주문하신 \(orderList.menu.rawValue) 메뉴가 준비되었습니다. 픽업대에서 가져가주세요.")
         orderList = (.none, 0)
     }
 }
