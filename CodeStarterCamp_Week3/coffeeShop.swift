@@ -9,16 +9,41 @@ import Foundation
 
 
 class CoffeeShop {
+    var name: String
     var dailyTotal: Int
-    var menu: String
-    var pickUpTable: Bool
+    var pickUpTable: Bool = false
+    var barista: Person
     
-    init(dailyTotal: Int, menu: String, pickUpTable: Bool) {
+    init(name: String, dailyTotal: Int, barista: Person) {
+        self.name = name
         self.dailyTotal = dailyTotal
-        self.menu = menu
-        self.pickUpTable = pickUpTable
+        self.barista = barista
+        greeting()
     }
     
-    func order(_ coffee: Coffee) { }
-    func makeCoffee() { }
+    func greeting() {
+        print("\(barista.name): 어서오세요. \(name)입니다.")
+        print(" ☕️ MENU ☕️ ")
+        for coffee in Coffee.allCases {
+            print("\(coffee.menuName): \(coffee.price)")
+        }
+        print("")
+    }
+    
+    func order(_ coffee: Coffee, _ customer: Person, _ cafe: CoffeeShop) {
+        print("\(cafe.barista.name): \(coffee.menuName) 주문 받았습니다.")
+        dailyTotal += coffee.price
+        makeCoffee()
+        if pickUpTable == true {
+            print("\(customer.name) 님의 커피가 준비되었습니다. 픽업대에서 가져가주세요.")
+            pickUpTable.toggle()
+        }
+        print("\(cafe.name) 매출: \(cafe.dailyTotal) 원")
+    }
+    
+    func makeCoffee() {
+        print("〰️ 음료 만드는 중 〰️")
+        return pickUpTable.toggle()
+    }
 }
+
