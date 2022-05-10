@@ -57,15 +57,15 @@ class CoffeeShop {
         self.mood = mood
     }
     
-    func takeOrder(menu: Menu, takeOutOrIn: String) -> String {
+    func takeOrder(coffee: String, beans: String, takeOutOrIn: String) -> String {
         var orderMent : String =
         """
         "안녕하세요 Yagombucks입니다. 저는 바리스타 \(barista.name)입니다. 방문해주셔셔 감사합니다.
-        \(menu), \(takeOutOrIn)으로 주문하셨습니다.
+        \(beans)원두로 \(coffee), \(takeOutOrIn)으로 주문하셨습니다.
         """
         
         if let pickUpTable = pickUpTable {
-            orderMent += " \n 진동벨이 울리면 \(pickUpTable)로 와주세요😎"
+            orderMent += "\n 진동벨이 울리면 \(pickUpTable)로 와주세요😎"
         }
         return orderMent
     }
@@ -95,22 +95,22 @@ class CoffeeShop {
         let todaySalesRevenue = "오늘 총매출은 \(result)입니다."
         return todaySalesRevenue
     }
-}
+    
+    //MARK: 메뉴구성
+    enum Beans: String {
+        case nutty = "nutty"
+        case acidity = "acidity"
+        case decaffeinated = "decaffeinated"
+    }
 
-//MARK: - 메뉴 구성
-
-enum Beans {
-    case nutty, acidity, decaffeinated
-}
-
-enum CoffeeCatagory {
-    case iceAmericano, hotAmericano, iceCateLatte, hotCateLatte
-    case onlyIceEinspener
-}
-
-enum Menu {
-    case coffee(coffee: CoffeeCatagory, beans: Beans)
-    case herbalTea
+    enum Menu: String {
+        case iceAmericano = "앗차거아메리카노"
+        case hotAmericano = "앗뜨거아메리크노"
+        case iceCateLatte = "앗차거카페라떼"
+        case hotCateLatte = "앗뜨거카페라떼"
+        case onlyIceEinspener
+        case herbalTea
+    }
 }
 
 //MARK: - 인스턴스 생성
@@ -119,3 +119,4 @@ var misterLee: Person = Person(name: "misterLee", age: 30, money: 100000)
 var missKim: Person = Person(name: "missKim", age: 20, money: 10000)
 missKim.pastime = "커피숍투어🍰☕️"
 var yagombucks: CoffeeShop = CoffeeShop(salesRevenue: 0, pickUpTable: "좌측 픽업바", music: "Oasis - Wonderwall", barista: misterLee, mood: "Woody")
+print(yagombucks.takeOrder(coffee: CoffeeShop.Menu.iceAmericano.rawValue, beans: CoffeeShop.Beans.nutty.rawValue, takeOutOrIn: "테이크아웃"))
