@@ -24,19 +24,19 @@ struct CoffeeShop {
         self.barista = barista
     }
     
-    mutating func order(from orderer: Person) {
-        takeMoney()
-        makeCoffee()
-        tellOrderIsReady(to: orderer)
-    }
-    
-    mutating func checkMenu(orderer: Person, menu: Coffee) {
-        if let payment = menuPlate[menu] {
-            print("\(orderer.name)님이 주문하신 메뉴는 \(menu.rawValue)입니다. 가격은 \(payment)입니다.")
-            orderList = (menu, payment)
+    mutating func order(_ coffee: Coffee, from orderer: Person) {
+        if let payment = menuPlate[coffee] {
+            print("\(orderer.name)님이 주문하신 메뉴는 \(coffee.rawValue)입니다. 가격은 \(payment)입니다.")
+            orderList = (coffee, payment)
         } else {
             print("없는 메뉴입니다.")
         }
+    }
+    
+    mutating func performOrder(from orderer: Person) {
+        takeMoney()
+        makeCoffee()
+        tellOrderIsReady(to: orderer)
     }
     
     mutating func takeMoney() {

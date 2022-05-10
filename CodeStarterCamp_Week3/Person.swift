@@ -12,10 +12,10 @@ struct Person {
     var money: Int
     
     mutating func buyCoffee(where shop: inout CoffeeShop, coffee: Coffee) {
-        shop.checkMenu(orderer: self, menu: coffee)
+        shop.order(coffee, from: self)
         if canBuyCoffee(from: shop) {
             payMoney(shop.orderList.price)
-            shop.order(from: self)
+            shop.performOrder(from: self)
             pickUpCoffee(from: &shop)
         } else {
             print("잔액이 \(shop.orderList.price - money)원만큼 부족합니다. 주문을 취소합니다.")
