@@ -22,11 +22,6 @@ struct Person {
         self.money = money
     }
     
-    func buyCoffee() -> String {
-        let order = "\(name)은 커피를 주문합니다."
-        return order
-    }
-    
     func enjoyLeisureTime() {
         if let pastime = pastime {
             print("\(name)은 '\(pastime)'을/를 즐깁니다.")
@@ -57,7 +52,7 @@ class CoffeeShop {
         self.mood = mood
     }
     
-    func takeOrder(coffee: String, beans: String, takeOutOrIn: String) -> String {
+    func takeOrder(coffee: Menu, beans: Beans, takeOutOrIn: String) -> String {
         var orderMent : String =
         """
         "안녕하세요 Yagombucks입니다. 저는 바리스타 \(barista.name)입니다. 방문해주셔셔 감사합니다.
@@ -97,17 +92,17 @@ class CoffeeShop {
     }
     
     //MARK: 메뉴구성
-    enum Beans: String {
-        case nutty = "nutty"
-        case acidity = "acidity"
-        case decaffeinated = "decaffeinated"
+    enum Beans {
+        case nutty
+        case acidity
+        case decaffeinated
     }
 
-    enum Menu: String {
-        case iceAmericano = "앗차거아메리카노"
-        case hotAmericano = "앗뜨거아메리크노"
-        case iceCateLatte = "앗차거카페라떼"
-        case hotCateLatte = "앗뜨거카페라떼"
+    enum Menu {
+        case iceAmericano
+        case hotAmericano
+        case iceCateLatte
+        case hotCateLatte
         case onlyIceEinspener
         case herbalTea
     }
@@ -119,4 +114,4 @@ var misterLee: Person = Person(name: "misterLee", age: 30, money: 100000)
 var missKim: Person = Person(name: "missKim", age: 20, money: 10000)
 missKim.pastime = "커피숍투어🍰☕️"
 var yagombucks: CoffeeShop = CoffeeShop(salesRevenue: 0, pickUpTable: "좌측 픽업바", music: "Oasis - Wonderwall", barista: misterLee, mood: "Woody")
-print(yagombucks.takeOrder(coffee: CoffeeShop.Menu.iceAmericano.rawValue, beans: CoffeeShop.Beans.nutty.rawValue, takeOutOrIn: "테이크아웃"))
+print(yagombucks.takeOrder(coffee: .iceAmericano, beans: .nutty, takeOutOrIn: "takeout"))
