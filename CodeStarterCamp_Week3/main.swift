@@ -69,8 +69,8 @@ class CoffeeShop {
     }
     
     func order(_ coffee: CoffeeShop.Menu) -> String {
-        let order = "\(customer.name)은 \(coffee)을/를 주문합니다."
-        return order
+        let orderMent = "\(customer.name)은 \(coffee)을/를 주문합니다."
+        return orderMent
     }
     
     func takeOrder(coffee: Menu, beans: Beans, takeOutOrIn: String) -> String {
@@ -95,11 +95,12 @@ class CoffeeShop {
         if let pickUpTable = pickUpTable {
             paymentMent += "\n진동벨이 울리면 \(pickUpTable)로 와주세요😎"
         }
+        
         salesRevenue += price
         return paymentMent
     }
     
-    func createDrick(menu: Menu) {
+    func createCoffee(menu: Menu) {
         print("\(menu)를 만든다.")
     }
     
@@ -148,7 +149,7 @@ yagombucks.customer = missKim
 print(missKim.buyCoffee(coffee: .iceAmericano, price: 4000))
 print(yagombucks.takeOrder(coffee: .iceAmericano, beans: .nutty, takeOutOrIn: "takeout"))
 print(yagombucks.calculate(price: 4000))
-yagombucks.createDrick(menu: .iceAmericano)
+yagombucks.createCoffee(menu: .iceAmericano)
 yagombucks.giveCoffee()
 
 print(missKim.money)
