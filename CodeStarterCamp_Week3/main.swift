@@ -22,6 +22,10 @@ struct Person {
         self.money = money
     }
     
+    func buyCoffee(coffee: CoffeeShop.Menu) -> String {
+        yagombucks.order(coffee)
+        }
+    
     func enjoyLeisureTime() {
         if let pastime = pastime {
             print("\(name)은 '\(pastime)'을/를 즐깁니다.")
@@ -39,6 +43,7 @@ class CoffeeShop {
     var music: String
     var barista: Person
     var mood: String
+    var customer: Person!
     
     convenience init(salesRevenue: Int, pickUpTable: String, music: String, barista: Person, mood: String) {
         self.init(salesRevenue: salesRevenue, music: music, mood: mood, barista: barista)
@@ -50,6 +55,11 @@ class CoffeeShop {
         self.music = music
         self.barista = barista
         self.mood = mood
+    }
+    
+    func order(_ coffee: CoffeeShop.Menu) -> String {
+        let order = "\(customer.name)은 \(coffee)을/를 주문합니다."
+            return order
     }
     
     func takeOrder(coffee: Menu, beans: Beans, takeOutOrIn: String) -> String {
@@ -118,4 +128,8 @@ var misterLee: Person = Person(name: "misterLee", age: 30, money: 100000)
 var missKim: Person = Person(name: "missKim", age: 20, money: 10000)
 missKim.pastime = "커피숍투어🍰☕️"
 var yagombucks: CoffeeShop = CoffeeShop(salesRevenue: 0, pickUpTable: "좌측 픽업바", music: "Oasis - Wonderwall", barista: misterLee, mood: "Woody")
-print(yagombucks.takeOrder(coffee: .herbalTea, beans: .nutty, takeOutOrIn: "takeout"))
+
+yagombucks.customer = missKim
+print(missKim.buyCoffee(coffee: .iceAmericano))
+print(yagombucks.takeOrder(coffee: .iceAmericano, beans: .nutty, takeOutOrIn: "takeout"))
+
