@@ -103,14 +103,12 @@ class CoffeeShop {
         print("\(menu)를 만든다.")
     }
     
-    func giveDrink() -> String {
-        var readyCoffee: String
-        
+    func giveDrink() {
         if pickUpTable == nil {
-            readyCoffee = "\(customer.name)님 커피드리겠습니다. 감사합니다. 맛있게 드세요😊"
+            print("\(customer.name)님 커피드리겠습니다. 감사합니다. 맛있게 드세요😊")
         } else {
-            readyCoffee = "\(customer.name)님의 커피가 준비되었습니다. 픽업대에서 가져가주세요😊"}
-        return readyCoffee
+            print("\(customer.name)님의 커피가 준비되었습니다. 픽업대에서 가져가주세요😊")
+        }
     }
     
     func sayTodaySalesRevenue() -> String {
@@ -145,10 +143,13 @@ var missKim: Person = Person(name: "missKim", age: 20, money: 10000)
 missKim.pastime = "커피숍투어🍰☕️"
 var yagombucks: CoffeeShop = CoffeeShop(salesRevenue: 0, pickUpTable: "좌측 픽업바", music: "Oasis - Wonderwall", barista: misterLee, mood: "Woody")
 
+//MARK: - 구현
 yagombucks.customer = missKim
 print(missKim.buyCoffee(coffee: .iceAmericano, price: 4000))
 print(yagombucks.takeOrder(coffee: .iceAmericano, beans: .nutty, takeOutOrIn: "takeout"))
 print(yagombucks.calculate(price: 4000))
-print(yagombucks.giveDrink())
+yagombucks.createDrick(menu: .iceAmericano)
+yagombucks.giveDrink()
+
 print(missKim.money)
 print(yagombucks.salesRevenue)
