@@ -23,7 +23,7 @@ struct Person {
     }
     
     mutating func buyCoffee(coffee: CoffeeShop.Menu, price: Int) -> String {
-        var payment : String
+        var payment: String
         
         if money > price {
             money = money - price
@@ -74,7 +74,7 @@ class CoffeeShop {
     }
     
     func takeOrder(coffee: Menu, beans: Beans, takeOutOrIn: String) -> String {
-        var orderMent : String =
+        var orderMent: String =
         """
         안녕하세요 Yagombucks입니다. 저는 바리스타 \(barista.name)입니다. 방문해주셔셔 감사합니다.
         \(beans)원두로 \(coffee), \(takeOutOrIn)으로 주문하셨습니다.
@@ -103,7 +103,7 @@ class CoffeeShop {
         print("\(menu)를 만든다.")
     }
     
-    func giveDrink() {
+    func giveCoffee() {
         if pickUpTable == nil {
             print("\(customer.name)님 커피드리겠습니다. 감사합니다. 맛있게 드세요😊")
         } else {
@@ -149,7 +149,7 @@ print(missKim.buyCoffee(coffee: .iceAmericano, price: 4000))
 print(yagombucks.takeOrder(coffee: .iceAmericano, beans: .nutty, takeOutOrIn: "takeout"))
 print(yagombucks.calculate(price: 4000))
 yagombucks.createDrick(menu: .iceAmericano)
-yagombucks.giveDrink()
+yagombucks.giveCoffee()
 
 print(missKim.money)
 print(yagombucks.salesRevenue)
