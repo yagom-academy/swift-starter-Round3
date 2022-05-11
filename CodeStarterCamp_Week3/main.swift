@@ -55,9 +55,13 @@ class CoffeeShop {
     func takeOrder(coffee: Menu, beans: Beans, takeOutOrIn: String) -> String {
         var orderMent : String =
         """
-        "안녕하세요 Yagombucks입니다. 저는 바리스타 \(barista.name)입니다. 방문해주셔셔 감사합니다.
+        안녕하세요 Yagombucks입니다. 저는 바리스타 \(barista.name)입니다. 방문해주셔셔 감사합니다.
         \(beans)원두로 \(coffee), \(takeOutOrIn)으로 주문하셨습니다.
         """
+        
+        if coffee == Menu.herbalTea {
+            orderMent = "안녕하세요 Yagombucks입니다. 저는 바리스타 \(barista.name)입니다. 방문해주셔셔 감사합니다. \(coffee)로 주문하셨습니다."
+        }
         
         if let pickUpTable = pickUpTable {
             orderMent += "\n 진동벨이 울리면 \(pickUpTable)로 와주세요😎"
@@ -114,4 +118,4 @@ var misterLee: Person = Person(name: "misterLee", age: 30, money: 100000)
 var missKim: Person = Person(name: "missKim", age: 20, money: 10000)
 missKim.pastime = "커피숍투어🍰☕️"
 var yagombucks: CoffeeShop = CoffeeShop(salesRevenue: 0, pickUpTable: "좌측 픽업바", music: "Oasis - Wonderwall", barista: misterLee, mood: "Woody")
-print(yagombucks.takeOrder(coffee: .iceAmericano, beans: .nutty, takeOutOrIn: "takeout"))
+print(yagombucks.takeOrder(coffee: .herbalTea, beans: .nutty, takeOutOrIn: "takeout"))
