@@ -26,9 +26,15 @@ class Person {
     }
     
     func placeOrder(with coffee: Coffee, to coffeeShop: CoffeeShop) {
+        yagombucks.customer = self
+        
         if let myMenu  = coffeeShop.menu[coffee] {
-            self.money = self.money - myMenu
-            self.money < 0 ? print("잔액이 \(self.money)원만큼 부족합니다") : coffeeShop.order(coffee, who: self.name)
+            if self.money - myMenu < 0 {
+                print("잔액이 \(self.money)원만큼 부족합니다")
+            } else {
+                self.money -= myMenu
+                coffeeShop.order(coffee)
+            }
         }
     }
 }
@@ -38,38 +44,48 @@ class CoffeeShop {
     var employeeNumber: Int
     var revenue: Int = 0
     var barista: Person
+    var customer: Person?
+    var menu: Dictionary<Coffee, Int> = [.americano : 2000, .espresso : 2500, .cafeLatte : 3000, .cafeMoca : 3500, .vanilaLatte : 4000]
     
     struct pickUpTable {
         var pickUpCoffee: Coffee?
-        var isExist: Bool?
+        var isExist: Bool = false
     }
-
+    
     init(shopName: String, employeeNumber: Int, barista: Person) {
         self.shopName = shopName
         self.employeeNumber = employeeNumber
         self.barista = barista
     }
     
-    var menu: Dictionary<Coffee, Int> = [.americano : 2000, .espresso : 2500, .cafeLatte : 3000, .cafeMoca : 3500, .vanilaLatte : 4000]
-    
-    func order(_ coffee: Coffee, who person: String) {
+    func order(_ coffee: Coffee) {
         if let coffeeCost = menu[coffee] {
             self.revenue += coffeeCost
-            makeCoffee(what: coffee, who: person)
+            makeCoffee(what: coffee)
         } else {
             print("메뉴가 존재하지 않습니다.")
         }
     }
     
-    func makeCoffee(what coffee: Coffee, who person: String) {
-        print("\(person) 님의 \(coffee)를 만듭니다.")
+    func makeCoffee(what coffee: Coffee) {
+        if let customer = customer {
+            print("\(customer.name) 님의 \(coffee)를 만듭니다.")
+        } else {
+            print("손님이 없습니다.")
+        }
         
         let pickupCoffee = pickUpTable(pickUpCoffee: coffee, isExist: true)
-        pickupCoffee.isExist == true ? giveCoffee(to: person, with: coffee) : print("픽업테이블에 \(coffee)가 존재하지 않습니다.")
+        if let pickupCoffee = pickupCoffee.pickUpCoffee {
+            giveCoffee(with: pickupCoffee)
+        } else {
+            print("픽업대에 커피가 없습니다.")
+        }
     }
     
-    func giveCoffee(to customer: String, with coffee: Coffee) {
-        print("\(customer) 님의 \(coffee)가 준비되었습니다. 픽업대에서 가져가주세요.")
+    func giveCoffee(with coffee: Coffee) {
+        if let customer = customer {
+            print("\(customer.name) 님의 \(coffee)가 준비되었습니다. 픽업대에서 가져가주세요.")
+        }
     }
 }
 
