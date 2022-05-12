@@ -8,7 +8,7 @@
 
 import Foundation
 
-struct Person {
+class Person {
     var name: String
     var age: Int
     var gender: genderList
@@ -18,26 +18,75 @@ struct Person {
     }
     var money: Int
     
-    mutating func placeOrder(with coffee: Coffee, to coffeeShop: CoffeeShop) {} // 커피를 주문 합니다.
-    mutating func payMoney(with money: Int, to coffeeShop: CoffeeShop) {}  // 돈을 지불합니다.
-    mutating func getCoffee(from coffeeShop: CoffeeShop, with coffee: Coffee) {} // 주문한 커피를 받습니다.
+    init(name: String, age: Int, gender: genderList, money: Int) {
+        self.name = name
+        self.age = age
+        self.gender = gender
+        self.money = money
+    }
+    
+    func placeOrder(with coffee: Coffee, to coffeeShop: CoffeeShop) {
+        yagombucks.customer = self
+        
+        if let myMenu  = coffeeShop.menu[coffee] {
+            if self.money - myMenu < 0 {
+                print("잔액이 \(self.money)원만큼 부족합니다")
+            } else {
+                self.money -= myMenu
+                coffeeShop.order(coffee)
+            }
+        }
+    }
 }
 
-struct CoffeeShop {
+class CoffeeShop {
     var shopName: String
     var employeeNumber: Int
-    var revenue: Int?
+    var revenue: Int = 0
     var barista: Person
-    struct pickUpTable {
-        var pickUpCoffee: String?
-        var isExist: Bool?
-    }
-    var pickUpTable: Bool?
-    var menu: Dictionary<String, Int> = ["americano" : 2000, "espresso" : 2500, "cafeLatte" : 3000, "cafeMoca" : 3500, "vanilaLatte" : 4000]
+    var customer: Person?
+    var menu: Dictionary<Coffee, Int> = [.americano : 2000, .espresso : 2500, .cafeLatte : 3000, .cafeMoca : 3500, .vanilaLatte : 4000]
     
-    mutating func takeOrder(from customer: Person, what coffee: Coffee, with money: Int) {} // 주문을 받습니다.
-    mutating func makeCoffee(what coffee: Coffee) {} // 커피를 만듭니다.
-    mutating func giveCoffee(to customer: Person, with coffee: Coffee) {} // 커피를 고객에게 전달합니다.
+    struct pickUpTable {
+        var pickUpCoffee: Coffee?
+        var isExist: Bool = false
+    }
+    
+    init(shopName: String, employeeNumber: Int, barista: Person) {
+        self.shopName = shopName
+        self.employeeNumber = employeeNumber
+        self.barista = barista
+    }
+    
+    func order(_ coffee: Coffee) {
+        if let coffeeCost = menu[coffee] {
+            self.revenue += coffeeCost
+            makeCoffee(what: coffee)
+        } else {
+            print("메뉴가 존재하지 않습니다.")
+        }
+    }
+    
+    func makeCoffee(what coffee: Coffee) {
+        if let customer = customer {
+            print("\(customer.name) 님의 \(coffee)를 만듭니다.")
+        } else {
+            print("손님이 없습니다.")
+        }
+        
+        let pickupCoffee = pickUpTable(pickUpCoffee: coffee, isExist: true)
+        if let pickupCoffee = pickupCoffee.pickUpCoffee {
+            giveCoffee(with: pickupCoffee)
+        } else {
+            print("픽업대에 커피가 없습니다.")
+        }
+    }
+    
+    func giveCoffee(with coffee: Coffee) {
+        if let customer = customer {
+            print("\(customer.name) 님의 \(coffee)가 준비되었습니다. 픽업대에서 가져가주세요.")
+        }
+    }
 }
 
 enum Coffee {
@@ -52,4 +101,4 @@ var misterLee = Person(name: "misterLee", age: 20, gender: .male, money: 10000)
 var missKim = Person(name: "missKim", age: 20, gender: .female, money: 15000)
 var yagombucks = CoffeeShop(shopName: "yagombucks", employeeNumber: 5, barista: misterLee)
 
-
+missKim.placeOrder(with: .americano, to: yagombucks)
