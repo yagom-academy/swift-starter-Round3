@@ -87,11 +87,21 @@ class CoffeeShop {
         var paymentMent: String = ""
         let numberFormatter = NumberFormatter()
         
-        if customer.money > price {
-            numberFormatter.numberStyle = .decimal
-            if let result = numberFormatter.string(for: price), let pickUpTable = pickUpTable  {
-                paymentMent = "가격은 \(result)원입니다." + "\n진동벨이 울리면 \(pickUpTable)로 와주세요😎"
-                salesRevenue += price
+        if pickUpTable == nil {
+            if customer.money > price {
+                numberFormatter.numberStyle = .decimal
+                if let result = numberFormatter.string(for: price){
+                    paymentMent = "가격은 \(result)원입니다."
+                    salesRevenue += price
+                }
+            }
+        } else {
+            if customer.money > price {
+                numberFormatter.numberStyle = .decimal
+                if let result = numberFormatter.string(for: price), let pickUpTable = pickUpTable  {
+                    paymentMent = "가격은 \(result)원입니다." + "\n진동벨이 울리면 \(pickUpTable)로 와주세요😎"
+                    salesRevenue += price
+                }
             }
         }
         return paymentMent
@@ -139,9 +149,9 @@ class CoffeeShop {
 //MARK: - 인스턴스 생성
 
 var misterLee: Person = Person(name: "misterLee", age: 30, money: 100000)
-var missKim: Person = Person(name: "missKim", age: 20, money: 10)
+var missKim: Person = Person(name: "missKim", age: 20, money: 10000)
 missKim.pastime = "커피숍투어🍰☕️"
-var yagombucks = CoffeeShop(salesRevenue: 0, pickUpTable: "좌측 픽업바", music: "지브리음악", barista: missKim, mood: "woody")
+var yagombucks = CoffeeShop(salesRevenue: 0, music: "", mood: "", barista: missKim)
 
 //MARK: - 구현
 
