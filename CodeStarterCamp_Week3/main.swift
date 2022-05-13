@@ -23,7 +23,7 @@ struct Person {
     }
     
     mutating func buyCoffee(coffee: CoffeeShop.Menu, price: Int) -> String {
-        var payment: String = ""
+        var payment: String
         
         if money > price {
             money = money - price
@@ -31,9 +31,8 @@ struct Person {
         } else {
             let numberFormatter = NumberFormatter()
             numberFormatter.numberStyle = .decimal
-            if let result = numberFormatter.string(for: price) {
-                payment = "잔액이 {\(result)}원만큼 부족합니다."
-            }
+            let result = numberFormatter.string(for: price)!
+            payment = "잔액이 {\(result)}원만큼 부족합니다."
         }
         return payment
     }
@@ -75,25 +74,26 @@ class CoffeeShop {
     }
     
     func takeOrder(coffee: Menu, beans: Beans, takeOutOrIn: String) -> String {
-        var orderMent: String =
-        """
-        안녕하세요 Yagombucks입니다. 저는 바리스타 \(barista.name)입니다. 방문해주셔셔 감사합니다.
-        \(beans)원두로 \(coffee), \(takeOutOrIn)으로 주문하셨습니다.
-        """
+        var orderMent: String = ""
         
-        if coffee == Menu.herbalTea {
-            orderMent = "안녕하세요 Yagombucks입니다. 저는 바리스타 \(barista.name)입니다. 방문해주셔셔 감사합니다. \(coffee)로 주문하셨습니다."
+        switch coffee {
+        case .iceAmericano, .hotAmericano, .iceCateLatte, .hotCateLatte, .onlyIceEinspener:
+            orderMent =
+                    """
+                    안녕하세요 Yagombucks입니다. 저는 바리스타 \(barista.name)입니다. 방문해주셔셔 감사합니다.
+                    \(beans)원두로 \(coffee), \(takeOutOrIn)으로 주문하셨습니다.
+                    """
+       default:
+            orderMent = "안녕하세요 Yagombucks입니다. 저는 바리스타 \(barista.name)입니다. 방문해주셔셔 감사합니다.\n\(coffee)로 주문하셨습니다."
         }
         return orderMent
     }
     
     func calculate(price: Int) -> String {
-        var paymentMent: String = ""
         let numberFormatter = NumberFormatter()
         numberFormatter.numberStyle = .decimal
-        if let result = numberFormatter.string(for: price) {
-            paymentMent = "가격은 \(result)원입니다."
-        }
+        let result = numberFormatter.string(for: price)!
+        var paymentMent: String = "가격은 \(result)원입니다."
         
         if let pickUpTable = pickUpTable {
             paymentMent += "\n진동벨이 울리면 \(pickUpTable)로 와주세요😎"
@@ -116,12 +116,10 @@ class CoffeeShop {
     }
     
     func sayTodaySalesRevenue() -> String {
-        var todaySalesRevenue: String = ""
         let numberFormatter = NumberFormatter()
         numberFormatter.numberStyle = .decimal
-        if let result = numberFormatter.string(for: salesRevenue) {
-            todaySalesRevenue = "오늘 총매출은 \(result)입니다."
-        }
+        let result = numberFormatter.string(for: salesRevenue)!
+        let todaySalesRevenue = "오늘 총매출은 \(result)입니다."
         return todaySalesRevenue
     }
     
@@ -152,9 +150,9 @@ var yagombucks: CoffeeShop = CoffeeShop(salesRevenue: 0, pickUpTable: "좌측 �
 //MARK: - 구현
 yagombucks.customer = missKim
 print(missKim.buyCoffee(coffee: .iceAmericano, price: 4000))
-print(yagombucks.takeOrder(coffee: .iceAmericano, beans: .nutty, takeOutOrIn: "takeout"))
+print(yagombucks.takeOrder(coffee: .herbalTea, beans: .nutty, takeOutOrIn: "takeout"))
 print(yagombucks.calculate(price: 4000))
-yagombucks.createCoffee(menu: .iceAmericano)
+yagombucks.createCoffee(menu: .herbalTea)
 yagombucks.giveCoffee()
 
 print(missKim.money)
