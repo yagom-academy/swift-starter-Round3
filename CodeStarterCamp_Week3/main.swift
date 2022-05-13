@@ -27,8 +27,13 @@ struct Person {
         
         if money > price {
             money -= price
+            payment = cafe.order(coffee, customer: who, price: price)
         } else {
-            payment = "다음에 오겠습니다."
+            let numberFormatter = NumberFormatter()
+            numberFormatter.numberStyle = .decimal
+            if let result = numberFormatter.string(for: price) {
+                payment = "잔액이 {\(result)}원만큼 부족합니다."
+            }
         }
         return payment
     }
@@ -88,12 +93,6 @@ class CoffeeShop {
                 paymentMent = "가격은 \(result)원입니다." + "\n진동벨이 울리면 \(pickUpTable)로 와주세요😎"
                 salesRevenue += price
             }
-        } else {
-            let numberFormatter = NumberFormatter()
-            numberFormatter.numberStyle = .decimal
-            if let result = numberFormatter.string(for: price) {
-                paymentMent = "잔액이 {\(result)}원만큼 부족합니다."
-            }
         }
         return paymentMent
     }
@@ -140,14 +139,13 @@ class CoffeeShop {
 //MARK: - 인스턴스 생성
 
 var misterLee: Person = Person(name: "misterLee", age: 30, money: 100000)
-var missKim: Person = Person(name: "missKim", age: 20, money: 10000)
+var missKim: Person = Person(name: "missKim", age: 20, money: 10)
 missKim.pastime = "커피숍투어🍰☕️"
 var yagombucks = CoffeeShop(salesRevenue: 0, pickUpTable: "좌측 픽업바", music: "지브리음악", barista: missKim, mood: "woody")
 
 //MARK: - 구현
 
 print(yagombucks.takeOrder(coffee: .iceAmericano, beans: .nutty, takeOutOrIn: "takeout"))
-print(yagombucks.order(.iceAmericano, customer: missKim, price: 4000))
 print(missKim.buyCoffee(who: missKim, cafe: yagombucks, coffee: .iceAmericano, price: 4000))
 yagombucks.createCoffee(menu: .iceAmericano)
 yagombucks.giveCoffee(customer: missKim)
