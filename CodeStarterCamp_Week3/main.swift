@@ -23,7 +23,7 @@ struct Person {
     }
     
     mutating func buyCoffee(coffee: CoffeeShop.Menu, price: Int) -> String {
-        var payment: String
+        var payment: String = ""
         
         if money > price {
             money = money - price
@@ -31,8 +31,9 @@ struct Person {
         } else {
             let numberFormatter = NumberFormatter()
             numberFormatter.numberStyle = .decimal
-            let result = numberFormatter.string(for: price)!
-            payment = "잔액이 {\(result)}원만큼 부족합니다."
+            if let result = numberFormatter.string(for: price) {
+                payment = "잔액이 {\(result)}원만큼 부족합니다."
+            }
         }
         return payment
     }
@@ -87,10 +88,12 @@ class CoffeeShop {
     }
     
     func calculate(price: Int) -> String {
+        var paymentMent: String = ""
         let numberFormatter = NumberFormatter()
         numberFormatter.numberStyle = .decimal
-        let result = numberFormatter.string(for: price)!
-        var paymentMent: String = "가격은 \(result)원입니다."
+        if let result = numberFormatter.string(for: price) {
+            paymentMent = "가격은 \(result)원입니다."
+        }
         
         if let pickUpTable = pickUpTable {
             paymentMent += "\n진동벨이 울리면 \(pickUpTable)로 와주세요😎"
@@ -113,10 +116,12 @@ class CoffeeShop {
     }
     
     func sayTodaySalesRevenue() -> String {
+        var todaySalesRevenue: String = ""
         let numberFormatter = NumberFormatter()
         numberFormatter.numberStyle = .decimal
-        let result = numberFormatter.string(for: salesRevenue)!
-        let todaySalesRevenue = "오늘 총매출은 \(result)입니다."
+        if let result = numberFormatter.string(for: salesRevenue) {
+            todaySalesRevenue = "오늘 총매출은 \(result)입니다."
+        }
         return todaySalesRevenue
     }
     
