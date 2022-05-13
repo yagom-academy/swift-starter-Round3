@@ -27,13 +27,8 @@ struct Person {
         
         if money > price {
             money -= price
-            payment = cafe.order(coffee, customer: who, price: price)
         } else {
-            let numberFormatter = NumberFormatter()
-            numberFormatter.numberStyle = .decimal
-            if let result = numberFormatter.string(for: price) {
-                payment = "잔액이 {\(result)}원만큼 부족합니다."
-            }
+            payment = "다음에 오겠습니다."
         }
         return payment
     }
@@ -90,17 +85,29 @@ class CoffeeShop {
         if pickUpTable == nil {
             if customer.money > price {
                 numberFormatter.numberStyle = .decimal
-                if let result = numberFormatter.string(for: price){
+                if let result = numberFormatter.string(for: price) {
                     paymentMent = "가격은 \(result)원입니다."
                     salesRevenue += price
+                }
+            } else {
+                let numberFormatter = NumberFormatter()
+                numberFormatter.numberStyle = .decimal
+                if let result = numberFormatter.string(for: price) {
+                    paymentMent = "잔액이 {\(result)}원만큼 부족합니다."
                 }
             }
         } else {
             if customer.money > price {
                 numberFormatter.numberStyle = .decimal
-                if let result = numberFormatter.string(for: price), let pickUpTable = pickUpTable  {
+                if let result = numberFormatter.string(for: price), let pickUpTable = pickUpTable {
                     paymentMent = "가격은 \(result)원입니다." + "\n진동벨이 울리면 \(pickUpTable)로 와주세요😎"
                     salesRevenue += price
+                }
+            } else {
+                let numberFormatter = NumberFormatter()
+                numberFormatter.numberStyle = .decimal
+                if let result = numberFormatter.string(for: price) {
+                    paymentMent = "잔액이 {\(result)}원만큼 부족합니다."
                 }
             }
         }
@@ -156,6 +163,7 @@ var yagombucks = CoffeeShop(salesRevenue: 0, music: "", mood: "", barista: missK
 //MARK: - 구현
 
 print(yagombucks.takeOrder(coffee: .iceAmericano, beans: .nutty, takeOutOrIn: "takeout"))
+print(yagombucks.order(.iceAmericano, customer: missKim, price: 4000))
 print(missKim.buyCoffee(who: missKim, cafe: yagombucks, coffee: .iceAmericano, price: 4000))
 yagombucks.createCoffee(menu: .iceAmericano)
 yagombucks.giveCoffee(customer: missKim)
