@@ -11,9 +11,6 @@ import Foundation
 struct Person {
     var money: Int?
     var name: String?
-    mutating func buyCoffee(_ price:Int) {
-        money = (money ?? 0) - price
-    }
     
     mutating func order(_ coffee: Coffee) {
         if var money = money {
@@ -56,9 +53,10 @@ enum Coffee {
 }
 
 var missKim = Person()
+var yagombucks = CoffeeShop()
+
 missKim.money = 500
 missKim.name = "김여자"
-var yagombucks = CoffeeShop()
 missKim.order(.아메리카노)
 
 
