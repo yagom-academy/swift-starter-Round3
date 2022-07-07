@@ -10,61 +10,55 @@ import Foundation
 
 struct Person {
     var money: Int?
-    
+    var name: String?
     mutating func buyCoffee(_ price:Int) {
-        money = (money ?? 0)-price
+        money = (money ?? 0) - price
+    }
+    
+    mutating func order(_ coffee: Coffee) {
+        if var money = money {
+            if let price = yagombucks.menu[coffee] {
+                if money < price {
+                    print("잔액이 \(price - money)원만큼 부족합니다.")
+                }
+                else {
+                    yagombucks.make(coffee, from: self.name ?? "이름없음")
+                    money = money - price
+                    yagombucks.salesRevenue = yagombucks.salesRevenue + price
+                }
+            }
+            else {
+                print("There is nil in price")
+            }
+        }
+        else {
+            print("There is nil in money")
+        }
     }
 }
 
-var person = Person()
-person.money = 5000
-person.buyCoffee(3000)
-print("남은돈:",person.money ?? 0)
-
 struct CoffeeShop {
-    var take: Int = 10000000
+    var salesRevenue: Int = 10000000
     var coffeeType: Coffee?
-    var price: Int = 0
     var pickUpTable: Array<Coffee> = []
     var barista: Person?
+    var menu: Dictionary = [Coffee.아메리카노:4000, .카푸치노:4500, .에스프레소: 3800]
     
-    // 주문받기
-    mutating func takeOrder(_ coffeeType: Coffee, _ price: Int) {
-        self.coffeeType = coffeeType
-        self.price = price
-        self.take = self.take + price
-    }
-    // 커피만들기
-    mutating func makeCoffee(_ coffeeType: Coffee) {
-        pickUpTable.append(coffeeType)
+    mutating func make(_ coffee: Coffee, from name: String) {
+        // pickUpTable에 올리기, 문구 출력하기
+        pickUpTable.append(coffee)
+        print("\(name) 님이 주문하신 \(coffee)(이/가) 준비되었습니다. 픽업대에서 가져가주세요.")
     }
 }
 
 enum Coffee {
-    case americano, cappuccino, espresso
+    case 아메리카노, 카푸치노, 에스프레소
 }
 
-var misterLee = Person(money: 60000)
-var misterKim = Person(money: 50000)
+var missKim = Person()
+missKim.money = 500
+missKim.name = "김여자"
 var yagombucks = CoffeeShop()
-
-// yagombucks 바리스타 할당하기
-yagombucks.barista = misterLee
-
-// yagombucks 주문하기
-yagombucks.takeOrder(.americano, 5000)
-
-// yagombucks 커피만들기
-yagombucks.makeCoffee(.americano)
-
-// yagombucks 속성확인
-print("커피종류:", yagombucks.coffeeType!)
-print("커피가격:", yagombucks.price)
-print("픽업테이블 목록:", yagombucks.pickUpTable)
-print("바리스타:", yagombucks.barista ?? Person())
-print("총 매출:", yagombucks.take)
-
-
-
+missKim.order(.아메리카노)
 
 
