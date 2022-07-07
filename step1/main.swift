@@ -26,11 +26,13 @@ class CoffeeShop {
     var sales: Int
     var barista: Person
     var menu: [String: Int]
-    init(shopName: String, sales: Int, barista: Person, menu: [String: Int]) {
+    var pickUpTable: [String]
+    init(shopName: String, sales: Int, barista: Person, menu: [String: Int], pickUpTable: [String]) {
         self.shopName = shopName
         self.sales = sales
         self.barista = barista
         self.menu = menu
+        self.pickUpTable = pickUpTable
     }
 }
 
