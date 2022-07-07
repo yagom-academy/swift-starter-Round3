@@ -11,8 +11,9 @@ import Foundation
 struct Person {
     var money: Int
     
-    func buyCoffee() {
-        
+    func buyCoffee(what coffee: Coffee, for amount: Int) -> Dictionary<Coffee, Int> {
+        let purchase = [coffee: amount]
+        return purchase
     }
 }
 
@@ -20,20 +21,20 @@ struct CoffeeShop {
     var sales: Int
     var coffeePrice: Dictionary<Coffee, Int> = [Coffee: Int]()
     var pickUpTable: Array<Coffee> = [Coffee]()
-    var barista: Person
+    var barista: Person!
     
-    func takeOrder() {
-        
+    func takeOrder(who: Person, order: [Coffee: Int]) -> [Coffee: Int] {
+        // who.money -= Coffee.~~의 가격 * 수량 int
+        // self.sales +=            "
+        return order
     }
-    func makeCoffee() {
-        
-    }
-    func toPickUpTable() {
-        
+    func makeCoffee(orderedCoffee: [Coffee: Int]) {
+        // 딕셔너리형태말고 배열로 담기.
+        // for _ in 1...amount
+        //      .append()
     }
     
 }
-
 
 enum Coffee {
     case americano, latte, cappuccino
@@ -42,4 +43,11 @@ enum Coffee {
 var misterLee = Person(money: 100)
 var missKim = Person(money: 150)
 
-var yagombucks = CoffeeShop(sales: 10000, coffeePrice: [:], pickUpTable: [], barista: misterLee)
+var yagombucks = CoffeeShop(sales: 10000, coffeePrice: [:], pickUpTable: [])
+yagombucks.barista = misterLee
+
+// --- 여기부턴 testing
+var yagomCoffeePrice: Dictionary<Coffee, Int> = [Coffee: Int]()
+yagomCoffeePrice[Coffee.americano] = 3
+yagomCoffeePrice[Coffee.latte] = 4
+yagomCoffeePrice[Coffee.cappuccino] = 5
