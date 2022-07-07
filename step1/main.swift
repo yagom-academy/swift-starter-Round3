@@ -22,7 +22,16 @@ class Person {
 }
 
 class CoffeeShop {
-    
+    var shopName: String
+    var sales: Int
+    var barista: Person
+    var menu: [String: Int]
+    init(shopName: String, sales: Int, barista: Person, menu: [String: Int]) {
+        self.shopName = shopName
+        self.sales = sales
+        self.barista = barista
+        self.menu = menu
+    }
 }
 
 enum Coffee: String {
