@@ -31,22 +31,27 @@ var missKim: Person = Person(name: "missKim", age: 24, moneyAmount: 4500)
 struct CoffeeShop {
     var name: String
     enum Coffee: String {
-        case espresso = "에스프레소", americano = "아메리카노", latte = "라떼", cappuccino = "카푸치노", mocha = "모카", todaysCoffee = "오늘의 커피"
+        case espresso = "에스프레소",
+             americano = "아메리카노",
+             latte = "라떼",
+             cappuccino = "카푸치노",
+             mocha = "모카",
+             todaysCoffee = "오늘의 커피"
     }
     var barista: Person?
     var salesAmount: Int
-    var menu: [String: Int] = [Coffee.espresso.rawValue: 3800, Coffee.americano.rawValue: 4200, Coffee.latte.rawValue: 4500, Coffee.cappuccino.rawValue: 5100, Coffee.mocha.rawValue: 5600, Coffee.todaysCoffee.rawValue: 4600]
+    var menu: [Coffee: Int] = [Coffee.espresso: 3800, Coffee.americano: 4200, Coffee.latte: 4500, Coffee.cappuccino: 5100, Coffee.mocha: 5600, Coffee.todaysCoffee: 4600]
     var pickUpTable: Array<String> = []
-        
-    func takeOrder(_ coffee: Coffee.RawValue) {
-        print("\(coffee) 주문을 받았습니다.")
+    
+    func takeOrder(_ coffee: Coffee) {
+        print("\(coffee.rawValue) 주문을 받았습니다.")
     }
     
-    mutating func makeCoffee(of coffee: Coffee.RawValue) {
+    mutating func makeCoffee(of coffee: Coffee) {
         takeOrder(coffee)
-        print("\(coffee) 커피를 만듭니다.")
+        print("\(coffee.rawValue) 커피를 만듭니다.")
         pickUpTable.append("\(coffee)")
-        print("\(coffee) 픽업 대기중입니다.")
+        print("\(coffee.rawValue) 픽업 대기중입니다.")
     }
 }
 
