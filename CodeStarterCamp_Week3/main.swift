@@ -37,7 +37,6 @@ class Person {
     
     func order(coffee: Coffee) -> Coffee {
         print("\(coffee)를 주문하다")
-        //self.money -= 커피값
         
         return coffee
     }
@@ -47,18 +46,24 @@ struct CoffeeShop {
     var sales: Int
     // 딕셔너리와 enum중에 고민....
     var menu: [Coffee: Int] = [.americano: 2000, .cappuccino: 2500, .espresso: 1500, .flatWhite: 3000, .latte: 2500, .macchiato: 3000, .mocha: 2500 ]
-    var pickUpTable: [String] = []
+    var pickUpTable: [Coffee] = []
     var barista: Person?
         
     //init()을 하지 않은 이유: struct에서 제공하는 memberwise 이니셜라이즈를 사용해보기 위함.
     
-    func takeAnOrder() {
-        print("주문을 받다")
+    func takeAnOrder(guest: Person, orderedCoffee: Coffee) {
+        if let price = menu[orderedCoffee] {
+            print("\(orderedCoffee) 주문을 받았다.")
+            print("\(guest.name)님, \(orderedCoffee)는 \(price)원 입니다.")
+            guest.money -= price
+        } else {
+            print("해당 커피의 가격이 정해지지 않았습니다.")
+        }
     }
     
     mutating func makeCoffee(orderedCoffee: Coffee) { // make(coffee)
         print("커피를 만들다")
-        pickUpTable.append(orderedCoffee.rawValue)
+        pickUpTable.append(orderedCoffee)
     }
     
 }
@@ -73,6 +78,26 @@ var missKim = Person(name: "missKim", age: 29, money: 39000)
 var yagombucks = CoffeeShop(sales: 100000)
 yagombucks.barista = misterLee
 
-//if let baristaName = yagombucks.barista?.name {
-//    print(baristaName)
-//}
+
+//------- 실행 테스트용 --------//
+/*
+var missKimOrder = missKim.order(coffee: .americano)
+print(missKim.money)
+yagombucks.takeAnOrder(guest: missKim, orderedCoffee: missKimOrder)
+print(missKim.money)
+
+yagombucks.makeCoffee(orderedCoffee: missKimOrder)
+print(yagombucks.pickUpTable)
+
+missKimOrder = missKim.order(coffee: .flatWhite)
+print(missKim.money)
+yagombucks.takeAnOrder(guest: missKim, orderedCoffee: missKimOrder)
+print(missKim.money)
+
+yagombucks.makeCoffee(orderedCoffee: missKimOrder)
+print(yagombucks.pickUpTable)
+
+if let baristaName = yagombucks.barista?.name {
+    print(baristaName)
+}
+*/
