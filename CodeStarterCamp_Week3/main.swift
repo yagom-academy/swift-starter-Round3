@@ -21,7 +21,7 @@ struct CoffeeShop {
     var sales: Int
     var coffeePrice: Dictionary<Coffee, Int> = [Coffee: Int]()
     var pickUpTable: Array<Coffee> = [Coffee]()
-    var barista: Person!
+    var barista: Person?
     
     func takeOrder(who: Person, order: [Coffee: Int]) -> [Coffee: Int] {
         // who.money -= Coffee.~~의 가격 * 수량 int
@@ -38,6 +38,19 @@ struct CoffeeShop {
 
 enum Coffee {
     case americano, latte, cappuccino
+
+    var price: Int {
+        get {
+            switch self {
+            case .americano:
+                return 3
+            case .latte:
+                return 4
+            case .cappuccino:
+                return 5
+            }
+        }
+    }
 }
 
 var misterLee = Person(money: 100)
