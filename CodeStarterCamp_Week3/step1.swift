@@ -12,11 +12,11 @@ struct Person {
     var gender: String
     var country: String
     
-    func eatingFood(whatFood: String){
+    func eatingFood(whatFood: String) {
         print("\(whatFood)를 먹습니다.")
     }
     
-    func purchaseCoffee(coffee: Coffee){
+    func purchaseCoffee(coffee: Coffee) {
         print("\(coffee)를 구입합니다.")
     }
 }
@@ -27,7 +27,7 @@ struct CoffeeShop {
     var menu: [String:Int] = [:]
     var pickUpTable: [String] = []
     
-    mutating func makeCoffee(coffee: Coffee){
+    mutating func makeCoffee(coffee: Coffee) {
         print("주문한 \(coffee)를 제작합니다")
         pickUpTable.append(coffee.rawValue)
     }
