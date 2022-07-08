@@ -8,5 +8,10 @@
 
 import Foundation
 
-print("Hello, World!")
+//MARK: STEP 1
+misterLee.buyCoffee(spend: 5000)
+missKim.buyCoffee(spend: 5000)
+
+yagombucks.makeCoffee(of: CoffeeShop.Coffee.espresso)
+yagombucks.makeCoffee(of: CoffeeShop.Coffee.todaysCoffee)
 
