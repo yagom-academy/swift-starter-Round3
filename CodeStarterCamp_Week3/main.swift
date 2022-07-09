@@ -16,6 +16,6 @@ import Foundation
 //yagombucks.makeCoffee(of: CoffeeShop.Coffee.todaysCoffee)
 
 //MARK: STEP 2
-misterLee.order(Coffee.아메리카노)
-missKim.order(Coffee.오늘의커피)
-coda.order(Coffee.허브티)
+misterLee.order(Coffee.americano)
+missKim.order(Coffee.todaysCoffee)
+coda.order(Coffee.herbTea)
