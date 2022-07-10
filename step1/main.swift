@@ -30,8 +30,8 @@ class CoffeeShop {
     var grossSales: Int
     var barista: Person
     var menu: [Coffee: Int]
-    var pickUpTable: [String]
-    init(shopName: String, grossSales: Int, barista: Person, menu: [Coffee: Int], pickUpTable: [String]) {
+    var pickUpTable: [Coffee]
+    init(shopName: String, grossSales: Int, barista: Person, menu: [Coffee: Int], pickUpTable: [Coffee]) {
         self.shopName = shopName
         self.grossSales = grossSales
         self.barista = barista
@@ -40,7 +40,7 @@ class CoffeeShop {
     }
     func make(_ coffee: Coffee, from name: String) {
         if menu[coffee] != nil {
-            pickUpTable.append(coffee.rawValue)
+            pickUpTable.append(coffee)
             print("\(name) 님이 주문하신 \(coffee.rawValue)(이/가) 준비되었습니다. 픽업대에서 가져가주세요.")
         }
     }
