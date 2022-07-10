@@ -11,8 +11,12 @@ class Person {
     var name: String
     var age: Int
     var money: Int
-    func order(_ coffee: Coffee) -> Coffee {
-        return coffee
+    func order(_ coffee: Coffee, _ coffeeshop: CoffeeShop) {
+        if coffeeshop.menu[coffee] != nil {
+            coffeeshop.make(coffee, from: self.name)
+        } else {
+            print("선택하신 커피는 메뉴에 없습니다.")
+        }
     }
     init(name: String, age: Int, money: Int) {
         self.name = name
@@ -38,8 +42,6 @@ class CoffeeShop {
         if menu[coffee] != nil {
             pickUpTable.append(coffee.rawValue)
             print("\(name) 님이 주문하신 \(coffee.rawValue)(이/가) 준비되었습니다. 픽업대에서 가져가주세요.")
-        } else {
-            print("선택하신 커피는 메뉴에 없습니다.")
         }
     }
 }
