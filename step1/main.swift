@@ -23,13 +23,13 @@ class Person {
 
 class CoffeeShop {
     var shopName: String
-    var sales: Int
+    var grossSales: Int
     var barista: Person
     var menu: [Coffee: Int]
     var pickUpTable: [String]
-    init(shopName: String, sales: Int, barista: Person, menu: [Coffee: Int], pickUpTable: [String]) {
+    init(shopName: String, grossSales: Int, barista: Person, menu: [Coffee: Int], pickUpTable: [String]) {
         self.shopName = shopName
-        self.sales = sales
+        self.grossSales = grossSales
         self.barista = barista
         self.menu = menu
         self.pickUpTable = pickUpTable
@@ -56,7 +56,7 @@ enum Coffee: String {
 var misterLee: Person = Person(name: "Minsu Lee", age: 26, money: 10000)
 var missKim: Person = Person(name: "Jisu Kim", age: 23, money: 10000)
 var yagombucks: CoffeeShop = CoffeeShop(shopName: "yagombucks",
-                                        sales: 0,
+                                        grossSales: 0,
                                         barista: misterLee,
                                         menu: [Coffee.americano : 3500,
                                                Coffee.caffeeLatte : 4500,
