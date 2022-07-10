@@ -55,9 +55,9 @@ enum Coffee: String {
     case caramelMacchiato = "카라멜 마끼아또"
 }
 
-var misterLee: Person = Person(name: "Minsu Lee", age: 26, money: 10000)
-var missKim: Person = Person(name: "Jisu Kim", age: 23, money: 10000)
-var yagombucks: CoffeeShop = CoffeeShop(shopName: "yagombucks",
+let misterLee: Person = Person(name: "Minsu Lee", age: 26, money: 10000)
+let missKim: Person = Person(name: "Jisu Kim", age: 23, money: 10000)
+let yagombucks: CoffeeShop = CoffeeShop(shopName: "yagombucks",
                                         grossSales: 0,
                                         barista: misterLee,
                                         menu: [Coffee.americano : 3500,
