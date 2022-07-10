@@ -41,7 +41,7 @@ class CoffeeShop {
     func make(_ coffee: Coffee, from name: String) {
         if menu[coffee] != nil {
             pickUpTable.append(coffee)
-            print("\(name) 님이 주문하신 \(coffee.rawValue)(이/가) 준비되었습니다. 픽업대에서 가져가주세요.")
+            print("\(name) 님이 주문하신 \(pickUpTable[0].rawValue)(이/가) 준비되었습니다. 픽업대에서 가져가주세요.")
         }
     }
 }
