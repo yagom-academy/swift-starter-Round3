@@ -18,9 +18,4 @@ misterLee.buyCoffee(coffeePrice: 6000)
 var yagombucks: CoffeeShop = CoffeeShop(barista: misterLee)
 
 yagombucks.getOrder(orderedMenus: Coffee.latte, Coffee.mocha)
-yagombucks.changeMenuPrice(ofName: Coffee.latte, newPrice: 1300)
-
-var twosome: CoffeeShop = CoffeeShop(menu: [Coffee.espresso: 500, Coffee.latte: 700], barista: missKim)
-
-twosome.getOrder(orderedMenus: Coffee.espresso, Coffee.mocha)
-twosome.changeMenuPrice(ofName: Coffee.coldBrew, newPrice: 130)
+yagombucks.changeMenuPrice(of: Coffee.latte, to: 1300)

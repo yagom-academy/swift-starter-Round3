@@ -17,12 +17,12 @@ class Person {
     }
     
     var name: String
-    var age: Int
+    private var age: Int
     var money: Int
     var nationality: String
-    var gender: Person.Gender
+    var gender: Gender
     
-    init(name: String, age: Int, money: Int, nationality: String, gender: Person.Gender) {
+    init(name: String, age: Int, money: Int, nationality: String, gender: Gender) {
         self.name = name
         self.age = age
         self.money = money
@@ -50,11 +50,7 @@ class CoffeeShop {
     var menu: Dictionary<Coffee, Int> = [Coffee.americano: 4500, Coffee.cappuccino: 5000, Coffee.coldBrew: 5500, Coffee.espresso: 4000, Coffee.latte: 5000, Coffee.mocha: 5300]
     var pickUpTable: Array<Coffee> = []
     var barista: Person
-    
-    init(menu: Dictionary<Coffee, Int>, barista: Person) {
-        self.menu = menu
-        self.barista = barista
-    }
+
     init(barista: Person) {
         self.barista = barista
     }
@@ -76,10 +72,10 @@ class CoffeeShop {
         self.pickUpTable.append(orderedMenu)
     }
     
-    func changeMenuPrice(ofName: Coffee, newPrice: Int) {
-        if let price: Int = self.menu[ofName] {
-            self.menu[ofName] = newPrice
-            print("\(ofName.rawValue)를 \(price)원 으로 변경했습니다")
+    func changeMenuPrice(of name: Coffee, to newPrice: Int) {
+        if let price: Int = self.menu[name] {
+            self.menu[name] = newPrice
+            print("\(name.rawValue)를 \(price)원 으로 변경했습니다")
         } else {
             print("해당 메뉴는 판매하지 않습니다.")
         }
