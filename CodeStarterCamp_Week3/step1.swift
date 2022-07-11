@@ -8,12 +8,12 @@
 import Foundation
 
 struct Person {
-    var haveMoney: Int
+    var money: Int
     var gender: String
     var country: String
     
-    func eatingFood(whatFood: String) {
-        print("\(whatFood)를 먹습니다.")
+    func eatFood(food: String) {
+        print("\(food)를 먹습니다.")
     }
     
     func purchaseCoffee(coffee: Coffee) {
@@ -25,15 +25,15 @@ struct CoffeeShop {
     var sales: Int
     var barista: Person
     var menu: [String:Int] = [:]
-    var pickUpTable: [String] = []
+    var pickUpTable: [Coffee] = []
     
     mutating func makeCoffee(coffee: Coffee) {
         print("주문한 \(coffee)를 제작합니다")
-        pickUpTable.append(coffee.rawValue)
+        pickUpTable.append(coffee)
     }
 }
 
-enum Coffee: String {
+enum Coffee {
     case americano
     case espresso
     case latte
