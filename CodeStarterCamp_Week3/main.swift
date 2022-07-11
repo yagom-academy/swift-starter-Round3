@@ -11,5 +11,7 @@ import Foundation
 let misterLee: Person = Person(name: "미스터 리", cashInWallet: 10000)
 let missKim: Person = Person(name: "미스 김", cashInWallet: 5000)
 
-let yagombucks: CoffeeShop = CoffeeShop(name: "야곰벅스")
-yagombucks.barista = misterLee
+let yagombucks: CoffeeShop = CoffeeShop(name: "야곰벅스", barista: misterLee)
+
+missKim.orderCoffee(coffeeShop: yagombucks, coffee: .americano)
+missKim.orderCoffee(coffeeShop: yagombucks, coffee: .caffeLatte)
