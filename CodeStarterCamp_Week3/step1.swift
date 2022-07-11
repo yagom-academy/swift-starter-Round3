@@ -9,6 +9,7 @@ import Foundation
 
 struct Person {
     var money: Int
+    var name: String
     var gender: String
     var country: String
     
@@ -28,7 +29,7 @@ struct CoffeeShop {
     var pickUpTable: [Coffee] = []
     
     mutating func makeCoffee(coffee: Coffee) {
-        print("주문한 \(coffee)를 제작합니다")
+        print("\(barista.name)이(가) 주문한 \(coffee)를 제작합니다")
         pickUpTable.append(coffee)
     }
 }
