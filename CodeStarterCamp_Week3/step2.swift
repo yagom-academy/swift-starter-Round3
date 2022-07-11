@@ -44,7 +44,7 @@ class Person {
                 
                 coffeeShop.make(coffee, from: self.name)
             } else {
-                print("잔액이 \(price-self.money)원만큼 부족합니다.")
+                print("잔액이 \(price - self.money)원만큼 부족합니다.")
             }
         } else {
             print("해당 메뉴는 판매하지 않습니다.")
