@@ -75,5 +75,3 @@ let yagombucks: CoffeeShop = CoffeeShop(shopName: "yagombucks",
                                         pickUpTable: [])
 
 missKim.order(Coffee.einspanner, yagombucks)
-missKim.order(Coffee.cappuccino, yagombucks)
-print("매출액: \(yagombucks.grossSales)")
