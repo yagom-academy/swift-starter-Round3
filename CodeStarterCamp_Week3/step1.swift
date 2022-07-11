@@ -32,22 +32,31 @@ class CoffeeShop {
     var pickUpTable: Array<Coffee> = []
     var barista: Person?
     
-    init(name: String) {
+    init(name: String, barista: Person) {
         self.name = name
+        self.barista = barista
     }
     
     func takeCoffeeOrder(orderCustomer: Person, coffee: Coffee) {
+        guard let coffeePrice: Int = menuBoard[coffee] else {
+            return
+        }
+        
+        guard orderCustomer.cashInWallet >= coffeePrice else {
+            print("잔액이 \(coffeePrice - orderCustomer.cashInWallet)원만큼",
+                  "부족합니다.")
+            return
+        }
+        
+        orderCustomer.cashInWallet -= coffeePrice
+        self.sales += coffeePrice
+        
         print("\(orderCustomer.name) 고객님에게 \(coffee.rawValue)를 주문 받았습니다.")
-        placeCoffeOnPickupTable(makeCoffee(coffee))
+        makeCoffee(coffee)
     }
     
-    func makeCoffee(_ coffee: Coffee) -> Coffee {
-        print("\(coffee.rawValue)를 만들었습니다.")
-        return coffee
-    }
-    
-    func placeCoffeOnPickupTable(_ coffee: Coffee) {
-        print("\(coffee.rawValue)가 픽업 테이블로 나왔습니다.")
+    func makeCoffee(_ coffee: Coffee) {
+        print("\(coffee.rawValue)가 만들어져 픽업 테이블로 나왔습니다.")
         pickUpTable.append(coffee)
     }
 }
