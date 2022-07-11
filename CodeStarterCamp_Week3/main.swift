@@ -9,35 +9,51 @@
 import Foundation
 
 struct Person {
+    var name: String
     var money: Int
     
-    func buyCoffee(what coffee: Coffee, for amount: Int) -> Dictionary<Coffee, Int> {
-        let purchase = [coffee: amount]
-        return purchase
+    mutating func buyCoffee(where coffeeShop: CoffeeShop, order: [Coffee: Int]) {
+        var totalPrice: Int = 0
+        for (coffee, amount) in order {
+            totalPrice += coffee.price * amount
+        }
+        var store: CoffeeShop
+        store = coffeeShop
+        
+        guard self.money >= totalPrice else {
+            print("잔액이 \(totalPrice - self.money)만큼 부족합니다.")
+            return
+        }
+        
+        self.money -= totalPrice
+        store.sales += totalPrice
+        
+        store.takeOrder(client: self, order: order)
     }
 }
+
 
 struct CoffeeShop {
     var sales: Int
-    var coffeePrice: Dictionary<Coffee, Int> = [Coffee: Int]()
-    var pickUpTable: Array<Coffee> = [Coffee]()
+    var pickUpTable: [Coffee: Int]
     var barista: Person?
     
-    func takeOrder(who: Person, order: [Coffee: Int]) -> [Coffee: Int] {
-        // who.money -= Coffee.~~의 가격 * 수량 int
-        // self.sales +=            "
-        return order
+    mutating func takeOrder(client: Person, order: [Coffee: Int]) {
+        self.makeCoffee(clientName: client.name, orderedCoffee: order)
     }
-    func makeCoffee(orderedCoffee: [Coffee: Int]) {
-        // 딕셔너리형태말고 배열로 담기.
-        // for _ in 1...amount
-        //      .append()
+    mutating func makeCoffee(clientName: String, orderedCoffee: [Coffee: Int]) {
+        self.pickUpTable = orderedCoffee
+        
+        print("\(clientName) 님이 주문하신 ", terminator: "")
+        for (coffee, amount) in self.pickUpTable {
+            print("\(coffee.rawValue) \(amount)잔", terminator: " ")
+        }
+        print("(이/가) 준비되었습니다. 픽업대에서 가져가주세요.")
     }
-    
 }
 
-enum Coffee {
-    case americano, latte, cappuccino
+enum Coffee: String {
+    case americano = "아메리카노", latte = "라떼", cappuccino = "카푸치노"
 
     var price: Int {
         get {
@@ -53,14 +69,9 @@ enum Coffee {
     }
 }
 
-var misterLee = Person(money: 100)
-var missKim = Person(money: 150)
+var misterLee = Person(name: "misterLee", money: 100)
+var missKim = Person(name: "missKim", money: 3)
+var yagombucks = CoffeeShop(sales: 0, pickUpTable: [:], barista: misterLee)
 
-var yagombucks = CoffeeShop(sales: 10000, coffeePrice: [:], pickUpTable: [])
-yagombucks.barista = misterLee
-
-// --- 여기부턴 testing
-var yagomCoffeePrice: Dictionary<Coffee, Int> = [Coffee: Int]()
-yagomCoffeePrice[Coffee.americano] = 3
-yagomCoffeePrice[Coffee.latte] = 4
-yagomCoffeePrice[Coffee.cappuccino] = 5
+missKim.buyCoffee(where: yagombucks, order: [Coffee.americano: 1])
+missKim.buyCoffee(where: yagombucks, order: [Coffee.americano: 1, Coffee.latte: 2])
