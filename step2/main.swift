@@ -73,3 +73,7 @@ let yagombucks: CoffeeShop = CoffeeShop(shopName: "yagombucks",
                                                Coffee.einspanner : 5000,
                                                Coffee.caramelMacchiato : 5000],
                                         pickUpTable: [])
+
+missKim.order(Coffee.einspanner, yagombucks)
+missKim.order(Coffee.cappuccino, yagombucks)
+print("매출액: \(yagombucks.grossSales)")
