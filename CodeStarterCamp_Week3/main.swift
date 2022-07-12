@@ -10,5 +10,5 @@ misterLee.age = 25
 misterLee.buy("bread", for: 3800)
 misterLee.buy("ticket", for: 55000)
 yagombucks.takeOrder(.americano)
-
+yagombucks.takeOrder(.ade)
 
