@@ -17,20 +17,54 @@ struct Person {
         print("\(food)를 먹습니다.")
     }
     
-    func purchaseCoffee(coffee: Coffee) {
-        print("\(coffee)를 구입합니다.")
+    mutating func purchaseCoffee(_ coffee: Coffee, shop: CoffeeShop) {
+        var offer = shop
+        //         if let guard  둘중 머쓸지 고민하기 일단 구현먼저
+        
+        //        if let price = offer.menu[coffee] {
+        //            if money >= price {
+        //                offer.makeCoffee(coffee, from: name)
+        //                money -= price
+        //                offer.sales += price
+        //            } else {
+        //                let ininsufficientPrice = price - money
+        //                print("금액이 \(ininsufficientPrice)원만큼 부족합니다.")
+        //            }
+        //         } else {
+        //             print("메뉴에 해당하는 커피가 없습니다.")
+        //         }
+        
+        guard let price = offer.menu[coffee] else {
+            print("메뉴에 해당하는 커피가 없습니다.")
+            return
+        }
+        
+        if money >= price {
+            offer.makeCoffee(coffee, from: name)
+            money -= price
+            offer.sales += price
+        } else {
+            let ininsufficientPrice = price - money
+            print("금액이 \(ininsufficientPrice)원만큼 부족합니다.")
+        }
     }
 }
 
 struct CoffeeShop {
     var sales: Int
     var barista: Person
-    var menu: [String:Int] = [:]
     var pickUpTable: [Coffee] = []
+    var menu: [Coffee:Int] = [
+        .americano: 2000,
+        .espresso: 3000,
+        .latte: 2500,
+        .mocha: 3000,
+        .macchiato: 4000
+    ]
     
-    mutating func makeCoffee(coffee: Coffee) {
-        print("\(barista.name)이(가) 주문받은 \(coffee)를 제작합니다")
+    mutating func makeCoffee(_ coffee: Coffee, from name: String) {
         pickUpTable.append(coffee)
+        print("\(name) 님이 주문하신 \(coffee)이(가) 준비되었습니다. 픽업대에서 가져가주세요")
     }
 }
 
