@@ -13,5 +13,5 @@ let missKim: Person = Person(name: "미스 김", cashInWallet: 5000)
 
 let yagombucks: CoffeeShop = CoffeeShop(name: "야곰벅스", barista: misterLee)
 
-missKim.orderCoffee(coffeeShop: yagombucks, coffee: .americano)
-missKim.orderCoffee(coffeeShop: yagombucks, coffee: .caffeLatte)
+missKim.orderCoffee(type: .americano, at: yagombucks)
+missKim.orderCoffee(type: .caffeLatte, at: yagombucks)

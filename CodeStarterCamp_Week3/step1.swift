@@ -9,16 +9,29 @@ import Foundation
 
 class Person {
     var name: String
-    var cashInWallet: Int
+    private var cashInWallet: Int
     
     init(name: String, cashInWallet: Int) {
         self.name = name
         self.cashInWallet = cashInWallet
     }
     
-    func orderCoffee(coffeeShop: CoffeeShop, coffee: Coffee) {
+    func orderCoffee(type coffee: Coffee, at coffeeShop: CoffeeShop) {
         print("\(coffeeShop.name)에서 \(coffee.rawValue)을 주문합니다.")
-        coffeeShop.takeCoffeeOrder(orderCustomer: self, coffee: coffee)
+        coffeeShop.takeCoffeeOrder(of: self, type: coffee)
+    }
+    
+    func hasMoreCash(than price: Int) -> Bool {
+        if cashInWallet >= price {
+            return true
+        } else {
+            print("잔액이 \(price - cashInWallet)원만큼 부족합니다.")
+            return false
+        }
+    }
+    
+    func pay(_ price: Int) {
+        cashInWallet -= price
     }
 }
 
@@ -29,7 +42,7 @@ class CoffeeShop {
                                               .caffeLatte: 3000,
                                               .cappuccino: 3500,
                                               .macchiato: 4000]
-    var pickUpTable: Array<Coffee> = []
+    var pickUpTable = [Coffee]()
     var barista: Person?
     
     init(name: String, barista: Person) {
@@ -37,18 +50,16 @@ class CoffeeShop {
         self.barista = barista
     }
     
-    func takeCoffeeOrder(orderCustomer: Person, coffee: Coffee) {
+    func takeCoffeeOrder(of orderCustomer: Person, type coffee: Coffee) {
         guard let coffeePrice: Int = menuBoard[coffee] else {
             return
         }
         
-        guard orderCustomer.cashInWallet >= coffeePrice else {
-            print("잔액이 \(coffeePrice - orderCustomer.cashInWallet)원만큼",
-                  "부족합니다.")
+        guard orderCustomer.hasMoreCash(than: coffeePrice) else {
             return
         }
         
-        orderCustomer.cashInWallet -= coffeePrice
+        orderCustomer.pay(coffeePrice)
         self.sales += coffeePrice
         
         print("\(orderCustomer.name) 고객님에게 \(coffee.rawValue)를 주문 받았습니다.")
