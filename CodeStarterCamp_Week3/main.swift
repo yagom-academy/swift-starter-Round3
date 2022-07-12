@@ -9,7 +9,7 @@
 import Foundation
 
 struct Person {
-    var name: String
+    let name: String
     var money: Int
     
     mutating func buyCoffee(where coffeeShop: CoffeeShop, order: [Coffee: Int]) {
@@ -75,3 +75,4 @@ var yagombucks = CoffeeShop(sales: 0, pickUpTable: [:], barista: misterLee)
 
 missKim.buyCoffee(where: yagombucks, order: [Coffee.americano: 1])
 missKim.buyCoffee(where: yagombucks, order: [Coffee.americano: 1, Coffee.latte: 2])
+misterLee.buyCoffee(where: yagombucks, order: [Coffee.americano: 1, Coffee.latte: 2])
