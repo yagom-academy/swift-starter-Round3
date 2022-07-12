@@ -24,11 +24,9 @@ struct Person {
             print("잔액이 \(totalPrice - self.money)만큼 부족합니다.")
             return
         }
-        
         self.money -= totalPrice
-        store.sales += totalPrice
         
-        store.takeOrder(client: self, order: order)
+        store.takeOrder(client: self, order: order, pay: totalPrice)
     }
 }
 
@@ -38,7 +36,8 @@ struct CoffeeShop {
     var pickUpTable: [Coffee: Int]
     var barista: Person?
     
-    mutating func takeOrder(client: Person, order: [Coffee: Int]) {
+    mutating func takeOrder(client: Person, order: [Coffee: Int], pay: Int) {
+        self.sales += pay
         self.makeCoffee(clientName: client.name, orderedCoffee: order)
     }
     mutating func makeCoffee(clientName: String, orderedCoffee: [Coffee: Int]) {
