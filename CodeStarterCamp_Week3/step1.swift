@@ -2,6 +2,21 @@ import Foundation
 
 enum Coffee {
     case americano, latte, frappucchino, smoothe, ade
+    
+    var name: String{
+        switch self {
+        case .americano:
+            return "아메리카노"
+        case .latte:
+            return "라떼"
+        case .frappucchino:
+            return "프라푸치노"
+        case .smoothe:
+            return "스무디"
+        case .ade:
+            return "에이드"
+        }
+    }
 }
 
 struct Person {
@@ -26,20 +41,20 @@ struct Person {
 
 struct CoffeeShop {
     var sales: Int = 0,
-        barista: Person?,
-        menu: Dictionary<Coffee, Int>? = [:],
-        pickUpTable: Array<Coffee>? = []
+        barista: Person,
+        menu: Dictionary<Coffee, Int> = [:],
+        pickUpTable: Array<Coffee> = []
     
     mutating func takeOrder(_ coffee: Coffee) {
-        if let price: Int = menu?[coffee] {
-            print("\(coffee)를 주문받았습니다")
-            self.make(coffee)
+        if let price: Int = menu[coffee] {
+            print("\(coffee.name)를 주문받았습니다")
+            make(coffee)
             sales = sales + price
         }
     }
     
     mutating func make(_ coffee: Coffee) {
-        pickUpTable?.append(coffee)
-        print("픽업대에 주문하신 \(coffee)가 준비되었습니다")
+        pickUpTable.append(coffee)
+        print("픽업대에 주문하신 \(coffee.name)가 준비되었습니다")
     }
 }
