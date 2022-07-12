@@ -9,13 +9,13 @@
 import Foundation
 
 class Person {
-    var name: String
-    var age: Int
-    var gender: String
-    var height: Int
-    var weight: Int
-    var job: String
-    var money: Int
+    var name: String = "name"
+    var age: Int = 0
+    var gender: String = "gender"
+    var height: Int = 0
+    var weight: Int = 0
+    var job: String = "job"
+    var money: Int = 0
     init(name: String, age: Int, gender: String, height: Int, weight: Int, job: String, money: Int) {
         self.name = name
         self.age = age
@@ -37,8 +37,8 @@ class Person {
 }
 class CoffeeShop {
     var name: String
-    var menu: Dictionary<String, Int> = ["americano": 4500, "cafeLatte": 5000, "cafeMocha": 5500]
-    var pickUpTable: Array<String> = []
+    var menu: Dictionary<Coffee, Int> = [.americano: 4500, .cafeLatte: 5000, .cafeMocha: 5500]
+    var pickUpTable: Array<Coffee> = []
     var barista: Person
     var grossSales: Int
     init(name: String, barista: Person, grossSales: Int) {
@@ -46,28 +46,36 @@ class CoffeeShop {
         self.barista = barista
         self.grossSales = grossSales
     }
-    func takeOrder(order: String) {
-        print("\(order) 한 잔 \(menu["\(order)"]!)원 입니다.")
+    func takeOrder(coffee: Coffee) {
+        if let order = menu[coffee] {
+            print("\(coffee.rawValue) 한 잔 \(order)원 입니다.")
+        } else {
+            print("고객님 그 메뉴는 저희 매장에서 판매하지 않습니다.")
+        }
     }
-    func makeCoffee(to order: String) {
-        print("\(order) 한 잔 제조중입니다.")
+    func makeCoffee(to order: Coffee) {
+        print("\(order.rawValue) 한 잔 제조중입니다.")
     }
-    func serveCoffee(ordered: String) {
+    func serveCoffee(ordered: Coffee) {
         pickUpTable.append(ordered)
-        print("주문하신 \(ordered) 한 잔 나왔습니다.")
+        print("주문하신 \(ordered.rawValue) 한 잔 나왔습니다.")
+    }
+    func launchNewMenu(newOne: Coffee, price: Int) {
+        menu[newOne] = price
     }
 }
 
-enum Coffee {
-    case americano, cafeLatte, cafeMocha
+enum Coffee: String {
+    case americano = "아메리카노", cafeLatte = "카페라떼", cafeMocha = "카페모카", vanillaLatte = "바닐라라떼", caramelMacchizto = "캬라멜마끼아또"
 }
 
-var misterLee: Person = Person(name: "misterLee", age: 20, gender: "남성", height: 180, weight: 80, job: "바리스타", money: 1000)
-var missKim: Person = Person(name: "missKim", age: 21, gender: "여성", height: 162, weight: 55, job: "회사원", money: 1200)
-var yagombucks: CoffeeShop = CoffeeShop(name: "야곰벅스", barista: missKim, grossSales: 5000)
-
-yagombucks.barista = misterLee
+var misterLee: Person = Person(name: "misterLee", age: 20, gender: "남성", height: 180, weight: 80, job: "바리스타", money: 100000)
+var missKim: Person
+var yagombucks: CoffeeShop = CoffeeShop(name: "야곰벅스", barista: misterLee, grossSales: 0)
 
 print("\(yagombucks.barista.name)")
-yagombucks.serveCoffee(ordered: "americano")
-print(yagombucks.pickUpTable.joined())
+yagombucks.takeOrder(coffee: .americano)
+yagombucks.serveCoffee(ordered: .americano)
+yagombucks.takeOrder(coffee: .caramelMacchizto)
+yagombucks.takeOrder(coffee: .cafeLatte)
+yagombucks.serveCoffee(ordered: .cafeLatte)
