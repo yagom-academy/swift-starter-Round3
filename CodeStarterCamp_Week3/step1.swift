@@ -17,17 +17,18 @@ struct Person {
         print("\(food)를 먹습니다.")
     }
     
-    mutating func purchaseCoffee(_ coffee: Coffee, shop: CoffeeShop) {
-        var offer = shop
-        guard let price = offer.menu[coffee] else {
+    mutating func purchaseCoffee(_ coffee: Coffee, coffeeShop: CoffeeShop) {
+        guard let price = coffeeShop.menu[coffee] else {
             print("메뉴에 해당하는 커피가 없습니다.")
             return
         }
         
         if money >= price {
-            offer.makeCoffee(coffee, from: name)
+            coffeeShop.makeCoffee(coffee, from: name)
             money -= price
-            offer.sales += price
+            coffeeShop.sales += price
+            print("\(name)의 소지금액 : \(money+price) -> \(money)")
+            print("가게 매출액 : \(coffeeShop.sales - price) -> \(coffeeShop.sales)")
         } else {
             let ininsufficientPrice = price - money
             print("금액이 \(ininsufficientPrice)원만큼 부족합니다.")
@@ -35,8 +36,8 @@ struct Person {
     }
 }
 
-struct CoffeeShop {
-    var sales: Int
+class CoffeeShop {
+    var sales: Int = 0
     var barista: Person
     var pickUpTable: [Coffee] = []
     var menu: [Coffee:Int] = [
@@ -46,8 +47,11 @@ struct CoffeeShop {
         .mocha: 3000,
         .macchiato: 4000
     ]
+    init(barista: Person) {
+        self.barista = barista
+    }
     
-    mutating func makeCoffee(_ coffee: Coffee, from name: String) {
+    func makeCoffee(_ coffee: Coffee, from name: String) {
         pickUpTable.append(coffee)
         print("\(name) 님이 주문하신 \(coffee)이(가) 준비되었습니다. 픽업대에서 가져가주세요")
     }
