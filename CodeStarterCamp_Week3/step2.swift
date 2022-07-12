@@ -55,7 +55,11 @@ class Person {
 class CoffeeShop {
     private var salesAmount: Int = 0
     var menu: Dictionary<Coffee, Int> = [Coffee.americano: 4500, Coffee.cappuccino: 5000, Coffee.coldBrew: 5500, Coffee.espresso: 4000, Coffee.latte: 5000, Coffee.mocha: 5300]
-    var pickUpTable: Array<Coffee> = []
+    var pickUpTable: Array<Coffee> = [] {
+        didSet {
+            print("\(pickUpTable[pickUpTable.count - 1])(이/가) 준비되었습니다. 픽업대에서 가져가주세요.")
+        }
+    }
     private var barista: Person
 
     init(barista: Person) {
@@ -63,8 +67,8 @@ class CoffeeShop {
     }
 
     func make(_ coffee: Coffee, from name: String) {
+        print("\(name) 님이 주문하신 ",terminator: "")
         self.pickUpTable.append(coffee)
-        print("\(name) 님이 주문하신 \(coffee)(이/가) 준비되었습니다. 픽업대에서 가져가주세요.")
     }
 
     func changeMenuPrice(of name: Coffee, to newPrice: Int) {
