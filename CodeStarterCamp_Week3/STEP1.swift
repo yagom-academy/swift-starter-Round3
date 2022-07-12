@@ -12,7 +12,7 @@ struct Person {
     var age: Int
     var money: Int
     
-    mutating func purchase(price: Int) {
+    mutating func purchaseCoffee(price: Int) {
         print("안녕하세요 주문을 시작합니다.")
         if money>=price {
             self.money -= price
