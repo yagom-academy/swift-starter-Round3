@@ -16,11 +16,11 @@ class Person {
         case woman, man
     }
 
-    var name: String
+    private var name: String
     private var age: Int
-    var money: Int
-    var nationality: String
-    var gender: Gender
+    private var money: Int
+    private var nationality: String
+    private var gender: Gender
 
     init(name: String, age: Int, money: Int, nationality: String, gender: Gender) {
         self.name = name
@@ -36,27 +36,27 @@ class Person {
     }
 
     func order(from coffeeShop: CoffeeShop, _ coffee: Coffee) {
-        if let price: Int = coffeeShop.menu[coffee] {
+        let price = coffeeShop.getOrder(coffee)
+        
+        if price != -1 {
             if self.money >= price {
                 self.money -= price
-                coffeeShop.salesAmount += price
+                coffeeShop.increaseSalesAmount(coffeePrice: price)
                 print("\(price)원 커피를 구매하였습니다.\n잔액은 \(self.money)입니다.")
                 
                 coffeeShop.make(coffee, from: self.name)
             } else {
                 print("잔액이 \(price - self.money)원만큼 부족합니다.")
             }
-        } else {
-            print("해당 메뉴는 판매하지 않습니다.")
         }
     }
 }
 
 class CoffeeShop {
-    var salesAmount: Int = 0
+    private var salesAmount: Int = 0
     var menu: Dictionary<Coffee, Int> = [Coffee.americano: 4500, Coffee.cappuccino: 5000, Coffee.coldBrew: 5500, Coffee.espresso: 4000, Coffee.latte: 5000, Coffee.mocha: 5300]
     var pickUpTable: Array<Coffee> = []
-    var barista: Person
+    private var barista: Person
 
     init(barista: Person) {
         self.barista = barista
@@ -73,6 +73,19 @@ class CoffeeShop {
             print("\(name.rawValue)를 \(price)원 으로 변경했습니다")
         } else {
             print("해당 메뉴는 판매하지 않습니다.")
+        }
+    }
+     
+    func increaseSalesAmount(coffeePrice: Int) {
+        self.salesAmount += coffeePrice
+    }
+    
+    func getOrder(_ coffee: Coffee) -> Int {
+        if let price: Int = self.menu[coffee] {
+            return price
+        } else {
+            print("해당 메뉴는 판매하지 않습니다.")
+            return -1
         }
     }
 }
