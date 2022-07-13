@@ -15,7 +15,6 @@ class Person {
         if let price = coffeeshop.menu[coffee] {
             if money >= price {
                 coffeeshop.make(coffee, from: self.name)
-                coffeeshop.grossSales += price
                 money -= price
             } else {
                 print("잔액이 \(abs(money-price))원만큼 부족합니다.")
@@ -44,8 +43,9 @@ class CoffeeShop {
         self.pickUpTable = pickUpTable
     }
     func make(_ coffee: Coffee, from name: String) {
-        if menu[coffee] != nil {
+        if let price = menu[coffee] {
             pickUpTable.append(coffee)
+            self.grossSales += price
             print("\(name) 님이 주문하신 \(coffee.rawValue)(이/가) 준비되었습니다. 픽업대에서 가져가주세요.")
         }
     }
@@ -74,3 +74,4 @@ let yagombucks: CoffeeShop = CoffeeShop(shopName: "yagombucks",
 
 missKim.order(Coffee.einspanner, yagombucks)
 
+print(yagombucks.grossSales)
