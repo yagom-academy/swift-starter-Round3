@@ -14,4 +14,4 @@ var yagombucks = CoffeeShop(barista: misterLee)
 
 missKim.purchaseCoffee(Coffee.americano, coffeeShop: yagombucks)
 missKim.purchaseCoffee(Coffee.mocha, coffeeShop: yagombucks)
-missKim.purchaseCoffee(Coffee.americano, coffeeShop: yagombucks)
+missKim.purchaseCoffee(Coffee.latte, coffeeShop: yagombucks)
