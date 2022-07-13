@@ -63,11 +63,12 @@ class CoffeeShop {
         self.sales += coffeePrice
         
         print("\(orderCustomer.name) 고객님에게 \(coffee.rawValue)를 주문 받았습니다.")
-        makeCoffee(coffee)
+        makeCoffee(coffee, from: orderCustomer.name)
     }
     
-    func makeCoffee(_ coffee: Coffee) {
-        print("\(coffee.rawValue)가 만들어져 픽업 테이블로 나왔습니다.")
+    func makeCoffee(_ coffee: Coffee, from name: String) {
+        print("\(name) 님이 주문하신 \(coffee.rawValue)(이/가) 준비되었습니다.",
+              "픽업대에서 가져가주세요.")
         pickUpTable.append(coffee)
     }
 }
