@@ -58,7 +58,7 @@ class CoffeeShop {
     }
 }
 
-var missKim = Person(name: "missKim", money: 3000)
+var missKim = Person(name: "missKim", money: 2000)
 var coda = Person(name: "Coda", money: 11000)
 var yagomBucks = CoffeeShop()
 
