@@ -50,9 +50,9 @@ class Person {
             } else {
                 money = money - order
                 coffeeShop.takeOrder(coffee: coffee, from: self)
-                }
-            } else {
-                coffeeShop.takeOrder(coffee: coffee, from: self)
+            }
+        } else {
+            coffeeShop.takeOrder(coffee: coffee, from: self)
         }
     }
 }
