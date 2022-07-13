@@ -8,8 +8,9 @@
 
 import Foundation
 
-var misterLee: Person = Person(name: "misterLee", age: 25, money: 6000)
-var missKim: Person = Person(name: "missKim", age: 27, money: 5000)
-var yagombucks: CoffeeShop = CoffeeShop(coffeeShopName: "yagombucks", todayRevenue: 4000, barista: missKim)
+var missKim: Person = Person(name: "missKim", age: 25, money: 3000)
+var misterLee: Person = Person(name: "misterLee", age: 25, money: 1000)
+var yagombucks: CoffeeShop = CoffeeShop(coffeeShopName: "YagomBucks", todayRevenue: 1000, barista: misterLee)
 
-yagombucks.orderedMenu(coffee: .americano)
+missKim.order(coffee: .americano, coffeeShop: yagombucks)
+
