@@ -3,7 +3,7 @@ import Foundation
 enum Coffee {
     case americano, latte, frappucchino, smoothe, ade
     
-    var name: String {
+    var koreanName: String {
         switch self {
         case .americano:
             return "아메리카노"
@@ -47,16 +47,16 @@ struct CoffeeShop {
     
     mutating func takeOrder(_ coffee: Coffee) {
         guard let price: Int = menu[coffee] else {
-            print("죄송하지만 \(coffee.name)는 저희 매장에서 취급하지 않는 음료입니다")
+            print("죄송하지만 \(coffee.koreanName)는 저희 매장에서 취급하지 않는 음료입니다")
             return
         }
-        print("\(coffee.name)를 주문받았습니다")
+        print("\(coffee.koreanName)를 주문받았습니다")
         make(coffee)
         sales = sales + price
     }
     
     mutating func make(_ coffee: Coffee) {
         pickUpTable.append(coffee)
-        print("픽업대에 주문하신 \(coffee.name)가 준비되었습니다")
+        print("픽업대에 주문하신 \(coffee.koreanName)가 준비되었습니다")
     }
 }
