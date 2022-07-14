@@ -42,7 +42,7 @@ class CoffeeShop {
     var sales: Int = 0,
         menu: Dictionary<Coffee, Int>
     var pickUpTable: (orderer: String, coffee: Coffee)? {
-        didSet{
+        didSet {
             guard let orderer = pickUpTable?.0,
                   let coffee = pickUpTable?.1 else {
                 return print("픽업대는 비어있습니다")
