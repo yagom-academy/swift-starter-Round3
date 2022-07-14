@@ -8,10 +8,10 @@
 
 import Foundation
 
+var missKim = Person(money: 20000, name: "missKim", gender: "female", country: "korea")
 var misterLee = Person(money: 5000, name: "misterLee" , gender: "male", country: "korea")
-var missKim = Person(money: 7000, name: "missKim", gender: "female", country: "korea")
-var yagombucks = CoffeeShop(sales: 0, barista: misterLee)
+var yagombucks = CoffeeShop(barista: misterLee)
 
-yagombucks.makeCoffee(coffee: Coffee.americano)
-yagombucks.makeCoffee(coffee: Coffee.espresso)
-print(yagombucks.pickUpTable)
+missKim.purchaseCoffee(Coffee.americano, coffeeShop: yagombucks)
+missKim.purchaseCoffee(Coffee.mocha, coffeeShop: yagombucks)
+missKim.purchaseCoffee(Coffee.latte, coffeeShop: yagombucks)
