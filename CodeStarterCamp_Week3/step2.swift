@@ -23,16 +23,16 @@ struct Person {
     var name: String,
         money: Int
     
-    mutating func order(_ coffee: Coffee, at coffeeShop: CoffeeShop){
-        guard let price: Int = coffeeShop.menu[coffee] else{
+    mutating func order(_ coffee: Coffee, at coffeeShop: CoffeeShop) {
+        guard let price: Int = coffeeShop.menu[coffee] else {
             print("주문이 불가능한 음료입니다")
             return
         }
+        
         if price <= self.money {
             self.money -= price
             coffeeShop.make(coffee, from: self.name)
-        }
-        else{
+        } else {
             print("잔액이 \(price-self.money)원만큼 부족합니다.")
         }
     }
@@ -40,20 +40,24 @@ struct Person {
 
 class CoffeeShop {
     var sales: Int = 0,
-        menu: Dictionary<Coffee, Int>,
-        pickUpTable: Array<Coffee> = []
+        menu: Dictionary<Coffee, Int>
+    var pickUpTable: (orderer: String, coffee: String) = ("ordereName","coffeeName") {
+        willSet(ordererAndCoffee) {
+            print("\(ordererAndCoffee.orderer)님이 주문하신 \(ordererAndCoffee.coffee)(이/가) 준비되었습니다. 픽업대에서 가져가주세요.")
+        }
+    }
     
-    init (menu: Dictionary<Coffee, Int>){
+    init (menu: Dictionary<Coffee, Int>) {
         self.menu = menu
     }
     
     func make(_ coffee: Coffee, from name: String) {
-        guard let price: Int = self.menu[coffee] else{
+        guard let price: Int = self.menu[coffee] else {
             print("저희 카페에서 취급하지 않는 음료입니다")
             return
         }
         self.sales += price
-        self.pickUpTable.append(coffee)
-        print("\(name)님이 주문하신 \(coffee.koreanName)(이/가) 준비되었습니다. 픽업대에서 가져가주세요.")
+        self.pickUpTable = (name, coffee.koreanName)
     }
 }
+
