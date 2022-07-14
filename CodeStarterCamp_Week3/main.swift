@@ -52,16 +52,28 @@ class Person {
                 coffeeShop.takeOrder(coffee: coffee, from: self)
             }
         } else {
-            coffeeShop.takeOrder(coffee: coffee, from: self)
+            print("아 여기는 \(coffee.rawValue) 안 파나보네.")
         }
     }
 }
 class CoffeeShop {
     var name: String
     var menu: Dictionary<Coffee, Int> = [.americano: 4500, .cafeLatte: 5000, .cafeMocha: 5500]
-    var pickUpTable: Array<Coffee> = []
     var barista: Person
     var grossSales: Int = 0
+    var pickUpTable: Array<Coffee> = [] {
+        willSet(newValue) {
+            if let coffee = newValue.last?.rawValue {
+            print("\(coffee) 주문하신분!")
+            }
+        }
+        didSet {
+            if let coffee = pickUpTable.last?.rawValue {
+            print("\(coffee) 나왔습니다.")
+            }
+        }
+    }
+    
     init(name: String, barista: Person) {
         self.name = name
         self.barista = barista
@@ -84,7 +96,6 @@ class CoffeeShop {
     
     func serve(coffee: Coffee, to person: Person) {
         pickUpTable.append(coffee)
-        print("\(person.name)고객님! 주문하신 \(coffee.rawValue) 한 잔 나왔습니다.")
     }
     
     func launchNewMenu(newOne: Coffee, price: Int) {
