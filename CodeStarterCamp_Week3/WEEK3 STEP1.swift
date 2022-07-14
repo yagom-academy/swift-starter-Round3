@@ -13,11 +13,11 @@ struct Person {
     var sex: String
     var money: Int
     
-    func buy(pummok: String) {
-        print("\(pummok) 사다")
+    func buyThing(thing: String) {
+        print("\(thing) 사다")
     }
     
-    func go(place: String) {
+    func goPlace(place: String) {
         print("\(place)으로 가다")
     }
 }
@@ -25,24 +25,24 @@ struct Person {
 struct CoffeeShop {
     var coffeeShopName: String
     var barista: Person
-    var totMoney: Int = 0
+    var sales: Int = 0
     let coffeeMenuList: Dictionary<String, Int> = ["americano": 5000, "cafeLatte": 6500, "greenLatte": 6500, "cafeMocha": 7000]
-    var pickUpTable: Array<String> = []
+    var pickUpTable: Array<Coffee> = []
     
-    func orderCoffee(type: String) {
-        print("\(type) 주문이 들어왔다.")
+    func orderCoffee(coffee: String) {
+        print("\(coffee) 주문이 들어왔다.")
         
-        makeCoffee(type: type)
+        makeCoffee(baristaName: barista.name,coffee: coffee)
     }
     
-    func makeCoffee(type: String) {
-        print("\(type)을(를) 만든다.")
+    func makeCoffee(baristaName: String, coffee: String) {
+        print("\(baristaName)가 \(coffee)을(를) 만든다.")
         
-        pickUpTable(type: type)
+        finishCoffee(coffee: coffee)
     }
     
-    func pickUpTable(type: String){
-        print("주문하신 \(type) 나왔습니다.")
+    func finishCoffee(coffee: String){
+        print("주문하신 \(coffee) 나왔습니다.")
     }
 }
 
