@@ -41,9 +41,13 @@ struct Person {
 class CoffeeShop {
     var sales: Int = 0,
         menu: Dictionary<Coffee, Int>
-    var pickUpTable: (orderer: String, coffee: String) = ("ordereName","coffeeName") {
-        willSet(ordererAndCoffee) {
-            print("\(ordererAndCoffee.orderer)님이 주문하신 \(ordererAndCoffee.coffee)(이/가) 준비되었습니다. 픽업대에서 가져가주세요.")
+    var pickUpTable: (orderer: String, coffee: Coffee)? {
+        didSet{
+            guard let orderer = pickUpTable?.0,
+                  let coffee = pickUpTable?.1 else {
+                return print("픽업대는 비어있습니다")
+            }
+            print("\(orderer)님이 주문하신 \(coffee.koreanName)(이/가) 준비되었습니다. 픽업대에서 가져가주세요.")
         }
     }
     
@@ -57,7 +61,7 @@ class CoffeeShop {
             return
         }
         self.sales += price
-        self.pickUpTable = (name, coffee.koreanName)
+        self.pickUpTable = (name, coffee)
     }
 }
 
