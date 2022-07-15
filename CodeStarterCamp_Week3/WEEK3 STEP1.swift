@@ -29,19 +29,19 @@ struct CoffeeShop {
     var pickUpTable: Array<Coffee> = []
     let coffeeMenuList: Dictionary<String, Int> = ["americano": 5000, "cafeLatte": 6500, "greenLatte": 6500, "cafeMocha": 7000]
     
-    func orderCoffee(coffee: Coffee) {
+    func orderCoffee(_ coffee: Coffee) {
         print("\(coffee) 주문이 들어왔다.")
         
-        makeCoffee(baristaName: barista.name,coffee: coffee)
+        makeCoffee(baristaName: barista.name, coffee)
     }
     
-    func makeCoffee(baristaName: String, coffee: Coffee) {
+    func makeCoffee(baristaName: String, _ coffee: Coffee) {
         print("\(baristaName)가 \(coffee)을(를) 만든다.")
         
-        finishCoffee(coffee: coffee)
+        finishCoffee(coffee)
     }
     
-    func finishCoffee(coffee: Coffee){
+    func finishCoffee(_ coffee: Coffee){
         print("주문하신 \(coffee) 나왔습니다.")
     }
 }
