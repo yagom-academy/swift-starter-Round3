@@ -26,22 +26,22 @@ struct CoffeeShop {
     var coffeeShopName: String
     var barista: Person
     var sales: Int = 0
-    let coffeeMenuList: Dictionary<String, Int> = ["americano": 5000, "cafeLatte": 6500, "greenLatte": 6500, "cafeMocha": 7000]
     var pickUpTable: Array<Coffee> = []
+    let coffeeMenuList: Dictionary<String, Int> = ["americano": 5000, "cafeLatte": 6500, "greenLatte": 6500, "cafeMocha": 7000]
     
-    func orderCoffee(coffee: String) {
+    func orderCoffee(coffee: Coffee) {
         print("\(coffee) 주문이 들어왔다.")
         
         makeCoffee(baristaName: barista.name,coffee: coffee)
     }
     
-    func makeCoffee(baristaName: String, coffee: String) {
+    func makeCoffee(baristaName: String, coffee: Coffee) {
         print("\(baristaName)가 \(coffee)을(를) 만든다.")
         
         finishCoffee(coffee: coffee)
     }
     
-    func finishCoffee(coffee: String){
+    func finishCoffee(coffee: Coffee){
         print("주문하신 \(coffee) 나왔습니다.")
     }
 }
