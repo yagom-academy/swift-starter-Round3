@@ -16,39 +16,35 @@ class Person {
         self.money = money
     }
     
-    func order(_ coffee: Coffee, coffeeShop: CoffeeShop) {
+    func order(_ coffee: Coffee, from coffeeShop: CoffeeShop) {
         print("\(coffee.rawValue)를 주문했습니다.")
         
-        if let _ = coffeeShop.coffeeMenuList[coffee.rawValue] {
-            let price = coffeeShop.coffeeMenuList[coffee.rawValue] ?? 0
-            
-            if self.money > price {
-                self.money -= price
-                
-                print("결제되었습니다. 남은 잔액은 \(self.money)원 입니다.")
-                
-                coffeeShop.makeCoffee(coffee, from: self.name)
-            } else {
-                print("잔액이 \(coffeeShop.coffeeMenuList[coffee.rawValue] ?? 0)원만큼 부족합니다")
-            }
-        } else {
+        guard let price = coffeeShop.coffeeMenuList[coffee.rawValue] else {
             print("저희 매장에서는 주문하신 메뉴가 없습니다.")
+            return
+        }
+        if self.money > price {
+            self.money -= price
+            
+            print("결제되었습니다. 남은 잔액은 \(self.money)원 입니다.")
+
+            coffeeShop.makeCoffee(coffee, for: self.name)
+        } else {
+            print("잔액이 \(price - self.money)원만큼 부족합니다")
         }
     }
 }
 
 class CoffeeShop {
     var sales: Int
-    var pickUpTable: Array<Coffee>
-    let coffeeMenuList: Dictionary<String, Int>
+    var pickUpTable: Array<Coffee> = []
+    let coffeeMenuList: Dictionary<String, Int> = ["아메리카노": 5000, "카페라떼": 6500, "녹차라떼": 6500, "카페모카": 7000]
     
     init(sales: Int) {
         self.sales = sales
-        self.pickUpTable = []
-        self.coffeeMenuList = ["아메리카노": 5000, "카페라떼": 6500, "녹차라떼": 6500, "카페모카": 7000]
     }
     
-    func makeCoffee(_ coffee: Coffee, from name: String) {
+    func makeCoffee(_ coffee: Coffee, for name: String) {
         self.sales += coffeeMenuList[coffee.rawValue] ?? 0
         self.pickUpTable.append(coffee)
         

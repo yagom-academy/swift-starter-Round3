@@ -11,4 +11,4 @@ import Foundation
 var missKim: Person = Person(name: "Kim", money: 10000)
 var yagombucks = CoffeeShop(sales: 0)
 
-missKim.order(Coffee.cafeMocha, coffeeShop: yagombucks)
+missKim.order(Coffee.cafeMocha, from: yagombucks)
