@@ -8,7 +8,7 @@
 import Foundation
 
 class Person {
-    var name: String
+    internal var name: String
     private var cashInWallet: Int
     
     init(name: String, cashInWallet: Int) {
@@ -16,12 +16,12 @@ class Person {
         self.cashInWallet = cashInWallet
     }
     
-    func orderCoffee(type coffee: Coffee, at coffeeShop: CoffeeShop) {
+    internal func orderCoffee(type coffee: Coffee, at coffeeShop: CoffeeShop) {
         print("\(coffeeShop.name)에서 \(coffee.rawValue)을 주문합니다.")
         coffeeShop.takeCoffeeOrder(of: self, type: coffee)
     }
     
-    func hasMoreCash(than price: Int) -> Bool {
+    internal func hasMoreCash(than price: Int) -> Bool {
         if cashInWallet >= price {
             return true
         } else {
@@ -30,27 +30,35 @@ class Person {
         }
     }
     
-    func pay(_ price: Int) {
+    internal func pay(_ price: Int) {
         cashInWallet -= price
     }
 }
 
 class CoffeeShop {
-    var name: String
-    var sales: Int = 0
-    var menuBoard: Dictionary<Coffee, Int> = [.americano: 2500,
-                                              .caffeLatte: 3000,
-                                              .cappuccino: 3500,
-                                              .macchiato: 4000]
-    var pickUpTable = [Coffee]()
-    var barista: Person?
+    internal var name: String
+    private var sales: Int = 0
+    internal var menuBoard: Dictionary<Coffee, Int> 
+    private var pickUpTable = [(coffe: Coffee, customerName: String)]() {
+        didSet {
+            guard let coffeeInPickUpTable = pickUpTable.last else {
+                return
+            }
+            print("\(coffeeInPickUpTable.customerName) 님이 주문하신",
+                  "\(coffeeInPickUpTable.coffe.rawValue)(이/가)",
+                  "준비되었습니다. 픽업대에서 가져가주세요.")
+        }
+    }
+    private var barista: Person?
     
-    init(name: String, barista: Person) {
+    init(name: String, barista: Person, menuBoard: Dictionary<Coffee, Int>) {
         self.name = name
         self.barista = barista
+        self.menuBoard = menuBoard
     }
     
-    func takeCoffeeOrder(of orderCustomer: Person, type coffee: Coffee) {
+    internal func takeCoffeeOrder(of orderCustomer: Person,
+                                  type coffee: Coffee) {
         guard let coffeePrice: Int = menuBoard[coffee] else {
             return
         }
@@ -60,15 +68,18 @@ class CoffeeShop {
         }
         
         orderCustomer.pay(coffeePrice)
-        self.sales += coffeePrice
+        addSales(coffeePrice)
         
         print("\(orderCustomer.name) 고객님에게 \(coffee.rawValue)를 주문 받았습니다.")
-        makeCoffee(coffee)
+        makeCoffee(coffee, from: orderCustomer.name)
     }
     
-    func makeCoffee(_ coffee: Coffee) {
-        print("\(coffee.rawValue)가 만들어져 픽업 테이블로 나왔습니다.")
-        pickUpTable.append(coffee)
+    private func makeCoffee(_ coffee: Coffee, from name: String) {
+        pickUpTable.append((coffee, name))
+    }
+    
+    private func addSales(_ slaes: Int) {
+        self.sales += sales
     }
 }
 
