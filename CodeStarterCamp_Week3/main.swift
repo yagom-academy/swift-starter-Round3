@@ -8,92 +8,82 @@
 
 import Foundation
 
-class Person {
-    var name: String
-    var age: Int
-    var nickName: String? // String? 프로퍼티의 초기값이 꼭 필요 없을 때 사용.
-    var money: Int
-    
-    // 하나의 이니셜라이저로 옵셔널 프로퍼티값을 선택적으로 초기화
-    init(name: String, age: Int, nickName: String = "", money: Int) {
-        self.name = name
-        self.age = age
-        self.nickName = nickName
-        self.money = money
-    }
-    
-    func drink() {
-        print("마시다")
-    }
-    
-    func go() { //go(to: somePlace)
-        print("가다")
-    }
-    
-    func order(coffee: Coffee) -> Coffee {
-        print("\(coffee)를 주문하다")
-        
-        return coffee
-    }
-}
-
-struct CoffeeShop {
-    var sales: Int
-    var menu: [Coffee: Int] = [.americano: 2000, .cappuccino: 2500, .espresso: 1500, .flatWhite: 3000, .latte: 2500, .macchiato: 3000, .mocha: 2500 ]
-    var pickUpTable: [Coffee] = []
-    var barista: Person?
-        
-    //init()을 하지 않은 이유: struct에서 제공하는 memberwise 이니셜라이즈를 사용해보기 위함.
-    
-    func takeOrder(guest: Person, orderedCoffee: Coffee) {
-        if let price = menu[orderedCoffee] {
-            print("\(orderedCoffee) 주문을 받았다.")
-            print("\(guest.name)님, \(orderedCoffee)는 \(price)원 입니다.")
-            guest.money -= price
-        } else {
-            print("해당 커피의 가격이 정해지지 않았습니다.")
-        }
-    }
-    
-    mutating func makeCoffee(orderedCoffee: Coffee) { // make(coffee)
-        print("커피를 만들다")
-        pickUpTable.append(orderedCoffee)
-    }
-    
-}
-
 enum Coffee: String {
     case latte, cappuccino, americano, espresso, flatWhite, macchiato, mocha
 }
 
-
-var misterLee = Person(name: "misterLee", age: 30, nickName: "jin", money: 50000)
-var missKim = Person(name: "missKim", age: 20, nickName: "jenny", money: 10000)
-var missPark = Person(name: "missPark", age: 30, money: 40000)
-//var missKim = Person(name: "missKim", age: 29, money: 39000)
-var yagombucks = CoffeeShop(sales: 100000)
-yagombucks.barista = misterLee
-
-
-//------- 실행 테스트용 --------//
-/*
-var missKimOrder = missKim.order(coffee: .americano)
-print(missKim.money)
-yagombucks.takeOrder(guest: missKim, orderedCoffee: missKimOrder)
-print(missKim.money)
-
-yagombucks.makeCoffee(orderedCoffee: missKimOrder)
-print(yagombucks.pickUpTable)
-
-missKimOrder = missKim.order(coffee: .flatWhite)
-print(missKim.money)
-yagombucks.takeOrder(guest: missKim, orderedCoffee: missKimOrder)
-print(missKim.money)
-
-yagombucks.makeCoffee(orderedCoffee: missKimOrder)
-print(yagombucks.pickUpTable)
-
-if let baristaName = yagombucks.barista?.name {
-    print(baristaName)
+class Person {
+    var name: String
+    var money: Int
+    var favoriteCoffeeShop: CoffeeShop?
+    
+    init(name: String, money: Int) {
+        self.name = name
+        self.money = money
+    }
+    
+    // 주문과 동시에 커피의 가격만큼 돈은 줄어들고. 매출액은 커피 가격만큼 증가.
+    func order(_ coffee: Coffee) {
+        print("[\(name)] \(coffee)를 주문하다")
+        
+        guard let price = favoriteCoffeeShop?.menu[coffee] else {
+            return print("좋아하는 카페가 정해지지 않았거나, 해당 커피의 가격이 정해지지 않았습니다.")
+            // return
+        }
+                
+        if money < price {
+            print("잔액이 \(price-money)만큼 부족합니다.")
+        } else {
+            money -= price
+            favoriteCoffeeShop?.sales += price
+            favoriteCoffeeShop?.make(coffee, from: name)
+        }
+    }
 }
-*/
+
+class CoffeeShop {
+    var sales: Int = 0
+    var barista: Person?
+    var currentGuestName: String = ""
+    var menu: [Coffee: Int] = [.americano: 2000, .cappuccino: 2500, .espresso: 1500, .flatWhite: 3000, .latte: 2500, .macchiato: 3000, .mocha: 2500 ]
+    
+    var beforeCount = 0
+    
+    var pickUpTable: [Coffee] = [] {
+        willSet {
+            // 값이 변경되기 직전에
+            beforeCount = pickUpTable.count
+        }
+        didSet {
+            // 값이 변경된 직후에
+            if(beforeCount + 1 == pickUpTable.count) {
+                print("\(currentGuestName) 님이 주문하신 \(pickUpTable[pickUpTable.count - 1])(이/가) 준비되었습니다. 픽업대에서 가져가주세요.")
+            }
+        }
+    }
+    
+    func make(_ coffee: Coffee, from name: String) {
+        currentGuestName = name
+        pickUpTable.append(coffee)
+    }
+}
+
+var missKim = Person(name: "missKim", money: 2000)
+var coda = Person(name: "Coda", money: 11000)
+var namu = Person(name: "namu", money: 5000)
+var dasan = Person(name: "dasan", money: 3000)
+var yagomBucks = CoffeeShop()
+
+missKim.favoriteCoffeeShop = yagomBucks // yagomBucks가 struct라면, favoriteCoffeeShop에 값만 복사하는 것!!!
+missKim.order(.flatWhite)
+
+coda.favoriteCoffeeShop = yagomBucks
+coda.order(.espresso)
+coda.order(.mocha)
+
+namu.favoriteCoffeeShop = yagomBucks
+namu.order(.latte)
+namu.order(.cappuccino)
+namu.order(.espresso)
+
+dasan.order(.espresso)
