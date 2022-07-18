@@ -1,3 +1,4 @@
+import Foundation
 
 class Person {
     var name: String
@@ -8,16 +9,17 @@ class Person {
         self.gender = gender
         self.money = money
     }
-    func buy(coffee:Coffee, coffeeshop:CoffeeShop){
+    func buy(coffee: Coffee, coffeeshop: CoffeeShop) {
         print("\(coffeeshop)에서 \(coffee)를 구매합니다.")
+        coffeeshop.takeOrder(name: name, coffee: coffee)
     }
 }
 
 class CoffeeShop {
-    var totalSales: Int
-    enum menuBoard: Int {
+    enum MenuBoard: Int {
         case cappucino = 3500, iceamericano = 1500, latte = 1400, cafemoca = 3000
     }
+    var totalSales: Int
     var pickupTable: Array<Coffee> = [Coffee]()
     var barista: Person
     
