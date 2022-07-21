@@ -9,45 +9,48 @@ import Foundation
 
 struct Person {
     let money: Int
-    func buyCoffee(menu: String) {
-        if let someMenu = Coffee(rawValue: menu) {
-            switch someMenu {
-            case .cappuccino:
-                print("카푸치노 하나 주세요")
-            case .cafeLatte:
-                print("카페라떼 하나 주세요")
-            case .americano:
-                print("아메리카노 하나 주세요")
-            case .esppresso:
-                print("에스프레소 하나 주세요")
-            }
+    func buyCoffee(menu: Coffee) {
+        switch menu {
+        case .cappuccino:
+            print("카푸치노 하나 주세요!")
+        case .cafeLatte:
+            print("카페라때 하나 주세요!")
+        case .americano:
+            print("아메리카노 하나 주세요!")
+        case .esppresso:
+            print("에스프레소 하나 주세요!")
         }
+        
     }
 }
 
 struct CoffeeShop {
     let barista: Person
     let salesRevenue: Int = 0
-    var menu: [Coffee: Int] = [
-        .cappuccino: 5000,
-        .cafeLatte: 5500,
-        .americano: 4500,
-        .esppresso: 4000,
-    ]
+    var menu: [Coffee: Int] = [:]
     var picUpTable: [String] = []
-    func takeOrder(menu: String) {
-        print("가격은",terminator: " ")
-        if menu == "카푸치노" {
-            print(self.menu[.cappuccino]!,terminator: "")
-        } else if menu == "카페라때" {
-            print(self.menu[.cafeLatte]!,terminator: "")
-        } else if menu == "아메리카노" {
-            print(self.menu[.americano]!,terminator: "")
-        } else if menu == "에스프레소" {
-            print(self.menu[.americano]!,terminator: "")
+    
+    func takeOrder(menu: Coffee) {
+        switch menu {
+        case .cappuccino:
+            if let price = self.menu[.cappuccino] {
+                print("카푸치노는 \(price)입니다.")
+            }
+        case .cafeLatte:
+            if let price = self.menu[.cafeLatte] {
+                print("카페라때는 \(price)입니다.")
+            }
+        case .americano:
+            if let price = self.menu[.americano] {
+                print("아메리카노는 \(price)입니다.")
+            }
+        case .esppresso:
+            if let price = self.menu[.esppresso] {
+                print("에스프레소는 \(price)입니다.")
+            }
         }
-        print("원 입니다!")
     }
+   
     mutating func makeCoffee(menu: String) {
         picUpTable.append("\(menu)")
     }
@@ -59,7 +62,3 @@ enum Coffee: String {
     case americano = "아메리카노"
     case esppresso = "에스프래소"
 }
-
-var misterLee = Person(money: 10000)
-var missKim = Person(money: 10000)
-var yagombucks = CoffeeShop(barista: misterLee)
