@@ -36,6 +36,7 @@ struct CoffeShop {
     
     mutating func makeCoffee(_ order: Coffee) {
         pickUpTable.append(order)
+        print("주문하신 \(order.rawValue) 나왔습니다!")
     }
 }
 
@@ -56,8 +57,10 @@ yagombucks.appendCoffeeMenu(.blackTea, price: 3500)
 yagombucks.appendCoffeeMenu(.espresso, price: 3000)
 yagombucks.appendCoffeeMenu(.cafeLatte, price: 5000)
 
+// barista 이름 확인
 print(yagombucks.barista.name)
 
+// yagombucks 메뉴가 잘 할당되었는지 확인
 func checkMenuOfyagombucks(menu: Coffee) {
     if let price = yagombucks.menuList[menu] {
         print("\(menu.rawValue)는 \(price)원 입니다.")
@@ -69,3 +72,8 @@ func checkMenuOfyagombucks(menu: Coffee) {
 checkMenuOfyagombucks(menu: .americano)
 checkMenuOfyagombucks(menu: .cafeMocca)
 checkMenuOfyagombucks(menu: .cafeLatte)
+
+// makeCoffee 메서드 확인
+yagombucks.makeCoffee(.americano)
+
+print(yagombucks.pickUpTable[0].rawValue)
