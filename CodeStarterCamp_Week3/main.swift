@@ -13,6 +13,7 @@ struct Person {
     let gender: String
     var age: Int
     var money: Int
+    var totalPrice: Int = 0
     
     mutating func order(coffees: [Coffee]) {
         var totalPrice: Int = 0
@@ -24,7 +25,7 @@ struct Person {
         }
         
         if money >= totalPrice {
-            yagombucks.makeCoffee(coffees: coffees, from: name)
+            yagombucks.make(coffees: coffees, from: name)
             money -= totalPrice
             yagombucks.revenue += totalPrice
         } else {
@@ -40,10 +41,11 @@ struct CoffeeShop {
     var menu: [Coffee: Int] = [:]
     var pickUpTable: [String] = []
 
-    mutating func makeCoffee(coffees: [Coffee], from name: String) {
+    mutating func make(coffees: [Coffee], from name: String) {
         for coffee in coffees {
             pickUpTable.append(coffee.rawValue)
         }
+        
         print("\(name)님이 주문하신 \(pickUpTable.joined(separator: ", "))(이/가) 준비되었습니다. 픽업대에서 가져가주세요.")
         pickUpTable.removeAll()
     }
