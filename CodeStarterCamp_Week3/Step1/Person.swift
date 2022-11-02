@@ -8,14 +8,14 @@
 import Foundation
 
 class Person {
-    let name: String
-    let gender: String
+    var name: String
+    var gender: String
     var money: Int
     
     init(name: String, gender: String, money: Int) {
         self.name = name
-        self.money = money
         self.gender = gender
+        self.money = money
     }
     
     /// 잔액과 커피 가격 비교함수
@@ -27,11 +27,11 @@ class Person {
     
     /// 구매 결과  출력 함수
     /// - Parameter price: 구마할 커피마격
-    func buyCoffee(price: Int) {
+    func buyCoffee(coffee: Coffee, price: Int) {
         if canBuyCoffee(price: price) {
             money -= price
             print("""
-                  \(price)를 지불하였습니다.
+                  \(coffee.rawValue) 구매에 \(price)를 지불하였습니다.
                   잔액: \(money)
                   """)
         } else {
