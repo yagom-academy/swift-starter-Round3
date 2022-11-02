@@ -9,44 +9,43 @@
 import Foundation
 
 struct Person {
-    var name: String
-    var gender: String
+    let name: String
+    let gender: String
     var age: Int
     var money: Int
     
     mutating func orderCoffee(coffeeShop: CoffeeShop, coffee: Coffee) {
         if let price = coffeeShop.menu[coffee] {
-            
             if money >= price {
                 money = money - price
-                return print("커피 가격은 \(price)원입니다.\n남은 돈 \(money)원 드리겠습니다.")
+                print("\(price)원으로 커피를 구매했습니다. \n남은 돈은 \(money)원 입니다.")
             } else {
-                print("죄송합니다. 돈이 부족하여 커피를 구매할 수 없습니다.")
+                print("커피를 구매할 돈이 부족합니다.")
             }
-            
         }
     }
 }
-
 
 struct CoffeeShop {
     var shopName: String
     var revenue: Int?
     var barista: Person
     var menu: [Coffee: Int] = [:]
-    var pickUpTable: [Coffee] = []
+    var pickUpTable: [String] = []
 
-    mutating func makeCoffee(ordererName: String, coffee: Coffee) {
-        pickUpTable.append(coffee)
-        print("\(ordererName)님 주문하신 \(pickUpTable[0]) 나왔습니다.")
+    mutating func makeCoffee(ordererName: String, coffee: [Coffee]) {
+        for count in 0...[coffee].count + 1 {
+            pickUpTable.append(coffee[count].rawValue)
+        }
+        print("\(ordererName)님 주문하신 \(pickUpTable.joined(separator: ", ")) 나왔습니다.")
     }
 }
 
 enum Coffee: String {
-    case americano
-    case latte
-    case ade
-    case smoothie
+    case americano = "아메리카노"
+    case latte = "라떼"
+    case ade = "에이드"
+    case smoothie = "스무디"
 }
 
 
@@ -56,5 +55,5 @@ var yagombucks: CoffeeShop = CoffeeShop(shopName: "yagombucks", barista: misterL
 
 
 misterLee.orderCoffee(coffeeShop: yagombucks, coffee: .americano)
-yagombucks.makeCoffee(ordererName: "hyemory", coffee: .americano)
+yagombucks.makeCoffee(ordererName: misterLee.name, coffee: [.americano, .latte, .ade])
 
