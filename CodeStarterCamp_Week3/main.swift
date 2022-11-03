@@ -32,11 +32,11 @@ class CoffeeShop {
     var barista: Person?
     var sales: Int
     var menu: Dictionary<Coffee, Int>
-    var pickUpTable: [Coffee]? = nil
+    var pickUpTable: [Coffee]
 
     func makeCoffee(coffee: Coffee) {
         print("\(coffee)를 만들었습니다.")
-        pickUpTable?.append(coffee)
+        pickUpTable.append(coffee)
     }
     func takeOrder(coffee: Coffee) {
         if let coffeePrice = menu[coffee] {
@@ -60,6 +60,7 @@ class CoffeeShop {
     init(sales: Int) {
         self.sales = sales
         menu = [Coffee: Int]()
+        self.pickUpTable = [Coffee]()
         self.setMenu()
     }
 }
