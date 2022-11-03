@@ -8,13 +8,15 @@ class Person {
     var name: String
     var age: Int
     var money: Int
-    var bag: [Any]?
+    var bag: [Any]
     
     func buyCoffee(coffee: Coffee, coffeePrice: Int) {
         if money > coffeePrice {
             print("커피를 구매하였습니다.")
             money -= coffeePrice
-            bag?.append(coffee)
+            bag.append(coffee)
+        } else {
+            print("돈이 부족합니다.")
         }
     }
     
@@ -22,6 +24,7 @@ class Person {
         self.name = name
         self.age = age
         self.money = money
+        bag = [Any]()
     }
 }
 
@@ -64,3 +67,17 @@ class CoffeeShop {
 var misterLee: Person = Person(name: "misterLee", age: 30, money: 10000)
 var missKim: Person = Person(name: "missKim", age: 32, money: 8000)
 var yagombucks: CoffeeShop = CoffeeShop(barista: misterLee, sales: 5000000)
+
+// testing ...
+print(yagombucks.sales)
+yagombucks.takeOrder(coffee: Coffee.espresso)
+print(yagombucks.sales)
+
+print(misterLee.bag)
+if let coffeePrice = yagombucks.menu[Coffee.espresso] {
+    misterLee.buyCoffee(coffee: Coffee.espresso, coffeePrice: coffeePrice)
+}
+if let coffeePrice = yagombucks.menu[Coffee.macchiato] {
+    misterLee.buyCoffee(coffee: Coffee.macchiato, coffeePrice: coffeePrice)
+}
+print(misterLee.bag)
