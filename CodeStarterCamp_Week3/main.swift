@@ -26,12 +26,14 @@ struct CoffeeShop {
     var pickUpTable: [Coffee] = []
     var sales: Int?
     
-    mutating func takeOrderAndMake(_ coffee: Coffee) {
+    func takeOrder(_ coffee: Coffee) {
         if let price = menu[coffee] {
             print("\(coffee.rawValue) \(price)원 결제 도와드리겠습니다.")
+        }
+    }
+        mutating func makeCoffee(_ coffee: Coffee) {
             pickUpTable.append(coffee)
             print("주문하신 \(coffee.rawValue) 나왔습니다.")
-        }
     }
 }
 
@@ -45,7 +47,8 @@ enum Coffee: String {
 
 var misterLee: Person = Person(name: "misterLee", gender: "male", age: 26, money: 20000)
 var missKim: Person = Person(name: "missKim", gender: "female", age: 25, money: 50000)
-var yagombucks: CoffeeShop = CoffeeShop(cafeName: "yagombucks", barista: misterLee, menu: [.americano: 4000, .cafeLatte: 4500, .cafeMocha: 5000, .grapefruitAde: 5500, .chamomileTea: 5500])
+var yagombucks: CoffeeShop = CoffeeShop(cafeName: "yagombucks", barista: misterLee, menu:  [.americano: 4000, .cafeLatte: 4500, .cafeMocha: 5000, .grapefruitAde: 5500, .chamomileTea: 5500])
 
 missKim.orderCoffee(.cafeMocha)
-yagombucks.takeOrderAndMake(.cafeMocha)
+yagombucks.takeOrder(.cafeMocha)
+yagombucks.makeCoffee(.cafeMocha)
