@@ -1,12 +1,8 @@
-//
-//  main.swift
-//  CodeStarterCamp_Week3
-//
-//  Created by yagom.
-//  Copyright © yagom academy. All rights reserved.
-//
-
 import Foundation
 
-print("Hello, World!")
+//var yagombucks: CoffeeShop
+//yagombucks.baristar = misterLee
 
+
+var kim: Person = .init(name: "kim", age: 25, gender: "boy", money: 4500)
+kim.orderCoffee(selectedMenu: .americano, money: 4000)
