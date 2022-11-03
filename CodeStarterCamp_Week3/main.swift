@@ -16,7 +16,7 @@ struct Person {
     var money: Int
     
     mutating func order(_ coffee: Coffee) {
-        var balanceCheck: Int = self.money - coffee.price
+        let balanceCheck: Int = self.money - coffee.price
         
         if balanceCheck >= 0 {
             self.money = balanceCheck
@@ -48,8 +48,8 @@ struct CoffeeShop {
     
     mutating func make(_ coffee: Coffee, from name: String) {
         nameOfOrderedPerson = name
-        pickUpTable = coffee
         self.revenue += coffee.price
+        pickUpTable = coffee
     }
 }
 
