@@ -13,7 +13,6 @@ struct Person {
     let gender: String
     var age: Int
     var money: Int
-    var totalPrice: Int = 0
     
     mutating func order(coffees: [Coffee]) {
         var totalPrice: Int = 0
@@ -27,7 +26,7 @@ struct Person {
         if money >= totalPrice {
             yagombucks.make(coffees: coffees, from: name)
             money -= totalPrice
-            yagombucks.revenue += totalPrice
+            
         } else {
             print("잔액이 \(totalPrice - money)만큼 부족합니다.")
         }
@@ -39,15 +38,33 @@ struct CoffeeShop {
     var revenue: Int = 0
     var barista: Person
     var menu: [Coffee: Int] = [:]
-    var pickUpTable: [String] = []
-
+    
     mutating func make(coffees: [Coffee], from name: String) {
+        var totalPrice: Int = 0
+        var pickUpTable: [Coffee] = [] {
+            didSet {
+                print("\(name)님이 주문하신", terminator: " ")
+                
+                for count in pickUpTable {
+                    if count != pickUpTable[pickUpTable.count - 1] {
+                        print(count.rawValue, terminator: ", ")
+                    } else {
+                        print(count.rawValue, terminator: "")
+                    }
+                }
+
+                print("(이/가) 준비되었습니다. 픽업대에서 가져가주세요.")
+            }
+        }
+        pickUpTable = coffees
+        
         for coffee in coffees {
-            pickUpTable.append(coffee.rawValue)
+            if let price = menu[coffee] {
+                totalPrice += price
+            }
         }
         
-        print("\(name)님이 주문하신 \(pickUpTable.joined(separator: ", "))(이/가) 준비되었습니다. 픽업대에서 가져가주세요.")
-        pickUpTable.removeAll()
+        revenue += totalPrice
     }
 }
 
@@ -61,9 +78,10 @@ enum Coffee: String {
 
 var misterLee: Person = Person(name: "misterLee", gender: "male", age: 28, money: 10000)
 var missKim: Person = Person(name: "missKim", gender: "female", age: 21, money: 100000)
-var yagombucks: CoffeeShop = CoffeeShop(shopName: "yagombucks", barista: misterLee, menu: [.americano: 2000, .latte: 2500, .ade: 3000, .smoothie: 4000], pickUpTable: [])
+var yagombucks: CoffeeShop = CoffeeShop(shopName: "yagombucks", barista: misterLee, menu: [.americano: 2000, .latte: 2500, .ade: 3000, .smoothie: 4000])
 
 
 missKim.order(coffees: [.americano, .latte, .smoothie])
 print("\(yagombucks.shopName)의 현재 매출액은 \(yagombucks.revenue)원")
 print("\(missKim.name)의 잔액은 \(missKim.money)원")
+
