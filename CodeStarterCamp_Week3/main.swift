@@ -11,7 +11,7 @@ class Person {
     var bag: [Any]
     
     func buyCoffee(coffee: Coffee, coffeePrice: Int) {
-        if money > coffeePrice {
+        if money >= coffeePrice {
             print("커피를 구매하였습니다.")
             money -= coffeePrice
             bag.append(coffee)
@@ -65,9 +65,9 @@ class CoffeeShop {
     }
 }
 
-var misterLee: Person = Person(name: "misterLee", age: 30, money: 10000)
-var missKim: Person = Person(name: "missKim", age: 32, money: 8000)
-var yagombucks: CoffeeShop = CoffeeShop(barista: misterLee, sales: 5000000)
+var misterLee = Person(name: "misterLee", age: 30, money: 10000)
+var missKim = Person(name: "missKim", age: 32, money: 8000)
+var yagombucks = CoffeeShop(barista: misterLee, sales: 5000000)
 
 // testing ...
 print(yagombucks.sales)
