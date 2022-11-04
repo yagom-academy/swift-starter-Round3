@@ -10,13 +10,17 @@ class Person {
     var money: Int
     var bag: [Any]
     
-    func buyCoffee(coffee: Coffee, coffeePrice: Int) {
-        if money >= coffeePrice {
-            print("커피를 구매하였습니다.")
-            money -= coffeePrice
-            bag.append(coffee)
+    func order(_ coffee: Coffee, coffeeShop: CoffeeShop) {
+        if let coffeePrice = coffeeShop.menu[coffee] {
+            if money >= coffeePrice {
+                coffeeShop.make(coffee, from: self.name)
+                money -= coffeePrice
+                bag.append(coffee)
+            } else {
+                print("잔액이 \(coffeePrice - money)원만큼 부족합니다.")
+            }
         } else {
-            print("돈이 부족합니다.")
+            print("메뉴판에 없는 메뉴입니다.")
         }
     }
     
@@ -29,18 +33,23 @@ class Person {
 }
 
 class CoffeeShop {
-    var barista: Person?
+    var barista: Person
     var sales: Int
     var menu: Dictionary<Coffee, Int>
     var pickUpTable: [Coffee]
 
-    func makeCoffee(coffee: Coffee) {
-        print("\(coffee)를 만들었습니다.")
+    func printInfo() {
+        print("===== print coffeeShop info =====")
+        print(" 바리스타: \(self.barista) \n 매출액: \(self.sales)\n pickUpTable: \(pickUpTable)")
+        print("=================================")
+    }
+    func addPickUpTable(_ coffee: Coffee, from name: String) {
+        print("\(name) 님이 주문하신 \(coffee)(이/가) 준비되었습니다. 픽업대에서 가져가주세요.")
         pickUpTable.append(coffee)
     }
-    func takeOrder(coffee: Coffee) {
+    func make(_ coffee: Coffee, from name: String) {
         if let coffeePrice = menu[coffee] {
-            makeCoffee(coffee: coffee)
+            addPickUpTable(coffee, from: name)
             sales += coffeePrice
         } else {
             print("메뉴판에 없는 메뉴입니다.")
@@ -52,13 +61,10 @@ class CoffeeShop {
         self.menu[Coffee.cappuccino] = 4500
         self.menu[Coffee.latte] = 5000
     }
-    
-    convenience init(barista: Person, sales: Int) {
-        self.init(sales: sales)
-        self.barista = barista
-    }
-    init(sales: Int) {
+
+    init(barista: Person, sales: Int) {
         self.sales = sales
+        self.barista = barista
         menu = [Coffee: Int]()
         self.pickUpTable = [Coffee]()
         self.setMenu()
@@ -66,19 +72,12 @@ class CoffeeShop {
 }
 
 var misterLee = Person(name: "misterLee", age: 30, money: 10000)
-var missKim = Person(name: "missKim", age: 32, money: 8000)
-var yagombucks = CoffeeShop(barista: misterLee, sales: 5000000)
+var missKim = Person(name: "missKim", age: 32, money: 10000)
+var yagombucks = CoffeeShop(barista: misterLee, sales: 0)
 
-// testing ...
-print(yagombucks.sales)
-yagombucks.takeOrder(coffee: Coffee.espresso)
-print(yagombucks.sales)
-
-print(misterLee.bag)
-if let coffeePrice = yagombucks.menu[Coffee.espresso] {
-    misterLee.buyCoffee(coffee: Coffee.espresso, coffeePrice: coffeePrice)
-}
-if let coffeePrice = yagombucks.menu[Coffee.macchiato] {
-    misterLee.buyCoffee(coffee: Coffee.macchiato, coffeePrice: coffeePrice)
-}
-print(misterLee.bag)
+yagombucks.printInfo()
+missKim.order(Coffee.espresso, coffeeShop: yagombucks)
+missKim.order(Coffee.macchiato, coffeeShop: yagombucks)
+missKim.order(Coffee.cappuccino, coffeeShop: yagombucks)
+missKim.order(Coffee.latte, coffeeShop: yagombucks)
+yagombucks.printInfo()
