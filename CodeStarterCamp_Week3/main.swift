@@ -17,6 +17,8 @@ struct Person {
     mutating func order(coffees: [Coffee]) {
         var totalPrice: Int = 0
         
+        yagombucks.guest = self
+        
         for coffee in coffees {
             if let price = yagombucks.menu[coffee] {
                 totalPrice += price
@@ -38,33 +40,33 @@ struct CoffeeShop {
     var revenue: Int = 0
     var barista: Person
     var menu: [Coffee: Int] = [:]
+    var guest: Person?
+    var pickUpTable: [Coffee] = [] {
+        didSet {
+            if let guest = guest {
+                print("\(guest.name)님이 주문하신", terminator: " ")
+            }
+            
+            for count in pickUpTable {
+                if count != pickUpTable[pickUpTable.count - 1] {
+                    print(count.rawValue, terminator: ", ")
+                } else {
+                    print(count.rawValue, terminator: "")
+                }
+            }
+
+            print("(이/가) 준비되었습니다. 픽업대에서 가져가주세요.")
+        }
+    }
     
     mutating func make(coffees: [Coffee], from name: String) {
-        var totalPrice: Int = 0
-        var pickUpTable: [Coffee] = [] {
-            didSet {
-                print("\(name)님이 주문하신", terminator: " ")
-                
-                for count in pickUpTable {
-                    if count != pickUpTable[pickUpTable.count - 1] {
-                        print(count.rawValue, terminator: ", ")
-                    } else {
-                        print(count.rawValue, terminator: "")
-                    }
-                }
-
-                print("(이/가) 준비되었습니다. 픽업대에서 가져가주세요.")
-            }
-        }
         pickUpTable = coffees
         
         for coffee in coffees {
             if let price = menu[coffee] {
-                totalPrice += price
+                revenue += price
             }
         }
-        
-        revenue += totalPrice
     }
 }
 
