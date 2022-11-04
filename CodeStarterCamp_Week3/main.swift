@@ -15,14 +15,19 @@ struct Person {
     var age: Int
     var money: Int
     
-    mutating func order(_ coffee: Coffee) {
-        let balanceCheck: Int = self.money - coffee.price
+    mutating func order(_ coffee: [Coffee], at cafe: inout CoffeeShop) {
+        var total = 0
+        for menu in coffee {
+            total += menu.price
+        }
+        
+        let balanceCheck = self.money - total
         
         if balanceCheck >= 0 {
             self.money = balanceCheck
-            yagombucks.make(coffee, from: self.name)
+            cafe.make(coffee, from: self.name)
         } else {
-            print("잔액이 \(-balanceCheck)만큼 부족합니다.")
+            print("잔액이 \(-balanceCheck)원만큼 부족합니다.")
         }
     }
 }
@@ -31,12 +36,23 @@ struct CoffeeShop {
     var revenue: Int = 0
     var menuList: Dictionary<Coffee, Int> = [:]
     var barista: Person
-    var nameOfOrderedPerson: String?
-    var pickUpTable: Coffee? {
+    var customer: String?
+    var pickUpTable: Array<Coffee> = [] {
         didSet {
-            if let menu = self.pickUpTable, let name = self.nameOfOrderedPerson {
-                print("\(name) 님이 주문하신 \(menu.rawValue)(이/가) 준비되었습니다. 픽업대에서 가져가주세요.")
+            if let name = self.customer {
+                print("\(name) 님이 주문하신", terminator: " ")
             }
+            
+            for menu in pickUpTable {
+                if menu != pickUpTable[pickUpTable.count - 1] {
+                    print("\(menu.rawValue)", terminator: ", ")
+                } else {
+                    print("\(menu.rawValue)", terminator: "(이/가) 준비되었습니다. 픽업대에서 가져가주세요. \n")
+                }
+            }
+            
+            pickUpTable.removeAll()
+            customer = nil
         }
     }
     
@@ -46,9 +62,12 @@ struct CoffeeShop {
         }
     }
     
-    mutating func make(_ coffee: Coffee, from name: String) {
-        nameOfOrderedPerson = name
-        self.revenue += coffee.price
+    mutating func make(_ coffee: [Coffee], from name: String) {
+        customer = name
+        for member in coffee {
+            self.revenue += member.price
+        }
+        
         pickUpTable = coffee
     }
 }
@@ -86,6 +105,12 @@ var yagombucks = CoffeeShop(barista: misterLee)
 
 yagombucks.appendCoffeeMenu()
 
-missKim.order(.americano)
-missKim.order(.lemonade)
+missKim.order([.americano], at: &yagombucks)
+missKim.order([.lemonade], at: &yagombucks)
 
+print(yagombucks.revenue)
+
+missKim.money = 24000
+missKim.order([.americano, .blackTea, .greenTea], at: &yagombucks)
+
+print(yagombucks.revenue)
