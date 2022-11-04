@@ -10,7 +10,7 @@ class Person {
     var money: Int
     var bag: [Any]
     
-    func order(_ coffee: Coffee, coffeeShop: CoffeeShop) {
+    func order(_ coffee: Coffee, at coffeeShop: CoffeeShop) {
         if let coffeePrice = coffeeShop.menu[coffee] {
             if money >= coffeePrice {
                 coffeeShop.make(coffee, from: self.name)
@@ -36,20 +36,26 @@ class CoffeeShop {
     var barista: Person
     var sales: Int
     var menu: Dictionary<Coffee, Int>
-    var pickUpTable: [Coffee]
+    var guestName: String?
+    var pickUpTable: [Coffee] {
+        didSet {
+            if let coffee = pickUpTable.last, let name = guestName{
+                print("\(guestName)님이 주문하신 \(coffee)(이/가) 준비되었습니다. 픽업대에서 가져가주세요.")
+                guestName = nil
+            }
+        }
+    }
 
     func printInfo() {
         print("===== print coffeeShop info =====")
         print(" 바리스타: \(self.barista) \n 매출액: \(self.sales)\n pickUpTable: \(pickUpTable)")
         print("=================================")
     }
-    func addPickUpTable(_ coffee: Coffee, from name: String) {
-        print("\(name) 님이 주문하신 \(coffee)(이/가) 준비되었습니다. 픽업대에서 가져가주세요.")
-        pickUpTable.append(coffee)
-    }
+    
     func make(_ coffee: Coffee, from name: String) {
         if let coffeePrice = menu[coffee] {
-            addPickUpTable(coffee, from: name)
+            guestName = name
+            pickUpTable.append(coffee)
             sales += coffeePrice
         } else {
             print("메뉴판에 없는 메뉴입니다.")
@@ -62,7 +68,7 @@ class CoffeeShop {
         self.menu[Coffee.latte] = 5000
     }
 
-    init(barista: Person, sales: Int) {
+    init(barista: Person, sales: Int, guestName: String? = nil) {
         self.sales = sales
         self.barista = barista
         menu = [Coffee: Int]()
@@ -76,8 +82,8 @@ var missKim = Person(name: "missKim", age: 32, money: 10000)
 var yagombucks = CoffeeShop(barista: misterLee, sales: 0)
 
 yagombucks.printInfo()
-missKim.order(Coffee.espresso, coffeeShop: yagombucks)
-missKim.order(Coffee.macchiato, coffeeShop: yagombucks)
-missKim.order(Coffee.cappuccino, coffeeShop: yagombucks)
-missKim.order(Coffee.latte, coffeeShop: yagombucks)
+missKim.order(Coffee.espresso, at: yagombucks)
+missKim.order(Coffee.macchiato, at: yagombucks)
+missKim.order(Coffee.cappuccino, at: yagombucks)
+missKim.order(Coffee.latte, at: yagombucks)
 yagombucks.printInfo()
