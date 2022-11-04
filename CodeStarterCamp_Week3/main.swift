@@ -26,7 +26,7 @@ class Person {
     }
     
     func order(coffee: Coffee) {
-            print("\(coffee)를 구매하였습니다.")
+        print("\(coffee)를 구매하였습니다.")
     }
 }
 
@@ -54,13 +54,7 @@ class CoffeShop {
 }
 
 let misterLee: Person = Person(name: "Lee", age: 20, money: 10000)
-//misterLee.introduceSelf()
-//misterLee.order(coffee: .espresso)
 
 let missKim: Person = Person(name: "Kim", age: 26, money: 30000)
-//missKim.introduceSelf()
-//missKim.order(coffee: .americano)
 
 var yagombucks: CoffeShop = CoffeShop(shopName: "yagombucks", baristar: misterLee, revenue: 0, pickUpTable: [])
-//yagombucks.make(coffee: .americano)
-
