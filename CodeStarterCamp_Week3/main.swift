@@ -8,20 +8,28 @@
 
 import Foundation
 
-let misterLee = Person(name: "Mr.Lee", gender: "male", money: 10000)
-let missKim = Person(name: "Miss.Kim", gender: "female", money: 1000000)
+let missKim = Person(name: "Miss.Kim", gender: "female", money: 10000)
 
 let coffeeMenu: [Coffee: Int] = [
     .espresso : 500,
-    .americano: 1000,
-    .iceAmericano: 1500,
-    .cafeLatte: 2000,
-    .iceCafeLatte: 2000,
-    .vanillaLatte: 2500,
-    .iceVanillaLatte: 3000
+    .americano: 2000,
+    .iceAmericano: 2500,
+    .cafeLatte: 2500,
+    .iceCafeLatte: 3000,
+    .vanillaLatte: 4000,
+    .iceVanillaLatte: 4500
 ]
 
-var yagombucks = CoffeeShop(menu: coffeeMenu, barista: misterLee)
+var yagombucks = CoffeeShop(menu: coffeeMenu, barista: missKim)
 
-yagombucks.orderCoffee(coffee: .iceVanillaLatte)
-missKim.buyCoffee(coffee: .iceVanillaLatte, price: 1000)
+missKim.order(coffee: .cafeMocha, coffeeShop: yagombucks)
+yagombucks.printTotalSales()
+
+missKim.order(coffee: .iceVanillaLatte, coffeeShop: yagombucks)
+yagombucks.printTotalSales()
+
+missKim.order(coffee: .iceAmericano, coffeeShop: yagombucks)
+yagombucks.printTotalSales()
+ 
+missKim.order(coffee: .vanillaLatte, coffeeShop: yagombucks)
+yagombucks.printTotalSales()
