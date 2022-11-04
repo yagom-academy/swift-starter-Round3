@@ -7,27 +7,37 @@
 
 import Foundation
 
-struct CoffeeShop {
+class CoffeeShop {
     let menu: [Coffee: Int]
     let barista: Person
     lazy var pickUpTable = [Coffee]()
     lazy var totalSales = 0
     
+    init(menu: [Coffee : Int], barista: Person, pickUpTable: [Coffee] = [Coffee](), totalSales: Int = 0) {
+        self.menu = menu
+        self.barista = barista
+        self.pickUpTable = pickUpTable
+        self.totalSales = totalSales
+    }
+    
     /// 커피 주문 하기 함수
-    /// - Parameter coffee: 주문할 커피
-    mutating func orderCoffee(coffee: Coffee) {
-        if let coffeePrice = menu[coffee] {
-            print("주문하신 \(coffee.rawValue)의 가격은 \(coffeePrice)입니다.")
+    /// - Parameters:
+    ///   - coffee: 주문받은 커피
+    ///   - from: 주문자 성함
+    func make(_ coffee: Coffee, from name: String) {
+        if let coffeePrice = getCoffeePrice(coffee) {
             pickUpTable.append(coffee)
             totalSales += coffeePrice
-            print("\(coffee.rawValue) 주문이 완료되었습니다.")
-        } else {
-            print("\(coffee.rawValue)는 저희 가게에서 판매하지 않습니다.")
-        }
+            print("\(name) 님이 주문하신 \(coffee.rawValue)(이/가) 준비되었습니다 픽업대에서 가져가주세요.")
+        } 
+    }
+    
+    func getCoffeePrice(_ coffee: Coffee) -> Int? {
+        return menu[coffee]
     }
     
     /// 현재 가게 매츨액을 출력하는 함수
-    mutating func printTotalSales() {
+    func printTotalSales() {
         print("카페의 매출액은 \(totalSales) 입니다")
     }
 }
