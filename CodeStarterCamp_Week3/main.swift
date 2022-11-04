@@ -8,5 +8,59 @@
 
 import Foundation
 
-print("Hello, World!")
+class Person {
+    var name: String
+    var gender: String
+    var moneyOnHand: Int
+    var job: String
+    init(name: String, gender: String, moneyOnHand: Int, job: String) {
+        self.name = name
+        self.gender = gender
+        self.moneyOnHand = moneyOnHand
+        self.job = job
+    }
+    func buyCoffee (orderedCoffee: Coffee) {
+        print("\(orderedCoffee.rawValue) 주세요.")
+    }
+}
 
+class Coffeeshop {
+    var turnover: Int
+    let menuList = [Coffee.americano: 4500, Coffee.latte: 5000, Coffee.coldbrew: 5000, Coffee.frappuccino: 6000]
+    var pickUpTable = [String]()
+    var barista: Person
+    
+    init(turnover: Int, pickUpTable: [String], barista: Person) {
+        self.turnover = turnover
+        self.pickUpTable = pickUpTable
+        self.barista = barista
+    }
+    
+    func takeOrdersAndMakeCoffee(){
+        print("\(barista.name)가 주문을 받아 커피를 만듭니다.")
+    }
+    func putCoffeeOnPickUpTable(orderedCoffee: Coffee) {
+        print("주문하신 \(orderedCoffee.rawValue) 나왔습니다.")
+        self.pickUpTable.append(orderedCoffee.rawValue)
+        print(pickUpTable)
+    }
+}
+
+enum Coffee: String {
+    case americano = "아메리카노"
+    case latte = "라떼"
+    case coldbrew = "콜드브루"
+    case frappuccino = "프라푸치노"
+}
+
+let missKim: Person = Person(name: "missKim", gender: "female", moneyOnHand: 50000, job: "student")
+
+let misterLee: Person = Person(name: "misterLee", gender: "male", moneyOnHand: 50000, job: "barista")
+
+missKim.buyCoffee(orderedCoffee: Coffee.americano)
+
+
+let yagombucks: Coffeeshop = Coffeeshop(turnover: 0, pickUpTable: [], barista: misterLee)
+
+yagombucks.takeOrdersAndMakeCoffee()
+yagombucks.putCoffeeOnPickUpTable(orderedCoffee: Coffee.americano)
