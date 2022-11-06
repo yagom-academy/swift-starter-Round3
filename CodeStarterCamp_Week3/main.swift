@@ -9,7 +9,7 @@
 import Foundation
 
 let missKim = Person(name: "Miss.Kim", gender: "female", money: 10000)
-
+let misterLee = Person(name: "Mister.Lee", gender: "male", money: 10000)
 let coffeeMenu: [Coffee: Int] = [
     .espresso : 500,
     .americano: 2000,
@@ -20,7 +20,7 @@ let coffeeMenu: [Coffee: Int] = [
     .iceVanillaLatte: 4500
 ]
 
-var yagombucks = CoffeeShop(menu: coffeeMenu, barista: missKim)
+var yagombucks = CoffeeShop(menu: coffeeMenu, barista: misterLee)
 
 missKim.order(coffee: .cafeMocha, coffeeShop: yagombucks)
 yagombucks.printTotalSales()
