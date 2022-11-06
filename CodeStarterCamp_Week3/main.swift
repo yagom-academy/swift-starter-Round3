@@ -15,26 +15,60 @@ struct Person {
     var age: Int
     var money: Int
     
-    func orderCoffee(_ menu: String) -> String {
-        return menu
+    mutating func order(_ coffee: [Coffee], at cafe: inout CoffeeShop) {
+        var total = 0
+        for menu in coffee {
+            total += menu.price
+        }
+        
+        let balanceCheck = self.money - total
+        
+        if balanceCheck >= 0 {
+            self.money = balanceCheck
+            cafe.make(coffee, from: self.name)
+        } else {
+            print("잔액이 \(-balanceCheck)원만큼 부족합니다.")
+        }
     }
 }
 
 struct CoffeeShop {
-    var revenue: Int?
+    var revenue: Int = 0
     var menuList: Dictionary<Coffee, Int> = [:]
-    var pickUpTable: Array<Coffee> = []
     var barista: Person
-    
-    mutating func appendCoffeeMenu() {
-        for menu in Coffee.allCases {
-            menuList[menu] = menu.returnPrice()
+    var customer: String?
+    var pickUpTable: Array<Coffee> = [] {
+        didSet {
+            if let name = self.customer {
+                print("\(name) 님이 주문하신", terminator: " ")
+            }
+            
+            for menu in pickUpTable {
+                if menu != pickUpTable[pickUpTable.count - 1] {
+                    print("\(menu.rawValue)", terminator: ", ")
+                } else {
+                    print("\(menu.rawValue)", terminator: "(이/가) 준비되었습니다. 픽업대에서 가져가주세요. \n")
+                }
+            }
+            
+            pickUpTable.removeAll()
+            customer = nil
         }
     }
     
-    mutating func makeCoffee(_ order: Coffee) {
-        pickUpTable.append(order)
-        print("주문하신 \(order.rawValue) 나왔습니다!")
+    mutating func appendCoffeeMenu() {
+        for menu in Coffee.allCases {
+            menuList[menu] = menu.price
+        }
+    }
+    
+    mutating func make(_ coffee: [Coffee], from name: String) {
+        customer = name
+        for member in coffee {
+            self.revenue += member.price
+        }
+        
+        pickUpTable = coffee
     }
 }
 
@@ -63,35 +97,20 @@ enum Coffee: String, CaseIterable {
             return 3500
         }
     }
-    
-    func returnPrice() -> Int {
-        return self.price
-    }
 }
 
 var misterLee = Person(name: "misterLee",age: 27, money: 100000)
-var missKim = Person(name: "missKim", age: 30, money: 150000)
+var missKim = Person(name: "missKim", age: 30, money: 7500)
 var yagombucks = CoffeeShop(barista: misterLee)
 
-// yagombucks 메뉴 할당
 yagombucks.appendCoffeeMenu()
 
-// barista 이름 확인
-print(yagombucks.barista.name)
+missKim.order([.americano], at: &yagombucks)
+missKim.order([.lemonade], at: &yagombucks)
 
-// yagombucks 메뉴가 잘 할당되었는지 확인
-func checkMenuOfyagombucks(menu: Coffee) {
-    if let price = yagombucks.menuList[menu] {
-        print("\(menu.rawValue)는 \(price)원 입니다.")
-    } else {
-        print("해당 메뉴는 yagombucks에 없는 메뉴입니다.")
-    }
-}
+print(yagombucks.revenue)
 
-checkMenuOfyagombucks(menu: .americano)
-checkMenuOfyagombucks(menu: .cafeMocca)
-checkMenuOfyagombucks(menu: .cafeLatte)
+missKim.money = 24000
+missKim.order([.americano, .blackTea, .greenTea], at: &yagombucks)
 
-// makeCoffee 메서드 확인
-yagombucks.makeCoffee(.americano)
-print(yagombucks.pickUpTable[0].rawValue)
+print(yagombucks.revenue)
