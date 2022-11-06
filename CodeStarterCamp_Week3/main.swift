@@ -19,8 +19,8 @@ class Person {
         self.moneyOnHand = moneyOnHand
         self.job = job
     }
-    func buyCoffee (orderedCoffee: Coffee) {
-        print("\(orderedCoffee.rawValue) 주세요.")
+    func buy(_ Coffee: Coffee) {
+        print("\(Coffee.rawValue) 주세요.")
     }
 }
 
@@ -30,9 +30,8 @@ class Coffeeshop {
     var pickUpTable = [String]()
     var barista: Person
     
-    init(turnover: Int, pickUpTable: [String], barista: Person) {
+    init(turnover: Int, pickUpTable: [String] = [String](), barista: Person) {
         self.turnover = turnover
-        self.pickUpTable = pickUpTable
         self.barista = barista
     }
     
@@ -57,10 +56,9 @@ let missKim: Person = Person(name: "missKim", gender: "female", moneyOnHand: 500
 
 let misterLee: Person = Person(name: "misterLee", gender: "male", moneyOnHand: 50000, job: "barista")
 
-missKim.buyCoffee(orderedCoffee: Coffee.americano)
+missKim.buy(Coffee.americano)
 
 
-let yagombucks: Coffeeshop = Coffeeshop(turnover: 0, pickUpTable: [], barista: misterLee)
-
+let yagombucks: Coffeeshop = Coffeeshop(turnover: 0, barista: misterLee)
 yagombucks.takeOrdersAndMakeCoffee()
 yagombucks.putCoffeeOnPickUpTable(orderedCoffee: Coffee.americano)
