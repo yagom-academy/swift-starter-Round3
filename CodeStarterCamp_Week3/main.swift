@@ -25,13 +25,13 @@ class Person {
         print("제 이름은 \(name)이고 \(age)살 입니다. 소지금은 \(money)입니다.")
     }
     
-    func orderCoffee(coffee: Coffee, coffeeShop: CoffeeShop) {
+    func orderCoffee(_ coffee: Coffee, at coffeeShop: CoffeeShop) {
         if money >= coffee.price {
             print("\(name) 님이 \(coffee.rawValue)를 주문합니다.")
             money = money - coffee.price
-            coffeeShop.makeCoffee(coffee: coffee, from: name)
+            coffeeShop.makeCoffee(_: coffee, from: name)
         } else {
-            print("잔액이 \(coffee.price - money)원만큼 부족합니다")
+            print("\(name)님의 잔액이 \(coffee.price - money)원만큼 부족합니다")
         }
     }
 }
@@ -41,15 +41,25 @@ class CoffeeShop {
     let cafeName: String
     var revenue: Int = 0
     var menu: Dictionary<Coffee, Int> = [:]
-    var pickUpTable: Array<Coffee> = []
-    var barista: Person?
+    var pickUpTable: Array<Coffee> = [] {
+        didSet {
+            if let orderedCoffee = orderedCoffee {
+                print("\(customer)님이 주문하신 \(orderedCoffee.rawValue)가 준비되었습니다.")
+            }
+        }
+        
+    }
     
-    init(cafeName: String, revenue: Int, menu: Dictionary<Coffee, Int>, pickUpTable: Array<Coffee>, barista: Person? = nil) {
+    var barista: Person?
+    var customer: String = ""
+    var orderedCoffee: Coffee?
+    
+    init(cafeName: String, barista: Person? = nil) {
         self.cafeName = cafeName
-        self.revenue = revenue
-        self.menu = menu
-        self.pickUpTable = pickUpTable
         self.barista = barista
+        self.revenue = 0
+        self.menu = menuUpdate()
+        self.pickUpTable = []
     }
     
     func selfIntroduce() {
@@ -64,16 +74,19 @@ class CoffeeShop {
         print("\(cafeName)에서 \(coffee.rawValue)를 주문받았습니다.")
     }
     
-    func makeCoffee(coffee: Coffee, from name: String) {
+    func makeCoffee(_ coffee: Coffee, from name: String) {
+        customer = name
+        orderedCoffee = coffee
         revenue += coffee.price
         pickUpTable.append(coffee)
-        print("\(name) 님이 주문하신 \(coffee.rawValue)(이/가) 준비되었습니다. 픽업대에서 가져가주세요.")
     }
     
-    func menuUpdate() {
+    func menuUpdate() -> Dictionary<Coffee, Int> {
+        var coffeeList = Coffee.allCases
         for coffee in coffeeList {
             menu[coffee] = coffee.price
         }
+        return menu
     }
 }
 
@@ -110,14 +123,12 @@ enum Coffee: String ,CaseIterable {
         }
     }
 }
-var coffeeList = Coffee.allCases
 
 // MARK: 출력
 var missKim = Person(name: "김미스", age: 30, money: 30000)
 var misterLee = Person(name: "이미스터", age: 26, money: 2000)
 
-var yagombucks = CoffeeShop(cafeName: "야곰벅스", revenue: 0, menu:[:], pickUpTable: [])
-yagombucks.menuUpdate()
+var yagombucks = CoffeeShop(cafeName: "야곰벅스")
 
-missKim.orderCoffee(coffee: .vanillaLatte, coffeeShop: yagombucks)
-misterLee.orderCoffee(coffee: .caramelMacchiato, coffeeShop: yagombucks)
+missKim.orderCoffee(_: .vanillaLatte, at: yagombucks)
+misterLee.orderCoffee(_: .caramelMacchiato, at: yagombucks)
