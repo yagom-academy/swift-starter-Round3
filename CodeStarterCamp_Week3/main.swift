@@ -19,18 +19,18 @@ class Person {
         self.moneyOnHand = moneyOnHand
         self.job = job
     }
-    func buy(_ Coffee: Coffee) {
-        print("\(Coffee.rawValue) 주세요.")
+    func buy(_ coffee: Coffee) {
+        print("\(coffee.rawValue) 주세요.")
     }
 }
 
 class Coffeeshop {
     var turnover: Int
     let menuList = [Coffee.americano: 4500, Coffee.latte: 5000, Coffee.coldbrew: 5000, Coffee.frappuccino: 6000]
-    var pickUpTable = [String]()
+    var pickUpTable = [Coffee]()
     var barista: Person
     
-    init(turnover: Int, pickUpTable: [String] = [String](), barista: Person) {
+    init(turnover: Int, barista: Person) {
         self.turnover = turnover
         self.barista = barista
     }
@@ -39,9 +39,9 @@ class Coffeeshop {
         print("\(barista.name)가 주문을 받아 커피를 만듭니다.")
     }
     func putCoffeeOnPickUpTable(orderedCoffee: Coffee) {
-        print("주문하신 \(orderedCoffee.rawValue) 나왔습니다.")
-        self.pickUpTable.append(orderedCoffee.rawValue)
-        print(pickUpTable)
+        let coffeeForSale = orderedCoffee.rawValue
+        print("주문하신 \(coffeeForSale) 나왔습니다.")
+        
     }
 }
 
