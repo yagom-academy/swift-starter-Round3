@@ -12,7 +12,9 @@ import Foundation
 /// 1. 프로퍼티:  돈
 /// 2. 메서드: 커피 구입
 struct Person {
-
+ 
+    var name: String = "Harry"
+    var age: Int = 20
     var money: Int = 0
     
     func orderCoffee() {
@@ -26,9 +28,9 @@ struct Person {
 struct CoffeeShop {
     
     var revenue: Int = 0
-    var menu: [String : Int] = [:]
+    var menu: [Coffee : Int] = [:]
     var pickUpTabel: [Coffee] = []
-    var barista: String = ""
+    var baristar = Person()
     
     func takeOrder() {
     }
@@ -43,10 +45,13 @@ enum Coffee {
     case americano, cafelatte, greentea
 }
 
-var misterLee: Person = Person()
-var missKim: Person = Person()
-var yagombucks: CoffeeShop = CoffeeShop()
+var misterLee = Person()
+var missKim = Person()
+var yagombucks = CoffeeShop()
 
-yagombucks.barista = "misterLee"
+misterLee.name = "Potter"
+yagombucks.baristar = misterLee
+print(yagombucks.baristar)
+
 yagombucks.pickUpTabel.append(yagombucks.dropCoffee(.americano))
 print(yagombucks.pickUpTabel)
