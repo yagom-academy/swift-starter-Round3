@@ -6,13 +6,14 @@ struct Person {
     var gender: String
     var money: Int
     
-    mutating func order(coffee: Coffee, coffeeShop: CoffeeShop) { // 이것을 통해 yagombucks의 make 메서드를 호출
+    mutating func order(coffee: Coffee, coffeeShop: CoffeeShop) {
         
         guard let price = coffeeShop.menu[coffee] else {
             print("가격정보가 없습니다.")
             return
         }
         
+        // 잔액 계산
         if money >= price {
             money -= price
             print("\(name)님이 주문하신 \(coffee)(이/가) 준비되었습니다. 픽업대에서 가져가주세요")
@@ -29,8 +30,9 @@ struct CoffeeShop {
     let menu: [Coffee: Int] = [.americano: 2000, .cafeLatte: 2500, .vanillaLatte: 3000, .earlGrey: 3500, .chamomile: 3500, .milkShake: 4000]
     var baristar: Person
     
-    mutating func make(coffee: Coffee, from name: String, customer: inout Person) {
-        pickUpTable.append(coffee) // 확인용 프린트
+    //픽업테이블에 커피 넣기
+    mutating func make(coffee: Coffee, from name: String) {
+        pickUpTable.append(coffee)
         
     }
 }
