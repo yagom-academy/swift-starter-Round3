@@ -25,18 +25,23 @@ struct Person {
 
 struct CoffeeShop {
     var sales: Int
+    var name: String = ""
+    var coffee: Coffee
+    var pickUpTable = [Coffee]() {
+        didSet {
+            print("\(name)님이 주문하신 \(coffee)(이/가) 준비되었습니다. 픽업대에서 가져가주세요")
+        }
+    }
     
     let menu: [Coffee: Int] = [.americano: 2000, .cafeLatte: 2500, .vanillaLatte: 3000, .earlGrey: 3500, .chamomile: 3500, .milkShake: 4000]
     var baristar: Person
     
     //픽업테이블에 커피 넣기
     mutating func make(coffee: Coffee, from name: String) {
-        var pickUpTable = [Coffee]() {
-            didSet {
-                print("\(name)님이 주문하신 \(coffee)(이/가) 준비되었습니다. 픽업대에서 가져가주세요")
-            }
-        }
+        self.name = name
+        self.coffee = coffee
         pickUpTable.append(coffee)
+        
         
     }
 }
@@ -48,4 +53,5 @@ enum Coffee: String {
     case earlGrey = "얼그레이"
     case chamomile = "캐모마일"
     case milkShake = "밀크쉐이크"
+    case unselect = "선택안함"
 }
