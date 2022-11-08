@@ -7,3 +7,4 @@ var yagombucks: CoffeeShop = .init(sales: 50000, baristar: misterLee)
 
 missKim.order(coffee: .cafeLatte, coffeeShop: yagombucks)
 misterPark.order(coffee: .milkShake, coffeeShop: yagombucks)
+yagombucks.make(coffee: .americano, from: "misterLee")
