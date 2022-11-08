@@ -12,61 +12,63 @@ enum Coffee {
     case iceAmericano, hotAmericano, iceCafeMocha, hotCafeMocha, iceLatte, hotLatte
 }
 
-class Person {
+struct Person {
     var money: Int
+    var job: String?
+    var house: String?
     
     init(money: Int) {
         self.money = money
     }
     
-    func buyCoffee(shop: CoffeeShop) {
-        var payMoney: Int = 0
-        
-        for coffee in shop.pickUpTable {
-            if let coffeePrice = shop.menu[coffee] {
-                payMoney += coffeePrice
-            }
-        }
-        self.money -= payMoney
+    func buyCoffee(paying: Int) {
+        print("지불할 돈은 \(paying)입니다")
+        self.money -= paying
+        print("남은 돈은 \(self.money)입니다")
     }
 }
 
 class CoffeeShop {
-    var barista: Person?
+    var barista: Person
     var profit: Int = 0
     var menu: [Coffee: Int] = [.iceAmericano: 1800, .hotAmericano: 1500, .iceCafeMocha: 3000, .hotCafeMocha: 2800,
                                .iceLatte: 2600, .hotLatte: 2400]
     var pickUpTable: [Coffee] = []
-    
-    init(profit: Int) {
-        self.profit = profit
-    }
     
     init(barista: Person, profit: Int) {
         self.barista = barista
         self.profit = profit
     }
     
-    init?(profit: Int, menu: [Coffee: Int]) {
+    init?(barista: Person, profit: Int, menu: [Coffee: Int]) {
         if menu.count == 0 {
             return nil
         }
+        
+        self.barista = barista
         self.profit = profit
         self.menu = menu
     }
     
-    func takeOrder(coffees: [Coffee]) {
+    func takeOrder(person: Person, coffees: [Coffee]) {
         var payMoney: Int = 0
+        
+        print("주문을 받습니다.")
         for coffee in coffees {
-            if let price = menu[coffee] {
+            if let price = self.menu[coffee] {
                 payMoney += price
+                print("\(coffee)를 주문했습니다 가격은 \(price)입니다.")
             }
         }
         
+        person.buyCoffee(paying: payMoney)
         self.profit += payMoney
+        makeCoffee(coffees: coffees)
     }
+    
     func makeCoffee(coffees: [Coffee]) {
         self.pickUpTable = coffees
+        print("커피 나왔습니다~")
     }
 }
 
@@ -75,3 +77,4 @@ let missKim = Person(money: 1000000)
 
 let yagombucks = CoffeeShop(barista: misterLee, profit: 0)
 
+yagombucks.takeOrder(person: missKim, coffees: [.iceAmericano, .iceAmericano, .iceCafeMocha])
