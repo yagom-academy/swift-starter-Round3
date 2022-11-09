@@ -8,11 +8,16 @@
 
 import Foundation
 
-enum Coffee {
-    case iceAmericano, hotAmericano, iceCafeMocha, hotCafeMocha, iceLatte, hotLatte
+enum Coffee: String {
+    case iceAmericano = "아이스 아메리카노"
+    case hotAmericano = "따뜻한 아메리카노"
+    case iceCafeMocha = "아이스 카페모카"
+    case hotCafeMocha = "따뜻한 카페모카"
+    case iceLatte = "아이스 라떼"
+    case hotLatte = "따뜻한 라떼"
 }
 
-struct Person {
+class Person {
     var money: Int
     var job: String?
     var house: String?
@@ -40,16 +45,6 @@ class CoffeeShop {
         self.profit = profit
     }
     
-    init?(barista: Person, profit: Int, menu: [Coffee: Int]) {
-        if menu.count == 0 {
-            return nil
-        }
-        
-        self.barista = barista
-        self.profit = profit
-        self.menu = menu
-    }
-    
     func takeOrder(person: Person, coffees: [Coffee]) {
         var payMoney: Int = 0
         
@@ -57,7 +52,7 @@ class CoffeeShop {
         for coffee in coffees {
             if let price = self.menu[coffee] {
                 payMoney += price
-                print("\(coffee)를 주문했습니다 가격은 \(price)입니다.")
+                print("\(coffee.rawValue)를 주문했습니다 가격은 \(price)입니다.")
             }
         }
         
@@ -78,3 +73,4 @@ let missKim = Person(money: 1000000)
 let yagombucks = CoffeeShop(barista: misterLee, profit: 0)
 
 yagombucks.takeOrder(person: missKim, coffees: [.iceAmericano, .iceAmericano, .iceCafeMocha])
+print("남은 돈은 \(missKim.money)입니다")
