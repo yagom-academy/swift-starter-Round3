@@ -36,7 +36,6 @@ class Person {
             return paying-money
         }
     }
-    
 }
 
 class CoffeeShop {
