@@ -18,19 +18,25 @@ enum Coffee: String {
 }
 
 class Person {
+    var name: String
     var money: Int
     var job: String?
     var house: String?
     
-    init(money: Int) {
+    init(name: String, money: Int) {
+        self.name = name
         self.money = money
     }
     
-    func buyCoffee(paying: Int) {
-        print("지불할 돈은 \(paying)입니다")
-        self.money -= paying
-        print("남은 돈은 \(self.money)입니다")
+    func buyCoffee(paying: Int) -> Int {
+        if self.money-paying < 0 {
+            return paying-money
+        } else {
+            self.money -= paying
+            return paying-money
+        }
     }
+    
 }
 
 class CoffeeShop {
@@ -38,39 +44,35 @@ class CoffeeShop {
     var profit: Int = 0
     var menu: [Coffee: Int] = [.iceAmericano: 1800, .hotAmericano: 1500, .iceCafeMocha: 3000, .hotCafeMocha: 2800,
                                .iceLatte: 2600, .hotLatte: 2400]
-    var pickUpTable: [Coffee] = []
+    var pickUpTable: Coffee?
+    var customer: Person?
     
     init(barista: Person, profit: Int) {
         self.barista = barista
         self.profit = profit
     }
     
-    func takeOrder(person: Person, coffees: [Coffee]) {
-        var payMoney: Int = 0
-        
-        print("주문을 받습니다.")
-        for coffee in coffees {
-            if let price = self.menu[coffee] {
-                payMoney += price
-                print("\(coffee.rawValue)를 주문했습니다 가격은 \(price)입니다.")
+    func order(_ coffee: Coffee) {
+        if let coffeePrice = menu[coffee], let orderedCustomer = customer {
+            let lackMoney = orderedCustomer.buyCoffee(paying: coffeePrice)
+            if lackMoney > 0 {
+                print("잔액이 \(lackMoney)만큼 부족합니다")
+            } else {
+                self.make(coffee, from: orderedCustomer.name)
             }
         }
-        
-        person.buyCoffee(paying: payMoney)
-        self.profit += payMoney
-        makeCoffee(coffees: coffees)
     }
     
-    func makeCoffee(coffees: [Coffee]) {
-        self.pickUpTable = coffees
-        print("커피 나왔습니다~")
+    func make(_ coffee: Coffee, from name: String) {
+        self.pickUpTable = coffee
+        print("\(name)님이 주문하신 \(coffee.rawValue)(이/가) 준비되었습니다. 픽업대에서 가져가주세요.")
     }
 }
 
-let misterLee = Person(money: 50000)
-let missKim = Person(money: 1000000)
+let misterLee = Person(name: "misterLee", money: 50000)
+let missKim = Person(name: "missKim", money: 100)
 
 let yagombucks = CoffeeShop(barista: misterLee, profit: 0)
 
-yagombucks.takeOrder(person: missKim, coffees: [.iceAmericano, .iceAmericano, .iceCafeMocha])
-print("남은 돈은 \(missKim.money)입니다")
+yagombucks.customer = missKim
+yagombucks.order(.iceCafeMocha)
