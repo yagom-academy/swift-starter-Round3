@@ -29,11 +29,11 @@ class Person {
     }
     
     func buyCoffee(paying: Int) -> Int {
-        if self.money - paying < 0 {
-            return paying - self.money
+        let subtractMoney = self.money - paying
+        if subtractMoney >= 0 {
+            self.money = subtractMoney
         }
-        self.money -= paying
-        return -self.money
+        return -subtractMoney
     }
 }
 
@@ -73,7 +73,7 @@ class CoffeeShop {
 }
 
 let misterLee = Person(name: "misterLee", money: 50000)
-let missKim = Person(name: "missKim", money: 3000)
+let missKim = Person(name: "missKim", money: 3500)
 
 let yagombucks = CoffeeShop(barista: misterLee, profit: 0)
 
