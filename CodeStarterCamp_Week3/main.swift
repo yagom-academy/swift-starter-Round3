@@ -29,12 +29,11 @@ class Person {
     }
     
     func buyCoffee(paying: Int) -> Int {
-        if self.money-paying < 0 {
-            return paying-money
-        } else {
-            self.money -= paying
-            return paying-money
+        if self.money - paying < 0 {
+            return paying - self.money
         }
+        self.money -= paying
+        return -self.money
     }
 }
 
@@ -43,35 +42,39 @@ class CoffeeShop {
     var profit: Int = 0
     var menu: [Coffee: Int] = [.iceAmericano: 1800, .hotAmericano: 1500, .iceCafeMocha: 3000, .hotCafeMocha: 2800,
                                .iceLatte: 2600, .hotLatte: 2400]
-    var pickUpTable: Coffee?
-    var customer: Person?
+    var pickUpTable: [Coffee] = [] {
+        willSet(newValue) {
+            if let name = newValue.last?.rawValue {
+                print("\(name)(이/가) 준비되었습니다. 픽업대에서 가져가주세요")
+            }
+        }
+    }
     
     init(barista: Person, profit: Int) {
         self.barista = barista
         self.profit = profit
     }
     
-    func order(_ coffee: Coffee) {
-        if let coffeePrice = menu[coffee], let orderedCustomer = customer {
-            let lackMoney = orderedCustomer.buyCoffee(paying: coffeePrice)
+    func order(_ coffee: Coffee, person: Person) {
+        if let coffeePrice = self.menu[coffee] {
+            let lackMoney = person.buyCoffee(paying: coffeePrice)
             if lackMoney > 0 {
-                print("잔액이 \(lackMoney)만큼 부족합니다")
+                print("잔액이 \(lackMoney)원만큼 부족합니다")
             } else {
-                self.make(coffee, from: orderedCustomer.name)
+                self.profit += coffeePrice
+                self.make(coffee, from: person.name)
             }
         }
     }
     
     func make(_ coffee: Coffee, from name: String) {
-        self.pickUpTable = coffee
-        print("\(name)님이 주문하신 \(coffee.rawValue)(이/가) 준비되었습니다. 픽업대에서 가져가주세요.")
+        self.pickUpTable.append(coffee)
     }
 }
 
 let misterLee = Person(name: "misterLee", money: 50000)
-let missKim = Person(name: "missKim", money: 100)
+let missKim = Person(name: "missKim", money: 3000)
 
 let yagombucks = CoffeeShop(barista: misterLee, profit: 0)
 
-yagombucks.customer = missKim
-yagombucks.order(.iceCafeMocha)
+yagombucks.order(.iceCafeMocha, person: missKim)
