@@ -67,5 +67,5 @@ var yagombucks = CoffeeShop(name: "yagombucks", revenue: 3550, menu:  [ .america
 
 print(missKim.orderCoffee(order: .americano, to: yagombucks))
 
-print("\(missKim.name)이 커피 주문 이후 남은 돈은 \(missKim.money) 입니다.")
-print("\(yagombucks.name)이 현재 매출은 \(yagombucks.revenue) 입니다.")
+print("\(missKim.name)이(가) 커피 주문 이후 남은 돈은 \(missKim.money) 입니다.")
+print("\(yagombucks.name)이(가) 현재 매출은 \(yagombucks.revenue) 입니다.")
