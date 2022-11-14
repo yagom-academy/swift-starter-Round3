@@ -48,7 +48,13 @@ class CoffeeShop {
     let shop: String
     var sales: Int
     var barista: Person
-    var pickUpTable = [String]()
+    var customer: String = "손님 없음"
+    var pickUpCoffee: String = "커피 없음"
+    var pickUpTable = [Coffee]() {
+        didSet {
+            print("\(customer)님이 주문하신 \(pickUpCoffee)(이/가) 준비되었습니다. 픽업대에서 가져가주세요.")
+        }
+    }
     var menu: [Coffee: Int] = [Coffee.americano: 4100, Coffee.cafeLatte: 4600, Coffee.caramelMacchiato: 5600]
     
     init(shop: String, sales: Int, barista: Person) {
@@ -67,12 +73,9 @@ class CoffeeShop {
         }
         
         print("현재 \(shop)의 매출액은 \(sales)원입니다.")
-        pickUp(coffee, from: name)
-    }
-    
-    func pickUp(_ coffee: Coffee, from name: String) {
-        pickUpTable.append("\(coffee.rawValue)")
-        print("\(name) 님이 주문하신 \(coffee.rawValue)(이/가) 준비되었습니다. 픽업대에서 가져가주세요.")
+        customer = name
+        pickUpCoffee = coffee.rawValue
+        pickUpTable.append(coffee)
     }
 }
 
