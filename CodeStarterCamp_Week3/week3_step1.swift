@@ -1,6 +1,5 @@
 /*
 import Foundation
- import Foundation
 
  struct Person {
      var name: String
@@ -58,4 +57,5 @@ import Foundation
  yagombucks.makeMenu()
  misterLee.orderCoffee(coffeeShop: yagombucks, coffee: .americano)
  yagombucks.makeCoffee(ordererName: "A", coffee: .americano)
+
 */
