@@ -17,10 +17,9 @@
          if let price = coffeeShop.menu[coffee] {
              if money >= price {
                  coffeeShop.numberOfOrder += 1
-                 coffeeShop.revenue += price
                  money = money - price
                  print("커피 가격은 \(price)원이고 남은 돈 \(money)원 입니다.")
-                 print("가게 매출은 \(coffeeShop.revenue)원 입니다")
+                 coffeeShop.revenue += price
              } else {
                  print("잔액이 \(price - money)원만큼 부족합니다.")
              }
@@ -32,7 +31,11 @@
 
  class CoffeeShop {
      var shopName: String
-     var revenue: Int
+     var revenue: Int {
+         didSet{
+             print("가게 매출은 \(revenue)원 입니다")
+         }
+     }
      var barista: Person
      var menu: [Coffee: Int] = [:]
      var pickUpTable: [String] = []
