@@ -1,5 +1,6 @@
 /*
-import Foundation
+
+ import Foundation
 
  struct Person {
      var name: String
@@ -11,9 +12,9 @@ import Foundation
          if let price = coffeeShop.menu[coffee] {
              if money >= price {
                  money = money - price
-                 return print("커피 가격은 \(price)원입니다.\n남은 돈 \(money)원 드리겠습니다.")
+                 print("커피 가격은 \(price)원이고 남은 돈 \(money)원 입니다.")
              } else {
-                 print("죄송합니다. 돈이 부족하여 커피를 구매할 수 없습니다.")
+                 print("돈이 부족하여 커피를 구매할 수 없습니다.")
              }
              
          }
@@ -21,23 +22,29 @@ import Foundation
  }
 
 
- struct CoffeeShop {
+ class CoffeeShop {
      var shopName: String
      var revenue: Int?
      var barista: Person
      var menu: [Coffee: Int] = [:]
+     var pickUpTable: [String] = []
      
-     mutating func makeMenu() {
-         for i in 0...3 {
-             menu[Coffee.all[i]] = Coffee.all[i].rawValue
+     func makeCoffee(ordererName: String, coffee: Coffee) {
+         pickUpTable.append("\(coffee)")
+         for num in 0...(pickUpTable.count - 1) {
+             print("\(ordererName)님 주문하신 \(pickUpTable[num]) 나왔습니다.")
+             pickUpTable.removeAll()
          }
      }
      
-     var pickUpTable: [Coffee] = []
-     
-     mutating func makeCoffee(ordererName: String, coffee: Coffee) {
-         pickUpTable.append(coffee)
-         print("\(ordererName)님 주문하신 \(pickUpTable[0]) 나왔습니다.")
+     init(shopName: String, barista: Person, pickUpTable: [String]) {
+         self.shopName = shopName
+         self.barista = barista
+         self.pickUpTable = pickUpTable
+         
+         for coffee in Coffee.all {
+             menu[coffee] = coffee.rawValue
+         }
      }
  }
 
@@ -54,8 +61,7 @@ import Foundation
  var missKim: Person = Person(name: "missKim", gender: "female", age: 21, money: 20000)
  var yagombucks: CoffeeShop = CoffeeShop(shopName: "yagombucks", barista: misterLee, pickUpTable: [])
 
- yagombucks.makeMenu()
  misterLee.orderCoffee(coffeeShop: yagombucks, coffee: .americano)
- yagombucks.makeCoffee(ordererName: "A", coffee: .americano)
+ yagombucks.makeCoffee(ordererName: misterLee.name, coffee: .americano)
 
 */

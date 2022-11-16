@@ -1,4 +1,10 @@
-
+//
+//  week3_step2.swift
+//  CodeStarterCamp_Week3
+//
+//  Created by 정경우 on 2022/11/16.
+//
+/*
 import Foundation
 
 struct Person {
@@ -69,3 +75,4 @@ misterLee.orderCoffee(coffeeShop: yagombucks, coffee: .latte)
 yagombucks.makeCoffee(from: misterLee.name, coffee: .latte)
 misterLee.orderCoffee(coffeeShop: yagombucks, coffee: .smoothie)
 yagombucks.makeCoffee(from: misterLee.name, coffee: .smoothie)
+*/
