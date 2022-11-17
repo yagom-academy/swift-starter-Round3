@@ -14,8 +14,10 @@ struct Person {
     var age: Int
     var money: Int
     
-    mutating func order(coffees: [Coffee]) {
+    mutating func orderCoffees(coffees: [Coffee]) {
         var totalPrice: Int = 0
+        
+        yagombucks.guest = self
         
         for coffee in coffees {
             if let price = yagombucks.menu[coffee] {
@@ -23,9 +25,8 @@ struct Person {
             }
         }
         if money >= totalPrice {
-            yagombucks.make(coffee: coffees, from: name)
+            yagombucks.makeCoffees(coffees: coffees, from: name)
             money -= totalPrice
-            yagombucks.sales += totalPrice
         } else {
             print("잔액이 \(totalPrice - money)만큼 모잘랍니다")
         }
@@ -37,13 +38,31 @@ struct CoffeeShop {
     var barista: Person
     var sales: Int = 0
     var menu: [Coffee: Int]
-    var pickUpTable: [String] = []
-    
-    mutating func make(coffee: [Coffee], from name: String){
-        for coffees in coffee {
-            pickUpTable.append(coffees.rawValue)
+    var guest: Person?
+    var pickUpTable: [Coffee] = [] {
+        didSet {
+            if let guest = guest {
+                print("\(guest.name)님이 주문하신", terminator: "")
+            }
+            for coffees in pickUpTable {
+                if coffees != pickUpTable[pickUpTable.count - 1] {
+                    print(coffees.rawValue, terminator: ", ")
+                } else {
+                    print(coffees.rawValue, terminator: "")
+                }
+            }
+           print("(이/가) 준비되었습니다. 픽업대에서 가져가주세요.")
         }
-        print("\(name) 님이 주문하신 \(pickUpTable.joined(separator: ", "))(이/가) 준비되었습니다, 픽업대에서 가져가주세요")
+    }
+    
+    mutating func makeCoffees(coffees: [Coffee], from name: String) {
+        pickUpTable = coffees
+        
+        for coffee in coffees {
+            if let price = menu[coffee] {
+                sales += price
+            }
+        }
     }
 }
 
@@ -58,6 +77,6 @@ var misterLee: Person = Person(name: "misterLee", gender: "male", age: 50, money
 var missKim: Person = Person(name: "missKim", gender: "female", age: 48, money: 10000)
 var yagombucks: CoffeeShop = CoffeeShop(shopName: "yagombucks", barista: misterLee, menu: [.americano: 1500, .latte: 2500, .tea: 3000, .smoothie: 4500])
 
-missKim.order(coffees: [.americano, .smoothie, .tea])
-print("\(missKim.name)님 작액은 \(missKim.money)원 입니다")
+missKim.orderCoffees(coffees: [.americano, .smoothie, .tea])
+print("\(missKim.name)님 잔액은 \(missKim.money)원 입니다")
 print("\(yagombucks.shopName)의 총 매출은 \(yagombucks.sales)원 입니다")
