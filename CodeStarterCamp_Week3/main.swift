@@ -2,27 +2,29 @@ struct Person {
     let name: String
     var money: Int
     
-    mutating func order(_ coffee: Coffee) {
-        print("\(name) \(coffee.rawValue) 주문!")
-        
-        if money >= coffee.coffeePrice() {
-            money -= coffee.coffeePrice()
-            print("\(name) 잔액: \(money)원")
+    mutating func order(_ coffee: Coffee, _ coffeeShop: CoffeeShop) {
+        print("\(name) 님이 \(coffee.rawValue)를 주문하셨습니다.")
+
+        let balance: Int = money - coffee.coffeePrice()
+        if balance >= 0 {
+            money = balance
+            print("* \(name) 님의 잔액은 \(money)원입니다.")
+            coffeeShop.make(coffee, from: name)
         } else {
-            print("잔액이 \(coffee.coffeePrice() - money)원만큼 부족합니다.")
+            print("* \(name) 님의 잔액이 \(-balance)원만큼 부족합니다.\n")
         }
     }
 }
 
-struct CoffeeShop {
+class CoffeeShop {
+    let shopName: String
     var totalSales: Int
-    var pickUpTable: Array<Coffee>
     var barista: Person
     var coffeeMenu: Dictionary<Coffee, Int> = [:]
     
-    init(barista: Person) {
+    init(_ shopName: String, barista: Person) {
+        self.shopName = shopName
         self.totalSales = 0
-        self.pickUpTable = []
         self.barista = barista
         
         for menu in Coffee.allCases {
@@ -30,11 +32,19 @@ struct CoffeeShop {
         }
     }
     
-    mutating func make(_ coffee: Coffee, from name: String) {
-        totalSales += coffee.coffeePrice()
+    func make(_ coffee: Coffee, from name: String) {
+        totalSales += coffeeMenu[coffee]!
+        print("* \(shopName)의 매출액은 \(totalSales)원입니다.")
+        
+        var pickUpTable: Array<Coffee> = [] {
+            willSet {
+                print("\(barista.name)(이/가) 열심히 \(coffee.rawValue)를 만들고 있습니다.")
+            }
+            didSet {
+                print("\(name) 님이 주문하신 \(pickUpTable.map { $0.rawValue }.joined(separator: ", "))가 준비되었습니다. 픽업대에서 가져가주세요.\n")
+            }
+        }
         pickUpTable.append(coffee)
-        print("매출액: \(totalSales)원")
-        print("픽업대: \(pickUpTable.map { $0.rawValue }.joined(separator: ", "))")
     }
 }
 
@@ -59,12 +69,12 @@ enum Coffee: String, CaseIterable {
 }
 
 
-var misterLee: Person = Person(name: "misterLee", money: 10000)
 var missKim: Person = Person(name: "missKim", money: 10000)
-var yagombucks: CoffeeShop = CoffeeShop(barista: misterLee)
+var Coda: Person = Person(name: "Coda", money: 10000)
+var misterLee: Person = Person(name: "misterLee", money: 10000)
+var yagombucks: CoffeeShop = CoffeeShop("yagombucks", barista: misterLee)
 
-missKim.order(.coldBrew)
-yagombucks.make(.coldBrew, from: missKim.name)
-missKim.order(.caffeLatte)
-yagombucks.make(.caffeLatte, from: missKim.name)
-missKim.order(.americano)
+missKim.order(.cappuccino, yagombucks)
+missKim.order(.caffeMocha, yagombucks)
+Coda.order(.americano, yagombucks)
+
