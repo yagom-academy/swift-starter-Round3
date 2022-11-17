@@ -1,4 +1,3 @@
-
 import Foundation
 
 struct Person {
@@ -14,7 +13,7 @@ struct Person {
                 money = money - price
                 print("커피 가격은 \(price)원이고 남은 돈 \(money)원 입니다.")
                 coffeeShop.revenue += price
-                yagombucks.makeCoffee(from: name, coffee: coffee)
+                coffeeShop.makeCoffee(from: name, coffee: coffee)
             } else {
                 print("잔액이 \(price - money)원만큼 부족합니다.")
             }
@@ -34,7 +33,7 @@ class CoffeeShop {
     var menu: [Coffee: Int] = [:]
     var pickUpTable: [String] = [] {
         didSet{
-            if var newCoffee = pickUpTable.last {
+            if let newCoffee = pickUpTable.last {
                 print("\(newCoffee) (이/가) 픽업대로 올라갑니다.")
             }
         }
@@ -44,8 +43,8 @@ class CoffeeShop {
     func makeCoffee(from name: String, coffee: Coffee) {
         if numberOfOrder > 0 {
             pickUpTable.append("\(coffee)")
-            for num in 0...(pickUpTable.count - 1) {
-                print("\(name)님 주문하신 \(pickUpTable[num])(이/가) 나왔습니다.")
+            for coffee in pickUpTable {
+                print("\(name)님 주문하신 \(coffee)(이/가) 나왔습니다.")
             }
         }
     }
@@ -86,3 +85,4 @@ misterLee.orderCoffee(coffeeShop: yagombucks, coffee: .smoothie)
 //yagombucks.makeCoffee(from: misterLee.name, coffee: .latte)
 //misterLee.orderCoffee(coffeeShop: yagombucks, coffee: .smoothie)
 //yagombucks.makeCoffee(from: misterLee.name, coffee: .smoothie)
+
