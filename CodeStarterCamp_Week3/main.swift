@@ -19,12 +19,14 @@ struct Person {
 class CoffeeShop {
     let shopName: String
     var totalSales: Int
+    var pickUpTable: Array<Coffee>
     var barista: Person
     var coffeeMenu: Dictionary<Coffee, Int> = [:]
     
     init(_ shopName: String, barista: Person) {
         self.shopName = shopName
         self.totalSales = 0
+        self.pickUpTable = []
         self.barista = barista
         
         for menu in Coffee.allCases {
@@ -33,18 +35,25 @@ class CoffeeShop {
     }
     
     func make(_ coffee: Coffee, from name: String) {
-        totalSales += coffeeMenu[coffee]!
+        if let price: Int = coffeeMenu[coffee] {
+            totalSales += price
+        } else {
+            print("해당 메뉴의 가격을 알 수 없습니다.")
+        }
+        
         print("* \(shopName)의 매출액은 \(totalSales)원입니다.")
         
-        var pickUpTable: Array<Coffee> = [] {
+        var pickUpList: Array<Coffee> = pickUpTable {
             willSet {
                 print("\(barista.name)(이/가) 열심히 \(coffee.rawValue)를 만들고 있습니다.")
             }
             didSet {
-                print("\(name) 님이 주문하신 \(pickUpTable.map { $0.rawValue }.joined(separator: ", "))가 준비되었습니다. 픽업대에서 가져가주세요.\n")
+                print("\(name) 님이 주문하신 \(coffee.rawValue)가 준비되었습니다. 픽업대에서 가져가주세요.")
+                print("* 픽업 테이블 현황: \(pickUpList.map { $0.rawValue }.joined(separator: ", "))\n")
             }
         }
         pickUpTable.append(coffee)
+        pickUpList = pickUpTable
     }
 }
 
@@ -77,4 +86,3 @@ var yagombucks: CoffeeShop = CoffeeShop("yagombucks", barista: misterLee)
 missKim.order(.cappuccino, yagombucks)
 missKim.order(.caffeMocha, yagombucks)
 Coda.order(.americano, yagombucks)
-
