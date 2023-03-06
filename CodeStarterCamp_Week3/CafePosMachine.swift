@@ -10,10 +10,8 @@ import Foundation
 
 struct Person {
     var money: Int
-    var price: Int
-    var menu: String
     
-    func buyCofffee() {
+    func buyCofffee(menu: String, price: Int) {
         if money > price {
             print("\(menu) 한 잔을 구매하였습니다. 남은 잔액은 \(money - price)입니다." )
         } else {

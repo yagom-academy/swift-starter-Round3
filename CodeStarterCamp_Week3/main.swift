@@ -9,11 +9,12 @@
 import Foundation
 
 //바리스타
-var misterlee: Person = Person(money: 0, price: Menu.Coffee.americano.CoffeePrice(beans: yagombucks.beansPrice, lattes: yagombucks.lattesPrice), menu: Menu.Coffee.americano.rawValue)
+var misterlee: Person = Person(money: 0)
 //야곰벅스
 var yagombucks: CoffeeShop = CoffeeShop(barista: misterlee, sales: 0, pickUpTable: [], lattesPrice: 1500, beansPrice: 1000)
 //손님 주문
-var missKim: Person = Person(money: 10000, price: Menu.Coffee.latte.CoffeePrice(beans: yagombucks.beansPrice, lattes: yagombucks.lattesPrice), menu: Menu.Coffee.latte.rawValue)
+var missKim: Person = Person(money: 10000)
+missKim.buyCofffee(menu: Menu.Coffee.americano.rawValue, price: Menu.Coffee.americano.CoffeePrice(beans: yagombucks.beansPrice, lattes: yagombucks.lattesPrice))
 
 //야곰벅스 손님 호출
 yagombucks.processOrder(number: 1, menu: Menu.Coffee.americano.rawValue, totalPrice: Menu.Coffee.americano.CoffeePrice(beans: yagombucks.beansPrice, lattes: yagombucks.lattesPrice))
