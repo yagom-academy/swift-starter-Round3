@@ -8,5 +8,16 @@
 
 import Foundation
 
-print("Hello, World!")
+//바리스타
+var misterlee: Person = Person(money: 0, price: Menu.Coffee.americano.CoffeePrice(beans: yagombucks.beansPrice, lattes: yagombucks.lattesPrice), menu: Menu.Coffee.americano.CoffeeName())
+//야곰벅스
+var yagombucks: CoffeeShop = CoffeeShop(barista: misterlee, sales: 0, pickUpTable: [], lattesPrice: 1500, beansPrice: 1000)
+//손님 주문
+var missKim: Person = Person(money: 10000, price: Menu.Coffee.latte.CoffeePrice(beans: yagombucks.beansPrice, lattes: yagombucks.lattesPrice), menu: Menu.Coffee.latte.CoffeeName())
 
+//야곰벅스 손님 호출
+yagombucks.processOrder(number: 1, menu: Menu.Coffee.americano.CoffeeName(), totalPrice: Menu.Coffee.americano.CoffeePrice(beans: yagombucks.beansPrice, lattes: yagombucks.lattesPrice))
+yagombucks.processOrder(number: 2, menu: Menu.Coffee.latte.CoffeeName(), totalPrice: Menu.Coffee.latte.CoffeePrice(beans: yagombucks.beansPrice, lattes: yagombucks.lattesPrice))
+
+//야곰벅스 현재 매출액 확인
+yagombucks.checkSales()
