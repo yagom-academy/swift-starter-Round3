@@ -12,7 +12,7 @@ struct Person {
     var money: Int
     var nickname: String
     
-    mutating func buyCofffee(menu: String, price: Int) {
+    mutating func orderCofffee(menu: String, price: Int) {
         if price == 0 {
             print("\(nickname)님, 주문하신 \(menu)는 품절이라 구매하실 수 없습니다. 남은 잔액은 \(money)원 입니다.")
         }else if money > price {
@@ -27,15 +27,6 @@ struct Person {
 enum Coffee: String {
     case americano = "아메리카노", decaffeine = "디카페인"
     case latte = "라떼", vanilla = "바닐라라떼", caramel = "카라멜 마끼아또", cappuccino = "카푸치노"
-
-    func CoffeePrice(beans: Int, lattes: Int) -> Int {
-        switch self {
-        case .americano, .decaffeine:
-            return beans
-        case .latte, .vanilla, .caramel, .cappuccino:
-            return lattes
-        }
-    }
 }
 
 struct CoffeeShop {
@@ -44,14 +35,18 @@ struct CoffeeShop {
     var pickUpTable: Array<String>
     var menu: [Coffee: Int]
 
-    mutating func processOrder(nickname: String, menu: String, totalPrice: Int) {
-        pickUpTable.append(menu)
+    mutating func takeOrder(nickname: String, menu: String, totalPrice: Int) {
         sales = sales + totalPrice
         if totalPrice == 0 {
             print("죄송하지만 주문하신 \(menu)는 오늘 품절입니다.")
         } else {
-            print("\(nickname)님 주문하신 \(menu) 나왔습니다.")
+            print("\(nickname)님 주문하신 받았습니다. 지불하실 금액은 \(totalPrice)원 입니다.")
         }
+    }
+    
+    mutating func processOrder(nickname: String, menu: String) {
+        pickUpTable.append(menu)
+        print("\(nickname)님, 주문하신 \(menu) 나왔습니다.")
     }
     
     func checkSales() {
