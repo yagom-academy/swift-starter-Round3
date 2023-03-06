@@ -38,12 +38,7 @@ struct CoffeeShop {
     }
     
     mutating func makeCoffee(order:Coffee) {
-        switch order {
-            case .dark:
-                self.pickUpTable.append(.dark)
-            case .latte:
-                self.pickUpTable.append(.latte)
-        }
+        self.pickUpTable.append(order)
         print("주문하신 \(order.rawValue) 준비완료되었습니다.")
     }
 }
