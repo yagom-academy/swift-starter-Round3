@@ -11,14 +11,16 @@ import Foundation
 //바리스타
 var misterlee: Person = Person(money: 0)
 //야곰벅스
-var yagombucks: CoffeeShop = CoffeeShop(barista: misterlee, sales: 0, pickUpTable: [], lattesPrice: 1500, beansPrice: 1000)
+var yagombucks: CoffeeShop = CoffeeShop(barista: misterlee, sales: 0, pickUpTable: [], menu: [Coffee.americano: 2500, Coffee.decaffeine: 2500, Coffee.vanilla: 3500, Coffee.caramel: 3500, Coffee.cappuccino: 3500] )
 //손님 주문
 var missKim: Person = Person(money: 10000)
-missKim.buyCofffee(menu: Menu.Coffee.americano.rawValue, price: Menu.Coffee.americano.CoffeePrice(beans: yagombucks.beansPrice, lattes: yagombucks.lattesPrice))
+missKim.buyCofffee(menu: Coffee.americano.rawValue, price: yagombucks.menu[Coffee.americano] ?? 0)
+
+missKim.buyCofffee(menu: Coffee.latte.rawValue, price: yagombucks.menu[Coffee.latte] ?? 0)
 
 //야곰벅스 손님 호출
-yagombucks.processOrder(number: 1, menu: Menu.Coffee.americano.rawValue, totalPrice: Menu.Coffee.americano.CoffeePrice(beans: yagombucks.beansPrice, lattes: yagombucks.lattesPrice))
-yagombucks.processOrder(number: 2, menu: Menu.Coffee.latte.rawValue, totalPrice: Menu.Coffee.latte.CoffeePrice(beans: yagombucks.beansPrice, lattes: yagombucks.lattesPrice))
+yagombucks.processOrder(number: 1, menu: Coffee.americano.rawValue, totalPrice: yagombucks.menu[Coffee.americano] ?? 0)
+yagombucks.processOrder(number: 2, menu: Coffee.latte.rawValue, totalPrice: yagombucks.menu[Coffee.latte] ?? 0)
 
 //야곰벅스 현재 매출액 확인
 yagombucks.checkSales()

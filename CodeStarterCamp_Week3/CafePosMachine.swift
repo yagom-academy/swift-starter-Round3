@@ -12,26 +12,26 @@ struct Person {
     var money: Int
     
     func buyCofffee(menu: String, price: Int) {
-        if money > price {
+        if price == 0 {
+            print("이 음료는 품절이라 구매하실 수 없습니다.")
+        }else if money > price {
             print("\(menu) 한 잔을 구매하였습니다. 남은 잔액은 \(money - price)입니다." )
-        } else {
+        }else {
             print("금액이 부족합니다.")
         }
     }
 }
 
-struct Menu {
-    enum Coffee: String {
-        case americano = "아메리카노", decaffeine = "디카페인"
-        case latte = "라떼", vanilla = "바닐라라떼", caramel = "카라멜 마끼아또", cappuccino = "카푸치노"
+enum Coffee: String {
+    case americano = "아메리카노", decaffeine = "디카페인"
+    case latte = "라떼", vanilla = "바닐라라떼", caramel = "카라멜 마끼아또", cappuccino = "카푸치노"
 
-        func CoffeePrice(beans: Int, lattes: Int) -> Int {
-            switch self {
-            case .americano, .decaffeine:
-                return beans
-            case .latte, .vanilla, .caramel, .cappuccino:
-                return lattes
-            }
+    func CoffeePrice(beans: Int, lattes: Int) -> Int {
+        switch self {
+        case .americano, .decaffeine:
+            return beans
+        case .latte, .vanilla, .caramel, .cappuccino:
+            return lattes
         }
     }
 }
@@ -40,13 +40,16 @@ struct CoffeeShop {
     var barista: Person
     var sales: Int
     var pickUpTable: Array<String>
-    var lattesPrice: Int
-    var beansPrice: Int
+    var menu: [Coffee: Int]
 
     mutating func processOrder(number: Int, menu: String, totalPrice: Int) {
         pickUpTable.append(menu)
         sales = sales + totalPrice
-        print ("\(number)번 손님 주문하신 \(menu) 나왔습니다.")
+        if totalPrice == 0 {
+            print("죄송하지만 주문하신 음료는 오늘 품절입니다.")
+        } else {
+            print("\(number)번 손님 주문하신 \(menu) 나왔습니다.")
+        }
     }
     
     func checkSales() {
