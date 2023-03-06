@@ -14,10 +14,10 @@ struct Person {
     
     mutating func buyCofffee(menu: String, price: Int) {
         if price == 0 {
-            print("\(nickname)님, 주문하신 \(menu)는 품절이라 구매하실 수 없습니다. 남은 잔액은 \(money)입니다.")
+            print("\(nickname)님, 주문하신 \(menu)는 품절이라 구매하실 수 없습니다. 남은 잔액은 \(money)원 입니다.")
         }else if money > price {
             self.money = self.money - price
-            print("\(nickname)님, \(menu) 한 잔을 구매하였습니다. 남은 잔액은 \(money)입니다." )
+            print("\(nickname)님, \(menu) 한 잔을 구매하였습니다. 남은 잔액은 \(money)원 입니다." )
         }else {
             print("금액이 부족합니다.")
         }
@@ -55,6 +55,6 @@ struct CoffeeShop {
     }
     
     func checkSales() {
-        print ("현재까지 총 매출액은 \(sales)원 입니다.")
+        print("현재까지 총 매출액은 \(sales)원 입니다.")
     }
 }

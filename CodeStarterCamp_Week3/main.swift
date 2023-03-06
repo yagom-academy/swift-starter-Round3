@@ -9,9 +9,9 @@
 import Foundation
 
 //바리스타
-var misterlee: Person = Person(money: 0, nickname: "misterLee")
+var misterLee: Person = Person(money: 0, nickname: "misterLee")
 //야곰벅스
-var yagombucks: CoffeeShop = CoffeeShop(barista: misterlee, sales: 0, pickUpTable: [], menu: [Coffee.americano: 2500, Coffee.decaffeine: 2500, Coffee.vanilla: 3500, Coffee.caramel: 3500, Coffee.cappuccino: 3500] )
+var yagombucks: CoffeeShop = CoffeeShop(barista: misterLee, sales: 0, pickUpTable: [], menu: [Coffee.americano: 2500, Coffee.decaffeine: 2500, Coffee.vanilla: 3500, Coffee.caramel: 3500, Coffee.cappuccino: 3500] )
 //손님 주문
 var missKim: Person = Person(money: 10000, nickname: "missKim")
 missKim.buyCofffee(menu: Coffee.americano.rawValue, price: yagombucks.menu[Coffee.americano] ?? 0)
