@@ -31,16 +31,16 @@ enum Coffee: String {
 
 struct CoffeeShop {
     var barista: Person
-    var sales: Int
+    var totalSales: Int
     var pickUpTable: Array<String>
     var menu: [Coffee: Int]
 
-    mutating func takeOrder(nickname: String, menu: String, totalPrice: Int) {
-        sales = sales + totalPrice
-        if totalPrice == 0 {
+    mutating func takeOrder(nickname: String, menu: String, price: Int) {
+        totalSales = totalSales + price
+        if price == 0 {
             print("죄송하지만 주문하신 \(menu)는 오늘 품절입니다.")
         } else {
-            print("\(nickname)님 주문하신 받았습니다. 지불하실 금액은 \(totalPrice)원 입니다.")
+            print("\(nickname)님 주문하신 받았습니다. 지불하실 금액은 \(price)원 입니다.")
         }
     }
     
@@ -50,6 +50,6 @@ struct CoffeeShop {
     }
     
     func checkSales() {
-        print("현재까지 총 매출액은 \(sales)원 입니다.")
+        print("현재까지 총 매출액은 \(totalSales)원 입니다.")
     }
 }
