@@ -10,12 +10,14 @@ import Foundation
 
 struct Person {
     var money: Int
+    var nickname: String
     
-    func buyCofffee(menu: String, price: Int) {
+    mutating func buyCofffee(menu: String, price: Int) {
         if price == 0 {
-            print("이 음료는 품절이라 구매하실 수 없습니다.")
+            print("\(nickname)님, 주문하신 \(menu)는 품절이라 구매하실 수 없습니다. 남은 잔액은 \(money)입니다.")
         }else if money > price {
-            print("\(menu) 한 잔을 구매하였습니다. 남은 잔액은 \(money - price)입니다." )
+            self.money = self.money - price
+            print("\(nickname)님, \(menu) 한 잔을 구매하였습니다. 남은 잔액은 \(money)입니다." )
         }else {
             print("금액이 부족합니다.")
         }
@@ -42,13 +44,13 @@ struct CoffeeShop {
     var pickUpTable: Array<String>
     var menu: [Coffee: Int]
 
-    mutating func processOrder(number: Int, menu: String, totalPrice: Int) {
+    mutating func processOrder(nickname: String, menu: String, totalPrice: Int) {
         pickUpTable.append(menu)
         sales = sales + totalPrice
         if totalPrice == 0 {
-            print("죄송하지만 주문하신 음료는 오늘 품절입니다.")
+            print("죄송하지만 주문하신 \(menu)는 오늘 품절입니다.")
         } else {
-            print("\(number)번 손님 주문하신 \(menu) 나왔습니다.")
+            print("\(nickname)님 주문하신 \(menu) 나왔습니다.")
         }
     }
     
