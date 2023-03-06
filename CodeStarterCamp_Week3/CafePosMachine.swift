@@ -56,18 +56,18 @@ struct Menu {
 
 struct CoffeeShop {
     var barista: Person
-    var sales: Int = 0
+    var sales: Int
     var pickUpTable: Array<String>
     var lattesPrice: Int
     var beansPrice: Int
 
     mutating func processOrder(number: Int, menu: String, totalPrice: Int) {
-        self.pickUpTable.append(menu)
-        self.sales = self.sales + totalPrice
+        pickUpTable.append(menu)
+        sales = sales + totalPrice
         print ("\(number)번 손님 주문하신 \(menu) 나왔습니다.")
     }
     
-    mutating func checkSales() {
+    func checkSales() {
         print ("현재까지 총 매출액은 \(sales)원 입니다.")
     }
 }
