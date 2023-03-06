@@ -26,26 +26,7 @@ struct Menu {
     enum Coffee: String {
         case americano = "아메리카노", decaffeine = "디카페인"
         case latte = "라떼", vanilla = "바닐라라떼", caramel = "카라멜 마끼아또", cappuccino = "카푸치노"
-        
-        /*
-        func CoffeeName() -> String {
-            switch self {
-            case .americano:
-                return "아메리카노"
-            case .decaffeine:
-                return "디카페인"
-            case .latte:
-                return "라떼"
-            case .vanilla:
-                return "바닐라 라떼"
-            case .caramel:
-                return "카라멜 마끼아또"
-            case .cappuccino:
-                return "카푸치노"
-            }
-        }
-         */
-            
+
         func CoffeePrice(beans: Int, lattes: Int) -> Int {
             switch self {
             case .americano, .decaffeine:
