@@ -15,20 +15,11 @@ enum Coffee: String {
 
 struct Person {
     var money: Int
-    func purchaseCoffee() {
-        
-    }
-//    func purchaseCoffee(price: Int) -> Coffee? {
-//        if self.money >= price {
-//            return .latte
-//        }
-//
-//        return nil
-//    }
+    func purchaseCoffee() {}
 }
 
 struct CoffeeShop {
-    var salesMoney: Int
+    var totalSales: Int
     var barista: Person
     var menus: [Coffee : Int]
     var pickUpTable = [Coffee]()
@@ -37,6 +28,7 @@ struct CoffeeShop {
         self.makeCoffee(order: coffee)
     }
     
+    private
     mutating func makeCoffee(order:Coffee) {
         self.pickUpTable.append(order)
         print("주문하신 \(order.rawValue) 준비완료되었습니다.")
@@ -45,7 +37,7 @@ struct CoffeeShop {
 
 let misterLee = Person(money: 5400)
 let missKim = Person(money: 6800)
-var yagombucks = CoffeeShop(salesMoney: 10000,
+var yagombucks = CoffeeShop(totalSales: 10000,
                             barista: misterLee,
                             menus: [Coffee.dark:4500, Coffee.latte:5000])
 
