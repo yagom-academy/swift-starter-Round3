@@ -21,7 +21,7 @@ struct Person {
 struct CoffeeShop {
     var totalSales: Int
     var barista: Person
-    var menus: [Coffee : Int]
+    var menus: [Coffee:Int]
     var pickUpTable = [Coffee]()
     
     mutating func takeOrder(coffee: Coffee) {
@@ -29,7 +29,7 @@ struct CoffeeShop {
     }
     
     private
-    mutating func makeCoffee(order:Coffee) {
+    mutating func makeCoffee(order: Coffee) {
         self.pickUpTable.append(order)
         print("주문하신 \(order.rawValue) 준비완료되었습니다.")
     }
