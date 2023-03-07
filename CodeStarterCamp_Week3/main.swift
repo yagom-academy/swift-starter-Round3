@@ -57,7 +57,7 @@ struct CoffeeShop {
         self.pickUpTable = pickUpTable
     }
     
-    mutating func orderingCoffee(menus:Coffee) {
+    mutating func orderCoffee(menus:Coffee) {
         print("\(menus)주문 받았습니다.")
         if let price = menu[menus] {
             print("주문하신 \(menus)의 가격은\(price)입니다.")
@@ -77,6 +77,6 @@ missKim.buyCoffee(coffeeShop: CoffeeShop(coffeeShopName: "오뚜기", sales: 200
 var yagombucks = CoffeeShop(coffeeShopName: "yagombucks", sales: 0, barista: misterLee,
                             menu: [.americano: 2000, .latte: 2900, .javachipFrappuccino: 4500, .caramelMacchiato: 3500],
                             pickUpTable: [])
-yagombucks.orderingCoffee(menus: .americano)
-yagombucks.orderingCoffee(menus: .javachipFrappuccino)
+yagombucks.orderCoffee(menus: .americano)
+yagombucks.orderCoffee(menus: .javachipFrappuccino)
 yagombucks.coffeePickupTable()
