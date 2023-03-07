@@ -8,53 +8,81 @@
 
 import Foundation
 
-enum Coffee: Int {
-    case americano = 4500
-    case latte = 4900
-    case javachipFrappuccino = 6300
-    case caramelMacchiato = 5200
+enum Coffee: CustomStringConvertible {
+    case americano
+    case latte
+    case javachipFrappuccino
+    case caramelMacchiato
+    
+    var description: String {
+        switch self {
+        case .americano:
+            return "americano"
+        case .latte:
+            return "latte"
+        case .javachipFrappuccino:
+            return "javachipFrappuccino"
+        case .caramelMacchiato:
+            return "caramelMacchiato"
+        }
+    }
+}
+
+struct Price {
+    var price: Int
+    
+    init(price: Int) {
+        self.price = price
+    }
 }
 
 struct Person {
-    var name: String
-    var age: Int
+    let name: String
     var money: Int
     
-    init(name: String, age: Int, money: Int) {
+    init(name: String, money: Int) {
         self.name = name
-        self.age = age
         self.money = money
     }
     
-    func buyCoffee() {
-        print("\(name)은 \(age)살 이며 곰다방에서 \(money)원을 주고 커피를 구매했다")
+    func buyCoffee(coffeeShop: CoffeeShop) {
+        print("\(name)은 가지고 있는 \(money)원으로 \(coffeeShop.coffeeShopName)에서 \(coffeeShop.barista)가 만들어주는 커피를 \(coffeeShop.menu)원을 주고 커피를 구매했다")
     }
 }
 
 struct CoffeeShop {
-    var coffeeShop: String = "aaaaaaaAmeriacano"
-    var sales: Int
+    var coffeeShopName: String
+    var sales: Int?
     var barista: Person
-    var menu = [Coffee]()
-    var pickUpTable = [Coffee]()
+    var menu: [Coffee: Int]
+    var pickUpTable: [Coffee]
     
-    init(coffeeShop: String, sales: Int, barista: Person, menu: [Coffee] = [Coffee](), pickUpTable: [Coffee] = [Coffee]()) {
-        self.coffeeShop = coffeeShop
+    init(coffeeShopName: String, sales: Int? = nil, barista: Person, menu: [Coffee : Int], pickUpTable: [Coffee]) {
+        self.init(coffeeShopName: coffeeShopName, barista: barista, menu: menu, pickUpTable: pickUpTable)
         self.sales = sales
+    }
+    init(coffeeShopName: String, barista: Person, menu: [Coffee: Int], pickUpTable: [Coffee]) {
+        self.coffeeShopName = coffeeShopName
         self.barista = barista
         self.menu = menu
         self.pickUpTable = pickUpTable
     }
     
-    mutating func orderingCoffee(barista:Person, menu:Coffee, price:Coffee.RawValue) {
-        print("\(barista)가 주문한 메뉴 \(menu)을 만들고 있습니다.")
-        print("\(menu) 주문 받았습니다 가격은\(price)원 입니다.")
-        pickUpTable.append(menu)
+    mutating func orderingCoffee(menus:Coffee, menu: [Coffee: Int]) {
+        print("\(menus)주문 받았습니다.  \(menu.values)원 입니다.")
+        print("\(menus)을 만들고 있습니다.")
+        pickUpTable.append(menus)
+    }
+    
+    func makingCoffee() {
+        print("주문하신 \(pickUpTable)나왔습니다 테이블에서 가져가주세요")
     }
 }
-var myPerson: Person = Person(name: "tom", age: 20, money: 4500)
-var missKim = Person(name: "missKee", age: 20, money: 9700)
-var misterLee = Person(name: "misterLee", age: 22, money: 9700)
+var missKim = Person(name: "missKim", money: 9700)
+var misterLee = Person(name: "misterLee", money: 9700)
+missKim.buyCoffee(coffeeShop: CoffeeShop(coffeeShopName: "오뚜기", barista: misterLee, menu: [.americano: 1500], pickUpTable: []))
 
-var other = CoffeeShop(coffeeShop: "yagombucks", sales: 1000, barista: misterLee)
-other.orderingCoffee(barista: misterLee, menu: .americano, price: Coffee.americano.rawValue)
+var yagombucks = CoffeeShop(coffeeShopName: "yagombucks", barista: misterLee, menu: [.caramelMacchiato: 5000], pickUpTable: [])
+yagombucks.orderingCoffee(menus: .caramelMacchiato, menu: [.caramelMacchiato: 2100])
+yagombucks.makingCoffee()
+print(" 픽업 테이블에는\(yagombucks.pickUpTable)")
