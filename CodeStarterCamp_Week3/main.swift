@@ -41,9 +41,9 @@ struct CoffeeShop {
     var pickUpTable = [Coffee]()
     
     mutating func make(_ coffee: Coffee, from name: String) {
-        guard let coffePrice = self.menus[coffee] else { return }
+        guard let coffeePrice = self.menus[coffee] else { return }
         
-        self.totalSales += coffePrice
+        self.totalSales += coffeePrice
         self.pickUpTable.append(coffee)
         print("\(name) 님이 주문하신 \(coffee.rawValue)(이/가) 준비되었습니다. 픽업대에서 가져가주세요.")
     }
