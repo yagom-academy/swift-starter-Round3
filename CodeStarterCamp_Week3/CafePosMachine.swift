@@ -25,7 +25,7 @@ class Person {
 enum Coffee: String {
     case americano = "아메리카노", decaffeine = "디카페인"
     case latte = "라떼", vanilla = "바닐라라떼", caramel = "카라멜 마끼아또", cappuccino = "카푸치노"
-    case nothing = "없는 메뉴"
+    case nothing = ""
 }
 
 struct CoffeeShop {
