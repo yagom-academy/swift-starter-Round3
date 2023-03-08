@@ -14,7 +14,7 @@ struct Person {
     mutating func order(_ coffee: Coffee, in shop: CoffeeShop) {
         let price = shop.menu[coffee] ?? 0
         if money >= price {
-            money = money - price
+            money -= price
             print("\(name) 님이 \(coffee.rawValue)(을/를) 주문하였습니다. (잔액: \(money)원)\n")
             shop.takeOrder(coffee, from: name)
         } else {
