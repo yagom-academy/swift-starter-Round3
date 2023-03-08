@@ -32,7 +32,7 @@ struct CoffeeShop {
     var barista: Person
     var totalSales: Int
     var pickUpTable: Array<String>
-    var menu: [Coffee: Int?] = [Coffee.americano: 2500, Coffee.decaffeine: 2500, Coffee.vanilla: 3500, Coffee.caramel: 3500, Coffee.cappuccino: 3500]
+    var menu: [Coffee: Int?] = [.americano: 2500, .decaffeine: 2500, .vanilla: 3500, .caramel: 3500, .cappuccino: 3500]
         
     mutating func takeOrder(from name: Person){
         let customerOrder: Coffee? = name.myOrder

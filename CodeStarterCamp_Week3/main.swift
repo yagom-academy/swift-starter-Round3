@@ -15,7 +15,7 @@ var missKim: Person = Person(money: 100, nickname: "missKim")
 missKim.order(.americano)
 
 var mommy: Person = Person(money: 6000, nickname: "Mommy")
-mommy.order(.americano)
+//mommy.order(.americano)
 
 yagombucks.takeOrder(from: missKim)
 yagombucks.takeOrder(from: mommy)
