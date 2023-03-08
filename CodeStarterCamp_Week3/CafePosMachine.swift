@@ -31,34 +31,26 @@ struct CoffeeShop {
     var barista: Person
     var totalSales: Int
     var pickUpTable: Array<String>
-    var menu: [Coffee: Int?] = [.americano: 2500, .decaffeine: 2500, .vanilla: 3500, .caramel: 3500, .cappuccino: 3500]
-        
+    var menu: [Coffee: Int] = [.americano: 2500, .decaffeine: 2500, .vanilla: 3500, .caramel: 3500, .cappuccino: 3500]
+
     mutating func takeOrder(from customer: Person) {
-        let customerOrder: Coffee? = customer.myOrder
-        
-        if let customerOrder = customerOrder {
-            let price: Int? = self.menu[customerOrder] ?? 0
-            
-            if let price = price {
-                if price != 0 {
-                    print ("\(customer.nickname)님, \(customerOrder.rawValue) 주문 받았습니다. 지불하실 금액은 \(price)원 입니다.")
-                    if customer.money < price {
-                        print("금액이 \(price - customer.money)만큼 모자랍니다.")
-                    } else {
-                        customer.money = customer.money - price
-                        self.totalSales = totalSales + price
-                        processOrder(customerOrder, from: customer)
-                    }
-                } else {
-                    print("죄송하지만 주문하신 메뉴는 현재 판매하고 있지 않습니다.")
-                }
+        if let customerOrder = customer.myOrder, let price = menu[customerOrder] {
+            print ("\(customer.nickname)님, \(customerOrder.rawValue) 주문 받았습니다. 지불하실 금액은 \(price)원 입니다.")
+            if customer.money < price {
+                print("금액이 \(price - customer.money)만큼 모자랍니다.")
+            } else {
+                customer.money -= price
+                totalSales += price
+                processOrder(customerOrder, from: customer)
             }
+        } else {
+            print("죄송하지만 주문하신 메뉴는 현재 판매하고 있지 않습니다.")
         }
     }
     
-    private mutating func processOrder(_ coffee: Coffee, from name: Person) {
+    private mutating func processOrder(_ coffee: Coffee, from customer: Person) {
         pickUpTable.append(coffee.rawValue)
-        print("\(name.nickname)님, 주문하신 \(coffee.rawValue) 나왔습니다.")
+        print("\(customer.nickname)님, 주문하신 \(coffee.rawValue) 나왔습니다.")
     }
     
     func checkSales() {
