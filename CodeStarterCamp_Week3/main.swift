@@ -10,10 +10,10 @@ import Foundation
 
 var misterLee: Person = Person(money: 0, nickname: "misterLee")
 var yagombucks: CoffeeShop = CoffeeShop(barista: misterLee, totalSales: 0, pickUpTable: [])
-var missKim: Person = Person(money: 10000, nickname: "missKim")
+var missKim: Person = Person(money: 100, nickname: "missKim")
 
 missKim.order(.americano)
-missKim.order(.latte)
+//missKim.order(.latte)
 //missKim.order(_coffee: Coffee.caramel)
 //missKim.order(menu: Coffee.latte.rawValue)
 

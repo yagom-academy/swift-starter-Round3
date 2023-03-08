@@ -41,9 +41,13 @@ struct CoffeeShop {
             if let price = price {
                 if price != 0 {
                     print ("\(name.nickname)님, \(customerOrder.rawValue) 주문 받았습니다. 지불하실 금액은 \(price)원 입니다.")
-                    name.money = name.money - price
-                    self.totalSales = totalSales + price
-                    processOrder(from: name)
+                    if name.money < price {
+                        print("금액이 \(price - name.money)만큼 모자랍니다.")
+                    } else {
+                        name.money = name.money - price
+                        self.totalSales = totalSales + price
+                        processOrder(from: name)
+                    }
                 } else {
                     print("죄송하지만 주문하신 메뉴는 현재 판매하고 있지 않습니다.")
                 }
