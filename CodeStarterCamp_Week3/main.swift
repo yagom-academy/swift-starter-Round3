@@ -10,10 +10,10 @@ import Foundation
 
 struct Person {
     var haveMoney: Int
-    var name: String
+    var nickName: String
     
     //커피 주문하는 함수
-    mutating func orderCoffee(personName: String, coffeePrice: Int, coffeeName: String) {
+    mutating func orderCoffee(coffeePrice: Int, coffeeName: String) {
         if self.haveMoney >= coffeePrice {
             print("\(coffeeName) 주세요.")
             self.haveMoney -= coffeePrice
@@ -27,15 +27,15 @@ struct Person {
 
 struct CoffeeShop {
     var revenue: Int = 0
-    var menu: [Coffee: Int] = [Coffee.espresso: 3000, Coffee.americano: 3500, Coffee.cafeLatte: 4000, Coffee.cappuccino: 4500]
-    var pickUpTabke: [String] = []
+    var menu: [Coffee: Int] = [:]
+    var pickUpTable: [Coffee] = []
     var barista: Person?
     
     //커피 주문받고 만드는 함수
-    mutating func makeCoffee(personName: String, coffeePrice: Int, coffeeName: Coffee) {
+    mutating func makeCoffee(coffeePrice: Int, coffeeName: Coffee) {
         if coffeePrice > 0 {
-            if let coffee = menu[coffeeName] {
-                self.revenue += coffee
+            if let coffeePrice = menu[coffeeName] {
+                self.revenue += coffeePrice
                 putInPickUpTable(coffeeName: coffeeName)
             }
             else {
@@ -45,8 +45,9 @@ struct CoffeeShop {
     }
     
     //커피 pickUpTable에 올려놓는 함수
-    func putInPickUpTable(coffeeName: Coffee) {
+    mutating func putInPickUpTable(coffeeName: Coffee) {
         print("주문하신 \(coffeeName)가 나왔습니다.")
+        self.pickUpTable.append(coffeeName)
     }
     
 }
@@ -58,5 +59,7 @@ enum Coffee: String{
     case cappuccino = "카푸치노"
 }
 
-
-
+var misterLee = Person(haveMoney: 3500, nickName: "lee")
+var missKim = Person(haveMoney: 10000, nickName: "kim")
+var yagombucks = CoffeeShop(revenue: 0, menu: [.espresso: 3500, .cappuccino: 4000, .cafeLatte: 4500, .americano: 5000])
+yagombucks.barista = misterLee
