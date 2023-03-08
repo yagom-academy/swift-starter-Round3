@@ -34,19 +34,19 @@ struct CoffeeShop {
     var pickUpTable: Array<String>
     var menu: [Coffee: Int?] = [.americano: 2500, .decaffeine: 2500, .vanilla: 3500, .caramel: 3500, .cappuccino: 3500]
         
-    mutating func takeOrder(from name: Person){
-        let customerOrder: Coffee? = name.myOrder
-        let price: Int? = self.menu[name.myOrder ?? .nothing] ?? 0
+    mutating func takeOrder(from customer: Person){
+        let customerOrder: Coffee? = customer.myOrder
+        let price: Int? = self.menu[customer.myOrder ?? .nothing] ?? 0
         if let customerOrder = customerOrder {
             if let price = price {
                 if price != 0 {
-                    print ("\(name.nickname)님, \(customerOrder.rawValue) 주문 받았습니다. 지불하실 금액은 \(price)원 입니다.")
-                    if name.money < price {
-                        print("금액이 \(price - name.money)만큼 모자랍니다.")
+                    print ("\(customer.nickname)님, \(customerOrder.rawValue) 주문 받았습니다. 지불하실 금액은 \(price)원 입니다.")
+                    if customer.money < price {
+                        print("금액이 \(price - customer.money)만큼 모자랍니다.")
                     } else {
-                        name.money = name.money - price
+                        customer.money = customer.money - price
                         self.totalSales = totalSales + price
-                        processOrder(customerOrder, from: name)
+                        processOrder(customerOrder, from: customer)
                     }
                 } else {
                     print("죄송하지만 주문하신 메뉴는 현재 판매하고 있지 않습니다.")
