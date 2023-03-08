@@ -46,7 +46,7 @@ struct CoffeeShop {
                     } else {
                         name.money = name.money - price
                         self.totalSales = totalSales + price
-                        processOrder(from: name)
+                        processOrder(customerOrder, from: name)
                     }
                 } else {
                     print("죄송하지만 주문하신 메뉴는 현재 판매하고 있지 않습니다.")
@@ -55,13 +55,9 @@ struct CoffeeShop {
         }
     }
     
-    private mutating func processOrder(from name: Person) {
-        let customerOrder: Coffee? = name.myOrder
-
-        if let customerOrder = customerOrder {
-            pickUpTable.append(customerOrder.rawValue)
-            print("\(name.nickname)님, 주문하신 \(customerOrder.rawValue) 나왔습니다.")
-        }
+    private mutating func processOrder(_ coffee: Coffee, from name: Person) {
+        pickUpTable.append(coffee.rawValue)
+        print("\(name.nickname)님, 주문하신 \(coffee.rawValue) 나왔습니다.")
     }
     
     func checkSales() {
