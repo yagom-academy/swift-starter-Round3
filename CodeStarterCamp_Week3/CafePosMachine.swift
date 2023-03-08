@@ -7,46 +7,57 @@
 
 import Foundation
 
-
-struct Person {
+class Person {
     var money: Int
     var nickname: String
+    var myOrder: Coffee?
     
-    mutating func orderCofffee(menu: String, price: Int) {
-        if price == 0 {
-            print("\(nickname)님, 주문하신 \(menu)는 품절이라 구매하실 수 없습니다. 남은 잔액은 \(money)원 입니다.")
-        }else if money > price {
-            self.money = self.money - price
-            print("\(nickname)님, \(menu) 한 잔을 구매하였습니다. 남은 잔액은 \(money)원 입니다." )
-        }else {
-            print("금액이 부족합니다.")
-        }
+    init(money: Int, nickname: String) {
+        self.money = money
+        self.nickname = nickname
+    }
+    
+    func order(_ coffee: Coffee) {
+        myOrder = coffee
     }
 }
 
 enum Coffee: String {
     case americano = "아메리카노", decaffeine = "디카페인"
     case latte = "라떼", vanilla = "바닐라라떼", caramel = "카라멜 마끼아또", cappuccino = "카푸치노"
+    case nothing = "없는 메뉴"
 }
 
 struct CoffeeShop {
     var barista: Person
     var totalSales: Int
     var pickUpTable: Array<String>
-    var menu: [Coffee: Int]
-
-    mutating func takeOrder(nickname: String, menu: String, price: Int) {
-        totalSales = totalSales + price
-        if price == 0 {
-            print("죄송하지만 주문하신 \(menu)는 오늘 품절입니다.")
-        } else {
-            print("\(nickname)님 주문하신 받았습니다. 지불하실 금액은 \(price)원 입니다.")
+    var menu: [Coffee: Int?] = [Coffee.americano: 2500, Coffee.decaffeine: 2500, Coffee.vanilla: 3500, Coffee.caramel: 3500, Coffee.cappuccino: 3500]
+        
+    mutating func takeOrder(from name: Person){
+        let customerOrder: Coffee? = name.myOrder
+        let price: Int? = self.menu[name.myOrder ?? .nothing] ?? 0
+        if let customerOrder = customerOrder {
+            if let price = price {
+                if price != 0 {
+                    print ("\(name.nickname)님, \(customerOrder.rawValue) 주문 받았습니다. 지불하실 금액은 \(price)원 입니다.")
+                    name.money = name.money - price
+                    self.totalSales = totalSales + price
+                    processOrder(from: name)
+                } else {
+                    print("죄송하지만 주문하신 메뉴는 현재 판매하고 있지 않습니다.")
+                }
+            }
         }
     }
     
-    mutating func processOrder(nickname: String, menu: String) {
-        pickUpTable.append(menu)
-        print("\(nickname)님, 주문하신 \(menu) 나왔습니다.")
+    private mutating func processOrder(from name: Person) {
+        let customerOrder: Coffee? = name.myOrder
+
+        if let customerOrder = customerOrder {
+            pickUpTable.append(customerOrder.rawValue)
+            print("\(name.nickname)님, 주문하신 \(customerOrder.rawValue) 나왔습니다.")
+        }
     }
     
     func checkSales() {
