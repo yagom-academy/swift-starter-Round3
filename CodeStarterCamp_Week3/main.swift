@@ -13,22 +13,16 @@ var yagombucks: CoffeeShop = CoffeeShop(barista: misterLee, totalSales: 0, pickU
 var missKim: Person = Person(money: 100, nickname: "missKim")
 
 missKim.order(.americano)
-//missKim.order(.latte)
-//missKim.order(_coffee: Coffee.caramel)
-//missKim.order(menu: Coffee.latte.rawValue)
 
 var mommy: Person = Person(money: 6000, nickname: "Mommy")
-//mommy.order(_coffee: Coffee.americano)
+mommy.order(.americano)
 
 yagombucks.takeOrder(from: missKim)
-//yagombucks.takeOrder(nickname: missKim.nickname, order: Coffee.caramel)
-//yagombucks.takeOrder(nickname: missKim.nickname, order: Coffee.latte)
-//yagombucks.takeOrder(nickname: missKim.nickname, menu: Coffee.latte.rawValue, price: yagombucks.menu[Coffee.latte])
-//yagombucks.takeOrder(nickname: mommy.nickname, menu: Coffee.caramel.rawValue, price: yagombucks.menu[Coffee.caramel])
+yagombucks.takeOrder(from: mommy)
 
-//yagombucks.processOrder(nickname: missKim.nickname, menu: Coffee.americano.rawValue)
-//yagombucks.processOrder(nickname: mommy.nickname, menu: Coffee.caramel.rawValue)
 print(yagombucks.pickUpTable)
 
 yagombucks.checkSales()
+
 print(missKim.money)
+print(mommy.money)
