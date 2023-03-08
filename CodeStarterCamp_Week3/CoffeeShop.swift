@@ -22,7 +22,7 @@ struct CoffeeShop {
         self.pickUpTable = pickUpTable
     }
     
-    mutating func takeOrderCoffee(coffeeMenu:Coffee) {
+    mutating func takeOrderCoffee(_ coffeeMenu:Coffee) {
         if let price = menu[coffeeMenu] {
             print("\(coffeeMenu)주문 받았습니다.")
             print("주문하신 \(coffeeMenu)의 가격은\(price)입니다.")
