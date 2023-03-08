@@ -34,7 +34,7 @@ struct CoffeeShop {
     var pickUpTable: Array<String>
     var menu: [Coffee: Int?] = [.americano: 2500, .decaffeine: 2500, .vanilla: 3500, .caramel: 3500, .cappuccino: 3500]
         
-    mutating func takeOrder(from customer: Person){
+    mutating func takeOrder(from customer: Person) {
         let customerOrder: Coffee? = customer.myOrder
         let price: Int? = self.menu[customer.myOrder ?? .nothing] ?? 0
         if let customerOrder = customerOrder {
