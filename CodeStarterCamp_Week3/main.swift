@@ -9,7 +9,14 @@
 import Foundation
 
 class Person {
-    var money: Int = 0
+    var money: Int
+    
+    init() {
+        self.money = 0
+    }
+    init(money: Int) {
+        self.money = money
+    }
     
     func buyCoffee(_ coffee: Coffee, by coffeeShop: CoffeeShop) {
         self.money = coffeeShop.orderCoffee(coffee, from: self)
@@ -21,10 +28,15 @@ enum Coffee {
 }
 
 class CoffeeShop {
-    var menu: Dictionary<Coffee, Int> = Dictionary<Coffee, Int>()
-    var revenue: Int = 0
+    var menu: Dictionary<Coffee, Int>
+    var barista: Person
     var pickUpTable: Array<Coffee> = Array<Coffee>()
-    var barista: Person?
+    var revenue: Int = 0
+    
+    init(menu: Dictionary<Coffee, Int>, barista: Person) {
+        self.barista = barista
+        self.menu = menu
+    }
     
     func orderCoffee(_ coffee: Coffee, from customer: Person) -> Int {
         if let coffeePrice = self.menu[coffee] {
@@ -47,9 +59,12 @@ class CoffeeShop {
     }
 }
 
-var yagombucks = CoffeeShop()
 var misterLee = Person()
-
-yagombucks.barista = misterLee
+var missKim = Person(money: 10000)
+var yagombucks = CoffeeShop(menu: [Coffee.espresso: 3000,
+                                   Coffee.americano: 3500,
+                                   Coffee.latte: 4000],
+                            barista: misterLee)
+missKim.buyCoffee(Coffee.americano, by: yagombucks)
 
 
