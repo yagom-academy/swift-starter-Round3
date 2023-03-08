@@ -25,7 +25,6 @@ class Person {
 enum Coffee: String {
     case americano = "아메리카노", decaffeine = "디카페인"
     case latte = "라떼", vanilla = "바닐라라떼", caramel = "카라멜 마끼아또", cappuccino = "카푸치노"
-    case nothing = ""
 }
 
 struct CoffeeShop {
@@ -36,8 +35,10 @@ struct CoffeeShop {
         
     mutating func takeOrder(from customer: Person) {
         let customerOrder: Coffee? = customer.myOrder
-        let price: Int? = self.menu[customer.myOrder ?? .nothing] ?? 0
+        
         if let customerOrder = customerOrder {
+            let price: Int? = self.menu[customerOrder] ?? 0
+            
             if let price = price {
                 if price != 0 {
                     print ("\(customer.nickname)님, \(customerOrder.rawValue) 주문 받았습니다. 지불하실 금액은 \(price)원 입니다.")
