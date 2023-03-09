@@ -1,6 +1,6 @@
 //
 //  main.swift
-//  CodeStarterCamp_Week2
+//  CodeStarterCamp_Week3
 //
 //  Created by yagom.
 //  Copyright :copyright: yagom academy. All rights reserved.
