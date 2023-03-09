@@ -8,5 +8,60 @@
 
 import Foundation
 
-print("Hello, World!")
+class Person {
+    var money: Int
+    
+    init(money: Int = 0) {
+        self.money = money
+    }
+    
+    func buyCoffee(_ coffee: Coffee, by coffeeShop: CoffeeShop) {
+        self.money = coffeeShop.orderCoffee(coffee, from: self)
+    }
+}
+
+enum Coffee {
+    case espresso, americano, latte, decaffeinatedAmericano
+}
+
+class CoffeeShop {
+    var menu: Dictionary<Coffee, Int>
+    var barista: Person
+    var pickUpTable: Array<Coffee> = Array<Coffee>()
+    var revenue: Int = 0
+    
+    init(menu: Dictionary<Coffee, Int>, barista: Person) {
+        self.barista = barista
+        self.menu = menu
+    }
+    
+    func orderCoffee(_ coffee: Coffee, from customer: Person) -> Int {
+        if let coffeePrice = self.menu[coffee] {
+            if coffeePrice > customer.money {
+                print("잔액이 부족합니다")
+                return customer.money
+            }
+            self.makeCoffee(coffee)
+            self.revenue += coffeePrice
+            return customer.money - coffeePrice
+        } else {
+            print("주문하신 메뉴가 존재하지 않습니다.")
+            return customer.money
+        }
+    }
+    
+    func makeCoffee(_ coffee: Coffee) {
+        self.pickUpTable.append(coffee)
+        print("음료가 준비되었습니다")
+    }
+}
+
+var misterLee = Person()
+var missKim = Person(money: 10000)
+var yagombucks = CoffeeShop(menu: [Coffee.espresso: 3000,
+                                   Coffee.americano: 3500,
+                                   Coffee.latte: 4000],
+                            barista: misterLee)
+missKim.buyCoffee(Coffee.americano, by: yagombucks)
+
 
