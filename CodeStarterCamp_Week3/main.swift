@@ -11,10 +11,7 @@ import Foundation
 class Person {
     var money: Int
     
-    init() {
-        self.money = 0
-    }
-    init(money: Int) {
+    init(money: Int = 0) {
         self.money = money
     }
     
