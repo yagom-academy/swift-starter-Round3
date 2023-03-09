@@ -47,20 +47,19 @@ struct CoffeeShop {
             let myMoney : Int = person.money
             let coffeePrice : Int = price
             let changeMoney = myMoney - coffeePrice
-            let absInt = abs(changeMoney)
+            let absChangeMoney = abs(changeMoney)
             
             if myMoney > coffeePrice {
                 print("\(name) 님의 주문하신 \(coffee)(이/가) 준비되었습니다. 픽업대에서 가져가 주세요.")
                 sales += price
                 pickUpTable.append(coffee)
-                print("\(name)의 남은돈 \(absInt)원 입니다.")
+                print("\(name)의 남은돈 \(absChangeMoney)원 입니다.")
                 print("매출액 \(sales)원 입니다.")
             } else {
-                print("\(name)의 잔액이 \(absInt)원만큼 부족 합니다")
+                print("\(name)의 잔액이 \(absChangeMoney)원만큼 부족 합니다")
             }
         } else {
             print("주문 하신 \(coffee)은 저희 매장에 없는 메뉴 입니다.")
         }
-        
     }
 }
