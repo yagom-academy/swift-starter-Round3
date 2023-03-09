@@ -9,20 +9,14 @@
 import Foundation
 
 var misterLee: Person = Person(money: 0, nickname: "misterLee")
-var yagombucks: CoffeeShop = CoffeeShop(barista: misterLee, totalSales: 0, pickUpTable: [])
-var missKim: Person = Person(money: 100, nickname: "missKim")
+var yagombucks: CoffeeShop = CoffeeShop()
+var missKim: Person = Person(money: 10000, nickname: "missKim")
 
+missKim.cafe = yagombucks
 missKim.order(.americano)
-
-var mommy: Person = Person(money: 6000, nickname: "Mommy")
-//mommy.order(.americano)
-
-yagombucks.takeOrder(from: missKim)
-yagombucks.takeOrder(from: mommy)
 
 print(yagombucks.pickUpTable)
 
-yagombucks.checkSales()
+print(yagombucks.totalSales)
 
 print(missKim.money)
-print(mommy.money)

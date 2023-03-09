@@ -7,53 +7,85 @@
 
 import Foundation
 
-class Person {
+struct Person {
     var money: Int
     var nickname: String
-    var myOrder: Coffee?
+    var cafe: CoffeeShop?
     
-    init(money: Int, nickname: String) {
-        self.money = money
-        self.nickname = nickname
-    }
-    
-    func order(_ coffee: Coffee) {
-        myOrder = coffee
+    mutating func order(_ coffee: Coffee) {
+        guard let price = cafe?.menu[coffee] else {
+            print("이 메뉴는 현재 판매하고 있지 않습니다.")
+            return
+        }
+        if money < price {
+            print("잔액이 \(price - money)원만큼 부족합니다.")
+        } else {
+            money -= price
+            cafe?.make(coffee, from: nickname)
+        }
+        
     }
 }
 
 enum Coffee: String {
-    case americano = "아메리카노", decaffeine = "디카페인"
-    case latte = "라떼", vanilla = "바닐라라떼", caramel = "카라멜 마끼아또", cappuccino = "카푸치노"
-}
-
-struct CoffeeShop {
-    var barista: Person
-    var totalSales: Int
-    var pickUpTable: Array<String>
-    var menu: [Coffee: Int] = [.americano: 2500, .decaffeine: 2500, .vanilla: 3500, .caramel: 3500, .cappuccino: 3500]
-
-    mutating func takeOrder(from customer: Person) {
-        if let customerOrder = customer.myOrder, let price = menu[customerOrder] {
-            print ("\(customer.nickname)님, \(customerOrder.rawValue) 주문 받았습니다. 지불하실 금액은 \(price)원 입니다.")
-            if customer.money < price {
-                print("금액이 \(price - customer.money)만큼 모자랍니다.")
-            } else {
-                customer.money -= price
-                totalSales += price
-                processOrder(customerOrder, from: customer)
-            }
-        } else {
-            print("죄송하지만 주문하신 메뉴는 현재 판매하고 있지 않습니다.")
+    case americano, decaffeine
+    case latte, vanilla, caramel, cappuccino
+    
+    var name: String {
+        switch self {
+        case .americano:
+            return "아메리카노"
+        case .decaffeine:
+            return "디카페인"
+        case .latte:
+            return "라떼"
+        case .vanilla:
+            return "바닐라라떼"
+        case .caramel:
+            return "카라멜 마끼아또"
+        case .cappuccino:
+            return "카푸치노"
         }
     }
+}
+
+class CoffeeShop {
+    var barista: Person?
+    var totalSales: Int = 0
+    var pickUpTable: Array<String> = []
+    var menu: [Coffee: Int] = [.americano: 2500, .decaffeine: 2500, .vanilla: 3500, .caramel: 3500, .cappuccino: 3500]
+    
+    fileprivate func make(_ coffee: Coffee, from name: String) {
+        guard let price = menu[coffee] else {
+            return
+        }
+        
+        totalSales += price
+        pickUpTable.append(coffee.name)
+        print("\(name) 님이 주문하신 \(coffee.name)(이/가) 준비되었습니다. 픽업대에서 가져가주세요.")
+    }
+  /*
+    mutating func take(from customer: Person) {
+        guard let customerOrder = customer.myOrder, let price = menu[customerOrder] else {
+            return
+        }
+        
+        print("\(customer.nickname)님, \(customerOrder.name) 주문 받았습니다. 지불하실 금액은 \(price)원 입니다.")
+        
+        if customer.money < price {
+            print("잔액이 \(price - customer.money)원만큼 부족합니다.")
+        } else {
+            customer.money -= price
+            totalSales += price
+            processOrder(customerOrder, from: customer)
+        }
+        
+    }
+   
     
     private mutating func processOrder(_ coffee: Coffee, from customer: Person) {
-        pickUpTable.append(coffee.rawValue)
-        print("\(customer.nickname)님, 주문하신 \(coffee.rawValue) 나왔습니다.")
+        pickUpTable.append(coffee.name)
+        print("\(customer.nickname)님이 주문하신 \(coffee.name)(이/가) 준비되었습니다.")
     }
-    
-    func checkSales() {
-        print("현재까지 총 매출액은 \(totalSales)원 입니다.")
-    }
+   */
 }
