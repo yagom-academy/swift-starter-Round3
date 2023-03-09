@@ -1,3 +1,11 @@
+//
+//  main.swift
+//  CodeStarterCamp_Week2
+//
+//  Created by yagom.
+//  Copyright :copyright: yagom academy. All rights reserved.
+//
+
 class Person {
     var name: String
     var age: Int
