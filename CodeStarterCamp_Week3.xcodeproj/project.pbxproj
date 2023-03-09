@@ -9,7 +9,7 @@
 /* Begin PBXBuildFile section */
 		34811DD5274B93EB00A1E994 /* main.swift in Sources */ = {isa = PBXBuildFile; fileRef = 34811DD4274B93EB00A1E994 /* main.swift */; };
 		B6DECB6729B812F30009642D /* Step1.swift in Sources */ = {isa = PBXBuildFile; fileRef = B6DECB6629B812F30009642D /* Step1.swift */; };
-		B6DECB6B29B844840009642D /* Step2.swift in Sources */ = {isa = PBXBuildFile; fileRef = B6DECB6A29B844840009642D /* Step2.swift */; };
+		B6DECB6D29B8626A0009642D /* Step2.swift in Sources */ = {isa = PBXBuildFile; fileRef = B6DECB6C29B8626A0009642D /* Step2.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXCopyFilesBuildPhase section */
@@ -28,7 +28,7 @@
 		34811DD1274B93EB00A1E994 /* CodeStarterCamp_Week3 */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.executable"; includeInIndex = 0; path = CodeStarterCamp_Week3; sourceTree = BUILT_PRODUCTS_DIR; };
 		34811DD4274B93EB00A1E994 /* main.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = main.swift; sourceTree = "<group>"; };
 		B6DECB6629B812F30009642D /* Step1.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Step1.swift; sourceTree = "<group>"; };
-		B6DECB6A29B844840009642D /* Step2.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Step2.swift; sourceTree = "<group>"; };
+		B6DECB6C29B8626A0009642D /* Step2.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Step2.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -62,7 +62,7 @@
 			isa = PBXGroup;
 			children = (
 				B6DECB6629B812F30009642D /* Step1.swift */,
-				B6DECB6A29B844840009642D /* Step2.swift */,
+				B6DECB6C29B8626A0009642D /* Step2.swift */,
 				34811DD4274B93EB00A1E994 /* main.swift */,
 			);
 			path = CodeStarterCamp_Week3;
@@ -127,7 +127,7 @@
 			files = (
 				34811DD5274B93EB00A1E994 /* main.swift in Sources */,
 				B6DECB6729B812F30009642D /* Step1.swift in Sources */,
-				B6DECB6B29B844840009642D /* Step2.swift in Sources */,
+				B6DECB6D29B8626A0009642D /* Step2.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
