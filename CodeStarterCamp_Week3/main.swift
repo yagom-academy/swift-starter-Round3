@@ -9,7 +9,7 @@
 import Foundation
 
 /**
- 
+ Step 1: 타입과 인스턴스의 관계
  */
 
 var misterLee = Person(totalMoney: 10000)
