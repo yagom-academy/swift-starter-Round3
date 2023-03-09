@@ -32,15 +32,14 @@ struct CoffeeShop {
     var barista: Person?
     
     //커피 주문받고 만드는 함수
-    mutating func makeCoffee(coffeePrice: Int, coffeeName: Coffee) {
-        if coffeePrice > 0 {
-            if let coffeePrice = menu[coffeeName] {
-                self.revenue += coffeePrice
-                putInPickUpTable(coffeeName: coffeeName)
-            }
-            else {
-                print("해당 커피가 없습니다")
-            }
+    mutating func makeCoffee(coffeeName: Coffee) {
+        
+        if let coffeePrice = menu[coffeeName] {
+            self.revenue += coffeePrice
+            putInPickUpTable(coffeeName: coffeeName)
+        }
+        else {
+            print("해당 커피가 없습니다")
         }
     }
     
