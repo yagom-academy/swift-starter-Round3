@@ -12,8 +12,11 @@ struct Person {
     var money: Int = 0
     
     mutating func order(_ coffee: Coffee, in shop: CoffeeShop) {
-        guard shop.menu[coffee] != nil else { return }
-        let price = shop.menu[coffee] ?? 0
+        guard let price = shop.menu[coffee] else {
+            print("판매하지 않는 메뉴입니다.")
+            return
+        }
+        
         if money >= price {
             money -= price
             print("\(name) 님이 \(coffee.rawValue)(을/를) 주문하였습니다. (잔액: \(money)원)\n")
@@ -36,8 +39,8 @@ class CoffeeShop {
     }
     
     func takeOrder(_ coffee: Coffee, from name: String) {
-        guard menu[coffee] != nil else { return }
-        revenue += menu[coffee] ?? 0
+        guard let price = menu[coffee] else { return }
+        revenue += price
         print("\(name) 님의 주문이 수락되어 커피 추출을 시작합니다. (매출액: \(revenue)원)\n")
         make(coffee, from: name)
     }
