@@ -37,8 +37,6 @@ class CoffeeShop {
     }
     
     func takeOrder(_ coffee: Coffee, from name: String) {
-        guard menu[coffee] != nil else { return }
-        
         revenue += menu[coffee] ?? 0
         print("\(name) 님의 주문이 수락되어 커피 추출을 시작합니다. (매출액: \(revenue)원)\n")
         make(coffee, from: name)
