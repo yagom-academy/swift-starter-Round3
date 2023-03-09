@@ -15,13 +15,31 @@ class Person {
         self.money = money
     }
     
-    func buyCoffee(_ coffee: Coffee, by coffeeShop: CoffeeShop) {
-        self.money = coffeeShop.orderCoffee(coffee, from: self)
+    func hasEnoughMoney(for productPrice: Int) -> Bool {
+        if productPrice > self.money {
+            print("잔액이 \(productPrice - self.money)원만큼 부족합니다.")
+            return false
+        } else {
+            return true
+        }
+    }
+    
+    func order(_ coffee: Coffee, of coffeeShop: CoffeeShop, by name: String) {
+        if let coffeePrice = coffeeShop.checkPrice(coffee) {
+            if self.hasEnoughMoney(for: coffeePrice) {
+                self.money -= coffeePrice
+                coffeeShop.processPurchase(for: coffee, with: coffeePrice, from: name)
+            }
+        }
     }
 }
 
-enum Coffee {
-    case espresso, americano, latte, decaffeinatedAmericano
+enum Coffee: String {
+    case espresso = "에스프레소"
+    case americano = "아메리카노"
+    case latte = "라떼"
+    case decaffeinatedAmericano = "디카페인 아메리카노"
+    case cappuccino = "카푸치노"
 }
 
 class CoffeeShop {
@@ -35,33 +53,38 @@ class CoffeeShop {
         self.menu = menu
     }
     
-    func orderCoffee(_ coffee: Coffee, from customer: Person) -> Int {
+    func checkPrice(_ coffee: Coffee) -> Int? {
         if let coffeePrice = self.menu[coffee] {
-            if coffeePrice > customer.money {
-                print("잔액이 부족합니다")
-                return customer.money
-            }
-            self.makeCoffee(coffee)
-            self.revenue += coffeePrice
-            return customer.money - coffeePrice
+            return coffeePrice
         } else {
             print("주문하신 메뉴가 존재하지 않습니다.")
-            return customer.money
+            return nil
         }
     }
     
-    func makeCoffee(_ coffee: Coffee) {
+    func make(_ coffee: Coffee, for name: String) {
         self.pickUpTable.append(coffee)
-        print("음료가 준비되었습니다")
+        print("\(name) 님이 주문하신 \(coffee.rawValue)(이/가) 준비되었습니다. 픽업대에서 가져가주세요.")
+    }
+    
+    func processPurchase(for coffee: Coffee, with price: Int, from name: String) {
+        self.revenue += price
+        self.make(coffee, for: name)
     }
 }
 
 var misterLee = Person()
 var missKim = Person(money: 10000)
+var zzanggoo = Person(money: 5000)
+var minhyunm = Person(money: 2000)
 var yagombucks = CoffeeShop(menu: [Coffee.espresso: 3000,
                                    Coffee.americano: 3500,
-                                   Coffee.latte: 4000],
+                                   Coffee.latte: 4000,
+                                   Coffee.cappuccino: 4500],
                             barista: misterLee)
-missKim.buyCoffee(Coffee.americano, by: yagombucks)
+
+missKim.order(Coffee.cappuccino, of: yagombucks, by: "missKim")
+zzanggoo.order(Coffee.americano, of: yagombucks, by: "커피를못마시는짱구")
+minhyunm.order(Coffee.americano, of: yagombucks, by: "minhyunm")
 
 
