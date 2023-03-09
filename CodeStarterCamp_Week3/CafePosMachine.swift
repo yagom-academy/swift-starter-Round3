@@ -9,11 +9,9 @@ import Foundation
 
 struct Person {
     var money: Int
-    var nickname: String
-    var cafe: CoffeeShop?
     
-    mutating func order(_ coffee: Coffee) {
-        guard let price = cafe?.menu[coffee] else {
+    mutating func order(_ coffee: Coffee, of coffeeShop: CoffeeShop, by name: String) {
+        guard let price = coffeeShop.menu[coffee] else {
             print("이 메뉴는 현재 판매하고 있지 않습니다.")
             return
         }
@@ -21,7 +19,7 @@ struct Person {
             print("잔액이 \(price - money)원만큼 부족합니다.")
         } else {
             money -= price
-            cafe?.make(coffee, from: nickname)
+            coffeeShop.make(coffee, for: name)
         }
         
     }
@@ -55,7 +53,7 @@ class CoffeeShop {
     var pickUpTable: Array<String> = []
     var menu: [Coffee: Int] = [.americano: 2500, .decaffeine: 2500, .vanilla: 3500, .caramel: 3500, .cappuccino: 3500]
     
-    fileprivate func make(_ coffee: Coffee, from name: String) {
+    fileprivate func make(_ coffee: Coffee, for name: String) {
         guard let price = menu[coffee] else {
             return
         }

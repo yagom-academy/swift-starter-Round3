@@ -8,12 +8,11 @@
 
 import Foundation
 
-var misterLee: Person = Person(money: 0, nickname: "misterLee")
+var misterLee: Person = Person(money: 0)
 var yagombucks: CoffeeShop = CoffeeShop()
-var missKim: Person = Person(money: 10000, nickname: "missKim")
+var missKim: Person = Person(money: 10000)
 
-missKim.cafe = yagombucks
-missKim.order(.americano)
+missKim.order(.americano, of: yagombucks, by: "미스킴")
 
 print(yagombucks.pickUpTable)
 
