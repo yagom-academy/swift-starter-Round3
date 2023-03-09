@@ -16,3 +16,7 @@ let yagombucks = CoffeeShop(menu: [.americano: 4500,
                                    .cappuccino: 5000,
                                    .macchiato: 5900],
                             barista: misterLee)
+
+/* Step 2: 인스턴스는 서로 소통한다. */
+missKim.go(yagombucks)
+missKim.order(.americano)

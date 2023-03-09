@@ -1,19 +1,23 @@
 //
-//  Step1.swift
+//  Step2.swift
 //  CodeStarterCamp_Week3
 //
-//  Created by eve on 2023/03/08.
+//  Created by eve on 2023/03/09.
 //
 
 import Foundation
 
-/*
 struct Person {
     let name: String
     var money: Int = 0
     
-    mutating func order(_ coffee: Coffee, in shop: CoffeeShop) {
-        guard let price = shop.menu[coffee] else {
+    var shop: CoffeeShop?
+    mutating func go(_ coffeeShop: CoffeeShop) {
+        shop = coffeeShop
+    }
+    
+    mutating func order(_ coffee: Coffee) {
+        guard let price = shop?.menu[coffee] else {
             print("주문할 수 없습니다.\n")
             return
         }
@@ -21,7 +25,7 @@ struct Person {
         if money >= price {
             money -= price
             print("\(name) 님이 \(coffee.rawValue)(을/를) 주문하였습니다. (잔액: \(money)원)\n")
-            shop.takeOrder(coffee, from: name)
+            shop?.make(coffee, from: name)
         } else {
             print("잔액이 \(price - money)원만큼 부족합니다.\n")
         }
@@ -39,14 +43,11 @@ class CoffeeShop {
         self.barista = barista
     }
     
-    func takeOrder(_ coffee: Coffee, from name: String) {
+    func make(_ coffee: Coffee, from name: String) {
         guard let price = menu[coffee] else { return }
         revenue += price
         print("\(name) 님의 주문이 수락되어 커피 추출을 시작합니다. (매출액: \(revenue)원)\n")
-        make(coffee, from: name)
-    }
-    
-    func make(_ coffee: Coffee, from name: String) {
+        
         print("커피 추출 중...")
         print("커피 완성!\n")
         pickUpTable.append(coffee)
@@ -60,4 +61,3 @@ enum Coffee: String {
     case cappuccino = "카푸치노"
     case macchiato = "마끼아또"
 }
-*/
