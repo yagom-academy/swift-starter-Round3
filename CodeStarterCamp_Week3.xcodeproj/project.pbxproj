@@ -8,7 +8,8 @@
 
 /* Begin PBXBuildFile section */
 		34811DD5274B93EB00A1E994 /* main.swift in Sources */ = {isa = PBXBuildFile; fileRef = 34811DD4274B93EB00A1E994 /* main.swift */; };
-		B6DECB6729B812F30009642D /* Step1.swift in Sources */ = {isa = PBXBuildFile; fileRef = B6DECB6629B812F30009642D /* Step1.swift */; };
+		B6DECB7329BAABA20009642D /* Person.swift in Sources */ = {isa = PBXBuildFile; fileRef = B6DECB7229BAABA20009642D /* Person.swift */; };
+		B6DECB7529BAABB30009642D /* CoffeeShop.swift in Sources */ = {isa = PBXBuildFile; fileRef = B6DECB7429BAABB30009642D /* CoffeeShop.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXCopyFilesBuildPhase section */
@@ -26,7 +27,8 @@
 /* Begin PBXFileReference section */
 		34811DD1274B93EB00A1E994 /* CodeStarterCamp_Week3 */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.executable"; includeInIndex = 0; path = CodeStarterCamp_Week3; sourceTree = BUILT_PRODUCTS_DIR; };
 		34811DD4274B93EB00A1E994 /* main.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = main.swift; sourceTree = "<group>"; };
-		B6DECB6629B812F30009642D /* Step1.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Step1.swift; sourceTree = "<group>"; };
+		B6DECB7229BAABA20009642D /* Person.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Person.swift; sourceTree = "<group>"; };
+		B6DECB7429BAABB30009642D /* CoffeeShop.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CoffeeShop.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -59,7 +61,8 @@
 		34811DD3274B93EB00A1E994 /* CodeStarterCamp_Week3 */ = {
 			isa = PBXGroup;
 			children = (
-				B6DECB6629B812F30009642D /* Step1.swift */,
+				B6DECB7229BAABA20009642D /* Person.swift */,
+				B6DECB7429BAABB30009642D /* CoffeeShop.swift */,
 				34811DD4274B93EB00A1E994 /* main.swift */,
 			);
 			path = CodeStarterCamp_Week3;
@@ -123,7 +126,8 @@
 			buildActionMask = 2147483647;
 			files = (
 				34811DD5274B93EB00A1E994 /* main.swift in Sources */,
-				B6DECB6729B812F30009642D /* Step1.swift in Sources */,
+				B6DECB7529BAABB30009642D /* CoffeeShop.swift in Sources */,
+				B6DECB7329BAABA20009642D /* Person.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

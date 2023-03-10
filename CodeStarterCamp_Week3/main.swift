@@ -12,7 +12,10 @@ import Foundation
 var misterLee = Person(name: "misterLee")
 var missKim = Person(name: "missKim", money: 5000)
 let yagombucks = CoffeeShop(menu: [.americano: 4500,
-                                .latte: 5000,
-                                .cappuccino: 5000,
-                                .macchiato: 5900],
+                                   .latte: 5000,
+                                   .cappuccino: 5000,
+                                   .macchiato: 5900],
                             barista: misterLee)
+
+/* Step 2: 인스턴스는 서로 소통한다. */
+missKim.order(.americano, of: yagombucks, by: missKim.name)
