@@ -20,18 +20,21 @@ struct Person {
     var money: Int
     
     mutating func order(_ coffee: Coffee, of coffeeShop: CoffeeShop, by name: String) {
-        if let priceOfOrderedCoffee = coffeeShop.menu[coffee] {
-            if self.money < priceOfOrderedCoffee {
-                print("잔액이 \(priceOfOrderedCoffee - self.money)원만큼 부족합니다.")
-                return
-            }
-            coffeeShop.make(coffee, for: self.name)
-            self.money -= priceOfOrderedCoffee
-            coffeeShop.salesRevenue += priceOfOrderedCoffee
-//            coffeeShop.pickUpTable.removeFirst()
-        } else {
+        guard let priceOfOrderedCoffee = coffeeShop.menu[coffee] else {
             print("주문할 수 없는 메뉴입니다.")
+            return
         }
+
+        if self.money < priceOfOrderedCoffee {
+            print("잔액이 \(priceOfOrderedCoffee - self.money)원만큼 부족합니다.")
+            return
+        }
+        
+        coffeeShop.make(coffee, for: self.name)
+        self.money -= priceOfOrderedCoffee
+        coffeeShop.salesRevenue += priceOfOrderedCoffee
+//        coffeeShop.pickUpTable.removeFirst()
+
     }
 }
 
