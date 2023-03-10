@@ -9,7 +9,7 @@ import Foundation
 
 class CoffeeShop {
     var revenue: Int
-    var menu: [Coffee: Int] = [:]
+    var menu: [Coffee: Int]
     var pickUpTable: [String] = []
     
     init(revenue: Int, menu: [Coffee : Int]) {
@@ -23,17 +23,14 @@ class CoffeeShop {
         putInPickUpTable(coffee, for: name)
     }
     
-    //커피 pickUpTable에 올려놓는 함수
+    //커피를 pickUpTable에 올려놓는 함수
     func putInPickUpTable(_ coffee: Coffee, for name: String) {
-        if self.pickUpTable.count == 0 {
-            self.pickUpTable.append(coffee.rawValue)
-        }
-        else {
-            self.pickUpTable.remove(at: 0)
-            self.pickUpTable.append(coffee.rawValue)
-        }
+        self.pickUpTable.append(coffee.rawValue)
         print("\(name)님이 주문하신 \(coffee.rawValue)(이/가) 준비되었습니다. 픽업대에서 가져가주세요.")
-        print("")
     }
     
+    //커피값 받는 함수
+    func doGetPaidMoney(_ coffeePrice: Int) {
+        self.revenue += coffeePrice
+    }
 }

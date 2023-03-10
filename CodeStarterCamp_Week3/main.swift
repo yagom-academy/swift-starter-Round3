@@ -8,9 +8,9 @@
 
 import Foundation
 
-var misskim = Person(haveMoney: 5000, nickName: "misskim")
-var idinaloq = Person(haveMoney: 6000, nickName: "idinaloq")
+var misskim = Person(haveMoney: 6500, name: "misskim")
+var idinaloq = Person(haveMoney: 2000, name: "idinaloq")
 var yagombucks = CoffeeShop(revenue: 0, menu: [.espresso: 3000, .americano: 3500, .cappuccino: 4500, .cafeLatte: 5500])
 
-misskim.order(.espresso, of: yagombucks, by: "misskim")
-idinaloq.order(.americano, of: yagombucks, by: "idinaloq")
+misskim.order(.cafeLatte, of: yagombucks, by: misskim.name)
+idinaloq.order(.americano, of: yagombucks, by: idinaloq.name)

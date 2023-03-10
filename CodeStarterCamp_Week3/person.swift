@@ -7,26 +7,48 @@
 
 struct Person {
     var haveMoney: Int
-    var nickName: String
-    var coffeeShop: CoffeeShop?
-    
+    var name: String
+
     //커피 주문하는 함수
     mutating func order(_ coffee: Coffee, of coffeeShop: CoffeeShop, by name: String) {
         
         if let coffeePrice = coffeeShop.menu[coffee] {
-            if self.haveMoney >= coffeePrice {
-                self.haveMoney -= coffeePrice
-                coffeeShop.revenue += coffeePrice
-                self.nickName = name
-                coffeeShop.make(coffee, for: nickName)
+            if checkHaveMoney(coffeePrice) {
+                payMoney(coffeePrice)
+                coffeeShop.doGetPaidMoney(coffeePrice)
+                coffeeShop.make(coffee, for: name)
+                takeCoffee(coffee, coffeeShop)
             }
             else {
-                print("잔액이 \(coffeePrice - self.haveMoney)원만큼 부족합니다.")
+                print("\(name)님의 잔액이 \(coffeePrice - self.haveMoney)원만큼 부족합니다.")
             }
         }
         else {
-            print("해당 커피가 없습니다.")
+            print("해당 메뉴가 없습니다.")
         }
         
     }
+    
+    //잔액이 충분한지 확인하는 함수
+    mutating func checkHaveMoney(_ coffeePrice: Int) -> Bool {
+        if self.haveMoney >= coffeePrice {
+            return true
+        }
+        return false
+    }
+    
+    //커피값 내는 함수
+    mutating func payMoney(_ coffeePrice: Int) {
+        self.haveMoney -= coffeePrice
+    }
+    
+    //커피를 pickUpTable에서 가져가는 함수
+    func takeCoffee(_ coffee: Coffee, _ coffeeShop: CoffeeShop) {
+        if let myCoffee = coffeeShop.pickUpTable.firstIndex(of: coffee.rawValue) {
+            coffeeShop.pickUpTable.remove(at: myCoffee)
+            print("커피를 가져갔습니다.")
+        }
+    }
+    
 }
+
