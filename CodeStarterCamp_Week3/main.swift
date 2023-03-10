@@ -9,7 +9,7 @@
 import Foundation
 
 var misterLee = Person(name: "misterLee", money: 3000)
-var missKim = Person(name: "missKim", money: 5000)
+var missKim = Person(name: "missKim", money: 10000)
 let yagombucksMenu: [Coffee: Int] = [
     .americano: 3500,
     .decafAmericano: 4000,
@@ -18,6 +18,8 @@ let yagombucksMenu: [Coffee: Int] = [
 ]
 var yagombucks = CoffeeShop(name: "yagombucks", menu: yagombucksMenu, barista: misterLee)
 
-missKim.order(Coffee.americano, of: yagombucks, by: missKim.name)
-missKim.order(Coffee.decafAmericano, of: yagombucks, by: missKim.name)
-missKim.order(Coffee.hazelnutLatte, of: yagombucks, by: missKim.name)
+missKim.order(.americano, of: yagombucks, by: missKim.name)
+missKim.order(.decafAmericano, of: yagombucks, by: missKim.name)
+missKim.pickUp(.americano, of: yagombucks, by: missKim.name)
+missKim.order(.vanillaLatte, of: yagombucks, by: missKim.name)
+missKim.order(.hazelnutLatte, of: yagombucks, by: missKim.name)
