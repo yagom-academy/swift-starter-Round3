@@ -10,7 +10,7 @@ import Foundation
 class Person {
     var totalMoney: Int
     
-    func order(_ coffee: Coffee, of coffeeShop: CoffeeShop2, by name: String) {
+    func order(_ coffee: Coffee..., of coffeeShop: CoffeeShop, by name: String) {
         if calculateMoney(spendMoney: coffeeShop.getTotalPrice(coffees: coffee)) {
             coffeeShop.make(coffee, for: name)
         }
@@ -21,7 +21,7 @@ class Person {
             totalMoney = totalMoney - spendMoney
             return true
         } else {
-            print("잔액이 \(spendMoney-totalMoney)만큼 부족합니다.")
+            print("잔액이 \(spendMoney-totalMoney)원 만큼 부족합니다.")
             return false
         }
     }

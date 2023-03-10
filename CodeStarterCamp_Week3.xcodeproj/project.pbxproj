@@ -61,19 +61,11 @@
 		34811DD3274B93EB00A1E994 /* CodeStarterCamp_Week3 */ = {
 			isa = PBXGroup;
 			children = (
-				9B9A219D29BAD7420094FAF6 /* step1 */,
+				9B9A219B29B99FEB0094FAF6 /* Person.swift */,
+				9B9A219E29BAD76A0094FAF6 /* CoffeeShop.swift */,
 				34811DD4274B93EB00A1E994 /* main.swift */,
 			);
 			path = CodeStarterCamp_Week3;
-			sourceTree = "<group>";
-		};
-		9B9A219D29BAD7420094FAF6 /* step1 */ = {
-			isa = PBXGroup;
-			children = (
-				9B9A219B29B99FEB0094FAF6 /* Person.swift */,
-				9B9A219E29BAD76A0094FAF6 /* CoffeeShop.swift */,
-			);
-			path = step1;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
