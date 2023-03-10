@@ -19,23 +19,23 @@ struct Person {
     var name: String
     var money: Int
     
-    mutating func order(_ coffee: Coffee) {
-        if let priceOfOrderedCoffee = yagombucks.menu[coffee] {
+    mutating func order(_ coffee: Coffee, of coffeeShop: CoffeeShop, by name: String) {
+        if let priceOfOrderedCoffee = coffeeShop.menu[coffee] {
             if self.money < priceOfOrderedCoffee {
                 print("잔액이 \(priceOfOrderedCoffee - self.money)원만큼 부족합니다.")
                 return
             }
-            yagombucks.make(coffee, from: self.name)
-            self.money = self.money - priceOfOrderedCoffee
-            yagombucks.salesRevenue = yagombucks.salesRevenue + priceOfOrderedCoffee
-//            yagombucks.pickUpTable.removeFirst()
+            coffeeShop.make(coffee, for: self.name)
+            self.money -= priceOfOrderedCoffee
+            coffeeShop.salesRevenue += priceOfOrderedCoffee
+//            coffeeShop.pickUpTable.removeFirst()
         } else {
             print("주문할 수 없는 메뉴입니다.")
         }
     }
 }
 
-struct CoffeeShop {
+class CoffeeShop {
     var barista: Person
     var salesRevenue: Int = 0
     var menu: Dictionary<Coffee, Int> = [
@@ -50,12 +50,12 @@ struct CoffeeShop {
         self.barista = barista
     }
     
-    mutating func make(_ coffee: Coffee, from name: String) {
+    func make(_ coffee: Coffee, for name: String) {
         self.brewCoffee(ordered: coffee)
         self.printGuideText(with: name, coffee)
     }
     
-    mutating func brewCoffee(ordered coffee: Coffee) {
+    func brewCoffee(ordered coffee: Coffee) {
         self.pickUpTable.append(coffee.rawValue)
     }
     
