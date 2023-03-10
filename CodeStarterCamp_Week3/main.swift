@@ -39,6 +39,10 @@ struct CoffeeShop {
     var pickUpTable: [Coffee] = []
     var barista: Person
     
+    func takeOrder(from person: Person, _ coffee: Coffee) {
+        // TODO: 주문확인 코드 후 make 함수 호출
+    }
+    
     mutating func make(_ coffee: Coffee) {
         pickUpTable.append(coffee)
     }
