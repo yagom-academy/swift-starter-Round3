@@ -11,9 +11,9 @@ struct Person {
     let name: String
     var money: Int
     
-    mutating func order(_ coffee: Coffee, of coffeeshop: CoffeeShop, by name: String) {
-        guard let price = coffeeshop.menu[coffee] else {
-            print("\(coffeeshop.name)에 해당 메뉴가 없습니다.")
+    mutating func order(_ coffee: Coffee, of coffeeShop: CoffeeShop, by name: String) {
+        guard let price = coffeeShop.menu[coffee] else {
+            print("\(coffeeShop.name)에 해당 메뉴가 없습니다.")
             return
         }
         
@@ -23,16 +23,16 @@ struct Person {
         }
         
         money -= price
-        coffeeshop.get(money: price)
-        coffeeshop.make(coffee, for: name)
+        coffeeShop.get(money: price)
+        coffeeShop.make(coffee, for: name)
     }
     
-    func pickUp(_ coffee: Coffee, of coffeeshop: CoffeeShop, by name: String) {
-        guard let index:Int = coffeeshop.pickUpTable.firstIndex(where: {$0.name == name && $0.coffee == coffee}) else {
+    func pickUp(_ coffee: Coffee, of coffeeShop: CoffeeShop, by name: String) {
+        guard let index = coffeeShop.pickUpTable.firstIndex(where: {$0.name == name && $0.coffee == coffee}) else {
             print("픽업대에 해당 음료가 없습니다.")
             return
         }
-        coffeeshop.pickUpTable.remove(at: index)
+        coffeeShop.pickUpTable.remove(at: index)
         print("픽업대에서 \(coffee)를 가져왔습니다.")
     }
 }
@@ -49,11 +49,10 @@ class CoffeeShop {
     var salesRevenue: Int = 0
     var pickUpTable: [Orders] = [] {
         didSet {
-            guard pickUpTable.count > oldValue.count else { return }
-            guard let customer = pickUpTable.last else { return }
+            showPickUpTable()
+            guard pickUpTable.count > oldValue.count, let customer = pickUpTable.last else { return }
             
             print("[\(name)] \(customer.name)님이 주문하신 \(customer.coffee)(이/가) 준비되었습니다. 픽업대에서 가져가주세요.")
-            showPickUpTable()
         }
     }
     
