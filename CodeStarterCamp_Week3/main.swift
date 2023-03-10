@@ -22,8 +22,13 @@ struct Person {
     let name: String
     var money: Int
     
-    func order(_ coffee: Coffee) {
-        // TODO: 주문 코드 작성
+    mutating func order(_ coffee: Coffee, to coffeeShop: CoffeeShop) {
+        guard let price = coffeeShop.menu[coffee] else {
+            print("\(coffeeShop.name)에는 \(coffee.rawValue)가 없습니다.")
+            return
+        }
+        
+        money -= price
     }
 }
 
