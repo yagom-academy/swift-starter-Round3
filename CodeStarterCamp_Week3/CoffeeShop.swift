@@ -13,11 +13,12 @@ enum Coffee: String {
     case CaffeeMocha = "카페모카"
 }
 
-class CoffeShop {
+class CoffeeShop {
     var salesRevenue: Int
     var menus: [Menu]
     var pickUpTable: [Coffee] {
         willSet {
+            print("모든 음료의 제조가 완료되었습니다. 픽업 부탁드립니다:)")
             print("모든 음료의 제조가 완료되었습니다. 픽업 부탁드립니다:)")
         }
     }
@@ -41,7 +42,15 @@ class CoffeShop {
         var price: Int
     }
     
-    func takeOrder(person: Person, coffees: Coffee...) {
+    func make(_ coffee: Coffee, for name: String) {
+        takeOrder(person: <#T##Person#>, coffees: coffee)
+    }
+    
+    func make(_ coffees: [Coffee], for name: String) {
+        takeOrder(person: <#T##Person#>, coffees: coffees)
+    }
+    
+    func takeOrder(coffees: Coffee...) {
         guard barista != nil else {
             print("현재 주문을 받을 수 있는 바리스타가 없어요ㅠㅠ")
             return
@@ -55,13 +64,14 @@ class CoffeShop {
         let totalPrice = getTotalPrice(coffees: coffees)
         if totalPrice > 0 {
             print("총 \(totalPrice)원 입니다.")
-            checkCanMakeCoffee(person: person, price: totalPrice, coffees: coffees)
+            salesRevenue = salesRevenue + totalPrice
+            makeCoffee(coffees: coffees, for: name)
         }
     }
     
-    private func makeCoffee(coffees: [Coffee]) {
+    private func makeCoffee(coffees: [Coffee], for name: String) {
         coffees.forEach { coffee in
-            print("\(coffee.rawValue) 제조가 완료되었습니다.")
+            print("\(name) 님이 주문하신 \(coffee.rawValue) (이/가) 준비되었습니다. 픽업대에서 가져가주세요.")
         }
         
         pickUpTable = pickUpTable + coffees
@@ -84,14 +94,5 @@ class CoffeShop {
         }
         
         return price
-    }
-    
-    private func checkCanMakeCoffee(person: Person, price: Int, coffees: [Coffee]) {
-        if person.buyCoffee(spendMoney: price) {
-            makeCoffee(coffees: coffees)
-            salesRevenue = salesRevenue + price
-        } else {
-            print("잔액이 부족합니다.")
-        }
     }
 }
