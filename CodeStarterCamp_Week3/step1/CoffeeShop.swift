@@ -1,32 +1,16 @@
 //
-//  step1.swift
+//  CoffeeShop.swift
 //  CodeStarterCamp_Week3
 //
-//  Created by suyeon park on 2023/03/09.
+//  Created by suyeon park on 2023/03/10.
 //
 
 import Foundation
 
-class Person {
-    var totalMoney: Int
-    
-    func buyCoffee(spendMoney: Int) -> Bool {
-        if totalMoney >= spendMoney {
-            calculateMoney(spendMoney: spendMoney)
-            return true
-        } else {
-            return false
-        }
-    }
-    
-    private func calculateMoney(spendMoney: Int) {
-        totalMoney = totalMoney - spendMoney
-        print("커피가 계산 되었습니다. 총 잔액은 \(totalMoney)원 입니다.")
-    }
-    
-    init (totalMoney: Int) {
-        self.totalMoney = totalMoney
-    }
+enum Coffee: String {
+    case Americano = "아메리카노"
+    case CaffeeLatte = "카페라떼"
+    case CaffeeMocha = "카페모카"
 }
 
 class CoffeShop {
@@ -45,22 +29,16 @@ class CoffeShop {
         }
     }
     
-    init(menus: [Menu]) {
+    init(menus: [Menu], salesRevenue: Int = 0, pickUpTable: [Coffee] = []) {
         print("카페가 생겼어요!!!")
-        self.salesRevenue = 0
+        self.salesRevenue = salesRevenue
         self.menus = menus
-        self.pickUpTable = []
+        self.pickUpTable = pickUpTable
     }
     
     struct Menu {
         var coffee: Coffee
         var price: Int
-    }
-    
-    enum Coffee {
-        case Americano
-        case CaffeeLatte
-        case CaffeeMocha
     }
     
     func takeOrder(person: Person, coffees: Coffee...) {
@@ -83,7 +61,7 @@ class CoffeShop {
     
     private func makeCoffee(coffees: [Coffee]) {
         coffees.forEach { coffee in
-            print("\(coffee) 제조가 완료되었습니다.")
+            print("\(coffee.rawValue) 제조가 완료되었습니다.")
         }
         
         pickUpTable = pickUpTable + coffees
@@ -101,7 +79,7 @@ class CoffeShop {
                 break
             }
             
-            print("\(menu.coffee) 주문 받았습니다.")
+            print("\(menu.coffee.rawValue) 주문 받았습니다.")
             price = price + menu.price
         }
         
