@@ -18,6 +18,6 @@ let yagombucksMenu: [Coffee: Int] = [
 ]
 var yagombucks = CoffeeShop(name: "yagombucks", menu: yagombucksMenu, barista: misterLee)
 
-missKim.order(Coffee.americano, at: yagombucks)
-missKim.order(Coffee.decafAmericano, at: yagombucks)
-missKim.order(Coffee.hazelnutLatte, at: yagombucks)
+missKim.order(Coffee.americano, of: yagombucks, by: missKim.name)
+missKim.order(Coffee.decafAmericano, of: yagombucks, by: missKim.name)
+missKim.order(Coffee.hazelnutLatte, of: yagombucks, by: missKim.name)
