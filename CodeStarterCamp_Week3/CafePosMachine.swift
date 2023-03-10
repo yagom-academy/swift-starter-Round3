@@ -60,30 +60,7 @@ class CoffeeShop {
         
         totalSales += price
         pickUpTable.append(coffee.name)
+        print("\(pickUpTable)")
         print("\(name) 님이 주문하신 \(coffee.name)(이/가) 준비되었습니다. 픽업대에서 가져가주세요.")
     }
-  /*
-    mutating func take(from customer: Person) {
-        guard let customerOrder = customer.myOrder, let price = menu[customerOrder] else {
-            return
-        }
-        
-        print("\(customer.nickname)님, \(customerOrder.name) 주문 받았습니다. 지불하실 금액은 \(price)원 입니다.")
-        
-        if customer.money < price {
-            print("잔액이 \(price - customer.money)원만큼 부족합니다.")
-        } else {
-            customer.money -= price
-            totalSales += price
-            processOrder(customerOrder, from: customer)
-        }
-        
-    }
-   
-    
-    private mutating func processOrder(_ coffee: Coffee, from customer: Person) {
-        pickUpTable.append(coffee.name)
-        print("\(customer.nickname)님이 주문하신 \(coffee.name)(이/가) 준비되었습니다.")
-    }
-   */
 }

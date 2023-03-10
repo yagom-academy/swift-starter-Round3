@@ -14,8 +14,6 @@ var missKim: Person = Person(money: 10000)
 
 missKim.order(.americano, of: yagombucks, by: "미스킴")
 
-print(yagombucks.pickUpTable)
-
 print(yagombucks.totalSales)
 
 print(missKim.money)
