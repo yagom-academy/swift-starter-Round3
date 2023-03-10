@@ -50,12 +50,12 @@ enum Coffee: String {
 class CoffeeShop {
     var barista: Person
     var totalSales: Int = 0
-    var pickUpTable: (coffee: Array<String>, customer: String) = ([], "") {
+    var pickUpTable = [(coffee: String, customer: String)]() {
         didSet {
-            guard pickUpTable.coffee != [], let coffee = pickUpTable.coffee.last else {
+            guard let pickup = pickUpTable.last else {
                 return
             }
-            print("\(pickUpTable.customer) 님이 주문하신 \(coffee)(이/가) 준비되었습니다. 픽업대에서 가져가주세요.")
+            print("\(pickup.customer) 님이 주문하신 \(pickup.coffee)(이/가) 준비되었습니다. 픽업대에서 가져가주세요.")
         }
     }
     var menu: [Coffee: Int] = [.americano: 2500, .decaffeine: 2500, .vanilla: 3500, .caramel: 3500, .cappuccino: 3500]
@@ -70,7 +70,6 @@ class CoffeeShop {
         }
         
         totalSales += price
-        pickUpTable.customer = name
-        pickUpTable.coffee.append(coffee.name)
+        pickUpTable += [(coffee.name, name)]
     }
 }
