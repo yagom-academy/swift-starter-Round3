@@ -1,11 +1,3 @@
-//
-//  main.swift
-//  CodeStarterCamp_Week3
-//
-//  Created by yagom.
-//  Copyright :copyright: yagom academy. All rights reserved.
-//
-
 class Person {
     var name: String
     var age: Int
@@ -40,10 +32,10 @@ struct CoffeeShop {
     var barista: Person
         
     mutating func takeOrder(orderCoffee: Coffee, customer: Person) {
-        print("손님, 원하시는 음료 \(orderCoffee) 맞으시나요?")
+        print("손님, 원하시는 음료 \(orderCoffee)가 맞으시나요?")
         print("결제 도와드리겠습니다.")
         if let orderCoffeePrice = coffeeMenu[orderCoffee] {
-            print("주문하신 \(orderCoffee)의 가격은 \(orderCoffeePrice) 입니다.")
+            print("주문하신 \(orderCoffee)의 가격은 \(orderCoffeePrice)원 입니다.")
             customer.cardBalance -= orderCoffeePrice
             totalRevenue += orderCoffeePrice
             print("결제가 완료되었습니다. 잠시만 기다려주세요.")
@@ -58,17 +50,11 @@ struct CoffeeShop {
         print("주문하신 \(cutomerCoffee)가 나왔습니다.")
         pickUpTable.append(cutomerCoffee)
     }
-    
-    func findTotalRevenue() {
-        print("금일 매출액은 \(totalRevenue)원 입니다.")
-    }
 }
 
 
 var misterLee: Person = Person(name: "misterLee", age: 28, cardBalance: 400000)
 var missKim: Person = Person(name: "missKim", age: 27, cardBalance: 600000)
+
 var yagombucks: CoffeeShop = CoffeeShop(coffeeShopName: "yagombucks", barista: missKim)
 
-yagombucks.takeOrder(orderCoffee: .americano, customer: missKim)
-
-yagombucks.findTotalRevenue()
