@@ -16,6 +16,10 @@ struct Person {
     mutating func orderCoffee(coffeeShop: CoffeeShop, coffee: Coffee) {
         let coffee: String = coffee.rawValue
         print("\(coffee) 한 잔 주세요.")
+        
+        if let price: Int = coffeeShop.menu[coffee] {
+            money -= price
+        }
     }
 }
 
@@ -28,6 +32,7 @@ struct CoffeeShop {
     
     mutating func orderCoffee(coffee: Coffee) {
         let coffee: String = coffee.rawValue
+        
         if let price: Int = menu[coffee] {
             print("\(coffee)는 \(price)원 입니다.")
             dailySalesFigures += price
@@ -42,12 +47,6 @@ enum Coffee: String {
     case peachIcedTea = "복숭아아이스티"
 }
 
-
 var misterLee: Person = Person(name: "Lee", age: 35, money: 20000)
-
 var missKim: Person = Person(name: "Kim", age: 30, money: 30000)
-missKim.orderCoffee(coffeeShop: yagombucks, coffee: Coffee.americano)
-
 var yagombucks: CoffeeShop = CoffeeShop(barista: misterLee)
-yagombucks.orderCoffee(coffee: Coffee.americano)
-print(yagombucks.pickUpTable)
