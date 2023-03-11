@@ -5,9 +5,9 @@ struct Person {
     var weight: Double
     var mbti: String
     var money: Int
-    
-    func buyCoffee(at: CoffeeShop, type: Coffee) {
-        print("\(type.rawValue) 한 잔 주세요~")
+     
+    func orderCoffee(_ coffee: Coffee, at: CoffeeShop) {
+        print("\(coffee.rawValue) 한 잔 주세요~")
     }
 }
 
@@ -19,9 +19,9 @@ struct CoffeeShop {
     var menu: [Coffee.RawValue: Int]
     var pickUpTable: [Coffee.RawValue]?
     
-    mutating func makeOrderedCoffee(_ type: Coffee) {
-        pickUpTable = [type.rawValue]
-        print("주문하신 \(type.rawValue) 나왔습니다~")
+    mutating func makeOrderedCoffee(_ coffee: Coffee) {
+        pickUpTable = [coffee.rawValue]
+        print("주문하신 \(coffee.rawValue) 나왔습니다~")
     }
 }
 
@@ -41,6 +41,6 @@ enum BeanType {
 var misterLee: Person = Person(name: "미스터리", age: 30, height: 175.5, weight: 70, mbti: "ESFJ", money: 50000)
 var missKim: Person = Person(name: "미스킴", age: 35, height: 170, weight: 55, mbti: "INTP", money: 230000)
 
-var yagombucks: CoffeeShop = CoffeeShop(baristaName: misterLee, beanType: .arabica, tableNumbers: 45, salesAmount: 20_000_000, menu: ["아메리카노": 5000, "카페라떼" : 5500, "카푸치노": 5800, "아인슈페너": 6500])
+var yagombucks: CoffeeShop = CoffeeShop(baristaName: misterLee, beanType: .arabica, tableNumbers: 45, salesAmount: 0, menu: ["아메리카노": 5000, "카페라떼" : 5500, "카푸치노": 5800, "아인슈페너": 6500])
 
 yagombucks.makeOrderedCoffee(Coffee.einspanner)
