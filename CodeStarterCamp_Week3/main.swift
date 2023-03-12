@@ -54,6 +54,7 @@ missKim.order(.Americano, .CaffeeLatte, of: yagombucks, by: "김김")
 
 yagombucks.barista = missPark
 
+missKim.order(.Americano, .CaffeeMocha, of: yagombucks, by: "김김")
 missKim.order(.Americano, .CaffeeLatte, of: yagombucks, by: "김김")
 misterMin.order(.Americano, of: yagombucks, by: "민부장")
 misterMin.order(.Americano, .CaffeeLatte, of: yagombucks, by: "민부장")

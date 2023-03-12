@@ -53,6 +53,7 @@ class CoffeeShop {
             let menuOrNil = menus.filter({ $0.coffee == coffee }).first
             
             guard menuOrNil != nil else {
+                print("존재 하지 않는 메뉴입니다ㅠㅠ")
                 canOrder = false
                 break
             }
