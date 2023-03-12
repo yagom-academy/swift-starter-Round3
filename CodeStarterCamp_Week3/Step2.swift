@@ -62,5 +62,4 @@ class CoffeeShop {
     func printGuideText(with name: String, _ coffee: Coffee) {
         print("\(name) 님이 주문하신 \(coffee.rawValue)(이/가) 준비되었습니다. 픽업대에서 가져가주세요.")
     }
-    
 }
