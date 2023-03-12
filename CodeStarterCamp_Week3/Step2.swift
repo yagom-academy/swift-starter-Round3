@@ -7,11 +7,29 @@
 
 import Foundation
 
-enum Coffee: String {
-    case americano = "아메리카노"
-    case cafelatte = "카페라떼"
-    case blacktea = "홍차"
-    case cafemocha = "카페모카"
+enum Coffee {
+    case americano
+    case cafelatte
+    case blacktea
+    case cafemocha
+    
+    var koreanName: String {
+        switch self {
+        case .americano:
+            return "아메리카노"
+        case .cafelatte:
+            return "카페라떼"
+        case .blacktea:
+            return "홍차"
+        case .cafemocha:
+            return "카페모카"
+        }
+    }
+}
+
+struct OrderInformation {
+    var customer: String
+    var coffee: Coffee
 }
 
 struct Person {
@@ -44,22 +62,22 @@ class CoffeeShop {
         Coffee.blacktea: 2500,
         Coffee.cafemocha: 3000
     ]
-    var pickUpTable: Array<Coffee> = Array<Coffee>()
+    var pickUpTable: Array<OrderInformation> = Array<OrderInformation>() {
+        didSet {
+            guard let orderInformation = pickUpTable.last else { return }
+            print("\(orderInformation.customer) 님이 주문하신 \(orderInformation.coffee.koreanName)(이/가) 준비되었습니다. 픽업대에서 가져가주세요.")
+        }
+    }
     
     init(barista: Person) {
         self.barista = barista
     }
     
     func make(_ coffee: Coffee, for name: String) {
-        self.serveCoffee(ordered: coffee)
-        self.printGuideText(with: name, coffee)
+        self.serveCoffee(ordered: coffee, to: name)
     }
     
-    func serveCoffee(ordered coffee: Coffee) {
-        self.pickUpTable.append(coffee)
-    }
-    
-    func printGuideText(with name: String, _ coffee: Coffee) {
-        print("\(name) 님이 주문하신 \(coffee.rawValue)(이/가) 준비되었습니다. 픽업대에서 가져가주세요.")
+    func serveCoffee(ordered coffee: Coffee, to name: String) {
+        self.pickUpTable.append(OrderInformation(customer: name, coffee: coffee))
     }
 }
