@@ -7,22 +7,16 @@
 
 import Foundation
 
-enum Coffee: String {
-    case Americano = "아메리카노"
-    case CaffeeLatte = "카페라떼"
-    case CaffeeMocha = "카페모카"
-}
-
 class CoffeeShop {
     var salesRevenue: Int
     var menus: [Menu]
     var pickUpTable: [Coffee] {
-        willSet {
+        didSet {
             print("모든 음료의 제조가 완료되었습니다. 픽업 부탁드립니다:)")
         }
     }
     var barista: Person? = nil {
-        willSet (newValue) {
+        didSet (newValue) {
             if newValue != nil {
                 print("새로운 바리스타가 등장하였습니다!")
             }
@@ -41,45 +35,53 @@ class CoffeeShop {
         var price: Int
     }
     
-    func make(_ coffees: [Coffee], for name: String) {
-        guard barista != nil else {
+    func canOrder(_ coffees: [Coffee]) -> Bool {
+        
+        var canOrder = true
+        
+        if barista == nil {
             print("현재 주문을 받을 수 있는 바리스타가 없어요ㅠㅠ")
-            return
+            canOrder = false
         }
         
         if coffees.count == 0 {
             print("받은 주문이 없어요ㅠㅠ")
-            return
+            canOrder = false
         }
         
+        for coffee in coffees {
+            let menuOrNil = menus.filter({ $0.coffee == coffee }).first
+            
+            guard menuOrNil != nil else {
+                canOrder = false
+                break
+            }
+        }
+        
+        return canOrder
+    }
+    
+    func make(_ coffees: [Coffee], for name: String) {
         print("\(getOrderListFormat(coffees: coffees)) 주문 받았습니다.")
         
         let totalPrice = getTotalPrice(coffees: coffees)
-        if totalPrice > 0 {
-            print("총 \(totalPrice)원 입니다.")
-            salesRevenue = salesRevenue + totalPrice
-            makeCoffee(coffees: coffees, for: name)
-        }
+        print("총 \(totalPrice)원 입니다.")
+        salesRevenue = salesRevenue + totalPrice
+        provideCoffee(coffees: coffees, for: name)
     }
     
     func getTotalPrice(coffees: [Coffee]) -> Int {
         var price = 0
         
         for coffee in coffees {
-            let menuOrNil = menus.filter({ $0.coffee == coffee }).first
-            
-            guard let menu = menuOrNil else {
-                price = 0
-                break
-            }
-            
-            price = price + menu.price
+            let menu = menus.filter({ $0.coffee == coffee }).first
+            price = price + (menu?.price ?? 0)
         }
         
         return price
     }
     
-    private func makeCoffee(coffees: [Coffee], for name: String) {
+    private func provideCoffee(coffees: [Coffee], for name: String) {
         print("\(name) 님이 주문하신 \(getOrderListFormat(coffees: coffees)) (이/가) 준비되었습니다. 픽업대에서 가져가주세요.")
         
         pickUpTable = pickUpTable + coffees

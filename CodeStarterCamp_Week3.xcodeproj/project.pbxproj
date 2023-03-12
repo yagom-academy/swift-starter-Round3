@@ -8,6 +8,7 @@
 
 /* Begin PBXBuildFile section */
 		34811DD5274B93EB00A1E994 /* main.swift in Sources */ = {isa = PBXBuildFile; fileRef = 34811DD4274B93EB00A1E994 /* main.swift */; };
+		9B46C3EE29BDCC3E00B1D85C /* Coffee.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9B46C3ED29BDCC3E00B1D85C /* Coffee.swift */; };
 		9B9A219C29B99FEB0094FAF6 /* Person.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9B9A219B29B99FEB0094FAF6 /* Person.swift */; };
 		9B9A219F29BAD76A0094FAF6 /* CoffeeShop.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9B9A219E29BAD76A0094FAF6 /* CoffeeShop.swift */; };
 /* End PBXBuildFile section */
@@ -27,6 +28,7 @@
 /* Begin PBXFileReference section */
 		34811DD1274B93EB00A1E994 /* CodeStarterCamp_Week3 */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.executable"; includeInIndex = 0; path = CodeStarterCamp_Week3; sourceTree = BUILT_PRODUCTS_DIR; };
 		34811DD4274B93EB00A1E994 /* main.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = main.swift; sourceTree = "<group>"; };
+		9B46C3ED29BDCC3E00B1D85C /* Coffee.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Coffee.swift; sourceTree = "<group>"; };
 		9B9A219B29B99FEB0094FAF6 /* Person.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Person.swift; sourceTree = "<group>"; };
 		9B9A219E29BAD76A0094FAF6 /* CoffeeShop.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CoffeeShop.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -64,6 +66,7 @@
 				9B9A219B29B99FEB0094FAF6 /* Person.swift */,
 				9B9A219E29BAD76A0094FAF6 /* CoffeeShop.swift */,
 				34811DD4274B93EB00A1E994 /* main.swift */,
+				9B46C3ED29BDCC3E00B1D85C /* Coffee.swift */,
 			);
 			path = CodeStarterCamp_Week3;
 			sourceTree = "<group>";
@@ -128,6 +131,7 @@
 				9B9A219F29BAD76A0094FAF6 /* CoffeeShop.swift in Sources */,
 				34811DD5274B93EB00A1E994 /* main.swift in Sources */,
 				9B9A219C29B99FEB0094FAF6 /* Person.swift in Sources */,
+				9B46C3EE29BDCC3E00B1D85C /* Coffee.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

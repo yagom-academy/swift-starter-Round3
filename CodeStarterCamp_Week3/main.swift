@@ -50,6 +50,8 @@ var misterMin = Person(totalMoney: 10000)
 var yagombucks = CoffeeShop(menus: [CoffeeShop.Menu(coffee: .Americano, price: 4000),
                                     CoffeeShop.Menu(coffee: .CaffeeLatte, price: 5000)])
 
+missKim.order(.Americano, .CaffeeLatte, of: yagombucks, by: "김김")
+
 yagombucks.barista = missPark
 
 missKim.order(.Americano, .CaffeeLatte, of: yagombucks, by: "김김")
