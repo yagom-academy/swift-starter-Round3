@@ -12,7 +12,6 @@ enum Coffee: String {
     case cafelatte = "카페라떼"
     case blacktea = "홍차"
     case cafemocha = "카페모카"
-    case nfs
 }
 
 struct Person {
@@ -25,7 +24,7 @@ struct Person {
             return
         }
 
-        if self.money < priceOfOrderedCoffee {
+        guard self.money >= priceOfOrderedCoffee else {
             print("잔액이 \(priceOfOrderedCoffee - self.money)원만큼 부족합니다.")
             return
         }
@@ -33,8 +32,6 @@ struct Person {
         coffeeShop.make(coffee, for: self.name)
         self.money -= priceOfOrderedCoffee
         coffeeShop.salesRevenue += priceOfOrderedCoffee
-//        coffeeShop.pickUpTable.removeFirst()
-
     }
 }
 
@@ -47,19 +44,19 @@ class CoffeeShop {
         Coffee.blacktea: 2500,
         Coffee.cafemocha: 3000
     ]
-    var pickUpTable: Array<String> = Array<String>()
+    var pickUpTable: Array<Coffee> = Array<Coffee>()
     
     init(barista: Person) {
         self.barista = barista
     }
     
     func make(_ coffee: Coffee, for name: String) {
-        self.brewCoffee(ordered: coffee)
-        self.printGuideText(with: name, coffee)
+        self.serveCoffee(ordered: coffee)
     }
     
-    func brewCoffee(ordered coffee: Coffee) {
-        self.pickUpTable.append(coffee.rawValue)
+    func serveCoffee(ordered coffee: Coffee) {
+        self.pickUpTable.append(coffee)
+        self.printGuideText(with: name, coffee)
     }
     
     func printGuideText(with name: String, _ coffee: Coffee) {
