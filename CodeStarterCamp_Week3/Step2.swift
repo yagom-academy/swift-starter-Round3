@@ -52,11 +52,11 @@ class CoffeeShop {
     
     func make(_ coffee: Coffee, for name: String) {
         self.serveCoffee(ordered: coffee)
+        self.printGuideText(with: name, coffee)
     }
     
     func serveCoffee(ordered coffee: Coffee) {
         self.pickUpTable.append(coffee)
-        self.printGuideText(with: name, coffee)
     }
     
     func printGuideText(with name: String, _ coffee: Coffee) {
