@@ -47,7 +47,16 @@ struct CoffeeShop {
     let name: String
     var totalSalesPrice: Int = 0
     var menu: [Coffee: Int]
-    var pickUpTable: [Coffee] = []
+    var pickUpTable: [(Person, Coffee)] = [] {
+        willSet {
+            if newValue.count > pickUpTable.count {
+                guard let person = newValue.last?.0 else { return }
+                guard let coffee = newValue.last?.1 else { return }
+                
+                print("\(person.name)님이 주문하신 \(coffee.rawValue)가 준비되었습니다. 픽업대에서 가져가주세요.\n")
+            }
+        }
+    }
     var barista: Person
     
     func hasCoffee(_ coffee: Coffee) -> Bool {
@@ -67,9 +76,7 @@ struct CoffeeShop {
     }
     
     mutating func make(_ coffee: Coffee, for person: Person) {
-        pickUpTable.append(coffee)
-        
-        print("\(person.name)님이 주문하신 \(coffee.rawValue)가 준비되었습니다. 픽업대에서 가져가주세요.\n")
+        pickUpTable.append((person, coffee))
     }
 }
 
