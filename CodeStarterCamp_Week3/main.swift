@@ -13,8 +13,8 @@ struct Person {
     var age: Int
     var money: Int
     
-    mutating func orderCoffee(coffeeShop: CoffeeShop, _coffee: Coffee) {
-        let coffee: String = _coffee.rawValue
+    mutating func orderCoffee(to coffeeShop: CoffeeShop, _ coffee: Coffee) {
+        let coffee: String = coffee.rawValue
         print("\(coffee) 한 잔 주세요.")
         
         if let price: Int = coffeeShop.menu[coffee] {
@@ -29,8 +29,8 @@ struct CoffeeShop {
     var menu: [String: Int] = ["아메리카노": 3200, "콜드브루": 3900, "카페라떼": 4200, "카푸치노": 4200, "카페모카": 4500, "카라멜마끼아또": 4500, "토피넛라떼": 4200, "복숭아아이스티": 2900]
     var pickUpTable: [String] = []
     
-    mutating func orderCoffee(_coffee: Coffee) {
-        let coffee: String = _coffee.rawValue
+    mutating func orderCoffee(_ coffee: Coffee) {
+        let coffee: String = coffee.rawValue
         
         if let price: Int = menu[coffee] {
             print("\(coffee)는 \(price)원 입니다.")
