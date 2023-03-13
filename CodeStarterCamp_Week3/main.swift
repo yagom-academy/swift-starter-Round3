@@ -1,12 +1,11 @@
 //
 //  main.swift
-//  CodeStarterCamp_Week3
+//  week3-step01
 //
-//  Created by yagom.
-//  Copyright © yagom academy. All rights reserved.
+//  Created by karen on 2023/03/08.
 //
 
 import Foundation
 
-print("Hello, World!")
+yagombucks.takeOnOrder(Coffee.moca)
 
