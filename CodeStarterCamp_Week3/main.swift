@@ -60,7 +60,7 @@ struct CoffeeShop {
         }
     }
     
-    mutating func takeOrder(_ coffee: Coffee, price:Int, by person: Person) {
+    mutating func takeOrder(_ coffee: Coffee, price: Int, by person: Person) {
         totalSalesPrice += price
         
         make(coffee, for: person)
