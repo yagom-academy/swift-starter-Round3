@@ -7,7 +7,7 @@
 
 import Foundation
 
-
+typealias CoffeePrice = Int
 
 struct CoffeShop {
     var barista: Person?
@@ -15,10 +15,12 @@ struct CoffeShop {
     var menu: Dictionary<Coffee, CoffeePrice>
     var pickUpTable: [Coffee]
     
-    mutating func takeOrder(for coffee: Coffee...) -> [Coffee] {
+    mutating func takeOrder(for coffees: Coffee...) -> [Coffee] {
         
-        for coffees in coffee {
-            pickUpTable.append(coffees)
+        pickUpTable = []
+        
+        for coffee in coffees {
+            pickUpTable.append(coffee)
         }
         
         return pickUpTable

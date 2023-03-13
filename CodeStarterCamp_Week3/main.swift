@@ -8,7 +8,7 @@
 
 import Foundation
 
-typealias CoffeePrice = Int
+
 
 var misterLee: Person = Person(money: 1000)
 var missKim: Person = Person(money: 2000)

@@ -11,9 +11,9 @@ import Foundation
 struct Person {
     var money: Int
     
-    mutating func buyCoffee(shopMenuPrice: CoffeShop, menuName: Coffee) {
+    mutating func orderCoffee(from shop: CoffeShop, for menu: Coffee) {
         
-        if let price = shopMenuPrice.menu[menuName] {
+        if let price = shop.menu[menu] {
             
             if money < price {
                 print("잔액이 부족합니다.")
