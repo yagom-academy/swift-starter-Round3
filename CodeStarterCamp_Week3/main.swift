@@ -7,5 +7,5 @@
 
 import Foundation
 
-yagombucks.takeOnOrder(Coffee.moca)
+missKim.purchaseCoffee(Coffee.moca, of: yagombucks, by: missKim.name)
 
