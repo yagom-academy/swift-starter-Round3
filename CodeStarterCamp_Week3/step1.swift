@@ -28,13 +28,13 @@ enum Coffee: Int, CaseIterable {
 class CoffeeShop {
     var sales: Int = 0
     var pickUpTable: [String] = [String]()
-    var barista: String
+    var barista: Person
     var menu: [Coffee: Int] = [Coffee.아메리카노:  Coffee.아메리카노.rawValue,
                               Coffee.카페라떼: Coffee.카페라떼.rawValue,
                               Coffee.바닐라라떼: Coffee.바닐라라떼.rawValue]
     
     init(barista: Person) {
-        self.barista = barista.name
+        self.barista = barista
     }
     
     func orderCoffee(orderItem: Coffee, money: Int) {
