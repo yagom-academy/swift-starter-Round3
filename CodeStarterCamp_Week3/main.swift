@@ -12,17 +12,11 @@ struct Person {
     let name: String
     var age: Int
     var money: Int
-    
-    init(name: String, age: Int, money: Int) {
-        self.name = name
-        self.age = age
-        self.money = money
-    }
-    
-    mutating func buyCoffee(Coffee: Coffee) {
-        print(Coffee.rawValue + " 주세요.")
+
+    mutating func buyCoffee(myMemu: Coffee) {
+        print(myMemu.rawValue + " 주세요.")
         
-        if let coffeePrice = yagombucks.menu[Coffee] {
+        if let coffeePrice = yagombucks.menu[myMemu] {
             self.money -= coffeePrice
             
             print(name + "의 남은 돈:\(money)\n")
@@ -39,19 +33,13 @@ enum Coffee: String {
 struct CoffeeShop {
     var barister: Person
     var income: Int
-    let menu: [Coffee: Int]
+    var menu: [Coffee: Int]
     var pickUpTable = [Coffee]()
     
-    init(barister: Person, income: Int, menu: [Coffee: Int]) {
-        self.barister = barister
-        self.income = income
-        self.menu = menu
-    }
-    
-    mutating func giveCoffee(orderedCoffee: Coffee) {
-        print(orderedCoffee.rawValue + " 주문 받았습니다.")
+    mutating func sellCoffee(menu: Coffee) {
+        print(menu.rawValue + " 주문 받았습니다.")
         
-        if let coffeePrice = self.menu[orderedCoffee] {
+        if let coffeePrice = self.menu[menu] {
             self.income += coffeePrice
             
             print("카페 수익:\(income)")
@@ -59,7 +47,7 @@ struct CoffeeShop {
             print("nil")
         }
         
-        pickUpTable.append(orderedCoffee)
+        pickUpTable.append(menu)
         print("\(pickUpTable.map{ $0.rawValue }.joined(separator: ", ")) 픽업대에 나와있습니다.")
     }
 }
@@ -67,6 +55,3 @@ struct CoffeeShop {
 var misterLee = Person(name: "이땡떙", age: 24, money: 40000)
 var missKim = Person(name: "김떙떙", age: 28, money: 0)
 var yagombucks = CoffeeShop(barister: misterLee, income: 0, menu: [.americano : 2000, .latte: 2500, .iceTea: 3000])
-
-missKim.buyCoffee(Coffee: .latte)
-yagombucks.giveCoffee(orderedCoffee: .latte)
