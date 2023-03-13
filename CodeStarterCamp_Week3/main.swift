@@ -8,35 +8,52 @@
 
 import Foundation
 
-struct Person {
+class Person {
     var name: String
     var age: Int
     var money: Int
     
-    mutating func orderCoffee(to coffeeShop: CoffeeShop, _ coffee: Coffee) {
-        let coffee: String = coffee.rawValue
-        print("\(coffee) 한 잔 주세요.")
+    init(name: String, age: Int, money: Int) {
+        self.name = name
+        self.age = age
+        self.money = money
+    }
+    
+    func order(_ coffee: Coffee, of coffeeShop: CoffeeShop, by name: String) {
+        var coffeeShop = coffeeShop
+        let coffeeName: String = coffee.rawValue
         
-        if let price: Int = coffeeShop.menu[coffee] {
-            money -= price
+        if let price: Int = coffeeShop.menu[coffeeName] {
+            if price > money {
+                let needMoney = price - money
+                print("잔액이 \(needMoney)원만큼 부족합니다.")
+                
+            } else {
+                money -= price
+                coffeeShop.make(coffee, for: name)
+            }
         }
     }
 }
 
-struct CoffeeShop {
+class CoffeeShop {
     var dailySalesFigures: Int = 0
     var barista: Person
-    var menu: [String: Int] = ["아메리카노": 3200, "콜드브루": 3900, "카페라떼": 4200, "카푸치노": 4200, "카페모카": 4500, "카라멜마끼아또": 4500, "토피넛라떼": 4200, "복숭아아이스티": 2900]
+    let menu: [String: Int] = ["아메리카노": 3200, "콜드브루": 3900, "카페라떼": 4200, "카푸치노": 4200, "카페모카": 4500, "카라멜마끼아또": 4500, "토피넛라떼": 4200, "복숭아아이스티": 2900]
     var pickUpTable: [String] = []
     
-    mutating func orderCoffee(_ coffee: Coffee) {
+    init(barista: Person) {
+        self.barista = barista
+    }
+    
+    func make(_ coffee: Coffee, for name: String) {
         let coffee: String = coffee.rawValue
         
         if let price: Int = menu[coffee] {
-            print("\(coffee)는 \(price)원 입니다.")
             dailySalesFigures += price
         }
         pickUpTable.append(coffee)
+        print("\(name) 님이 주문하신 \(coffee)(이/가) 준비되었습니다. 픽업대에서 가져가주세요.")
     }
 }
 
@@ -46,6 +63,13 @@ enum Coffee: String {
     case toffeeNutLatte = "토피넛라떼", peachIcedTea = "복숭아아이스티"
 }
 
-let misterLee: Person = Person(name: "Lee", age: 35, money: 20000)
-let missKim: Person = Person(name: "Kim", age: 30, money: 30000)
-let yagombucks: CoffeeShop = CoffeeShop(barista: misterLee)
+var misterLee: Person = Person(name: "misterLee", age: 35, money: 20000)
+var missKim: Person = Person(name: "missKim", age: 30, money: 10000)
+var yagombucks: CoffeeShop = CoffeeShop(barista: misterLee)
+
+missKim.order(Coffee.americano, of: yagombucks, by: missKim.name)
+missKim.order(Coffee.toffeeNutLatte, of: yagombucks, by: missKim.name)
+missKim.order(Coffee.peachIcedTea, of: yagombucks, by: missKim.name)
+print(yagombucks.pickUpTable)
+print("\(yagombucks.dailySalesFigures)원")
+print("\(missKim.money)원")
