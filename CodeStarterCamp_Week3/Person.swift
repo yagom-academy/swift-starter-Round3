@@ -28,7 +28,7 @@ struct Person {
             if money >= price {
                 print("\(name)이 가진돈은 \(money)원이며 커피를 주문 후 남은돈\(differenceMoney)원 입니다.")
             } else {
-                print("\(name)의 잔액이 \(differenceMoney)원만큼 부족 합니다")
+                print("\(name)의 잔액이 \(differenceMoney)원만큼 부족하여 \(coffee)를 주문 할 수없습니다.")
                 return 
             }
         }
