@@ -30,7 +30,7 @@ struct Person {
             return
         }
         
-        if money > price {
+        if money >= price {
             money -= price
             coffeeShop.takeOrder(coffee, price: price, by: self)
         } else {
