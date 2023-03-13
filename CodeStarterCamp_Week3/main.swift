@@ -63,5 +63,3 @@ var misterLee: Person = Person(name: "misterLee", age: 28, cardBalance: 400000)
 var missKim: Person = Person(name: "missKim", age: 27, cardBalance: 600000)
 var yagombuck: CoffeeShop = CoffeeShop(coffeeShopName: "yagombuck")
 yagombuck.barista = misterLee
-
-yagombuck.takeOrder(.americano, for: &missKim)
