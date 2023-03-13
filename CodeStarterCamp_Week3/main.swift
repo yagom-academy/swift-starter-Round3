@@ -11,9 +11,9 @@ import Foundation
 struct Person {
     var money: Int = 0
     
-    func isPaymentEnable(for productPrice: Int) -> Bool {
-        if productPrice > self.money {
-            print("잔액이 \(productPrice - self.money)원만큼 부족합니다.")
+    func isPaymentEnable(for beveragePrice: Int) -> Bool {
+        if beveragePrice > self.money {
+            print("잔액이 \(beveragePrice - self.money)원만큼 부족합니다.")
             return false
         } else {
             return true
@@ -22,10 +22,9 @@ struct Person {
     
     mutating func order(_ coffee: Coffee, of coffeeShop: inout CoffeeShop, by name: String) {
         guard let coffeePrice = coffeeShop.checkPrice(coffee) else { return }
-        if self.isPaymentEnable(for: coffeePrice) {
-            self.money -= coffeePrice
-            coffeeShop.processPurchase(for: coffee, with: coffeePrice, from: name)
-        }
+        guard self.isPaymentEnable(for: coffeePrice) else { return }
+        self.money -= coffeePrice
+        coffeeShop.processPurchase(for: coffee, with: coffeePrice, from: name)
     }
 }
 
@@ -40,7 +39,14 @@ enum Coffee: String {
 struct CoffeeShop {
     var menu: Dictionary<Coffee, Int>
     var barista: Person
-    var pickUpTable: Array<Coffee> = Array<Coffee>()
+    typealias pickUpTableTypes = (name: String, coffee: Coffee)
+    var pickUpTable: Array<pickUpTableTypes> = Array<pickUpTableTypes>() {
+        willSet {
+            guard let name = newValue.last?.name else { return }
+            guard let coffee = newValue.last?.coffee.rawValue else { return }
+            print("\(name) 님이 주문하신 \(coffee)(이/가) 준비되었습니다. 픽업대에서 가져가주세요.")
+        }
+    }
     var revenue: Int = 0
     
     func checkPrice(_ coffee: Coffee) -> Int? {
@@ -51,14 +57,9 @@ struct CoffeeShop {
         return coffeePrice
     }
     
-    mutating func addCoffeeToPickUpTable(_ coffee: Coffee, for name: String) {
-        self.pickUpTable.append(coffee)
-        print("\(name) 님이 주문하신 \(coffee.rawValue)(이/가) 준비되었습니다. 픽업대에서 가져가주세요.")
-    }
-    
     mutating func make(_ coffee: Coffee, for name: String) {
         print("커피 추출중...")
-        self.addCoffeeToPickUpTable(coffee, for: name)
+        self.pickUpTable.append((name: name, coffee: coffee))
     }
     
     mutating func processPurchase(for coffee: Coffee, with price: Int, from name: String) {
