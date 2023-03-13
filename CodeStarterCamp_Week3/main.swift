@@ -8,5 +8,8 @@
 
 import Foundation
 
-print("Hello, World!")
+
+// Step1
+missKim.buyCoffee(menu: Coffee.카페라떼, at: yagombucks)
+missKim.buyCoffee(menu: Coffee.바닐라라떼, at: yagombucks)
 
