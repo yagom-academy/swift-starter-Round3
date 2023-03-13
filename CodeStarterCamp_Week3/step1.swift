@@ -80,7 +80,7 @@ class CoffeeShop {
     
     func make(_ coffee: Coffee, for name: String) {
         group.enter()
-        DispatchQueue.global().asyncAfter(deadline: .now() + 1) {
+        DispatchQueue.global().asyncAfter(deadline: .now() + Double.random(in: 1...4)) {
             self.addPickUpTable(coffee, for: name)
             group.leave()
         }
