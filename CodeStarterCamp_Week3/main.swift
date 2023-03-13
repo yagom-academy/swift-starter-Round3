@@ -34,11 +34,12 @@ struct CoffeeShop {
     var totalRevenue: Int = 0
     var coffeeMenu: [Coffee: Int] = [.americano: 4500, .cappuccino: 5000, .espresso: 4000, .latte: 5000, .mocha: 5500]
     var pickUpTable: [Coffee] = []
-    var barista: Person
+    var barista: Person?
     
-    mutating func takeOrder(likeCoffee: Coffee, customer: inout Person) {
+    mutating func takeOrder(_ likeCoffee: Coffee, for customer: inout Person) {
         print("손님, 원하시는 음료 \(likeCoffee)가 맞으시나요?")
         print("결제 도와드리겠습니다.")
+        
         if let orderCoffeePrice = coffeeMenu[likeCoffee] {
             print("주문하신 \(likeCoffee)의 가격은 \(orderCoffeePrice)원 입니다.")
             customer.cardBalance -= orderCoffeePrice
@@ -47,11 +48,11 @@ struct CoffeeShop {
             for _ in 1...3 {
                 print("...............................")
             }
-            makeCoffee(cutomerOrder: likeCoffee)
+            makeCoffee(likeCoffee)
         }
     }
     
-    mutating func makeCoffee(cutomerOrder: Coffee) {
+    mutating func makeCoffee(_ cutomerOrder: Coffee) {
         print("주문하신 \(cutomerOrder)가 나왔습니다.")
         pickUpTable.append(cutomerOrder)
     }
@@ -60,5 +61,7 @@ struct CoffeeShop {
 
 var misterLee: Person = Person(name: "misterLee", age: 28, cardBalance: 400000)
 var missKim: Person = Person(name: "missKim", age: 27, cardBalance: 600000)
+var yagombuck: CoffeeShop = CoffeeShop(coffeeShopName: "yagombuck")
+yagombuck.barista = misterLee
 
-var yagombucks: CoffeeShop = CoffeeShop(coffeeShopName: "yagombucks", barista: misterLee)
+yagombuck.takeOrder(.americano, for: &missKim)
