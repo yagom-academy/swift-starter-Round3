@@ -39,7 +39,9 @@ class Person {
 class CoffeeShop {
     var dailySalesFigures: Int = 0
     var barista: Person
-    let menu: [String: Int] = ["아메리카노": 3200, "콜드브루": 3900, "카페라떼": 4200, "카푸치노": 4200, "카페모카": 4500, "카라멜마끼아또": 4500, "토피넛라떼": 4200, "복숭아아이스티": 2900]
+    var menu: [String: Int] = ["아메리카노": 3200, "콜드브루": 3900, "카페라떼": 4200,
+                               "카푸치노": 4200, "카페모카": 4500, "카라멜마끼아또": 4500,
+                               "토피넛라떼": 4200, "복숭아아이스티": 2900]
     var pickUpTable: [String] = []
     
     init(barista: Person) {
