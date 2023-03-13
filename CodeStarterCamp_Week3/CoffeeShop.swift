@@ -13,11 +13,11 @@ class CoffeeShop {
     var barista: Person
     var menu: [Coffee: Int]
     var pickUpTable: [Coffee]
-//    {
-//        didSet {
-//            coffeeOnPickUpTable(name)
-//        }
-//    }
+    {
+        didSet {
+            coffeeOnPickUpTable()
+        }
+    }
     
     init(name: String, sales: Int, barista: Person, menu: [Coffee : Int], pickUpTable: [Coffee]) {
         self.name = name
@@ -53,10 +53,10 @@ class CoffeeShop {
     }
     
     /// 픽업테이블
-    func coffeeOnPickUpTable(_ name: String) {
+    func coffeeOnPickUpTable() {
         let coffeeOnTheTable = pickUpTable.map {$0.rawValue}.joined(separator: ",")
-        if coffeeOnTheTable.isEmpty == false { // 네이밍 변경 고려하기
-            print("\(name)님이 주문하신\(coffeeOnTheTable)(이/가) 준비되었습니다. 픽업대에서 가져가주세요")
+        if coffeeOnTheTable.isEmpty == false {
+            print("\(coffeeOnTheTable)주문 하신 고객님 \(coffeeOnTheTable)(이/가) 준비되었습니다. 픽업대에서 가져가주세요")
         }
     }
 }

@@ -23,20 +23,15 @@ struct Person {
     ///커피 주문
     func order(_ coffee: Coffee, of coffeeShop: CoffeeShop, by name: String) {
         if let price = coffeeShop.menu[coffee] {
-            let finalMoney = abs(money - price)
-
+            let differenceMoney = abs(money - price)
+            
             if money >= price {
-                print("\(name)이 가진돈은 \(money)원이며 커피를 주문 후 남은돈\(finalMoney)원 입니다.")
-                coffeeShop.make(coffee.self, for: name)
-                coffeeShop.coffeeOnPickUpTable(name)
+                print("\(name)이 가진돈은 \(money)원이며 커피를 주문 후 남은돈\(differenceMoney)원 입니다.")
             } else {
-                print("\(name)의 잔액이 \(finalMoney)원만큼 부족 합니다")
-                return
+                print("\(name)의 잔액이 \(differenceMoney)원만큼 부족 합니다")
+                return 
             }
-        } else {
-            coffeeShop.make(coffee.self, for: name)
-            coffeeShop.coffeeOnPickUpTable(name)
-            return
         }
+        coffeeShop.make(coffee.self, for: name)
     }
 }

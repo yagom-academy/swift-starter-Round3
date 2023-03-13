@@ -13,4 +13,7 @@ var yagombucks = CoffeeShop(name: "yagombucks", sales: 0, barista: misterLee,
                             menu: [.americano: 2000, .latte: 2900, .javachipFrappuccino: 4500],
                             pickUpTable: [])
 
-missKim.order(.latte, of: yagombucks, by: missKim.name)  // 주문 장소 메뉴
+missKim.order(.latte, of: yagombucks, by: missKim.name)
+missKim.order(.americano, of: yagombucks, by: misterLee.name)
+missKim.order(.caramelMacchiato, of: yagombucks, by: misterLee.name)
+missKim.order(.javachipFrappuccino, of: yagombucks, by: misterLee.name)
