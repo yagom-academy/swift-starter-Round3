@@ -8,5 +8,12 @@
 
 import Foundation
 
-print("Hello, World!")
+
+
+var misterLee: Person = Person(money: 1000)
+var missKim: Person = Person(money: 2000)
+
+var yagombucks: CoffeShop = CoffeShop(sales: 0, menu: [:], pickUpTable: [])
+yagombucks.barista = misterLee
+
 
