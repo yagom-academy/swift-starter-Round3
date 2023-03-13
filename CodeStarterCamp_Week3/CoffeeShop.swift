@@ -12,11 +12,12 @@ class CoffeeShop {
     var sales: Int
     var barista: Person
     var menu: [Coffee: Int]
-    var pickUpTable: [Coffee] {
-        didSet {
-            coffeeOnPickUpTable()
-        }
-    }
+    var pickUpTable: [Coffee]
+//    {
+//        didSet {
+//            coffeeOnPickUpTable(name)
+//        }
+//    }
     
     init(name: String, sales: Int, barista: Person, menu: [Coffee : Int], pickUpTable: [Coffee]) {
         self.name = name
@@ -37,23 +38,25 @@ class CoffeeShop {
         }
     }
     
-    func make(_ coffee: Coffee, for naem: String) {
+    ///커피 만들기
+    func make(_ coffee: Coffee, for name: String) {
         if let price = menu[coffee] {
-            sales += price
-            pickUpTable.append(coffee)
+            print("\(coffee) 주문 받았습니다.")
+            print("바리스타 \(barista.name)(이/가) 제조 합니다.")
             print("커피의 가격은 \(price)입니다.")
+            sales += price
             print("매출액 \(sales)원 입니다.")
+            pickUpTable.append(coffee)
         } else {
             print("주문 하신 \(coffee)은 저희 매장에 없는 메뉴 입니다.")
         }
     }
     
-    func coffeeOnPickUpTable() {
-        let bindedCoffees = pickUpTable.map {$0.rawValue}.joined(separator: ",")
-        if bindedCoffees.contains(bindedCoffees) {
-            print("테이블에는 \(bindedCoffees)의 커피가 있습니다.")
-        } else {
-            return
+    /// 픽업테이블
+    func coffeeOnPickUpTable(_ name: String) {
+        let coffeeOnTheTable = pickUpTable.map {$0.rawValue}.joined(separator: ",")
+        if coffeeOnTheTable.isEmpty == false { // 네이밍 변경 고려하기
+            print("\(name)님이 주문하신\(coffeeOnTheTable)(이/가) 준비되었습니다. 픽업대에서 가져가주세요")
         }
     }
 }
