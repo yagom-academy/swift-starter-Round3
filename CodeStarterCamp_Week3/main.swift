@@ -20,7 +20,7 @@ class Person {
     }
     
     func order(_ coffee: Coffee, of coffeeShop: CoffeeShop, by name: String) {
-        var coffeeShop = coffeeShop
+        let coffeeShop = coffeeShop
         let coffeeName: String = coffee.rawValue
         
         if let price: Int = coffeeShop.menu[coffeeName] {
@@ -42,7 +42,13 @@ class CoffeeShop {
     var menu: [String: Int] = ["아메리카노": 3200, "콜드브루": 3900, "카페라떼": 4200,
                                "카푸치노": 4200, "카페모카": 4500, "카라멜마끼아또": 4500,
                                "토피넛라떼": 4200, "복숭아아이스티": 2900]
-    var pickUpTable: [String] = []
+    var guestName: String = ""
+    var guestCoffee: String = ""
+    var pickUpTable: [String] = [] {
+        didSet {
+            print("\(guestName) 님이 주문하신 \(guestCoffee)(이/가) 준비되었습니다. 픽업대에서 가져가주세요.")
+        }
+    }
     
     init(barista: Person) {
         self.barista = barista
@@ -54,8 +60,9 @@ class CoffeeShop {
         if let price: Int = menu[coffee] {
             dailySalesFigures += price
         }
+        self.guestName = name
+        self.guestCoffee = coffee
         pickUpTable.append(coffee)
-        print("\(name) 님이 주문하신 \(coffee)(이/가) 준비되었습니다. 픽업대에서 가져가주세요.")
     }
 }
 
