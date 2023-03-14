@@ -1,27 +1,42 @@
 struct Person {
     var name: String
     var age: Int
-    var height: Double
-    var weight: Double
     var mbti: String
     var money: Int
-     
-    func orderCoffee(_ coffee: Coffee, at: CoffeeShop) {
-        print("\(coffee.rawValue) 한 잔 주세요~")
+    
+    mutating func orderCoffee(_ coffee: Coffee, at coffeeShop: CoffeeShop) {
+        if let price = coffeeShop.menu[coffee] {
+            if money < price {
+                print("잔액이 \(price - money)원만큼 부족합니다.")
+            } else {
+                money -= price
+                coffeeShop.salesAmount += price
+                coffeeShop.makeOrderedCoffee(coffee, for: name)
+            }
+        } else {
+            print("결제 오류")
+        }
     }
 }
 
-struct CoffeeShop {
-    var baristaName: Person
+class CoffeeShop {
+    var baristaName: String
     var beanType: BeanType
     var tableNumbers: Int
-    var salesAmount: Double
-    var menu: [Coffee.RawValue: Int]
-    var pickUpTable: [Coffee.RawValue]?
+    var salesAmount: Int = 0
+    var menu: [Coffee: Int]
+    var pickUpTable: [Coffee] = []
     
-    mutating func makeOrderedCoffee(_ coffee: Coffee) {
-        pickUpTable = [coffee.rawValue]
-        print("주문하신 \(coffee.rawValue) 나왔습니다~")
+    init(baristaName: String, beanType: BeanType, tableNumbers: Int, menu: [Coffee : Int]) {
+        self.baristaName = baristaName
+        self.beanType = beanType
+        self.tableNumbers = tableNumbers
+        self.menu = menu
+    }
+    
+    func makeOrderedCoffee(_ coffee: Coffee, for name: String) {
+        pickUpTable = [coffee]
+        print("\(name)님이 주문하신 \(coffee.rawValue)가(이) 준비되었습니다. 픽업대에서 가져가주세요.")
     }
 }
 
@@ -33,14 +48,15 @@ enum Coffee: String {
 }
 
 enum BeanType {
-    case arabica
-    case robusta
-    case liberica
+    case arabica, robusta, liberica
 }
 
-var misterLee: Person = Person(name: "미스터리", age: 30, height: 175.5, weight: 70, mbti: "ESFJ", money: 50000)
-var missKim: Person = Person(name: "미스킴", age: 35, height: 170, weight: 55, mbti: "INTP", money: 230000)
+var missKim: Person = Person(name: "missKim", age: 35, mbti: "INTP", money: 100_000)
+var yagombucks: CoffeeShop = CoffeeShop(baristaName: "misterLee", beanType: .arabica, tableNumbers: 45,
+                                        menu: [.americano: 5000, .cafeLatte : 5500, .cappuccino: 5800, .einspanner: 6500])
 
-var yagombucks: CoffeeShop = CoffeeShop(baristaName: misterLee, beanType: .arabica, tableNumbers: 45, salesAmount: 0, menu: ["아메리카노": 5000, "카페라떼" : 5500, "카푸치노": 5800, "아인슈페너": 6500])
-
-yagombucks.makeOrderedCoffee(Coffee.einspanner)
+missKim.orderCoffee(.cappuccino, at: yagombucks)
+missKim.orderCoffee(.einspanner, at: yagombucks)
+missKim.orderCoffee(.cappuccino, at: yagombucks)
+print("yagombucks의 매출: \(yagombucks.salesAmount)원")
+print("missKim님의 남은 돈: \(missKim.money)원")
