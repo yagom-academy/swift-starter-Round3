@@ -34,7 +34,7 @@ class CoffeeShop {
     var coffeeMenu: [Coffee: Int] = [.americano: 4500, .cappuccino: 5000, .espresso: 4000, .latte: 5000, .mocha: 5500]
     var pickUpTable: [Coffee: String] = [:] {
         didSet {
-            returnString()
+            convertToString()
         }
     }
     var barista: Person
@@ -48,6 +48,7 @@ class CoffeeShop {
     
     func takeOrder(_ coffeeShop: CoffeeShop, _ coffee: Coffee, _ customer: inout Person) {
         print("손님, 원하시는 음료 \(coffee.rawValue)가 맞으시나요?")
+        
         if let orderCoffeePrice = coffeeShop.coffeeMenu[coffee] {
             print("결제 도와드리겠습니다.")
             print("주문하신 \(coffee.rawValue)의 가격은 \(orderCoffeePrice)원 입니다.")
@@ -56,7 +57,7 @@ class CoffeeShop {
                 customer.cardBalance -= orderCoffeePrice
                 coffeeShop.totalRevenue += orderCoffeePrice
                 
-                coffeeShop.receipt(coffee, customer, orderCoffeePrice)
+                coffeeShop.give(coffee, customer, orderCoffeePrice)
                 
                 coffeeShop.make(coffee: coffee, for: customer.name)
             }
@@ -66,7 +67,7 @@ class CoffeeShop {
         }
     }
     
-    func returnString() {
+    func convertToString() {
         let stringKeys = pickUpTable.keys
         let returnStringKeys = stringKeys.map {$0.rawValue}.joined()
         
@@ -76,7 +77,7 @@ class CoffeeShop {
         print("\(returnStringValues) 님이 주문하신 \(returnStringKeys)(이/가) 준비되었습니다. 픽업대에서 가져가주세요.")
     }
     
-    func receipt(_ coffee: Coffee, _ customer: Person, _ coffeePrice: Int) {
+    func give(_ coffee: Coffee, _ customer: Person, _ coffeePrice: Int) {
         print("결제가 완료되었습니다. 잠시만 기다려주세요.")
         print(".........................")
         print("...........영수증..........")
