@@ -23,16 +23,14 @@ struct Person {
     var money: Int
     
     mutating func order(_ coffee: Coffee, of coffeeShop: inout CoffeeShop) {
-        guard coffeeShop.hasCoffee(coffee) else { return }
-        
         guard let price = coffeeShop.menu[coffee] else {
-            print("\(coffee.rawValue)의 가격 정보가 없어 주문할 수 없습니다.\n")
+            print("\(coffee.rawValue)의 정보가 없어 주문할 수 없습니다.\n")
             return
         }
         
         if money >= price {
             money -= price
-            coffeeShop.takeOrder(coffee, price: price, by: self)
+            coffeeShop.takeOrder(coffee, by: self)
         } else {
             print("""
             잔액이 \(price - money)원 부족합니다.
@@ -59,17 +57,12 @@ struct CoffeeShop {
     }
     var barista: Person
     
-    func hasCoffee(_ coffee: Coffee) -> Bool {
-        if menu.keys.contains(coffee) {
-            return true
-        } else {
-            print("\(name)에는 \(coffee.rawValue)가 없습니다.\n")
-            
-            return false
+    mutating func takeOrder(_ coffee: Coffee, by person: Person) {
+        guard let price = menu[coffee] else {
+            print("\(coffee.rawValue)의 정보가 없어 주문할 수 없습니다.\n")
+            return
         }
-    }
-    
-    mutating func takeOrder(_ coffee: Coffee, price: Int, by person: Person) {
+        
         totalSalesPrice += price
         
         make(coffee, for: person)
