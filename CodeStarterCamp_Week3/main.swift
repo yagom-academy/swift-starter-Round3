@@ -22,13 +22,22 @@ struct Person {
     let name: String
     var money: Int
     
-    mutating func order(_ coffee: Coffee, to coffeeShop: CoffeeShop) {
+    mutating func order(_ coffee: Coffee, of coffeeShop: inout CoffeeShop) {
         guard let price = coffeeShop.menu[coffee] else {
-            print("\(coffeeShop.name)에는 \(coffee.rawValue)가 없습니다.")
+            print("\(coffee.rawValue)의 정보가 없어 주문할 수 없습니다.\n")
             return
         }
         
-        money -= price
+        if money >= price {
+            money -= price
+            coffeeShop.takeOrder(coffee, by: self)
+        } else {
+            print("""
+            잔액이 \(price - money)원 부족합니다.
+            \(coffee.rawValue)의 가격: \(price)원
+            \(name)님의 잔액: \(money)원\n
+            """)
+        }
     }
 }
 
@@ -36,20 +45,36 @@ struct CoffeeShop {
     let name: String
     var totalSalesPrice: Int = 0
     var menu: [Coffee: Int]
-    var pickUpTable: [Coffee] = []
+    var pickUpTable: [(Person, Coffee)] = [] {
+        willSet {
+            if newValue.count > pickUpTable.count {
+                guard let person = newValue.last?.0 else { return }
+                guard let coffee = newValue.last?.1 else { return }
+                
+                print("\(person.name)님이 주문하신 \(coffee.rawValue)가 준비되었습니다. 픽업대에서 가져가주세요.\n")
+            }
+        }
+    }
     var barista: Person
     
-    func takeOrder(from person: Person, _ coffee: Coffee) {
-        // TODO: 주문확인 코드 후 make 함수 호출
+    mutating func takeOrder(_ coffee: Coffee, by person: Person) {
+        guard let price = menu[coffee] else {
+            print("\(coffee.rawValue)의 정보가 없어 주문할 수 없습니다.\n")
+            return
+        }
+        
+        totalSalesPrice += price
+        
+        make(coffee, for: person)
     }
     
-    mutating func make(_ coffee: Coffee) {
-        pickUpTable.append(coffee)
+    mutating func make(_ coffee: Coffee, for person: Person) {
+        pickUpTable.append((person, coffee))
     }
 }
 
 var misterLee = Person(name: "이곰돌", money: 10000)
-var missKim = Person(name: "김곰순", money: 20000)
+var missKim = Person(name: "김곰순", money: 3300)
 var yagombucksMenu: [Coffee: Int] = [
     .americano: 4000,
     .caffeLatte: 4500,
@@ -61,3 +86,9 @@ var yagombucks = CoffeeShop(
     menu: yagombucksMenu,
     barista: misterLee
 )
+
+missKim.order(.caffeLatte, of: &yagombucks)
+misterLee.order(.espresso, of: &yagombucks)
+misterLee.order(.vanilaLatte, of: &yagombucks)
+misterLee.order(.americano, of: &yagombucks)
+misterLee.order(.caffeMocaha, of: &yagombucks)
