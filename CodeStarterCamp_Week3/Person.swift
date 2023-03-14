@@ -8,19 +8,27 @@
 import Foundation
 
 
-struct Person {
+class Person {
     var money: Int
+    var name: String
     
-    mutating func orderCoffee(from shop: CoffeShop, for menu: Coffee) {
+    init(money: Int, name: String) {
+        self.money = money
+        self.name = name
+    }
+    
+    
+    func order(_ coffee: Coffee, of coffeeShop: CoffeeShop, by name: String) {
         
-        if let price = shop.menu[menu] {
+        if let price = coffeeShop.menu[coffee] {
             
             if money < price {
-                print("잔액이 부족합니다.")
+                print("잔액이 \(price - money)원만큼 부족합니다")
                 return
+            } else {
+                coffeeShop.takeOrder(coffee, for: name)
+                self.money -= price
             }
-            self.money -= price
         }
-
     }
 }

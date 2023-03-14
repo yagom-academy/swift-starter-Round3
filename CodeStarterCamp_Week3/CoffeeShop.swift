@@ -9,21 +9,32 @@ import Foundation
 
 typealias CoffeePrice = Int
 
-struct CoffeShop {
-    var barista: Person?
+class CoffeeShop {
+    var barista: Person
     var sales: Int
     var menu: Dictionary<Coffee, CoffeePrice>
     var pickUpTable: [Coffee]
     
-    mutating func takeOrder(for coffees: Coffee...) -> [Coffee] {
+    init(barista: Person, sales: Int, menu: Dictionary<Coffee, CoffeePrice>, pickUpTable: [Coffee]) {
+        self.barista = barista
+        self.sales = sales
+        self.menu = menu
+        self.pickUpTable = pickUpTable
+    }
+    
+    func takeOrder(_ coffee: Coffee, for name: String) {
         
         pickUpTable = []
         
-        for coffee in coffees {
-            pickUpTable.append(coffee)
+        pickUpTable.append(coffee)
+                                
+        if let coffeePrice = menu[coffee] {
+            sales = sales + coffeePrice
+        
         }
         
-        return pickUpTable
+        print(#"\#(name) 님이 주문하신 \#(pickUpTable[pickUpTable.endIndex-1].rawValue)(이/가) 준비되었습니다. 픽업대에서 가져가주세요."#)
+        
     }
     
     
