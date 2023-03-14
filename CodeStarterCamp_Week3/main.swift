@@ -7,5 +7,5 @@
 
 import Foundation
 
-missKim.purchaseCoffee(Coffee.moca, of: yagombucks, by: missKim.name)
+missKim.purchaseCoffee(.moca, of: yagombucks, by: missKim.name)
 
