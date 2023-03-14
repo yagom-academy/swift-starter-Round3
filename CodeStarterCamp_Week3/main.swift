@@ -15,24 +15,8 @@ struct Person {
     
     
     mutating func order(_ coffee: Coffee, of coffeeShop: CoffeeShop, by name: String) {
-        print("손님, 원하시는 음료 \(coffee.rawValue)가 맞으시나요?")
-        
-        if let orderCoffeePrice = coffeeShop.coffeeMenu[coffee] {
-            print("결제 도와드리겠습니다.")
-            print("주문하신 \(coffee.rawValue)의 가격은 \(orderCoffeePrice)원 입니다.")
-            
-            if cardBalance >= orderCoffeePrice {
-                self.cardBalance -= orderCoffeePrice
-                coffeeShop.totalRevenue += orderCoffeePrice
-                
-                coffeeShop.receipt(coffee, self, orderCoffeePrice)
-                
-                coffeeShop.make(coffee, for: name)
-            }
-            else {
-                print("잔액이 \(orderCoffeePrice - cardBalance)원만큼 부족합니다.")
-            }
-        }
+
+        coffeeShop.takeOrder(coffeeShop, coffee, &self)
     }
 }
 
@@ -48,12 +32,48 @@ class CoffeeShop {
     var coffeeShopName: String
     var totalRevenue: Int = 0
     var coffeeMenu: [Coffee: Int] = [.americano: 4500, .cappuccino: 5000, .espresso: 4000, .latte: 5000, .mocha: 5500]
-    var pickUpTable: [Coffee.RawValue: String] = [:]
-    var barista: Person?
+    var pickUpTable: [Coffee: String] = [:] {
+        didSet {
+            returnString()
+        }
+    }
+    var barista: Person
     var customer: Person?
     
-    init(coffeeShopName: String) {
+    init(coffeeShopName: String, barista: Person, customer: Person? = nil) {
         self.coffeeShopName = coffeeShopName
+        self.barista = barista
+        self.customer = customer
+    }
+    
+    func takeOrder(_ coffeeShop: CoffeeShop, _ coffee: Coffee, _ customer: inout Person) {
+        print("손님, 원하시는 음료 \(coffee.rawValue)가 맞으시나요?")
+        if let orderCoffeePrice = coffeeShop.coffeeMenu[coffee] {
+            print("결제 도와드리겠습니다.")
+            print("주문하신 \(coffee.rawValue)의 가격은 \(orderCoffeePrice)원 입니다.")
+            
+            if customer.cardBalance >= orderCoffeePrice {
+                customer.cardBalance -= orderCoffeePrice
+                coffeeShop.totalRevenue += orderCoffeePrice
+                
+                coffeeShop.receipt(coffee, customer, orderCoffeePrice)
+                
+                coffeeShop.make(coffee: coffee, for: customer.name)
+            }
+            else {
+                print("잔액이 \(orderCoffeePrice - customer.cardBalance)원만큼 부족합니다.")
+            }
+        }
+    }
+    
+    func returnString() {
+        let stringKeys = pickUpTable.keys
+        let returnStringKeys = stringKeys.map {$0.rawValue}.joined()
+        
+        let stringValues = pickUpTable.values
+        let returnStringValues = stringValues.map {$0}.joined()
+        
+        print("\(returnStringValues) 님이 주문하신 \(returnStringKeys)(이/가) 준비되었습니다. 픽업대에서 가져가주세요.")
     }
     
     func receipt(_ coffee: Coffee, _ customer: Person, _ coffeePrice: Int) {
@@ -66,24 +86,18 @@ class CoffeeShop {
         print(".........................")
     }
     
-    func make(_ coffee: Coffee, for name: String) {
+    func make(coffee: Coffee, for name: String) {
         print("-------------------------")
         print("--------커피 추출 중--------")
         print("-------------------------")
-        pickUpTable[coffee.rawValue] = "\(name)"
-        print("\(name) 님이 주문하신 \(coffee.rawValue)(이/가) 준비되었습니다. 픽업대에서 가져가주세요.")
-        tableScreen()
-    }
-    
-    func tableScreen() {
-        print(pickUpTable)
+        pickUpTable[coffee] = "\(name)"
     }
 }
 
 
 var misterLee: Person = Person(name: "misterLee", age: 28, cardBalance: 400000)
 var missKim: Person = Person(name: "missKim", age: 27, cardBalance: 600000)
-var yagombuck: CoffeeShop = CoffeeShop(coffeeShopName: "yagombuck")
+let yagombuck: CoffeeShop = CoffeeShop(coffeeShopName: "yagombuck", barista: misterLee)
 
 yagombuck.customer = missKim
 
