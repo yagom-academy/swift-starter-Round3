@@ -10,5 +10,5 @@ import Foundation
 
 
 // Step1
-missKim.buyCoffee(menu: Coffee.cafeLatte, at: yagombucks)
-missKim.buyCoffee(menu: Coffee.vanillaLatte, at: yagombucks)
+missKim.order(coffee: Coffee.cafeLatte, at: yagombucks)
+missKim.order(coffee: Coffee.vanillaLatte, at: yagombucks)

@@ -16,18 +16,18 @@ class Person {
         self.name = name
     }
     
-    func buyCoffee(menu: Coffee, at cafe: CoffeeShop) {
-        self.money = cafe.order(menu, payout: money)
+    func order(coffee: Coffee, at coffeShop: CoffeeShop) {
+        self.money = coffeShop.takeOrder(coffee, payout: money)
     }
 }
 
-enum Coffee: String {
+enum Coffee {
     case americano, cafeLatte, vanillaLatte
 }
 
 class CoffeeShop {
     var sales: Int = 0
-    var pickUpTable: [String] = [String]()
+    var pickUpTable: [Coffee] = [Coffee]()
     var barista: Person
     var menu: [Coffee: Int]
     
@@ -36,12 +36,12 @@ class CoffeeShop {
         self.menu = menu
     }
     
-    func order(_ coffee: Coffee, payout: Int) -> Int {
+    func takeOrder(_ coffee: Coffee, payout: Int) -> Int {
         if let orderPrice = menu[coffee] {
             if payout - orderPrice >= 0 {
-                print("\(coffee)를 선택하셨습니다. 주문하신 \(coffee) 나왔습니다.")
-                pickUpTable.append("\(coffee)")
+                print("\(coffee)를 선택하셨습니다.")
                 sales += orderPrice
+                makeCoffee(coffee)
                 return payout - orderPrice
             } else {
                 print("\(orderPrice - payout)원이 부족합니다.")
@@ -51,6 +51,11 @@ class CoffeeShop {
             print("선택하신 커피가 존재하지 않습니다.")
             return payout
         }
+    }
+    
+    func makeCoffee(_ coffee: Coffee) {
+        pickUpTable.append(coffee)
+        print("주문하신 \(coffee)나왔습니다.")
     }
 }
 
