@@ -30,10 +30,9 @@ class CoffeeShop {
                                 
         if let coffeePrice = menu[coffee] {
             sales = sales + coffeePrice
-        
         }
         
-        print("\(name) 님이 주문하신 \(pickUpTable[pickUpTable.endIndex-1].rawValue)(이/가) 준비되었습니다. 픽업대에서 가져가주세요.")
+        print("\(name) 님이 주문하신 \(pickUpTable[0].rawValue)(이/가) 준비되었습니다. 픽업대에서 가져가주세요.")
         
     }
     
