@@ -8,5 +8,7 @@
 
 import Foundation
 
-print("Hello, World!")
 
+// Step1
+missKim.order(coffee: Coffee.cafeLatte, at: yagombucks)
+missKim.order(coffee: Coffee.vanillaLatte, at: yagombucks)
