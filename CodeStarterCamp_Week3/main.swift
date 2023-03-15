@@ -20,7 +20,6 @@ class Person {
     }
     
     func order(_ coffee: Coffee, of coffeeShop: CoffeeShop, by name: String) {
-        let coffeeShop = coffeeShop
         let coffeeName: String = coffee.rawValue
         
         if let price: Int = coffeeShop.menu[coffeeName] {
