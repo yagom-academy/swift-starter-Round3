@@ -5,10 +5,22 @@
 //  Created by karen on 2023/03/13.
 //
 
-let misterLee = Person(money: 1000)
-let missKim = Person(money: 1000)
-var yagomMenu: Dictionary<Coffee, Int> = [Coffee.moca: 5000, Coffee.iceMoca: 5500, Coffee.americano: 3000, Coffee.iceAmericano: 3500, Coffee.caramel: 4500, Coffee.iceCaramel: 5000, Coffee.espresso: 2500, Coffee.cappuccino: 4000, Coffee.hazelnut: 4000, Coffee.latte: 4000, Coffee.iceLatte: 4500]
-var yagombucks = CoffeeShop(totalSales:0, barista: misterLee, menu: yagomMenu)
+let misterLee = Person(money: 1000, name: "미스터 뤼~")
+var missKim = Person(money: 9000, name: "미스 김")
+var yagomMenu: Dictionary<Coffee, Int> = [
+    .moca: 5000,
+    .iceMoca: 5500,
+    .americano: 3000,
+    .iceAmericano: 3500,
+    .caramel: 4500,
+    .iceCaramel: 5000,
+    .espresso: 2500,
+    .cappuccino: 4000,
+    .hazelnut: 4000,
+    .latte: 4000,
+    .iceLatte: 4500
+]
+var yagombucks = CoffeeShop(totalSales:0, barista: misterLee, menu: yagomMenu, pickUpTable: [])
 
 
 enum Coffee: String {
@@ -23,9 +35,19 @@ enum Coffee: String {
 
 struct Person {
     var money: Int
-    func purchaseCoffee(_ coffee: Coffee) {
-        print("\(coffee)를 구매합니다.")
+    var name: String
+    mutating func purchaseCoffee(_ coffee: Coffee, of coffeeShop: CoffeeShop, by name: String) {
+        if let selectedCoffee = yagomMenu[coffee] {
+            if(money < selectedCoffee) {
+                print("잔액이 \(selectedCoffee - money)원만큼 부족합니다.")
+                print("\(self)")
+            } else {
+                money = money - selectedCoffee
+                yagombucks.takeOnOrder(coffee, to: self)
+            }
+        }
     }
+    
 }
 
 struct CoffeeShop {
@@ -34,16 +56,21 @@ struct CoffeeShop {
     var menu: Dictionary<Coffee, Int>
     var pickUpTable: Array<Coffee> = Array<Coffee>()
     
-    mutating func takeOnOrder(_ coffee: Coffee) {
-        print("주문받겠습니다.")
-        createCoffee(order: coffee)
+    mutating func takeOnOrder(_ coffee: Coffee, to orderer: Person) {
+        print("\(orderer.name)님에게 \(coffee.rawValue) 주문받았습니다.")
+        if let priceOfCoffee = yagomMenu[coffee] {
+            totalSales = totalSales + priceOfCoffee
+            createCoffee(coffee, for: orderer.name)
+        } else {
+            print("죄송합니다. 찾으시는 메뉴가 없습니다. 메뉴판을 확인해 주세요!")
+        }
     }
     
-    mutating func createCoffee(order: Coffee) {
-        pickUpTable.append(order)
-        print("주문하신 \(order.rawValue) 나왔습니다.")
+    mutating func createCoffee(_ coffee: Coffee, for name: String) {
+        pickUpTable.append(coffee)
+        print("\(name)님이 주문하신 \(coffee.rawValue) 준비되었습니다. 픽업대에서 가져가 주세요.")
     }
-    
+
 }
 
 
