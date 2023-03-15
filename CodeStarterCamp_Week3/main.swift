@@ -17,7 +17,7 @@ struct Person {
         self.money = money
     }
     
-    func orders(_ coffee: Coffee...) {
+    func order(_ coffee: Coffee...) {
         var menu = [String]()
         
         for i in coffee {
@@ -29,13 +29,13 @@ struct Person {
 
 struct CoffeeShop {
     var name: String
-    var owner : String
+    var owner: String
     var barista: Person
     var salesAmount: Int
     var menu: [Coffee: Int]
-    var pickUpTable = [String]()
+    var pickUpTable = [Coffee]()
     
-    init(name: String, owner: String, barista: Person, salesAmount: Int, menu: [Coffee : Int], pickUpTable: [String] = [String]()) {
+    init(name: String, owner: String, barista: Person, salesAmount: Int, menu: [Coffee : Int], pickUpTable: [Coffee] = [Coffee]()) {
         self.name = name
         self.owner = owner
         self.barista = barista
@@ -48,7 +48,7 @@ struct CoffeeShop {
         if let price = menu[coffee] {
             print("\(name): \(coffee.rawValue)를 주문하셨습니다. 가격은 \(price)원 입니다.")
             salesAmount += price
-            pickUpTable.append(coffee.rawValue)
+            pickUpTable.append(coffee)
             print("\(name): 주문하신 \(pickUpTable) 나왔습니다.")
         } else {
             print("\(name): 저희 매장에서 그런 커피는 취급하지 않습니다.")
@@ -60,10 +60,12 @@ enum Coffee: String {
     case americano = "아메리카노", cafeMocha = "카페모카"
 }
 
-var misterLee : Person = Person(name: "Lee", money: 10000)
-var missKim : Person = Person(name: "Kim", money: 10000)
-var yagombucks : CoffeeShop = CoffeeShop(
-    name: "야곰벅스", owner: "redmango", barista: misterLee, salesAmount: 0,
-    menu: [.cafeMocha: 4000])
+var misterLee: Person = Person(name: "Lee", money: 10000)
+var missKim: Person = Person(name: "Kim", money: 10000)
+var yagombucks: CoffeeShop = CoffeeShop(name: "야곰벅스",
+                                        owner: "redmango",
+                                        barista: misterLee,
+                                        salesAmount: 0,
+                                        menu: [.cafeMocha: 4000])
 
 
