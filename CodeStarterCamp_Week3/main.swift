@@ -43,10 +43,11 @@ class CoffeeShop {
                                "카푸치노": 4200, "카페모카": 4500, "카라멜마끼아또": 4500,
                                "토피넛라떼": 4200, "복숭아아이스티": 2900]
     var guestName: String = ""
-    var guestCoffee: String = ""
-    var pickUpTable: [String] = [] {
+    var pickUpTable: [Coffee] = [] {
         didSet {
-            print("\(guestName) 님이 주문하신 \(guestCoffee)(이/가) 준비되었습니다. 픽업대에서 가져가주세요.")
+            let message = "\(guestName)님이 주문하신 \(pickUpTable.removeFirst().rawValue)가 준비되었습니다."
+                          + " " + "픽업대에서 가져가주세요."
+            print(message)
         }
     }
     
@@ -55,13 +56,10 @@ class CoffeeShop {
     }
     
     func make(_ coffee: Coffee, for name: String) {
-        let coffee: String = coffee.rawValue
-        
-        if let price: Int = menu[coffee] {
+        if let price: Int = menu[coffee.rawValue] {
             dailySalesFigures += price
         }
         self.guestName = name
-        self.guestCoffee = coffee
         pickUpTable.append(coffee)
     }
 }
@@ -79,6 +77,5 @@ var yagombucks: CoffeeShop = CoffeeShop(barista: misterLee)
 missKim.order(Coffee.americano, of: yagombucks, by: missKim.name)
 missKim.order(Coffee.toffeeNutLatte, of: yagombucks, by: missKim.name)
 missKim.order(Coffee.peachIcedTea, of: yagombucks, by: missKim.name)
-print(yagombucks.pickUpTable)
 print("yagombucks의 매출액은 \(yagombucks.dailySalesFigures)원 입니다.")
 print("missKim의 잔액은 \(missKim.money)원 입니다.")
