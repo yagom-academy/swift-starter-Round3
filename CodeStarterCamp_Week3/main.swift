@@ -12,8 +12,7 @@ struct Person {
     var name: String
     var money: Int
 
-    mutating func order(_ coffee: Coffee, of coffeeShop: CoffeeShop, by name: String) {
-        
+    mutating func order(_ coffee: Coffee, of coffeeShop: CoffeeShop) {
         if let price = coffeeShop.menu[coffee] {
             if money < price {
                 print("\(name)은 잔액이 \((money - price) * -1)원만큼 부족합니다.")
@@ -31,26 +30,29 @@ class CoffeeShop {
     var barista: Person
     var salesAmount: Int
     var menu: [Coffee: Int]
-    var pickUpTable = [Coffee]()
+    var customerName: String = ""
+    var pickUpTable: Array<Coffee> = [Coffee](){
+        didSet{
+            print("\(self.name): \(self.customerName)님이 주문하신 \(pickUpTable[0].rawValue)(이/가) 준비되었습니다. 픽업대에서 가져가 주세요.")
+        }
+    }
     
-    init(name: String, owner: String, barista: Person, salesAmount: Int, menu: [Coffee : Int], pickUpTable: [Coffee] = [Coffee]()) {
+    init(name: String, owner: String, barista: Person, salesAmount: Int, menu: [Coffee : Int]) {
         self.name = name
         self.owner = owner
         self.barista = barista
         self.salesAmount = salesAmount
         self.menu = menu
-        self.pickUpTable = pickUpTable
     }
     
     func make(_ coffee: Coffee, for name: String) {
         if let price = menu[coffee] {
+            customerName = name
             salesAmount += price
             pickUpTable.append(coffee)
-            print("\(self.name): \(name)님이 주문하신 \(coffee.rawValue)(이/가) 준비되었습니다. 픽업대에서 가져가 주세요.")
         } else {
-            print("\(name): 저희 매장에서 그런 커피는 취급하지 않습니다.")
+            print("\(self.name): 저희 매장에서 그런 커피는 취급하지 않습니다.")
         }
-        
     }
 }
 
@@ -66,4 +68,4 @@ var yagombucks: CoffeeShop = CoffeeShop(name: "야곰벅스",
                                         salesAmount: 0,
                                         menu: [.cafeMocha: 4000])
 
-missKim.order(.cafeMocha, of: yagombucks, by: missKim.name)
+missKim.order(.cafeMocha, of: yagombucks)
