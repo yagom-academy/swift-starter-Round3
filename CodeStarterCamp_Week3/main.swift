@@ -19,20 +19,21 @@ yagombucks.barista = misterLee
 
 
 
-missKim.order(.americano, of: yagombucks, by: "missKim")
-print(missKim.money)
-
-missKim.order(.lemonAde, of: yagombucks, by: "missKim")
-print(missKim.money)
-
-missKim.order(.latte, of: yagombucks, by: "missKim")
-print(missKim.money)
-
+//missKim.order(.americano, of: yagombucks, by: "missKim")
+//print(missKim.money)
+//
+//missKim.order(.lemonAde, of: yagombucks, by: "missKim")
+//print(missKim.money)
+//
+//missKim.order(.latte, of: yagombucks, by: "missKim")
+//print(missKim.money)
+//
 charles.order(.grapefruitAde, of: yagombucks, by: "charles")
 print(charles.money)
+//
+//charles.order(.lemonAde, of: yagombucks, by: "chrles")
+//print(charles.money)
+//
+//print(yagombucks.sales)
 
-charles.order(.lemonAde, of: yagombucks, by: "chrles")
-print(charles.money)
-
-print(yagombucks.sales)
-
+//yagombucks.takeOrder(.grapefruitAde, for: "찰스")

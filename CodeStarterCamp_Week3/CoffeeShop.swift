@@ -22,9 +22,21 @@ class CoffeeShop {
         self.pickUpTable = pickUpTable
     }
     
+    func isCoffeeSoldHere(_ coffee: Coffee) -> Bool {
+        
+        guard let _ = self.menu[coffee] else { return false }
+        
+        return true
+    }
+    
     func takeOrder(_ coffee: Coffee, for name: String) {
         
         pickUpTable = []
+        
+        guard isCoffeeSoldHere(coffee) else {
+            print("판매하지 않는 커피")
+            return
+        }
         
         pickUpTable.append(coffee)
                                 
