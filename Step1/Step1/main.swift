@@ -9,27 +9,29 @@ import Foundation
 
 class Person {
     var money: Int
+    
     init(money: Int) {
         self.money = money
     }
 
-    func buyCoffee() {
-        print("커피를 구매합니다")
+    func buy(coffee: Coffee, from coffeeShop: CoffeeShop) {
+        coffeeShop.order(coffee: coffee)
     }
 }
 
 class CoffeeShop {
     var sales: Int
     var barista: Person
-    let menuTable: Dictionary<String, Int> = ["americano" : 2000, "cappuccino" : 3000, "caffeLatte" : 4000]
+    let menu: Dictionary<Coffee, Int> = [.americano : 2000, .cappuccino : 3000, .caffeLatte : 4000]
     var pickUpTable: Array<String> = Array<String>()
+    
     init(sales: Int, barista: Person) {
         self.sales = sales
         self.barista = barista
     }
     
-    func orderCoffee(menu: Coffee) {
-        pickUpTable.append(menu.rawValue)
+    func order(coffee: Coffee) {
+        pickUpTable.append(coffee.rawValue)
         print("\(pickUpTable[0])를 주문합니다.")
     }
 }
@@ -42,11 +44,8 @@ enum Coffee: String {
 
 let misterLee = Person(money: 500000)
 let missKim = Person(money: 1000000)
-
-misterLee.buyCoffee()   // Person이 커피를 구매하는 메서드 시연
-
 let yagombucks = CoffeeShop(sales: 10000000, barista: misterLee)
 
-yagombucks.orderCoffee(menu: .americano)    // 메뉴를 주문받고 커피를 만들어 pickUpTable에 할당하는 메서드 시연
+misterLee.buy(coffee: .americano, from: yagombucks)   // Person이 커피를 구매하는 메서드 시연
 
 print(yagombucks.barista.money) // 야곰벅스의 바리스타(미스터 리)의 돈 출력
