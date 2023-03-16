@@ -9,7 +9,7 @@
 /* Begin PBXBuildFile section */
 		34811DD5274B93EB00A1E994 /* main.swift in Sources */ = {isa = PBXBuildFile; fileRef = 34811DD4274B93EB00A1E994 /* main.swift */; };
 		D84EBB3929BEB677007D58EA /* step1.swift in Sources */ = {isa = PBXBuildFile; fileRef = D84EBB3829BEB677007D58EA /* step1.swift */; };
-		D8B565F629C1464B00CD2C75 /* step2.swift in Sources */ = {isa = PBXBuildFile; fileRef = D8B565F529C1464B00CD2C75 /* step2.swift */; };
+		D89CA6D129C3B1EC00529DB3 /* step2.swift in Sources */ = {isa = PBXBuildFile; fileRef = D89CA6D029C3B1EC00529DB3 /* step2.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXCopyFilesBuildPhase section */
@@ -28,7 +28,7 @@
 		34811DD1274B93EB00A1E994 /* CodeStarterCamp_Week3 */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.executable"; includeInIndex = 0; path = CodeStarterCamp_Week3; sourceTree = BUILT_PRODUCTS_DIR; };
 		34811DD4274B93EB00A1E994 /* main.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = main.swift; sourceTree = "<group>"; };
 		D84EBB3829BEB677007D58EA /* step1.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = step1.swift; sourceTree = "<group>"; };
-		D8B565F529C1464B00CD2C75 /* step2.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = step2.swift; sourceTree = "<group>"; };
+		D89CA6D029C3B1EC00529DB3 /* step2.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = step2.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -63,7 +63,7 @@
 			children = (
 				34811DD4274B93EB00A1E994 /* main.swift */,
 				D84EBB3829BEB677007D58EA /* step1.swift */,
-				D8B565F529C1464B00CD2C75 /* step2.swift */,
+				D89CA6D029C3B1EC00529DB3 /* step2.swift */,
 			);
 			path = CodeStarterCamp_Week3;
 			sourceTree = "<group>";
@@ -127,7 +127,7 @@
 			files = (
 				34811DD5274B93EB00A1E994 /* main.swift in Sources */,
 				D84EBB3929BEB677007D58EA /* step1.swift in Sources */,
-				D8B565F629C1464B00CD2C75 /* step2.swift in Sources */,
+				D89CA6D129C3B1EC00529DB3 /* step2.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

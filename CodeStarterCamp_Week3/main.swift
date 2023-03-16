@@ -10,5 +10,8 @@ import Foundation
 
 
 // Step1
-missKim.order(coffee: Coffee.cafeLatte, at: yagombucks)
-missKim.order(coffee: Coffee.vanillaLatte, at: yagombucks)
+//missKim.order(coffee: Coffee.cafeLatte, at: yagombucks)
+//missKim.order(coffee: Coffee.vanillaLatte, at: yagombucks)
+
+missKim.order(Coffee.vanillaLatte, of: yagombucks, by: "missKim")
+missKim.order(Coffee.cafeLatte, of: yagombucks, by: "missKim")
