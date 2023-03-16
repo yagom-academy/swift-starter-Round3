@@ -12,62 +12,61 @@ struct Person {
     var nationality: String
     var birthYear: Int
     var birthDate: Int
-    var moneyInWallet: Int?
+    var money: Int
     var age: Int {
         get {
             return 2023 - birthYear
         }
     }
     
-    init(nationality: String, birthYear: Int, birthDate: Int) {
+    init(nationality: String, birthYear: Int, birthDate: Int, money: Int) {
         self.nationality = nationality
         self.birthYear = birthYear
         self.birthDate = birthDate
+        self.money = money
     }
     
-    init(nationality: String, birthYear: Int, birthDate: Int, moneyInWallet: Int) {
-        self.init(nationality: nationality, birthYear: birthYear, birthDate: birthDate)
-        self.moneyInWallet = moneyInWallet
-    }
-    
-    mutating func orderCoffee(coffeePrice: Int) {
-        if let money = self.moneyInWallet {
-            if money >= coffeePrice {
-                self.moneyInWallet = money - coffeePrice
-            } else {
-                print("가지고 있는 금액으로는 구매할 수 없습니다.")
+    mutating func orderCoffee(coffeeShop: CoffeeShop, for coffees: Coffee...) {
+        for coffee in coffees {
+            if let price = coffeeShop.menu[coffee] {
+                if money >= price {
+                    print("\(coffee)를 주문합니다.")
+                    self.money = money - price
+                    print("금액이 \(price)만큼 차감됩니다.\n남은 금액은 \(self.money)입니다.")
+                } else {
+                    print("가지고 있는 돈으로는 구매할 수 없습니다.\n현재 가지고 계신 금액은 \(self.money)입니다.")
+                }
             }
         }
     }
 }
 
-class CoffeShop {
-    var cafeName: String
+class CoffeeShop {
+    var name: String
     var menu: Dictionary<Coffee, Int>
     var sales: Int
     var barista: String?
     var pickUpTable: Array<Coffee>
     
-    init(cafeName: String, menu: Dictionary<Coffee, Int>, sales: Int, pickUpTable: Array<Coffee>) {
-        self.cafeName = cafeName
+    init(name: String, menu: Dictionary<Coffee, Int>, sales: Int, pickUpTable: Array<Coffee>) {
+        self.name = name
         self.menu = menu
         self.sales = sales
         self.pickUpTable = pickUpTable
     }
     
-    convenience init(cafeName: String, barista: String, menu: Dictionary<Coffee, Int>, pickUpTable: Array<Coffee>, sales: Int) {
-        self.init(cafeName: cafeName, menu: menu, sales: sales, pickUpTable: pickUpTable)
+    convenience init(name: String, barista: String, menu: Dictionary<Coffee, Int>, pickUpTable: Array<Coffee>, sales: Int) {
+        self.init(name: name, menu: menu, sales: sales, pickUpTable: pickUpTable)
         self.barista = barista
-        self.pickUpTable = pickUpTable
     }
     
     func takeOrder(_ coffees: Coffee...) {
-        for kindOfCoffee in coffees {
-            if let coffee = menu[kindOfCoffee] {
-                self.sales += coffee
-                makeCoffee(kindOfCoffee)
+        for coffee in coffees {
+            if let price = menu[coffee] {
+                self.sales += price
+                makeCoffee(coffee)
             } else {
-                print("\(kindOfCoffee)는 메뉴에 없습니다.")
+                print("\(coffee)는 메뉴에 없습니다.")
             }
         }
     }
@@ -87,8 +86,12 @@ enum Coffee: String {
     case vanillaLatte = "vanillaLatte"
 }
 
-var misterLee = Person(nationality: "Korea", birthYear: 1990, birthDate: 0509, moneyInWallet: 3000)
-var missKim = Person(nationality: "Korea", birthYear: 1997, birthDate: 1111, moneyInWallet: 10000)
-var yagombucks = CoffeShop(cafeName: "yagombucks", menu: [Coffee.americano : 2000, Coffee.honeyAmericano : 3000, Coffee.cappuccino: 4000, Coffee.cafeLatte: 4000], sales: 0, pickUpTable: [])
+var misterLee = Person(nationality: "Korea", birthYear: 1990, birthDate: 0509, money: 4000)
+var missKim = Person(nationality: "Korea", birthYear: 1997, birthDate: 1111, money: 10000)
+var yagombucks = CoffeeShop(name: "yagombucks", menu: [Coffee.americano : 2000, Coffee.honeyAmericano : 3000, Coffee.cappuccino: 4000, Coffee.cafeLatte: 4000], sales: 0, pickUpTable: [])
 
 yagombucks.barista = "misterLee"
+
+misterLee.orderCoffee(coffeeShop: yagombucks, for: Coffee.americano)
+yagombucks.takeOrder(Coffee.americano)
+print(yagombucks.pickUpTable)
