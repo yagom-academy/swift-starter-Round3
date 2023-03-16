@@ -8,7 +8,7 @@
 
 import Foundation
 
-var missKim = Person(name: "yeona", money: 100000)
+var missKim = Person(name: "yeona", money: 10000)
 var misterSong = Person(name: "dongil", money: 5000)
 var misterLee = Person(name: "apple", money: 200000)
 
@@ -19,10 +19,7 @@ var menu: Dictionary<Coffee, Int> = [
     Coffee.cappuccino: 6000
 ]
 
-var yagomBucks = CoffeeShop(revenue: 0, menu: menu, brista: [misterLee])
+var yagomBucks = CoffeeShop(name: "yagomBucks", revenue: 0, menu: menu, brista: [misterLee])
 
-misterSong.order(yagomBucks, of: Coffee.cappuccino, by: misterSong.name)
-missKim.order(yagomBucks, of: Coffee.coldBrew, by: missKim.name)
-missKim.order(yagomBucks, of: Coffee.cappuccino, by: missKim.name)
-missKim.order(yagomBucks, of: Coffee.americano, by: missKim.name)
-group.wait()
+
+
