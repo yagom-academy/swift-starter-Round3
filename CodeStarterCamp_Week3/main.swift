@@ -14,5 +14,7 @@ import Foundation
 //missKim.order(coffee: Coffee.vanillaLatte, at: yagombucks)
 
 // Step2
-missKim.order(Coffee.vanillaLatte, of: yagombucks, by: "missKim")
-missKim.order(Coffee.cafeLatte, of: yagombucks, by: "missKim")
+missKim.order(Coffee.vanillaLatte, of: yagombucks)
+missKim.order(Coffee.cafeLatte, of: yagombucks)
+
+print(yagombucks.pickUpTable)

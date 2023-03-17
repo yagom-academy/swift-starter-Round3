@@ -20,12 +20,10 @@ class Person {
         self.name = name
     }
 
-    func order(_ coffee: Coffee, of coffeeShop: CoffeeShop, by name: String) {
-        guard let orderPrice = coffeeShop.checkMenu(coffee) else { return }
-        if canPayment(orderPrice) {
-            coffeeShop.make(coffee, for: name)
-            money -= orderPrice
-        }
+    func order(_ coffee: Coffee, of coffeeShop: CoffeeShop) {
+        guard let orderPrice = coffeeShop.checkMenu(coffee), canPayment(orderPrice) else { return }
+        coffeeShop.make(coffee, for: name)
+        money -= orderPrice
     }
 
     func canPayment(_ orderPrice: Int) -> Bool {
@@ -42,11 +40,11 @@ class CoffeeShop {
     var sales: Int = 0
     var barista: Person
     var menu: [Coffee: Int]
-    var customerName: String = ""
-    var pickUpTable: [Coffee] = [Coffee]() {
+    var pickUpTable: [(name: String, coffee: String)] = [(name: String, coffee: String)]() {
         didSet {
-            guard let menu = pickUpTable.last?.rawValue else { return }
-            print("\(customerName)님이 주문하신 \(menu)(이/가) 준비되었습니다. 픽업대에서 가져가주세요.")
+            guard let menu = pickUpTable.last?.coffee else { return }
+            guard let name = pickUpTable.last?.name else { return }
+            print("\(name)님이 주문하신 \(menu)(이/가) 준비되었습니다. 픽업대에서 가져가주세요.")
         }
     }
 
@@ -67,8 +65,7 @@ class CoffeeShop {
         guard let price = menu[coffee] else { return }
         sales += price
         print("\(coffee.rawValue)를 선택하셨습니다. 커피를 추출합니다.")
-        customerName = name
-        pickUpTable.append(coffee)
+        pickUpTable.append((name, coffee.rawValue))
     }
 }
 
