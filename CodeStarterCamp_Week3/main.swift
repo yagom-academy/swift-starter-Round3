@@ -13,5 +13,6 @@ import Foundation
 //missKim.order(coffee: Coffee.cafeLatte, at: yagombucks)
 //missKim.order(coffee: Coffee.vanillaLatte, at: yagombucks)
 
+// Step2
 missKim.order(Coffee.vanillaLatte, of: yagombucks, by: "missKim")
 missKim.order(Coffee.cafeLatte, of: yagombucks, by: "missKim")

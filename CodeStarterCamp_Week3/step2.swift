@@ -13,22 +13,23 @@ enum Coffee: String {
 
 class Person {
     var money: Int
+    var name: String
 
-    init(money: Int) {
+    init(money: Int, name: String) {
         self.money = money
+        self.name = name
     }
 
     func order(_ coffee: Coffee, of coffeeShop: CoffeeShop, by name: String) {
-        if let orderPrice = coffeeShop.checkMenu(coffee) {
-            if canPayment(orderPrice) {
-                coffeeShop.make(coffee, for: name)
-                money -= orderPrice
-            }
+        guard let orderPrice = coffeeShop.checkMenu(coffee) else { return }
+        if canPayment(orderPrice) {
+            coffeeShop.make(coffee, for: name)
+            money -= orderPrice
         }
     }
 
     func canPayment(_ orderPrice: Int) -> Bool {
-        if money > orderPrice {
+        if money >= orderPrice {
             return true
         } else {
             print("잔액이 \(orderPrice - money)원만큼 부족합니다.")
@@ -41,7 +42,13 @@ class CoffeeShop {
     var sales: Int = 0
     var barista: Person
     var menu: [Coffee: Int]
-    var pickUpTable: [Coffee] = [Coffee]()
+    var customerName: String = ""
+    var pickUpTable: [Coffee] = [Coffee]() {
+        didSet {
+            guard let menu = pickUpTable.last?.rawValue else { return }
+            print("\(customerName)님이 주문하신 \(menu)(이/가) 준비되었습니다. 픽업대에서 가져가주세요.")
+        }
+    }
 
     init(barista: Person, menu: [Coffee: Int]) {
         self.barista = barista
@@ -49,30 +56,24 @@ class CoffeeShop {
     }
 
     func checkMenu(_ coffee: Coffee) -> Int? {
-        if let orderPrice = menu[coffee] {
-            return orderPrice
-        } else {
+        guard let orderPrice = menu[coffee] else {
             print("선택하신 커피가 존재하지 않습니다.")
             return nil
         }
+        return orderPrice
     }
 
     func make(_ coffee: Coffee, for name: String) {
-        if let payout = menu[coffee] {
-            sales += payout
-            print("\(coffee.rawValue)를 선택하셨습니다. 커피를 추출합니다.")
-            pickUpTable.append(coffee)
-            announcePickUpTableStatus(coffee, name)
-        }
-    }
-
-    func announcePickUpTableStatus(_ coffee: Coffee, _ name: String) {
-        print("\(name) 님이 주문하신 \(coffee.rawValue)(이/가) 준비되었습니다. 픽업대에서 가져가주세요.")
+        guard let price = menu[coffee] else { return }
+        sales += price
+        print("\(coffee.rawValue)를 선택하셨습니다. 커피를 추출합니다.")
+        customerName = name
+        pickUpTable.append(coffee)
     }
 }
 
-let misterLee: Person = Person(money: 3000)
-let missKim: Person = Person(money: 10000)
+let misterLee: Person = Person(money: 5000, name: "misterLee")
+let missKim: Person = Person(money: 10000, name: "missKim")
 
 let yagombucks: CoffeeShop = CoffeeShop(barista: misterLee, menu: [Coffee.americano: 4500,
                                                                    Coffee.cafeLatte: 5000,
