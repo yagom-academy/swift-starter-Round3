@@ -12,46 +12,46 @@ struct Person {
     var name: String
     var money: Int
 
-    init(name: String, money: Int) {
-        self.name = name
-        self.money = money
-    }
-    
-    func order(_ coffee: Coffee...) {
-        var menu = [String]()
-        
-        for i in coffee {
-            menu.append(i.rawValue)
+    mutating func order(_ coffee: Coffee, of coffeeShop: CoffeeShop) {
+        if let price = coffeeShop.menu[coffee] {
+            if money < price {
+                print("\(name)은 잔액이 \((money - price) * -1)원만큼 부족합니다.")
+            } else {
+                money -= price
+                coffeeShop.make(coffee, for: name)
+            }
         }
-        print("\(name): \(menu)주세요.")
     }
 }
 
-struct CoffeeShop {
+class CoffeeShop {
     var name: String
     var owner: String
     var barista: Person
     var salesAmount: Int
     var menu: [Coffee: Int]
-    var pickUpTable = [Coffee]()
+    var customerName: String = ""
+    var pickUpTable: Array<Coffee> = [Coffee](){
+        didSet{
+            print("\(self.name): \(self.customerName)님이 주문하신 \(pickUpTable[0].rawValue)(이/가) 준비되었습니다. 픽업대에서 가져가 주세요.")
+        }
+    }
     
-    init(name: String, owner: String, barista: Person, salesAmount: Int, menu: [Coffee : Int], pickUpTable: [Coffee] = [Coffee]()) {
+    init(name: String, owner: String, barista: Person, salesAmount: Int, menu: [Coffee : Int]) {
         self.name = name
         self.owner = owner
         self.barista = barista
         self.salesAmount = salesAmount
         self.menu = menu
-        self.pickUpTable = pickUpTable
     }
     
-    mutating func make(_ coffee: Coffee) {
+    func make(_ coffee: Coffee, for name: String) {
         if let price = menu[coffee] {
-            print("\(name): \(coffee.rawValue)를 주문하셨습니다. 가격은 \(price)원 입니다.")
+            customerName = name
             salesAmount += price
             pickUpTable.append(coffee)
-            print("\(name): 주문하신 \(pickUpTable) 나왔습니다.")
         } else {
-            print("\(name): 저희 매장에서 그런 커피는 취급하지 않습니다.")
+            print("\(self.name): 저희 매장에서 그런 커피는 취급하지 않습니다.")
         }
     }
 }
@@ -68,4 +68,4 @@ var yagombucks: CoffeeShop = CoffeeShop(name: "야곰벅스",
                                         salesAmount: 0,
                                         menu: [.cafeMocha: 4000])
 
-
+missKim.order(.cafeMocha, of: yagombucks)
