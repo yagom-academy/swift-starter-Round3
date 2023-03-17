@@ -46,17 +46,16 @@ class CoffeeShop {
     var menu: Dictionary<Coffee, Int>
     var sales: Int
     var barista: String?
-    var pickUpTable: Array<Coffee>
+    var pickUpTable: Array<Coffee> = []
     
-    init(name: String, menu: Dictionary<Coffee, Int>, sales: Int, pickUpTable: Array<Coffee>) {
+    init(name: String, menu: Dictionary<Coffee, Int>, sales: Int) {
         self.name = name
         self.menu = menu
         self.sales = sales
-        self.pickUpTable = pickUpTable
     }
     
-    convenience init(name: String, barista: String, menu: Dictionary<Coffee, Int>, pickUpTable: Array<Coffee>, sales: Int) {
-        self.init(name: name, menu: menu, sales: sales, pickUpTable: pickUpTable)
+    convenience init(name: String, barista: String, menu: Dictionary<Coffee, Int>, sales: Int) {
+        self.init(name: name, menu: menu, sales: sales)
         self.barista = barista
     }
     
@@ -88,7 +87,7 @@ enum Coffee: String {
 
 var misterLee = Person(nationality: "Korea", birthYear: 1990, birthDate: 0509, money: 4000)
 var missKim = Person(nationality: "Korea", birthYear: 1997, birthDate: 1111, money: 10000)
-var yagombucks = CoffeeShop(name: "yagombucks", menu: [Coffee.americano : 2000, Coffee.honeyAmericano : 3000, Coffee.cappuccino: 4000, Coffee.cafeLatte: 4000], sales: 0, pickUpTable: [])
+let yagombucks = CoffeeShop(name: "yagombucks", menu: [Coffee.americano : 2000, Coffee.honeyAmericano : 3000, Coffee.cappuccino: 4000, Coffee.cafeLatte: 4000], sales: 0)
 
 yagombucks.barista = "misterLee"
 
