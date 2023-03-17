@@ -11,23 +11,20 @@ struct Person {
     let name: String
     var money: Int
     
-    func checkPrice(_ coffee: Coffee, of coffeeShop: CoffeeShop) -> Int {
-        if let coffeePrice = coffeeShop.menu[coffee] {
-            return coffeePrice
-        } else {
-            print("존재하지 않는 메뉴입니다.")
-            return 0
-        }
+    mutating func pay(price: Int) {
+        money -= price
     }
     
     mutating func order(_ coffee: Coffee, of coffeeShop: CoffeeShop, by name: String) {
-        let coffeePrice = checkPrice(coffee, of: coffeeShop)
-        
-        if money < coffeePrice {
-            print("잔액이 \(coffeePrice - money)원만큼 부족합니다.")
+        if let coffeePrice = coffeeShop.menu[coffee] {
+            if money < coffeePrice {
+                print("잔액이 \(coffeePrice - money)원만큼 부족합니다.")
+            } else {
+                pay(price: coffeePrice)
+                coffeeShop.make(coffee, for: name)
+            }
         } else {
-            money -= coffeePrice
-            coffeeShop.make(coffee, for: name)
+            print("존재하지 않는 메뉴입니다.")
         }
     }
 }
