@@ -27,11 +27,11 @@ struct Person {
     }
     
     mutating func order(_ coffee: Coffee, of coffeeShop: CoffeeShop, by name: String) {
-        print("\(coffee)를 주문합니다.")
+        print("\(name)님이 \(coffee)를 주문합니다.")
         if let price = coffeeShop.menu[coffee] {
             if money >= price {
                 self.money = money - price
-                print("금액이 \(price)만큼 차감됩니다.\n\(name)님의 남은 금액은 \(self.money)입니다.")
+                print("\(name)님의 금액이 \(price)원 만큼 차감됩니다.\n남은 금액은 \(self.money)원입니다.")
                 coffeeShop.make(coffee, for: name)
             } else {
                 print("잔액이 \(price - self.money)원만큼 부족합니다.")
@@ -84,9 +84,9 @@ enum Coffee: String {
 
 var missKim = Person(nationality: "Korea", birthYear: 1997, birthDate: 1111, money: 2000)
 var 커피를못마시는짱구 = Person(nationality: "Japan", birthYear: 1998, birthDate: 1212, money: 10000)
-var yagombucks = CoffeeShop(name: "yagombucks", menu: [Coffee.americano : 2000, Coffee.honeyAmericano : 3000, Coffee.cappuccino: 4000, Coffee.cafeLatte: 4000], sales: 0, pickUpTable: [])
+var yagombucks = CoffeeShop(name: "yagombucks", menu: [Coffee.americano : 2000, Coffee.honeyAmericano : 3000, Coffee.cappuccino: 4000, Coffee.cafeLatte: 4000], sales: 0)
 
 yagombucks.barista = "misterLee"
 
 missKim.order(Coffee.americano, of: yagombucks, by: "missKim")
-커피를못마시는짱구.order(Coffee.honeyAmericano, of: yagombucks, by: "커피를못하시는짱구")
+커피를못마시는짱구.order(Coffee.honeyAmericano, of: yagombucks, by: "커피를못마시는짱구")
