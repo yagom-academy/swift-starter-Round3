@@ -45,17 +45,16 @@ class CoffeeShop {
     var menu: Dictionary<Coffee, Int>
     var sales: Int
     var barista: String?
-    var pickUpTable: Array<Coffee>
+    var pickUpTable: Array<Coffee> = []
     
-    init(name: String, menu: Dictionary<Coffee, Int>, sales: Int, pickUpTable: Array<Coffee>) {
+    init(name: String, menu: Dictionary<Coffee, Int>, sales: Int) {
         self.name = name
         self.menu = menu
         self.sales = sales
-        self.pickUpTable = pickUpTable
     }
     
-    convenience init(name: String, barista: String, menu: Dictionary<Coffee, Int>, pickUpTable: Array<Coffee>, sales: Int) {
-        self.init(name: name, menu: menu, sales: sales, pickUpTable: pickUpTable)
+    convenience init(name: String, barista: String, menu: Dictionary<Coffee, Int>, sales: Int) {
+        self.init(name: name, menu: menu, sales: sales)
         self.barista = barista
     }
     
