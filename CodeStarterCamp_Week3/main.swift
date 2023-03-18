@@ -13,10 +13,10 @@ struct Person {
     var age: Int
     var money: Int
 
-    mutating func buyCoffee(from memu: Coffee) {
-        print(memu.rawValue + " 주세요.")
+    mutating func buyCoffee(_ coffee: Coffee) {
+        print(coffee.rawValue + " 주세요.")
         
-        if let coffeePrice = yagombucks.menu[memu] {
+        if let coffeePrice = yagombucks.menu[coffee] {
             self.money -= coffeePrice
             
             print(name + "의 남은 돈:\(money)\n")
@@ -55,4 +55,3 @@ struct CoffeeShop {
 var misterLee = Person(name: "이땡떙", age: 24, money: 40000)
 var missKim = Person(name: "김떙떙", age: 28, money: 0)
 var yagombucks = CoffeeShop(barista: misterLee, income: 0, menu: [.americano : 2000, .latte: 2500, .iceTea: 3000])
-
