@@ -34,7 +34,7 @@ class Person {
         }
         
         if money < coffeePrice {
-            print("잔액이 부족합니다. 현재 잔액은 \(money)원 입니다.")
+            print("잔액이 \(coffeePrice - money)원 부족합니다. 현재 잔액은 \(money)원 입니다.")
             return
         }
         money -= coffeePrice
