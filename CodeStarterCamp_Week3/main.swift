@@ -43,5 +43,3 @@ let misterLee: Person = Person(money: 20000)
 let missKim: Person = Person(money: 30000)
 var yagombucks: CoffeeShop = CoffeeShop(sales: 0, menu: [.espresso: 2000, .americano: 3000, .cafeLatte: 4000, .einspanner: 5000], pickUpTable: [])
 yagombucks.barista = misterLee
-
-missKim.orderCoffee(menu: .americano, coffeeShop: yagombucks, by: "missKim")
