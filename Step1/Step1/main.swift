@@ -7,7 +7,7 @@
 
 import Foundation
 
-class Person {
+struct Person {
     var money: Int
     
     init(money: Int) {
@@ -19,7 +19,7 @@ class Person {
     }
 }
 
-class CoffeeShop {
+struct CoffeeShop {
     var sales: Int
     var barista: Person
     let menu: Dictionary<Coffee, Int> = [.americano : 2000, .cappuccino : 3000, .caffeLatte : 4000]
@@ -30,9 +30,9 @@ class CoffeeShop {
         self.barista = barista
     }
     
-    func order(coffee: Coffee) {
-        pickUpTable.append(coffee.rawValue)
-        print("\(pickUpTable[0])를 주문합니다.")
+    mutating func order(coffee: Coffee) {
+        print("\(coffee.rawValue)를 주문합니다.")
+        pickUpTable.append(coffee.rawValue) //Cannot use mutating member on immutable value: 'self' is immutable
     }
 }
 
@@ -46,6 +46,6 @@ let misterLee = Person(money: 500000)
 let missKim = Person(money: 1000000)
 let yagombucks = CoffeeShop(sales: 10000000, barista: misterLee)
 
-misterLee.buy(coffee: .americano, from: yagombucks)   // Person이 커피를 구매하는 메서드 시연
+misterLee.buy(coffee: .americano, from: yagombucks)
 
-print(yagombucks.barista.money) // 야곰벅스의 바리스타(미스터 리)의 돈 출력
+print(yagombucks.barista.money)
