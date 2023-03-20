@@ -32,7 +32,7 @@ class CoffeeShop {
     
     func order(coffee: Coffee) {
         print("\(coffee.rawValue)를 주문합니다.")
-        pickUpTable.append(coffee.rawValue) //Cannot use mutating member on immutable value: 'self' is immutable
+        pickUpTable.append(coffee.rawValue)
     }
 }
 
