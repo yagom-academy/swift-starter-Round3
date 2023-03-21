@@ -8,4 +8,4 @@ import Foundation
 let misterLee = Person(name: "misterLee", money: 100000)
 let missKim = Person(name: "missKim", money: 200000)
 
-let yagombucks = CoffeeShop(name: "yagombucks", menu: [Coffee.americano: 4000, Coffee.caffeMocha: 5000], barista: [misterLee])
+let yagombucks = CoffeeShop(name: "yagombucks", menu: [.americano : 4000, .caffeMocha : 5000], barista: [misterLee])
