@@ -29,7 +29,7 @@ class CoffeeShop {
     }
 }
 
-class Person {
+struct Person {
     var name: String
     var age: Int
     var money: Int
@@ -41,7 +41,7 @@ class Person {
         self.money = money
     }
 
-    func order(_ coffee: Coffee, of coffeeShop: CoffeeShop) {
+    mutating func order(_ coffee: Coffee, of coffeeShop: CoffeeShop) {
         if let coffeePrice = menu[coffee] {
             if money - coffeePrice < 0 {
                 print("잔액이 \(coffeePrice - money)원만큼 모자랍니다")
@@ -56,7 +56,7 @@ class Person {
     }
 }
 
-let misterLee = Person(name: "jin", age: 13, money: 10000)
+var misterLee = Person(name: "jin", age: 13, money: 10000)
 let starbucks = CoffeeShop(sales: 50000)
 
 misterLee.order(.americano, of: starbucks)
