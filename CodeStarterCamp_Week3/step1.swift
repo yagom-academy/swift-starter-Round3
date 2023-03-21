@@ -47,8 +47,6 @@ class Person {
     }
 }
 
-let group = DispatchGroup()
-
 class CoffeeShop {
     var name: String = "CoffeeShop"
     var revenue: Int = 0
