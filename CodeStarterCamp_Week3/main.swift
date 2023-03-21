@@ -8,7 +8,7 @@
 
 import Foundation
 
-struct Person {
+class Person {
     var money: Int
     
     init(money: Int) {
@@ -16,7 +16,15 @@ struct Person {
     }
     
     func order(coffee: Coffee, of coffeeShop: CoffeeShop, by name: String) {
-        coffeeShop.make(coffee: coffee, for: name)
+        if let buyCoffee = coffeeShop.menu[coffee] {
+            if money < buyCoffee {
+                print("잔액이 \(buyCoffee - money)원만큼 부족합니다.")
+            }
+            else {
+                coffeeShop.make(coffee: coffee, for: name)
+                money -= buyCoffee
+            }
+        }
     }
 }
 
@@ -33,7 +41,12 @@ class CoffeeShop {
     }
     
     func make(coffee: Coffee, for name: String) {
+        if let earnMoney = menu[coffee] {
+            sales += earnMoney
+        }
+        
         pickUpTable.append(coffee)
+        print("\(name) 님이 주문하신 \(coffee.rawValue)(이/가) 준비되었습니다. 픽업대에서 가져가주세요.")
     }
 }
 
@@ -46,7 +59,10 @@ enum Coffee: String {
     case einspanner = "아인슈페너"
 }
 
-let misterLee: Person = Person(money: 20000)
-let missKim: Person = Person(money: 30000)
-var yagombucks: CoffeeShop = CoffeeShop(sales: 0, menu: [.espresso: 2000, .americano: 3000, .cafeLatte: 4000, .einspanner: 5000], pickUpTable: [])
-yagombucks.barista = misterLee
+let missKim: Person = Person(money: 2000)
+var yagombucks: CoffeeShop = CoffeeShop(sales: 0, menu: [.espresso : 2000, .americano : 3000, .cafeLatte : 4000, .vanillaLatte : 4500, .cappuccino : 4000], pickUpTable: [])
+missKim.order(coffee: .americano, of: yagombucks, by: "missKim")
+missKim.money += 20000
+missKim.order(coffee: .americano, of: yagombucks, by: "missKim")
+print(missKim.money)
+print(yagombucks.sales)
