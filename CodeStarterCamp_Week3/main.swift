@@ -8,14 +8,15 @@
 
 import Foundation
 
-class Person {
+struct Person {
     var money: Int
+    
     init(money: Int) {
         self.money = money
     }
     
-    func orderCoffee(menu: Coffee, coffeeShop: CoffeeShop, by name: String) {
-        coffeeShop.makeCoffee(coffee: menu, for: name)
+    func order(coffee: Coffee, of coffeeShop: CoffeeShop, by name: String) {
+        coffeeShop.make(coffee: coffee, for: name)
     }
 }
 
@@ -24,19 +25,25 @@ class CoffeeShop {
     var sales: Int
     let menu: Dictionary<Coffee, Int>
     var pickUpTable: Array<Coffee> = []
+    
     init(sales: Int, menu: Dictionary<Coffee, Int>, pickUpTable: Array<Coffee>) {
         self.sales = sales
         self.menu = menu
         self.pickUpTable = pickUpTable
     }
     
-    func makeCoffee(coffee: Coffee, for name: String) {
+    func make(coffee: Coffee, for name: String) {
         pickUpTable.append(coffee)
     }
 }
 
 enum Coffee: String {
-    case espresso = "에스프레소", americano = "아메리카노", cafeLatte = "카페라떼", vanillaLatte = "바닐라 라떼", cappuccino = "카푸치노", einspanner = "아인슈페너"
+    case espresso = "에스프레소"
+    case americano = "아메리카노"
+    case cafeLatte = "카페라떼"
+    case vanillaLatte = "바닐라 라떼"
+    case cappuccino = "카푸치노"
+    case einspanner = "아인슈페너"
 }
 
 let misterLee: Person = Person(money: 20000)
