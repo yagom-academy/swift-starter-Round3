@@ -21,5 +21,6 @@ var menu: Dictionary<Coffee, Int> = [
 
 var yagomBucks = CoffeeShop(name: "yagomBucks", revenue: 0, menu: menu, brista: [misterLee])
 
-
-
+missKim.order(yagomBucks, of: .espresso, by: missKim.name)
+missKim.order(yagomBucks, of: .cappuccino, by: missKim.name)
+missKim.order(yagomBucks, of: .coldBrew, by: missKim.name)

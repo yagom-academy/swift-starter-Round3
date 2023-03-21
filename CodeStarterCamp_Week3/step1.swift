@@ -22,40 +22,45 @@ struct OrderedCoffee {
 class Person {
     var name: String
     var money: Int
-    
-    init( name: String, money: Int) {
+
+    init(name: String, money: Int) {
         self.money = money
         self.name = name
     }
-    
+
     func order(_ coffeeShop: CoffeeShop, of coffee: Coffee, by name: String) {
         guard let coffeePrice = coffeeShop.takeOrder(coffee: coffee, name: name) else {
             return
         }
-        
+
         if money < coffeePrice {
-            print("잔액이 부족합니다. 현재 잔액은 \(money)원 입니다.")
+            print("잔액이 \(coffeePrice - money)원 부족합니다. 현재 잔액은 \(money)원 입니다.")
             return
         }
         money -= coffeePrice
         coffeeShop.addRevenue(coffeePrice)
         coffeeShop.make(coffee, for: name)
     }
-    
+
     func pickUp(coffeeShop: CoffeeShop) {
         coffeeShop.pickUp(by: name)
     }
 }
 
-let group = DispatchGroup()
-
 class CoffeeShop {
     var name: String = "CoffeeShop"
     var revenue: Int = 0
     var menu: [Coffee: Int]
-    var pickUpTable: [OrderedCoffee]
+    var pickUpTable: [OrderedCoffee] {
+        didSet {
+            if let coffee = pickUpTable.last?.coffee {
+                print("🔔 \(name) 님이 주문하신 \(coffee)(이/가) 준비되었습니다. 픽업대에서 가져가주세요.")
+            }
+        }
+    }
+
     var brista: [Person]
-    
+
     init(name: String, revenue: Int, menu: [Coffee: Int], pickUpTable: [OrderedCoffee] = [], brista: [Person]) {
         self.name = name
         self.revenue = revenue
@@ -63,34 +68,34 @@ class CoffeeShop {
         self.pickUpTable = pickUpTable
         self.brista = brista
     }
-    
+
     func addRevenue(_ price: Int) {
         revenue += price
     }
+
     func printRevenue() {
         print("...총 매출:", revenue, "원")
     }
-    
+
     func takeOrder(coffee: Coffee, name: String) -> Int? {
         guard let coffeePrice = menu[coffee] else {
             print("해당 커피는 판매하지 않습니다. 메뉴를 확인해주세요.")
             printMenu()
             return nil
         }
-        
+
         print("\(name)님, \(coffee)를 주문하셨습니다. \(coffeePrice)원 입니다.")
         return coffeePrice
     }
-    
+
     func make(_ coffee: Coffee, for name: String) {
-        self.addPickUpTable(coffee, for: name)
+        addPickUpTable(coffee, for: name)
     }
-    
+
     func addPickUpTable(_ coffee: Coffee, for name: String) {
-        self.pickUpTable.append(OrderedCoffee(coffee: coffee, by: name))
-        print("🔔 \(name) 님이 주문하신 \(coffee)(이/가) 준비되었습니다. 픽업대에서 가져가주세요.")
+        pickUpTable.append(OrderedCoffee(coffee: coffee, by: name))
     }
-    
+
     func pickUp(by name: String) {
         let pickedUpCoffees = pickUpTable.filter { $0.by == name }
         pickUpTable = pickUpTable.filter { $0.by != name }
@@ -103,8 +108,8 @@ class CoffeeShop {
     }
 
     func printMenu() {
-        print("_____\(self.name)의 메뉴입니다._____")
-        for (key, value) in self.menu {
+        print("_____\(name)의 메뉴입니다._____")
+        for (key, value) in menu {
             print("\(key) : \(value)원")
         }
     }
