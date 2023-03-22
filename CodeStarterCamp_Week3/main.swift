@@ -9,11 +9,15 @@
 import Foundation
 
 class Person {
-    var money: Int = 0
+    var money: Int
+    
+    init(money: Int) {
+        self.money = money
+    }
     
     func order(_ coffee: Coffee, of coffeeshop: CoffeeShop, by name: String) {
         coffeeshop.make(coffee, for: name)
-        if let coffeePrice: Int = coffeeshop.menuTable["\(coffee.rawValue)"] {
+        if let coffeePrice: Int = coffeeshop.menuTable[coffee] {
             if money >= coffeePrice {
                 money -= coffeePrice
             } else {
@@ -26,11 +30,11 @@ class Person {
 
 class CoffeeShop {
     var sales: Int = 0
-    var menuTable: [String: Int] = [
-        "아메리카노": 4500,
-        "라떼" : 4500,
-        "에스프레소" : 4000,
-        "카푸치노" : 4500
+    var menuTable: [Coffee: Int] = [
+        .americano: 4500,
+        .latte : 4500,
+        .espresso : 4000,
+        .cappuccino : 4500
     ]
     var pickUpTable: [String] = []
     var barista: Person?
@@ -45,8 +49,8 @@ enum Coffee: String {
     case americano = "아메리카노", latte = "라떼", espresso = "에스프레소", cappuccino = "카푸치노"
 }
 
-let misterLee: Person = Person()
-let missKim: Person = Person()
+let misterLee: Person = Person(money: 0)
+let missKim: Person = Person(money: 3500)
 let yagombucks: CoffeeShop = CoffeeShop()
 yagombucks.barista = misterLee
 
