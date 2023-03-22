@@ -15,7 +15,7 @@ class Person {
         }
         
         if price > self.money {
-            print("\(coffeeShop.name)을 구매할 잔액이 부족합니다.")
+            print("\(coffeeShop.name)을 구매할 잔액이 \(price - money)원만큼 부족합니다.")
             return
         } else {
             self.money -= price
