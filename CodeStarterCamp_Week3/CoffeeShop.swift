@@ -17,14 +17,14 @@ class CoffeeShop {
             return
         }
         
-        print("\(customerName)님이 \(coffee)를 주문했습니다.")
+        print("\(customerName)님이 \(coffee.rawValue)를 주문했습니다.")
         self.revenue += price
         
         makeCoffee(coffee, for: customerName)
     }
     
     func makeCoffee(_ coffee: Coffee, for customerName: String) {
-        print("\(customerName)님이 주문한 \(coffee) 제조가 완료되었습니다.")
+        print("\(customerName)님이 주문한 \(coffee.rawValue) 제조가 완료되었습니다.")
         
         self.pickUpTable[customerName] = coffee
         print("픽업대에서 가져가주세요.")
@@ -36,7 +36,7 @@ class CoffeeShop {
             return nil
         }
         
-        print("\(customerName)님이 주문한 \(coffee)를 픽업해갔습니다!")
+        print("\(customerName)님이 주문한 \(coffee.rawValue)를 픽업해갔습니다!")
         
         return coffee
     }
