@@ -21,7 +21,7 @@ class Person {
             if money >= coffeePrice {
                 money -= coffeePrice
             } else {
-                print("잔액이 \(coffeePrice-money)만큼 부족합니다.")
+                print("잔액이 \(coffeePrice - money)만큼 부족합니다.")
             }
             coffeeshop.sales += coffeePrice
         }
@@ -36,12 +36,19 @@ class CoffeeShop {
         .espresso : 4000,
         .cappuccino : 4500
     ]
-    var pickUpTable: [String] = []
+    var pickUpTable: [String] = [] {
+        didSet {
+            if let newCoffee = pickUpTable.last, let safeCustomer = customer {
+                print("\(safeCustomer) 님이 주문하신 \(newCoffee)(이/가) 준비되었습니다. 픽업대에서 가져가주세요.")
+            }
+        }
+    }
     var barista: Person?
+    var customer: String?
     
     func make(_ coffee: Coffee, for name: String) {
+        customer = name
         pickUpTable.append(coffee.rawValue)
-        print("\(name) 님이 주문하신 \(coffee.rawValue)(이/가) 준비되었습니다. 픽업대에서 가져가주세요.")
     }
 }
 
