@@ -9,9 +9,11 @@
 import Foundation
 
 class Person {
+    let name: String
     var money: Int
     
-    init(money: Int) {
+    init(name:String, money: Int) {
+        self.name = name
         self.money = money
     }
     
@@ -56,9 +58,9 @@ enum Coffee: String {
     case americano = "아메리카노", latte = "라떼", espresso = "에스프레소", cappuccino = "카푸치노"
 }
 
-let misterLee: Person = Person(money: 0)
-let missKim: Person = Person(money: 3500)
+let misterLee: Person = Person(name: "misterLee", money: 0)
+let missKim: Person = Person(name: "missKim", money: 3500)
 let yagombucks: CoffeeShop = CoffeeShop()
 yagombucks.barista = misterLee
 
-missKim.order(.americano, of: yagombucks, by: "missKim")
+missKim.order(.americano, of: yagombucks, by: missKim.name)
