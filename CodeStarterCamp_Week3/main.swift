@@ -38,8 +38,8 @@ class CoffeeShop {
     ]
     var pickUpTable: [String] = [] {
         didSet {
-            if let newCoffee = pickUpTable.last, let safeCustomer = customer {
-                print("\(safeCustomer) 님이 주문하신 \(newCoffee)(이/가) 준비되었습니다. 픽업대에서 가져가주세요.")
+            if let newCoffee = pickUpTable.last, let customer = customer {
+                print("\(customer) 님이 주문하신 \(newCoffee)(이/가) 준비되었습니다. 픽업대에서 가져가주세요.")
             }
         }
     }
