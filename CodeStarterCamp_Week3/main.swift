@@ -92,6 +92,14 @@ class CoffeeShop {
         }
         print("---------------")
     }
+    
+    func showPickUpTable() {
+        print(self.pickUpTable)
+    }
+    
+    func showTotalSale() {
+        print(self.totalSales)
+    }
 }
 
 /*
@@ -142,3 +150,12 @@ let yagombucks = CoffeeShop()
 
 // 6. yagombucks 의 바리스타(barista)를 misterLee 로 할당해봅시다.
 yagombucks.barista = misterLee
+
+//yagombucks.showCoffeeMenu()
+//yagombucks.order(coffee: Coffee.americano)
+//yagombucks.order(coffee: Coffee.americano)
+//yagombucks.order(coffee: Coffee.latte)
+//yagombucks.order(coffee: Coffee.espresso)
+//yagombucks.order(coffee: Coffee.ade)
+//yagombucks.showPickUpTable()
+//yagombucks.showTotalSale()
