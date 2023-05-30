@@ -20,7 +20,7 @@ struct Person {
     var gender: Gender = Gender.man
     var MBTI: String = ""
     var age: Int = 0
-    var currentMoney: Int = 0
+    private var currentMoney: Int = 150_000
     
     enum Gender {
         case man
@@ -136,13 +136,11 @@ var misterLee = Person()
 misterLee.name = "MadCow"
 misterLee.MBTI = "ISTP"
 misterLee.age = 28
-misterLee.currentMoney = 100_000
 
 var missKim = Person()
 missKim.name = "kim"
 missKim.MBTI = "ENFJ"
 missKim.age = 28
-missKim.currentMoney = 150_000
 missKim.gender = Person.Gender.woman
 
 // 5. CoffeeShop 타입의 인스턴스로 yagombucks 을 생성해봅시다.
