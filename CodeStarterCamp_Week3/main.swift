@@ -15,7 +15,7 @@ import Foundation
   - 사람이 공통적으로 할 수 있는 동작을 메서드로 정의해봅시다.
     커피를 구매할 수 있도록 메서드를 정의해봅시다.
  */
-class Person {
+struct Person {
     var name: String = ""
     var gender: Gender = Gender.man
     var MBTI: String = ""
@@ -27,7 +27,7 @@ class Person {
         case woman
     }
     
-    func buyCoffee(menu: Coffee) {
+    mutating func buyCoffee(menu: Coffee) {
         print("\(menu.coffeeName)를 구매했습니다!")
         self.currentMoney -= menu.coffeePrice
     }
@@ -40,11 +40,11 @@ class Person {
         print("걷는다")
     }
     
-    func spendMoney(price: Int) {
+    mutating func spendMoney(price: Int) {
         self.currentMoney -= price
     }
     
-    func makeMoney(salary: Int) {
+    mutating func makeMoney(salary: Int) {
         self.currentMoney += salary
     }
     
@@ -132,13 +132,13 @@ enum Coffee: CaseIterable {
 }
 
 // 4. Person 타입의 인스턴스로 misterLee , missKim 을 생성해봅시다.
-let misterLee = Person()
+var misterLee = Person()
 misterLee.name = "MadCow"
 misterLee.MBTI = "ISTP"
 misterLee.age = 28
 misterLee.currentMoney = 100_000
 
-let missKim = Person()
+var missKim = Person()
 missKim.name = "kim"
 missKim.MBTI = "ENFJ"
 missKim.age = 28
@@ -150,12 +150,3 @@ let yagombucks = CoffeeShop()
 
 // 6. yagombucks 의 바리스타(barista)를 misterLee 로 할당해봅시다.
 yagombucks.barista = misterLee
-
-//yagombucks.showCoffeeMenu()
-//yagombucks.order(coffee: Coffee.americano)
-//yagombucks.order(coffee: Coffee.americano)
-//yagombucks.order(coffee: Coffee.latte)
-//yagombucks.order(coffee: Coffee.espresso)
-//yagombucks.order(coffee: Coffee.ade)
-//yagombucks.showPickUpTable()
-//yagombucks.showTotalSale()
