@@ -16,11 +16,18 @@ import Foundation
     커피를 구매할 수 있도록 메서드를 정의해봅시다.
  */
 struct Person {
-    var name: String = ""
-    var gender: Gender = Gender.man
-    var MBTI: String = ""
-    var age: Int = 0
-    private var currentMoney: Int = 150_000
+    var name: String
+    var gender: Gender
+    var MBTI: String
+    var age: Int
+    private var currentMoney: Int = 15_000
+    
+    init(name: String, gender: Gender, MBTI: String, age: Int) {
+        self.name = name
+        self.gender = gender
+        self.MBTI = MBTI
+        self.age = age
+    }
     
     enum Gender {
         case man
@@ -32,20 +39,20 @@ struct Person {
         self.currentMoney -= menu.coffeePrice
     }
     
-    func selfIntroduce() {
-        print("제 이름은 \(self.name)구요. 나이는 \(self.age)살, MBTI는 \(self.MBTI)입니다.")
-    }
-    
-    func walk() {
-        print("걷는다")
-    }
-    
     mutating func spendMoney(price: Int) {
         self.currentMoney -= price
     }
     
     mutating func makeMoney(salary: Int) {
         self.currentMoney += salary
+    }
+    
+    func selfIntroduce() {
+        print("제 이름은 \(self.name)구요. 나이는 \(self.age)살, MBTI는 \(self.MBTI)입니다.")
+    }
+    
+    func walk() {
+        print("걷는다")
     }
     
     func showCurrentMoney() {
@@ -65,24 +72,29 @@ struct Person {
     커피를 만들면 pickUpTable 에 할당할 수 있도록 해봅시다.
  */
 class CoffeeShop {
-    private var totalSales: Int = 0
-    private var coffeeMenu: [String: String] = [:]
-    private var pickUpTable: [Coffee] = []
-    var barista: Person = Person()
+    private var coffeeShopName: String
+    private var totalSales: Int
+    private var coffeeMenu: [String: String]
+    private var pickUpTable: [Coffee]
+    private var barista: Person
     
-    init() {
-        self.loadCoffeeMenu()
+    init(coffeeShopName: String, totalSales: Int, coffeeMenu: [String : String], pickUpTable: [Coffee], barista: Person) {
+        self.coffeeShopName = coffeeShopName
+        self.totalSales = totalSales
+        self.coffeeMenu = coffeeMenu
+        self.pickUpTable = pickUpTable
+        self.barista = barista
     }
     
-    func order(coffee menu: Coffee) {
+    func receivedOrder(coffee menu: Coffee) {
+        print("\(menu.coffeeName) 메뉴가 접수되었습니다!")
         self.pickUpTable.append(menu)
         self.totalSales += menu.coffeePrice
     }
     
-    private func loadCoffeeMenu() {
-        Coffee.allCases.forEach{ coffee in
-            self.coffeeMenu[coffee.coffeeName] = "\(coffee.coffeePrice)원"
-        }
+    func change(barista: Person) {
+        print("바리스타가 \(self.barista.name)님의 퇴사로 \(barista.name)님으로 변경되었습니다.")
+        self.barista = barista
     }
     
     func showCoffeeMenu() {
@@ -132,19 +144,18 @@ enum Coffee: CaseIterable {
 }
 
 // 4. Person 타입의 인스턴스로 misterLee , missKim 을 생성해봅시다.
-var misterLee = Person()
-misterLee.name = "MadCow"
-misterLee.MBTI = "ISTP"
-misterLee.age = 28
-
-var missKim = Person()
-missKim.name = "kim"
-missKim.MBTI = "ENFJ"
-missKim.age = 28
-missKim.gender = Person.Gender.woman
+var misterLee = Person(name: "MadCow", gender: Person.Gender.man, MBTI: "ISTP", age: 28)
+var missKim = Person(name: "Kim", gender: Person.Gender.woman, MBTI: "ENFJ", age: 28)
 
 // 5. CoffeeShop 타입의 인스턴스로 yagombucks 을 생성해봅시다.
-let yagombucks = CoffeeShop()
-
 // 6. yagombucks 의 바리스타(barista)를 misterLee 로 할당해봅시다.
-yagombucks.barista = misterLee
+let coffeeMenus = getCoffeeMenus()
+let yagombucks = CoffeeShop(coffeeShopName: "야곰 커피샵", totalSales: 0, coffeeMenu: coffeeMenus, pickUpTable: [], barista: misterLee)
+
+func getCoffeeMenus() -> [String: String] {
+    var coffeeMenus: [String: String] = [:]
+    Coffee.allCases.forEach{ coffee in
+        coffeeMenus[coffee.coffeeName] = "\(coffee.coffeePrice)원"
+    }
+    return coffeeMenus
+}
