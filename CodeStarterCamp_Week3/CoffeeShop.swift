@@ -7,13 +7,19 @@
 
 import Foundation
 
-struct CoffeeShop {
+class CoffeeShop {
     var sales: Int
     var menu: [(coffee: String, price: Int)]
     var pickUpTable: [Coffee]
     
+    init(sales: Int, menu: [(coffee: String, price: Int)], pickUpTable: [Coffee]) {
+        self.sales = sales
+        self.menu = menu
+        self.pickUpTable = pickUpTable
+    }
+    
     // 주문을 받는 함수
-    mutating func orderCoffeeFromCustomer(customer: inout Person, menu: Coffee) {
+    func orderCoffeeFromCustomer(customer: inout Person, menu: Coffee) {
         let orderCoffeeMenu: Coffee = customer.chooseCoffee(menu: menu)
         let canCustomerBuyCoffee = customer.tryBuyCoffee(coffee: orderCoffeeMenu)
         
@@ -28,7 +34,7 @@ struct CoffeeShop {
     }
     
     // 커피 만드는 함수
-    mutating func makeCoffee(coffee: Coffee) -> [Coffee] {
+    func makeCoffee(coffee: Coffee) -> [Coffee] {
         let coffeeType = coffee.coffeeType
         print("주문하신 \(coffeeType)가 완성되었습니다.")
         pickUpTable.append(coffee)
@@ -37,7 +43,7 @@ struct CoffeeShop {
     }
     
     // 총매출 계산 함수
-    mutating func countTotalSales(coffee: Coffee) -> Int {
+    func countTotalSales(coffee: Coffee) -> Int {
         let coffeePrice = coffee.price
         sales += coffeePrice
         
