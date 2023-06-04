@@ -11,7 +11,7 @@ import Foundation
  3. Coffee 타입(열거형)을 생성합니다.
     커피의 여러 종류들을 case로 가질 수 있도록 해봅시다.
  */
-enum Coffee: String, CaseIterable {
+enum Coffee: CaseIterable {
     case espresso
     case americano
     case latte
