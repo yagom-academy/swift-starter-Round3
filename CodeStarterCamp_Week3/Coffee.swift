@@ -35,7 +35,7 @@ class Person {
     
     func orderCoffee(menu: Coffee, of coffeeShop: CoffeeShop, by name: String) {
         let currentMoneyAfterOrder = self.currentMoney - menu.price
-        guard currentMoneyAfterOrder > 0 else {
+        guard currentMoneyAfterOrder >= 0 else {
             print("잔액이 \(-(currentMoneyAfterOrder))원 만큼 부족합니다.")
             return
         }
@@ -61,6 +61,10 @@ class Person {
     
     func showCurrentMoney() {
         print("현재 잔액: \(self.currentMoney)")
+    }
+    
+    func getCurrentMoney() -> Int {
+        return self.currentMoney
     }
 }
 
@@ -115,8 +119,16 @@ class CoffeeShop {
         print("---------------")
     }
     
+    func getCoffeeMenus() -> [String: String] {
+        return self.coffeeMenu
+    }
+    
     func showPickUpTable() {
-        print(self.pickUpTable)
+        print("----주문한 커피 목록입니다!----")
+        for coffee in self.pickUpTable {
+            print(coffee.name)
+        }
+        print("-------------------------")
     }
     
     func showTotalSale() {
@@ -128,7 +140,7 @@ class CoffeeShop {
  3. Coffee 타입(열거형)을 생성합니다.
     커피의 여러 종류들을 case로 가질 수 있도록 해봅시다.
  */
-enum Coffee: CaseIterable {
+enum Coffee: String, CaseIterable {
     case espresso
     case americano
     case latte
@@ -150,6 +162,10 @@ enum Coffee: CaseIterable {
         case .latte: return 4000
         case .ade: return 4500
         }
+    }
+    
+    static func getCoffeeFromName(name: String) -> Coffee? {
+        return Coffee.allCases.first{ "\($0.name)" == name }
     }
 }
 

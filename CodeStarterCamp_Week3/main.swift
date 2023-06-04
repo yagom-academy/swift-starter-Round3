@@ -17,28 +17,93 @@ var missKim = Person(name: "Kim", gender: Person.Gender.woman, MBTI: "ENFJ", age
 let coffeeMenus = getCoffeeMenus()
 let yagombucks = CoffeeShop(coffeeShopName: "야곰 커피샵", totalSales: 0, coffeeMenu: coffeeMenus, pickUpTable: [], barista: misterLee)
 
-func orderCoffee(order person: Person, shop: CoffeeShop) {
-    shop.showCoffeeMenu()
-//    print("원하는 메뉴번호를 선택해주세요.")
-//    print("메뉴 : ", terminator: "")
-//    let selectedMenu = readLine() ?? ""
-//    guard !selectedMenu.isEmpty else {
-//        print("메뉴 번호를 선택해주세요.\n")
-//        orderCoffee(order: person, shop: shop)
-//        return
-//    }
-//
-//    guard let selectedMenuNumber = Int(selectedMenu) else {
-//        print("번호를 입력해주세요.\n")
-//        orderCoffee(order: person, shop: shop)
-//        return
-//    }
-//
-//    guard selectedMenuNumber <= coffeeMenus.count else {
-//        print("존재하지 않는 메뉴 번호입니다.\n")
-//        orderCoffee(order: person, shop: shop)
-//        return
-//    }
+class CoffeeOrderManager {
+    
+    let person: Person
+    let shop: CoffeeShop
+    
+    init(person: Person, shop: CoffeeShop) {
+        self.person = person
+        self.shop = shop
+    }
+    
+    func initializeCoffeeManager() {
+        print("\(self.person.name)님 안녕하세요.")
+        print("원하는 기능을 선택하세요.\n1. 커피 주문\t2. 주문 확인\t3. 잔액 확인\tX. 종료")
+        let enteredKey = readLine() ?? ""
+        guard !enteredKey.isEmpty else {
+            print("기능을 선택해주세요.\n")
+            initializeCoffeeManager()
+            return
+        }
+        
+        switch enteredKey {
+        case "1": orderCoffee()
+        case "2": currentOrderMenus()
+        case "3": showCurrentMoney()
+        default: return
+        }
+    }
+    
+    func orderCoffee() {
+        let coffeeMenus = shop.getCoffeeMenus()
+        
+        print("------메뉴------")
+        for (index, coffee) in coffeeMenus.enumerated() {
+            print("\(index+1). \(coffee.key)\t\(coffee.value)")
+        }
+        print("---------------")
+        
+        print("원하는 메뉴번호를 선택해주세요.")
+        print("메뉴 : ", terminator: "")
+        let selectedMenu = readLine() ?? ""
+        guard !selectedMenu.isEmpty else {
+            print("메뉴 번호를 선택해주세요.\n")
+            orderCoffee()
+            return
+        }
+
+        guard let selectedMenuNumber = Int(selectedMenu) else {
+            print("번호를 입력해주세요.\n")
+            orderCoffee()
+            return
+        }
+
+        guard ["1", "2", "3", "x", "X"].contains(selectedMenu) else {
+            print("주어진 번호 중 입력해주세요.\n")
+            orderCoffee()
+            return
+        }
+        
+        guard selectedMenuNumber <= coffeeMenus.count-1 else {
+            print("존재하지 않는 메뉴 번호입니다.\n")
+            orderCoffee()
+            return
+        }
+        let coffeeIndex = coffeeMenus.index(coffeeMenus.startIndex, offsetBy: selectedMenuNumber-1)
+        let coffeeName = coffeeMenus[coffeeIndex].key
+        guard let coffeeObject = Coffee.getCoffeeFromName(name: coffeeName) else {
+            return
+        }
+        
+        guard self.person.getCurrentMoney() > 0 else {
+            print("잔액이 부족합니다.\n프로그램을 종료합니다.")
+            return
+        }
+        self.person.orderCoffee(menu: coffeeObject, of: shop, by: self.person.name)
+        self.initializeCoffeeManager()
+    }
+    
+    func currentOrderMenus() {
+        self.shop.showPickUpTable()
+        self.initializeCoffeeManager()
+    }
+    
+    func showCurrentMoney() {
+        self.person.showCurrentMoney()
+        self.initializeCoffeeManager()
+    }
 }
 
-orderCoffee(order: missKim, shop: yagombucks)
+let coffeeManager: CoffeeOrderManager = CoffeeOrderManager(person: missKim, shop: yagombucks)
+coffeeManager.initializeCoffeeManager()
