@@ -14,11 +14,10 @@ var missKim = Person(name: "Kim", gender: Person.Gender.woman, MBTI: "ENFJ", age
 
 // 5. CoffeeShop 타입의 인스턴스로 yagombucks 을 생성해봅시다.
 // 6. yagombucks 의 바리스타(barista)를 misterLee 로 할당해봅시다.
-let coffeeMenus = getCoffeeMenus()
+let coffeeMenus = Coffee.getCoffeeMenus()
 let yagombucks = CoffeeShop(coffeeShopName: "야곰 커피샵", totalSales: 0, coffeeMenu: coffeeMenus, pickUpTable: [], barista: misterLee)
 
 class CoffeeOrderManager {
-    
     let person: Person
     let shop: CoffeeShop
     
@@ -28,8 +27,8 @@ class CoffeeOrderManager {
     }
     
     func initializeCoffeeManager() {
-        print("\(self.person.name)님 안녕하세요.")
         print("원하는 기능을 선택하세요.\n1. 커피 주문\t2. 주문 확인\t3. 잔액 확인\tX. 종료")
+        
         let enteredKey = readLine() ?? ""
         guard !enteredKey.isEmpty else {
             print("기능을 선택해주세요.\n")
@@ -37,11 +36,16 @@ class CoffeeOrderManager {
             return
         }
         
-        switch enteredKey {
+        switch enteredKey.lowercased() {
         case "1": orderCoffee()
         case "2": currentOrderMenus()
         case "3": showCurrentMoney()
-        default: return
+        case "x":
+            print("프로그램을 종료합니다.")
+            return
+        default:
+            print("1, 2, 3, X 중 선택해주세요.\n")
+            initializeCoffeeManager()
         }
     }
     
@@ -68,29 +72,20 @@ class CoffeeOrderManager {
             orderCoffee()
             return
         }
-
-        guard ["1", "2", "3", "x", "X"].contains(selectedMenu) else {
-            print("주어진 번호 중 입력해주세요.\n")
-            orderCoffee()
-            return
-        }
         
-        guard selectedMenuNumber <= coffeeMenus.count-1 else {
+        guard selectedMenuNumber <= coffeeMenus.count else {
             print("존재하지 않는 메뉴 번호입니다.\n")
             orderCoffee()
             return
         }
+        
         let coffeeIndex = coffeeMenus.index(coffeeMenus.startIndex, offsetBy: selectedMenuNumber-1)
         let coffeeName = coffeeMenus[coffeeIndex].key
-        guard let coffeeObject = Coffee.getCoffeeFromName(name: coffeeName) else {
+        guard let coffee = Coffee.getCoffeeFromName(name: coffeeName) else {
             return
         }
         
-        guard self.person.getCurrentMoney() > 0 else {
-            print("잔액이 부족합니다.\n프로그램을 종료합니다.")
-            return
-        }
-        self.person.orderCoffee(menu: coffeeObject, of: shop, by: self.person.name)
+        self.person.orderCoffee(menu: coffee, of: shop, by: self.person.name)
         self.initializeCoffeeManager()
     }
     

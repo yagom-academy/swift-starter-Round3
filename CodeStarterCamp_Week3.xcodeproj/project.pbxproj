@@ -9,6 +9,8 @@
 /* Begin PBXBuildFile section */
 		34811DD5274B93EB00A1E994 /* main.swift in Sources */ = {isa = PBXBuildFile; fileRef = 34811DD4274B93EB00A1E994 /* main.swift */; };
 		CD0B088C2A2A225D0032BF4C /* Coffee.swift in Sources */ = {isa = PBXBuildFile; fileRef = CD0B088B2A2A225D0032BF4C /* Coffee.swift */; };
+		CD5D547E2A2CC7F2005D315A /* Person.swift in Sources */ = {isa = PBXBuildFile; fileRef = CD5D547D2A2CC7F2005D315A /* Person.swift */; };
+		CD5D54802A2CC80F005D315A /* CoffeeMenu.swift in Sources */ = {isa = PBXBuildFile; fileRef = CD5D547F2A2CC80F005D315A /* CoffeeMenu.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXCopyFilesBuildPhase section */
@@ -27,6 +29,8 @@
 		34811DD1274B93EB00A1E994 /* CodeStarterCamp_Week3 */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.executable"; includeInIndex = 0; path = CodeStarterCamp_Week3; sourceTree = BUILT_PRODUCTS_DIR; };
 		34811DD4274B93EB00A1E994 /* main.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = main.swift; sourceTree = "<group>"; };
 		CD0B088B2A2A225D0032BF4C /* Coffee.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Coffee.swift; sourceTree = "<group>"; };
+		CD5D547D2A2CC7F2005D315A /* Person.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Person.swift; sourceTree = "<group>"; };
+		CD5D547F2A2CC80F005D315A /* CoffeeMenu.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CoffeeMenu.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -60,7 +64,9 @@
 			isa = PBXGroup;
 			children = (
 				34811DD4274B93EB00A1E994 /* main.swift */,
+				CD5D547D2A2CC7F2005D315A /* Person.swift */,
 				CD0B088B2A2A225D0032BF4C /* Coffee.swift */,
+				CD5D547F2A2CC80F005D315A /* CoffeeMenu.swift */,
 			);
 			path = CodeStarterCamp_Week3;
 			sourceTree = "<group>";
@@ -122,6 +128,8 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				CD5D54802A2CC80F005D315A /* CoffeeMenu.swift in Sources */,
+				CD5D547E2A2CC7F2005D315A /* Person.swift in Sources */,
 				34811DD5274B93EB00A1E994 /* main.swift in Sources */,
 				CD0B088C2A2A225D0032BF4C /* Coffee.swift in Sources */,
 			);
