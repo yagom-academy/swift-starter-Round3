@@ -6,3 +6,17 @@
 //
 
 import Foundation
+
+enum Coffee {
+    case americano
+    case latte
+    
+    var price: Int {
+        switch self {
+        case .americano:
+            return 2000
+        case .latte:
+            return 3000
+        }
+    }
+}

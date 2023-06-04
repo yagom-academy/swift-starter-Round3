@@ -8,5 +8,7 @@
 
 import Foundation
 
-print("Hello, World!")
+let misterLee = Person()
+let missKim = Person(money: 10000000)
 
+let yagombucks = CoffeeShop(money: 10000000)
