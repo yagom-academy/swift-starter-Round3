@@ -22,9 +22,7 @@ final class Person {
         money -= coffee.price
     }
     
-    init(money: Int) {
+    init(money: Int = 0) {
         self.money = money
     }
-    
-    init() { }
 }
