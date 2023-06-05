@@ -7,74 +7,52 @@
 
 import Foundation
 
-class CoffeeShop {
+typealias Menu = [String: Int]
+
+struct CoffeeShop {
     var sales: Int
-    var menu: [(coffee: String, price: Int)]
+    var menu: Menu
     var pickUpTable: [Coffee]
+    var barista: String
     
-    init(sales: Int, menu: [(coffee: String, price: Int)], pickUpTable: [Coffee]) {
-        self.sales = sales
-        self.menu = menu
-        self.pickUpTable = pickUpTable
+    
+    // 바리스타 선택 함수
+    private func whoWillMakeCoffee(name barista: String, coffee: Coffee) {
+        print("\(barista) 바리스타가 \(coffee.description)를 만듭니다. 잠시만 기다려 주세요.")
     }
     
-    // 주문을 받는 함수
-    func orderCoffeeFromCustomer(customer: inout Person, menu: Coffee) {
+    // 주문 받고 커피 만들어내는 함수
+    mutating func orderCoffeeFromCustomer(for customer: inout Person, menu: Coffee, barista: String) {
         let orderCoffeeMenu: Coffee = customer.chooseCoffee(menu: menu)
-        let canCustomerBuyCoffee = customer.tryBuyCoffee(coffee: orderCoffeeMenu)
+        let canCustomerBuyCoffee: Bool = customer.canBuyCoffee(coffee: orderCoffeeMenu)
         
-        if canCustomerBuyCoffee == "Success" {
-            let _ = makeCoffee(coffee: orderCoffeeMenu)
-            let currentSales = countTotalSales(coffee: orderCoffeeMenu)
-            return print("현재 총 매출액은 \(currentSales) 입니다.")
+        switch canCustomerBuyCoffee {
+        case true:
+            whoWillMakeCoffee(name: barista, coffee: orderCoffeeMenu)
+            makeCoffee(coffee: orderCoffeeMenu)
+            addToPickUpTable(coffee: orderCoffeeMenu)
+            countTotalSales(coffee: orderCoffeeMenu)
+        case false:
+            return print("다음에 다시 주문을 시도해 주세요.")
         }
-        
-        print("다음에 다시 주문을 시도해 주세요.")
-        
     }
     
-    // 커피 만드는 함수
-    func makeCoffee(coffee: Coffee) -> [Coffee] {
-        let coffeeType = coffee.coffeeType
-        print("주문하신 \(coffeeType)가 완성되었습니다.")
+    // 커피 pickUpTable 할당 함수
+    private mutating func addToPickUpTable(coffee: Coffee) {
         pickUpTable.append(coffee)
-        
-        return pickUpTable
+        print("픽업대에서 메뉴를 가져가세요.")
+    }
+    
+    // 커피 만들기 완료 시 호출 함수
+    private func makeCoffee(coffee: Coffee) {
+        let coffeeType = coffee.description
+        print("주문하신 \(coffeeType) 가 완성되었습니다.")
     }
     
     // 총매출 계산 함수
-    func countTotalSales(coffee: Coffee) -> Int {
-        let coffeePrice = coffee.price
-        sales += coffeePrice
-        
-        return sales
+    private mutating func countTotalSales(coffee: Coffee) {
+        sales += coffee.price
+        print("현재 총 매출액은 \(sales) 입니다.")
     }
 }
 
-enum Coffee {
-    case americano
-    case caffeLatte
-    case espresso
-    
-    var coffeeType: String {
-        switch self {
-        case .americano:
-            return "아메리카노"
-        case .caffeLatte:
-            return "카페라떼"
-        case .espresso:
-            return "에스프레소"
-        }
-    }
-    
-    var price: Int {
-        switch self {
-        case .americano:
-            return 5000
-        case .caffeLatte:
-            return 5500
-        case .espresso:
-            return 4500
-        }
-    }
-}

@@ -17,15 +17,15 @@ struct Person {
     }
     
     // 커피 구매하기
-    mutating func tryBuyCoffee(coffee: Coffee) -> String {
+    mutating func canBuyCoffee(coffee: Coffee) -> Bool {
         
         guard money >= coffee.price else {
             print("\(name) 님은 돈이 부족하여 커피 구매에 실패하였습니다.")
-            return "Failure"
+            return false
         }
 
         money -= coffee.price
-        print("\(name) 님이 \(coffee.coffeeType) 메뉴를 구매했습니다.")
-        return "Success"
+        print("\(name) 님이 \(coffee.description) 메뉴를 구매했습니다.")
+        return true
     }
 }
