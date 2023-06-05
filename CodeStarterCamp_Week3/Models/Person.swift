@@ -18,7 +18,9 @@ final class Person {
             return
         }
         
-        coffeeShop.takeOrder(to: coffee)
+        coffeeShop.takeOrder(to: coffee) {
+            print("픽업대에서 음료를 가져가주세요")
+        }
         money -= coffee.price
     }
     
