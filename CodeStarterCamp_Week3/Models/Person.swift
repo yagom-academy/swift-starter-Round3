@@ -12,7 +12,8 @@ final class Person {
     private(set) var money: Int = 0
     
     func orderCoffee(in coffeeShop: CoffeeShop, to coffee: Coffee) {
-        if coffee.price > money {
+        
+        guard coffee.price <= money else {
             print("잔액이 부족합니다.")
             return
         }
