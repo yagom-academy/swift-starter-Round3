@@ -24,6 +24,16 @@ final class Person {
         money -= coffee.price
     }
     
+    func order(_ coffee: Coffee, of coffeeShop: CoffeeShop, by name: String) {
+        guard coffee.price <= money else {
+            print("잔액이 \(coffee.price - money)원만큼 부족합니다.")
+            return
+        }
+        
+        coffeeShop.order(coffee, of: coffeeShop, by: name)
+    }
+    
+    
     init(money: Int = 0) {
         self.money = money
     }
