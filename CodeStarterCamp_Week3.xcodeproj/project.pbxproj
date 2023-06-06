@@ -8,6 +8,9 @@
 
 /* Begin PBXBuildFile section */
 		34811DD5274B93EB00A1E994 /* main.swift in Sources */ = {isa = PBXBuildFile; fileRef = 34811DD4274B93EB00A1E994 /* main.swift */; };
+		8729420D2A2B13F600FC27C3 /* Person.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8729420C2A2B13F600FC27C3 /* Person.swift */; };
+		8729420F2A2B141100FC27C3 /* CoffeeShop.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8729420E2A2B141100FC27C3 /* CoffeeShop.swift */; };
+		872942112A2B243200FC27C3 /* Coffee.swift in Sources */ = {isa = PBXBuildFile; fileRef = 872942102A2B243200FC27C3 /* Coffee.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXCopyFilesBuildPhase section */
@@ -25,6 +28,9 @@
 /* Begin PBXFileReference section */
 		34811DD1274B93EB00A1E994 /* CodeStarterCamp_Week3 */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.executable"; includeInIndex = 0; path = CodeStarterCamp_Week3; sourceTree = BUILT_PRODUCTS_DIR; };
 		34811DD4274B93EB00A1E994 /* main.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = main.swift; sourceTree = "<group>"; };
+		8729420C2A2B13F600FC27C3 /* Person.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Person.swift; sourceTree = "<group>"; };
+		8729420E2A2B141100FC27C3 /* CoffeeShop.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CoffeeShop.swift; sourceTree = "<group>"; };
+		872942102A2B243200FC27C3 /* Coffee.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Coffee.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -57,9 +63,20 @@
 		34811DD3274B93EB00A1E994 /* CodeStarterCamp_Week3 */ = {
 			isa = PBXGroup;
 			children = (
+				872942092A2B13D700FC27C3 /* Models */,
 				34811DD4274B93EB00A1E994 /* main.swift */,
 			);
 			path = CodeStarterCamp_Week3;
+			sourceTree = "<group>";
+		};
+		872942092A2B13D700FC27C3 /* Models */ = {
+			isa = PBXGroup;
+			children = (
+				8729420C2A2B13F600FC27C3 /* Person.swift */,
+				872942102A2B243200FC27C3 /* Coffee.swift */,
+				8729420E2A2B141100FC27C3 /* CoffeeShop.swift */,
+			);
+			path = Models;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -119,7 +136,10 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				8729420F2A2B141100FC27C3 /* CoffeeShop.swift in Sources */,
+				8729420D2A2B13F600FC27C3 /* Person.swift in Sources */,
 				34811DD5274B93EB00A1E994 /* main.swift in Sources */,
+				872942112A2B243200FC27C3 /* Coffee.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
