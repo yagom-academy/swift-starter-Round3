@@ -20,23 +20,22 @@ import Foundation
     커피를 만들면 pickUpTable 에 할당할 수 있도록 해봅시다.
  */
 class CoffeeShop {
-    private var coffeeShopName: String
+    private var name: String
     private var totalSales: Int
     private var coffeeMenu: [String: String]
     private var pickUpTable: [Coffee]
     private var barista: Person
     
-    init(coffeeShopName: String, totalSales: Int, coffeeMenu: [String : String], pickUpTable: [Coffee], barista: Person) {
-        self.coffeeShopName = coffeeShopName
+    init(name: String, totalSales: Int, coffeeMenu: [String : String], pickUpTable: [Coffee], barista: Person) {
+        self.name = name
         self.totalSales = totalSales
         self.coffeeMenu = coffeeMenu
         self.pickUpTable = pickUpTable
         self.barista = barista
     }
     
-    func make(coffee: Coffee, for name: String) {
+    func make(coffee: Coffee) {
         self.pickUpTable.append(coffee)
-        print("\(name) 님이 주문하신 \(coffee.name)(이/가) 준비되었습니다. 픽업대에서 가져가주세요.")
         self.totalSales += coffee.price
     }
     
@@ -45,16 +44,8 @@ class CoffeeShop {
         self.barista = barista
     }
     
-    func getCoffeeMenus() -> [String: String] {
-        return self.coffeeMenu
-    }
-    
-    func showPickUpTable() {
-        print("----주문한 커피 목록입니다!----")
-        for coffee in self.pickUpTable {
-            print(coffee.name)
-        }
-        print("-------------------------")
+    func getPickUpTable() -> [Coffee] {
+        return self.pickUpTable
     }
     
     func showTotalSale() {

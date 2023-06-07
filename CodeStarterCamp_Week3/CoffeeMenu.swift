@@ -35,10 +35,6 @@ enum Coffee: CaseIterable {
         }
     }
     
-    static func getCoffeeFromName(name: String) -> Coffee? {
-        return Coffee.allCases.first{ "\($0.name)" == name }
-    }
-    
     static func getCoffeeMenus() -> [String: String] {
         var coffeeMenus: [String: String] = [:]
         Coffee.allCases.forEach{ coffee in

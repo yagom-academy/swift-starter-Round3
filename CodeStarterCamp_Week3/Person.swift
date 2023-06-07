@@ -33,30 +33,40 @@ class Person {
         case woman
     }
     
-    func orderCoffee(menu: Coffee, of coffeeShop: CoffeeShop, by name: String) {
-        let currentMoneyAfterOrder = self.currentMoney - menu.price
-        guard currentMoneyAfterOrder >= 0 else {
-            print("잔액이 \(-(currentMoneyAfterOrder))원 만큼 부족합니다.\n")
-            return
+    func coffeeOrder(menu: [Coffee], coffeeShop: CoffeeShop) {
+        var remainCoffee: [Coffee] = []
+        for coffee in menu {
+            let currentMoneyAfterOrder = self.currentMoney - coffee.price
+            
+            guard currentMoneyAfterOrder >= 0 else {
+                remainCoffee.append(coffee)
+                continue
+            }
+            
+            self.currentMoney = currentMoneyAfterOrder
+            coffeeShop.make(coffee: coffee)
         }
-        coffeeShop.make(coffee: menu, for: name)
-        self.currentMoney = currentMoneyAfterOrder
+        
+        let remainCoffeeNameList = remainCoffee.map{ $0.name }.joined(separator: ", ")
+        let madeCoffeeList = coffeeShop.getPickUpTable().map{ $0.name }.joined(separator: ", ")
+        print("\(self.name)님이 주문하신 커피 : \(madeCoffeeList)(이/가) 준비되었습니다. \n픽업대에서 가져가주세요.\n")
+        
+        if remainCoffeeNameList.count > 0 {
+            let lackOfMoney = remainCoffee.map{ $0.price }.reduce(0, +)
+            print("\(lackOfMoney)원의 부족으로 \(remainCoffeeNameList)의 커피를 구매하지 못했습니다.")
+        }
     }
     
     func spendMoney(price: Int) {
         self.currentMoney -= price
     }
     
-    func makeMoney(salary: Int) {
-        self.currentMoney += salary
+    func make(money: Int) {
+        self.currentMoney += money
     }
     
     func selfIntroduce() {
         print("제 이름은 \(self.name)구요. 나이는 \(self.age)살, MBTI는 \(self.MBTI)입니다.")
-    }
-    
-    func walk() {
-        print("걷는다")
     }
     
     func showCurrentMoney() {
