@@ -8,69 +8,125 @@
 
 import Foundation
 
-struct Person {
-    var name: String
+/* Defining Person
+ - Person 타입을 정의합니다.
+ - 사람이 공통적으로 가지는 특성을 프로퍼티로 정의해봅시다.
+ - 돈이라는 속성을 가질 수 있도록 해봅시다.
+ - 사람이 공통적으로 할 수 있는 동작을 메서드로 정의해봅시다.
+ - 커피를 구매할 수 있도록 메서드를 정의해봅시다.
+ */
+
+class Person {
+    private var name: String
     private var money: Int
+    private var gender: Gender
+    private var job: CoffeeShop?
+    private var drinkSelected: [CoffeeShop.Coffee: Int]
     
-    init(name: String, money: Int) {
+    init(name: String, money: Int, gender: Gender, drinkSelected: [CoffeeShop.Coffee: Int]) {
         self.name = name
         self.money = money
+        self.gender = gender
+        self.drinkSelected = drinkSelected
+    }
+
+    enum Gender {
+        case male, female
     }
     
-    init(name: String) {
-        self.name = name
-        money = 100
+    func introduceToOthers() {
+        print("안녕하세요, 제 이름은\(name)이고 \(gender)입니다.")
+        if !drinkSelected.isEmpty {
+            print("제가 고른 음료는 \(drinkSelected.keys), \(drinkSelected.values)")
+        }
     }
     
-    func buy(coffee: Menu) {
-        let moneyLeft = self.money - coffee.price
-        print("이제 \(moneyLeft) 밖에 없습니다.")
+    func chooseCoffee(drink: CoffeeShop.Coffee, count: Int) {
+        drinkSelected.updateValue(count, forKey: drink)
+        print("\(drink)를 \(count)잔 샀습니다.")
+    }
+    
+    func checkAmount(_ drink: CoffeeShop.Coffee, _ count: Int) -> Int {
+        let totalCost = (drink.price() * count)
+        if money >= totalCost {
+            print("아직 구매 가능해!")
+            return self.money
+        } else {
+            print("집이나 가자...")
+            return self.money
+        }
+    }
+    
+    func buyCoffee(drink: CoffeeShop.Coffee, count: Int) {
+        let cost = (drink.price() * count)
+        guard money >= cost else { print("잔액이 부족합니다"); return }
+        money -= cost
+        print("\(drink)를 \(count)잔 샀습니다.")
+        print("이제 돈이 \(money) 남았네요")
+        drinkSelected = [:]
     }
 }
 
-struct CoffeeShop {
-    var profit: Int
-    var list: Menu
-    var pickUpTable: [Coffee]
-    var barista: Person
+/* Defining CoffeeShop
+ - CoffeeShop 타입을 생성합니다. 세상에는 많은 카페들이 있습니다. 카페들이 공통적으로 가지는 특성을 프로퍼티로 정의해봅시다.
+ - 매출액을 속성으로 가질 수 있도록 해봅시다.
+ - 메뉴판(커피 종류, 가격)을 가질 수 있도록 해봅시다.
+ - pickUpTable 을 가질 수 있도록 해봅시다. pickUpTable은 Coffee를 담을 수 있는 배열입니다.
+ - 카페들이 공통적으로 할 수 있는 동작을 메서드로 정의해봅시다. 주문을 받고, 커피를 만들어낼 수 있는 동작을 가질 수 있도록 해봅시다.
+ - 커피를 만들면 pickUpTable 에 할당할 수 있도록 해봅시다.
+ */
+
+class CoffeeShop {
+    private var name: String
+    private var totalProfit: Int
+    private var menu: [Coffee: Int]
+    private var pickupTable: [Coffee]
+    private var barista: Person
     
-    init(profit: Int, list: Menu, pickUpTable: [Coffee], barista: Person) {
-        self.profit = profit
-        self.list = list
-        self.pickUpTable = pickUpTable
+    init(name: String, totalProfit: Int, menu: [Coffee: Int], pickupTable: [Coffee], barista: Person) {
+        self.name = name
+        self.totalProfit = totalProfit
+        self.menu = menu // [:] /// >> 이 친구가 필요한가?
+        self.pickupTable = pickupTable
         self.barista = barista
     }
     
-    func takeOrder(of menu: Menu) {
-        let order = menu.coffeeType
-        let orderReceipt = menu.price
-        print("주문 확인하겠습니다. \(order) 한 잔은 \(orderReceipt)달러 입니다.")
+    enum Coffee {
+        case americano
+        case espresso
+        case latte
+        
+        func price() -> Int {
+            switch self {
+            case .americano:
+                return 20
+            case .espresso:
+                return 10
+            case .latte:
+                return 30
+            }
+        }
     }
     
-    mutating func brewCoffee(of menu: Menu) {
-        let drink = menu.coffeeType
-        print("주문하신 \(drink)가 준비 되었습니다.")
-        pickUpTable.append(drink)
+    func hireBarista(worker: Person) {
+        self.barista = worker
+    }
+    
+    func takeOrder(coffee: Coffee, count: Int) {
+        print("주문 확인하겠습니다. \(coffee) \(count)잔 입니다.")
+    }
+    
+    func brewCoffee(coffee: Coffee, count: Int) {
+        pickupTable.append(coffee)
+        print("\(coffee)\(count) 잔 나왔습니다")
     }
 }
 
-struct Menu {
-    var coffeeType: Coffee
-    var price: Int
-}
 
-enum Coffee: Int {
-    case espresso = 10
-    case americano = 20
-    case latte = 30
-    case handDrip = 50
-}
+let misterLee = Person(name: "미스터리", money: 100, gender: .male, drinkSelected: [:])
+let missKim = Person(name: "미스킴", money: 100, gender: .female, drinkSelected: [:])
 
-let misterLee = Person(name: "미스터리")
-let missKim = Person(name: "미스 김")
+let yagomBucks = CoffeeShop(name: "야곰벅스", totalProfit: 0, menu: [:], pickupTable: [], barista: misterLee)
+yagomBucks.hireBarista(worker: misterLee)
 
-let yagombuck: CoffeeShop = CoffeeShop(profit: 0,
-                                       list: Menu(coffeeType: Coffee.espresso, price: Coffee.espresso.rawValue),
-                                       pickUpTable: [],
-                                       barista: misterLee)
 
