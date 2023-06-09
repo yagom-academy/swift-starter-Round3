@@ -24,39 +24,29 @@ class Person {
     }
 }
 
-struct Menu {
-    var price: Int
-    var coffeeList: [Coffee]
-}
-
-
 class CoffeeShop {
     var sales: Int
-    var barista: Person?
-    var pickUpTable: [Coffee] = []
-    var menulist: Menu
-
-    init(sales: Int, pickUpTable: [Coffee], menulist: Menu) {
+    var barista: Person
+    lazy var pickUpTable: [Coffee] = makeCoffee()
+    var menuList: [Coffee:Int] = [:]
+        
+    init(sales: Int, barista: Person, menuList: [Coffee : Int]) {
         self.sales = sales
-        self.pickUpTable = pickUpTable
-        self.menulist = menulist
-    }
-    
-    convenience init(sales: Int, pickUpTable: [Coffee], menulist: Menu, barista: Person?) {
-        self.init(sales: sales, pickUpTable: pickUpTable, menulist: menulist)
+        self.menuList = menuList
         self.barista = barista
     }
     
-    func order() {
+    func takingOrder() {
         print("커피 주문을 받습니다.")
     }
 
-    func makeCoffee() -> [Coffee] {
-        return self.pickUpTable
+    func makeCoffee() -> [Coffee]  {
+        print("커피를 만듭니다.")
+        return []
     }
 }
 
 var misterLee: Person = Person(money: 0, name: "misterLee")
 var missKim: Person = Person(money: 0, name: "missKim")
-var yagombucks: CoffeeShop = CoffeeShop(sales: 0, pickUpTable: [], menulist: Menu(price: 0, coffeeList: []))
-yagombucks.barista = misterLee
+var yagombucks: CoffeeShop = CoffeeShop(sales: 0, barista: misterLee, menuList: [Coffee.americano: 1500])
+
