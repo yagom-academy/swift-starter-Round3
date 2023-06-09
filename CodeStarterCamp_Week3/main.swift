@@ -28,7 +28,7 @@ class Person {
         }
         
         pay(for: money)
-        drinkCoffee()
+        drink()
         
         print(drinkCoffee)
     }
@@ -42,7 +42,7 @@ class Person {
         self.money -= money
     }
     
-    func drinkCoffee() {
+    func drink() {
         dailyCoffee += 1
     }
     
