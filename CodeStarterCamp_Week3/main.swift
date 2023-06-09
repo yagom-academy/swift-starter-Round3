@@ -27,26 +27,27 @@ class Person {
 class CoffeeShop {
     var sales: Int
     var barista: Person
-    lazy var pickUpTable: [Coffee] = makeCoffee()
-    var menuList: [Coffee:Int] = [:]
+    var pickUpTable: [Coffee] = []
+    var menuList: [Coffee: Int] = [:]
         
-    init(sales: Int, barista: Person, menuList: [Coffee : Int]) {
+    init(sales: Int, barista: Person, menuList: [Coffee: Int], pickUpTable: [Coffee]) {
         self.sales = sales
         self.menuList = menuList
         self.barista = barista
+        self.pickUpTable = pickUpTable
     }
     
     func takingOrder() {
         print("커피 주문을 받습니다.")
     }
 
-    func makeCoffee() -> [Coffee]  {
+    func makeCoffee() {
         print("커피를 만듭니다.")
-        return []
+        var coffee: Coffee = .americano
+        pickUpTable.append(coffee)
     }
 }
 
 var misterLee: Person = Person(money: 0, name: "misterLee")
 var missKim: Person = Person(money: 0, name: "missKim")
-var yagombucks: CoffeeShop = CoffeeShop(sales: 0, barista: misterLee, menuList: [Coffee.americano: 1500])
-
+var yagombucks: CoffeeShop = CoffeeShop(sales: 0, barista: misterLee, menuList: [Coffee.americano: 1500],pickUpTable: [])
