@@ -63,10 +63,10 @@
 		34811DD3274B93EB00A1E994 /* CodeStarterCamp_Week3 */ = {
 			isa = PBXGroup;
 			children = (
-				6FD27A3E2A3364CD00AE0397 /* Enum */,
 				34811DD4274B93EB00A1E994 /* main.swift */,
 				6FD27A3A2A335C1900AE0397 /* Person.swift */,
 				6FD27A3C2A335C8000AE0397 /* CoffeeShop.swift */,
+				6FD27A3E2A3364CD00AE0397 /* Enum */,
 			);
 			path = CodeStarterCamp_Week3;
 			sourceTree = "<group>";

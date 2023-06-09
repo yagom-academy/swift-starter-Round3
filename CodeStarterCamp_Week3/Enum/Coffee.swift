@@ -8,37 +8,18 @@
 import Foundation
 
 enum Coffee: Hashable {
-    enum CoffeeType {
-        case Hot
-        case Iced
-    }
+    case Americano
+    case Latte
+    case CafeMoca
     
-    case Americano(CoffeeType, Int)
-    case Latte(CoffeeType, Int)
-    case CafeMoca(CoffeeType, Int)
-    
-    var menuName: String {
-        var menuName = ""
+    var name: String {
         switch self {
-        case .Americano(let coffeeType, _):
-            if coffeeType == CoffeeType.Iced {
-                menuName += "Iced"
-                menuName += " "
-            }
-            menuName += "Americano"
-        case .Latte(let coffeeType, _):
-            if coffeeType == CoffeeType.Iced {
-                menuName += "Iced"
-                menuName += " "
-            }
-            menuName += "Latte"
-        case .CafeMoca(let coffeeType, _):
-            if coffeeType == CoffeeType.Iced {
-                menuName += "Iced"
-                menuName += " "
-            }
-            menuName += "CafeMoca"
+        case .Americano:
+            return "Americano"
+        case .Latte:
+            return "Latte"
+        case .CafeMoca:
+            return "CafeMoca"
         }
-        return menuName
     }
 }
