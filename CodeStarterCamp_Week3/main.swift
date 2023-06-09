@@ -20,13 +20,14 @@ class Person {
     private var name: String
     private var money: Int
     private var gender: Gender
-    private var job: CoffeeShop?
+    var job: CoffeeShop?
     private var drinkSelected: [CoffeeShop.Coffee: Int]
     
-    init(name: String, money: Int, gender: Gender, drinkSelected: [CoffeeShop.Coffee: Int]) {
+    init(name: String, money: Int, gender: Gender, job: CoffeeShop? = nil, drinkSelected: [CoffeeShop.Coffee: Int] = [:]) {
         self.name = name
         self.money = money
         self.gender = gender
+        self.job = job
         self.drinkSelected = drinkSelected
     }
 
@@ -47,7 +48,7 @@ class Person {
     }
     
     func checkAmount(_ drink: CoffeeShop.Coffee, _ count: Int) -> Int {
-        let totalCost = (drink.price() * count)
+        let totalCost = (drink.price * count)
         if money >= totalCost {
             print("아직 구매 가능해!")
             return self.money
@@ -58,7 +59,7 @@ class Person {
     }
     
     func buyCoffee(drink: CoffeeShop.Coffee, count: Int) {
-        let cost = (drink.price() * count)
+        let cost = (drink.price * count)
         guard money >= cost else { print("잔액이 부족합니다"); return }
         money -= cost
         print("\(drink)를 \(count)잔 샀습니다.")
@@ -81,12 +82,12 @@ class CoffeeShop {
     private var totalProfit: Int
     private var menu: [Coffee: Int]
     private var pickupTable: [Coffee]
-    private var barista: Person
+    private var barista: Person?
     
-    init(name: String, totalProfit: Int, menu: [Coffee: Int], pickupTable: [Coffee], barista: Person) {
+    init(name: String, totalProfit: Int, menu: [Coffee: Int], pickupTable: [Coffee], barista: Person? = nil) {
         self.name = name
         self.totalProfit = totalProfit
-        self.menu = menu // [:] /// >> 이 친구가 필요한가?
+        self.menu = menu
         self.pickupTable = pickupTable
         self.barista = barista
     }
@@ -96,7 +97,7 @@ class CoffeeShop {
         case espresso
         case latte
         
-        func price() -> Int {
+        var price: Int {
             switch self {
             case .americano:
                 return 20
@@ -113,20 +114,17 @@ class CoffeeShop {
     }
     
     func takeOrder(coffee: Coffee, count: Int) {
-        print("주문 확인하겠습니다. \(coffee) \(count)잔 입니다.")
+        print("주문 확인하겠습니다. \(coffee) \(count)잔이 맞을까요?")
     }
     
     func brewCoffee(coffee: Coffee, count: Int) {
         pickupTable.append(coffee)
-        print("\(coffee)\(count) 잔 나왔습니다")
+        print("\(coffee) \(count)잔 나왔습니다")
     }
 }
 
+let misterLee = Person(name: "미스터리", money: 100, gender: .male)
+let missKim = Person(name: "미스킴", money: 100, gender: .female)
 
-let misterLee = Person(name: "미스터리", money: 100, gender: .male, drinkSelected: [:])
-let missKim = Person(name: "미스킴", money: 100, gender: .female, drinkSelected: [:])
-
-let yagomBucks = CoffeeShop(name: "야곰벅스", totalProfit: 0, menu: [:], pickupTable: [], barista: misterLee)
+let yagomBucks = CoffeeShop(name: "야곰벅스", totalProfit: 0, menu: [:], pickupTable: [])
 yagomBucks.hireBarista(worker: misterLee)
-
-
