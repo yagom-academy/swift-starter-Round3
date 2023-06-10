@@ -10,26 +10,37 @@ final class CoffeeShop {
     private var money = 0
     private(set) var pickUpTable: [Coffee] = []
     
-    func takeOrder(to coffee: Coffee, completion: @escaping () -> Void) {
-        money += coffee.price
-        makeCoffee(to: coffee)
+    var menu = [Coffee: Int]()
+    
+    func createNewMenu(coffee: Coffee, price: Int) {
+        menu[coffee] = price
+    }
+    
+    func checkOnSale(to coffee: Coffee) -> (Bool, Int) {
+        let isSale = menu.contains(where: { $0.key == coffee })
+        let price = menu[coffee]
+        return (isSale, price ?? 0)
+    }
+    
+    func takeOrder(_ coffee: Coffee, of coffeeShop: CoffeeShop, by name: String, completion: @escaping () -> Void) {
+        money += menu[coffee]!
+        make(coffee, for: name)
         completion()
     }
     
-    func order(_ coffee: Coffee, of coffeeShop: CoffeeShop, by name: String) {
-        make(coffee, for: name)
-    }
     
     private func make(_ coffee: Coffee, for name: String) {
         pickUpTable.append(coffee)
         print("\(name)님이 주문하신 \(coffee.name)(이/가) 준비되었습니다. 픽업대에서 가져가주세요")
     }
     
-    private func makeCoffee(to coffee: Coffee) {
-        pickUpTable.append(coffee)
+    static func createCoffeeShop(money: Int, menu: [Coffee: Int]) -> CoffeeShop {
+        let coffeeShop = CoffeeShop(money: money)
+        coffeeShop.menu = menu
+        return coffeeShop
     }
     
-    init(money: Int) {
+    private init(money: Int) {
         self.money = money
     }
 }

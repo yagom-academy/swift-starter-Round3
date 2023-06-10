@@ -10,31 +10,31 @@ import Foundation
 final class Person {
     
     private(set) var money: Int = 0
+    private(set) var name: String
     
     func orderCoffee(in coffeeShop: CoffeeShop, to coffee: Coffee) {
         
-        guard coffee.price <= money else {
-            print("잔액이 부족합니다.")
+        let (isSale, price) = coffeeShop.checkOnSale(to: coffee)
+        guard isSale else {
+            print("판매하지 않는 종류입니다.")
             return
         }
         
-        coffeeShop.takeOrder(to: coffee) {
-            print("픽업대에서 음료를 가져가주세요")
-        }
-        money -= coffee.price
-    }
-    
-    func order(_ coffee: Coffee, of coffeeShop: CoffeeShop, by name: String) {
-        guard coffee.price <= money else {
-            print("잔액이 \(coffee.price - money)원만큼 부족합니다.")
+        guard price <= money else {
+            print("잔액이 \(price - money)원만큼  부족합니다")
             return
         }
         
-        coffeeShop.order(coffee, of: coffeeShop, by: name)
+        money -= price
+        
+        coffeeShop.takeOrder(coffee, of: coffeeShop, by: name) {
+            print("픽업대에서 음료를 가져왔습니다.")
+        }
+        
     }
     
-    
-    init(money: Int = 0) {
+    init(name: String, money: Int = 0) {
+        self.name = name
         self.money = money
     }
 }
