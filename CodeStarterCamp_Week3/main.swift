@@ -8,47 +8,46 @@
 
 import Foundation
 
-struct Person {
-    var name : String
-    var money : Int
-    
-    mutating func buyCoffee (coffee: Coffee) {
-        print("\(coffee.rawValue) 구매할게요")
-    }
-    
-    mutating  func payMoney(coffee: Coffee, coffeeshop: CoffeeShop) {
-        if let coffeePrice = coffeeshop.menuboard[coffee.rawValue] {
-            if money < coffeePrice {
-                print("돈이 부족합니다.")
-            }
-            return print("결제 완료됐습니다.")
-        }
-    }
-}
-
-var misterLee : Person = Person(name: "misterLee", money: 5000)
-var missKim : Person = Person(name: "missKim", money: 6000)
-
-missKim.buyCoffee(coffee: .amricano)
-
-
 struct CoffeeShop {
-    var brista : Person
-    var profit : Int
-    var menuboard : [String : Int] = ["americano" : 2000, "latte" : 4000]
-    var pickUpTable : [String] = []
+    var barista: Person
+    var profit: Int
+    var menuboard: [Coffee : Int] = [:]
+    var pickUpTable: [(Coffee,Person)] = []
     
     mutating  func orderCoffee(coffee: Coffee) {
         print("주문한 \(coffee.rawValue)가 나왔습니다.")
     }
+    
+    mutating func addPickUpTable(coffee: Coffee, person: Person) {
+        pickUpTable.append((coffee, person))
+        print("주문하신 메뉴 가져가세요.")
+    }
+    
+    mutating func totalprofit(coffee: Coffee) {
+        profit += coffee.price
+        print("총매출액은 \(profit)입니다.")
+    }
 }
 
-var yagombucks : CoffeeShop = CoffeeShop(brista: misterLee, profit: 0, pickUpTable: [])
+var yagombucks: CoffeeShop = CoffeeShop(barista: misterLee, profit: 0)
 
-yagombucks.orderCoffee(coffee: .amricano)
-
-enum Coffee : String {
-    case amricano = "아메리카노"
+enum Coffee: String {
+    case americano = "아메리카노"
     case latte = "라떼"
+    
+    var price: Int {
+        switch self {
+        case .americano:
+            return 5000
+        case .latte:
+            return 6000
+        }
+    }
 }
 
+missKim.buyCoffee(coffee: .americano)
+missKim.orderMoney(coffee: .americano, coffeeshop: yagombucks)
+print(missKim.money)
+yagombucks.orderCoffee(coffee: .americano)
+yagombucks.addPickUpTable(coffee: .americano, person: missKim)
+yagombucks.totalprofit(coffee: .americano)
