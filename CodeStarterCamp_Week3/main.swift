@@ -19,8 +19,13 @@ class Person {
         self.name = name
     }
     
-    func buyCoffee() {
-        print("커피를 삽니다")
+    func orderCoffee(_ Coffee: Coffee, of coffeeShop: CoffeeShop, by name: String) {
+        coffeeShop.makeCoffee(Coffee, for: self.name)
+        self.money -= coffeeShop.menuList[Coffee] ?? 0
+        coffeeShop.sales += coffeeShop.menuList[Coffee] ?? 0
+        if self.money < 0 {
+            print("잔액이 \(abs(self.money))만큼 부족합니다.")
+        }
     }
 }
 
@@ -28,11 +33,10 @@ class CoffeeShop {
     var sales: Int
     var barista: Person
     var pickUpTable: [Coffee] = []
-    var menuList: [Coffee: Int] = [:]
+    var menuList: [Coffee: Int] = [.americano: 4500, .latte: 4800, .espresso : 4000]
         
-    init(sales: Int, barista: Person, menuList: [Coffee: Int], pickUpTable: [Coffee]) {
+    init(sales: Int, barista: Person, pickUpTable: [Coffee]) {
         self.sales = sales
-        self.menuList = menuList
         self.barista = barista
         self.pickUpTable = pickUpTable
     }
@@ -41,13 +45,15 @@ class CoffeeShop {
         print("커피 주문을 받습니다.")
     }
 
-    func makeCoffee() {
-        print("커피를 만듭니다.")
-        var coffee: Coffee = .americano
+    func makeCoffee(_ coffee: Coffee, for name: String) {
         pickUpTable.append(coffee)
+        if pickUpTable.isEmpty == false {
+            print("\(name)이 주문하신 \(coffee)(이/가) 준비되었습니다. 픽업대에서 가져가주세요.")
+        }
     }
 }
 
-var misterLee: Person = Person(money: 0, name: "misterLee")
-var missKim: Person = Person(money: 0, name: "missKim")
-var yagombucks: CoffeeShop = CoffeeShop(sales: 0, barista: misterLee, menuList: [Coffee.americano: 1500],pickUpTable: [])
+var missKim: Person = Person(money: 10000, name: "김여사님")
+var baristaBear: Person = Person(money: 100, name: "곰바리스타")
+var yagombucks: CoffeeShop = CoffeeShop(sales: 100000, barista: baristaBear, pickUpTable: [])
+missKim.orderCoffee(.americano, of: yagombucks, by: missKim.name)
