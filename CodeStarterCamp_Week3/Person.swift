@@ -7,18 +7,19 @@
 
 import Foundation
 
-struct Person {
+class Person {
     var name: String
     var money: Int
     
-    mutating func buyCoffee (coffee: Coffee) {
-        print("\(coffee.rawValue) 구매할게요")
+    init(name: String, money: Int) {
+        self.name = name
+        self.money = money
     }
     
-    mutating  func orderMoney(coffee: Coffee, coffeeshop: CoffeeShop) {
+    func order(coffee: Coffee, coffeeshop: CoffeeShop) {
         if let coffePrice = coffeeshop.menuboard[coffee] {
             if money <= coffePrice {
-                print("돈이 부족합니다.")
+                print("잔액이 \(coffePrice-money)원만큼 부족합니다.")
                 return
             }
             money -= coffePrice
@@ -27,5 +28,5 @@ struct Person {
     }
 }
 
-var misterLee: Person = Person(name: "misterLee", money: 5000)
 var missKim: Person = Person(name: "missKim", money: 6000)
+var employee: Person = Person(name: "미르", money: 3000)
