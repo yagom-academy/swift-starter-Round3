@@ -8,9 +8,10 @@
 
 import Foundation
 
-let misterLee = Person()
-let missKim = Person(money: 10000000)
+let hong = Person(name: "홍길동", money: 10000)
+let yagombucks = CoffeeShop.createCoffeeShop(money: 1000000, menu: [.americano: 3000])
 
-let yagombucks = CoffeeShop(money: 10000000)
-
-missKim.orderCoffee(in: yagombucks, to: .americano)
+hong.orderCoffee(in: yagombucks, to: .americano)
+hong.orderCoffee(in: yagombucks, to: .latte)
+yagombucks.createNewMenu(coffee: .latte, price: 5000)
+hong.orderCoffee(in: yagombucks, to: .latte)

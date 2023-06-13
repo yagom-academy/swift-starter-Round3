@@ -11,12 +11,12 @@ enum Coffee {
     case americano
     case latte
     
-    var price: Int {
+    var name: String {
         switch self {
         case .americano:
-            return 2000
+            return "아메리카노"
         case .latte:
-            return 3000
+            return "라떼"
         }
     }
 }
