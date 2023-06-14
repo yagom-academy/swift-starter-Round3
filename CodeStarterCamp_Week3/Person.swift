@@ -19,7 +19,7 @@ class Person {
     func order(coffee: Coffee, coffeeshop: CoffeeShop) {
         if let coffePrice = coffeeshop.menuboard[coffee] {
             if money <= coffePrice {
-                print("잔액이 \(coffePrice-money)원만큼 부족합니다.")
+                print("잔액이 \(coffePrice - money)원만큼 부족합니다.")
                 return
             }
             money -= coffePrice
@@ -28,5 +28,3 @@ class Person {
     }
 }
 
-var missKim: Person = Person(name: "missKim", money: 6000)
-var employee: Person = Person(name: "미르", money: 3000)
