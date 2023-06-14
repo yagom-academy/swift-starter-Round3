@@ -9,6 +9,8 @@
 /* Begin PBXBuildFile section */
 		34811DD5274B93EB00A1E994 /* main.swift in Sources */ = {isa = PBXBuildFile; fileRef = 34811DD4274B93EB00A1E994 /* main.swift */; };
 		4E26D5392A37534200B58F65 /* Person.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E26D5382A37534200B58F65 /* Person.swift */; };
+		4E26D5672A39EF3100B58F65 /* CoffeeShop.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E26D5662A39EF3100B58F65 /* CoffeeShop.swift */; };
+		4E26D5692A39F02800B58F65 /* Coffee.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E26D5682A39F02800B58F65 /* Coffee.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXCopyFilesBuildPhase section */
@@ -27,6 +29,8 @@
 		34811DD1274B93EB00A1E994 /* CodeStarterCamp_Week3 */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.executable"; includeInIndex = 0; path = CodeStarterCamp_Week3; sourceTree = BUILT_PRODUCTS_DIR; };
 		34811DD4274B93EB00A1E994 /* main.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = main.swift; sourceTree = "<group>"; };
 		4E26D5382A37534200B58F65 /* Person.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Person.swift; sourceTree = "<group>"; };
+		4E26D5662A39EF3100B58F65 /* CoffeeShop.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CoffeeShop.swift; sourceTree = "<group>"; };
+		4E26D5682A39F02800B58F65 /* Coffee.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Coffee.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -61,6 +65,8 @@
 			children = (
 				34811DD4274B93EB00A1E994 /* main.swift */,
 				4E26D5382A37534200B58F65 /* Person.swift */,
+				4E26D5662A39EF3100B58F65 /* CoffeeShop.swift */,
+				4E26D5682A39F02800B58F65 /* Coffee.swift */,
 			);
 			path = CodeStarterCamp_Week3;
 			sourceTree = "<group>";
@@ -122,8 +128,10 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				4E26D5672A39EF3100B58F65 /* CoffeeShop.swift in Sources */,
 				4E26D5392A37534200B58F65 /* Person.swift in Sources */,
 				34811DD5274B93EB00A1E994 /* main.swift in Sources */,
+				4E26D5692A39F02800B58F65 /* Coffee.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
