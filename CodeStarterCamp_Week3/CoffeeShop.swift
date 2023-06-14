@@ -10,13 +10,8 @@ import Foundation
 class CoffeeShop {
     var sales: Int
     var barista: Person
-    var pickUpTable: [String:Coffee] = [String:Coffee]() {
-        didSet(oldValue) {
-            let key: String = (pickUpTable.keys).map{String($0)}[0]
-            if let pickUpCoffee = pickUpTable[key] {
-                print("\(key) 님이 주문하신 \(pickUpCoffee)(이/가) 준비되었습니다. 픽업대에서 가져가주세요.")
-            }
-        }
+    var pickUpTable: (String, Coffee) -> Void = { (name: String, coffee: Coffee) in
+        print("\(name)이 주문하신 \(coffee)가 나왔습니다.")
     }
     var menuList: [Coffee: Int] = [.americano: 4500, .latte: 4800, .espresso : 4000]
         
@@ -33,6 +28,6 @@ class CoffeeShop {
         if let money = menuList[coffee] {
             self.sales += money
         }
-        pickUpTable[name] = coffee
+        pickUpTable(name, coffee)
     }
 }

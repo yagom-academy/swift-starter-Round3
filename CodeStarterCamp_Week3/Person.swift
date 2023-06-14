@@ -17,12 +17,12 @@ class Person {
     }
     
     func orderCoffee(_ Coffee: Coffee, of coffeeShop: CoffeeShop, by name: String) {
-        if let money = coffeeShop.menuList[Coffee] {
-            if self.money > money {
-                self.money -= money
-                coffeeShop.makeCoffee(Coffee, for: self.name)
+        if let price = coffeeShop.menuList[Coffee] {
+            if self.money > price {
+                self.money -= price
+                coffeeShop.makeCoffee(Coffee, for: name)
             } else {
-                self.money -= money
+                self.money -= price
                 print("잔액이 \(abs(self.money))만큼 부족합니다.")
             }
         }
