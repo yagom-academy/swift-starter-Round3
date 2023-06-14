@@ -16,17 +16,29 @@ import Foundation
 
 class CoffeeShop {
     private var name: String
-    private var totalProfit: Int
-    private var menu: [Coffee: Int]
-    private var pickupTable: [Coffee]
+    var totalProfit: Int
+    private var pickupTable: [Any]
     private var barista: Person?
     
-    init(name: String, totalProfit: Int, menu: [Coffee: Int], pickupTable: [Coffee], barista: Person? = nil) {
+    init(name: String, totalProfit: Int, pickupTable: [Any], barista: Person? = nil) {
         self.name = name
         self.totalProfit = totalProfit
-        self.menu = menu
         self.pickupTable = pickupTable
         self.barista = barista
+    }
+    
+    enum Soup {
+        case potato
+        case veggie
+        
+        var price: Int {
+            switch self {
+            case .potato:
+                return 6000
+            case .veggie:
+                return 5000
+            }
+        }
     }
     
     enum Coffee {
@@ -46,8 +58,15 @@ class CoffeeShop {
         }
     }
     
-    func make(_ coffee: Coffee, for name: String) {
-        print("\(name) 님이 주문하신 카푸치노(이/가) 준비되었습니다. 픽업대에서 가져가주세요.")
+    func makeCoffee(_ coffee: Coffee, for customer: Person) {
+        pickupTable.append(coffee)
+        print("\(customer.isName()) 님이 주문하신 카푸치노(이/가) 준비되었습니다. 픽업대에서 가져가주세요.")
         self.totalProfit += coffee.price
+    }
+    
+    func heatSoup(_ soup: Soup, for customer: Person) {
+        pickupTable.append(soup)
+        print("주문하신 \(soup)는 데워드리겠습니다.")
+        self.totalProfit += soup.price
     }
 }
