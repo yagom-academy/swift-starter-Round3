@@ -11,7 +11,7 @@ class CoffeeShop {
     var sales: Int
     var barista: Person
     var pickUpTable: (String, Coffee) -> Void = { (name: String, coffee: Coffee) in
-        print("\(name)이 주문하신 \(coffee)가 나왔습니다.")
+        print("\(name) 님이 주문하신 \(coffee)(이/가) 준비되었습니다. 픽업대에서 가져가주세요.")
     }
     var menuList: [Coffee: Int] = [.americano: 4500, .latte: 4800, .espresso : 4000]
         
