@@ -22,7 +22,7 @@ class Person {
 class CoffeeShop {
     var revenue: Int
     var menu: [Coffee: Int]
-    var pickUpTable: [Int]
+    var pickUpTable: [Coffee]
     var barista: Person
     func ordered() {
 
@@ -34,7 +34,7 @@ class CoffeeShop {
         
     }
     
-    init(revenue: Int, menu: [Coffee: Int], pickUpTable: [Int]) {
+    init(revenue: Int, menu: [Coffee: Int], pickUpTable: [Coffee]) {
         self.revenue = revenue
         self.pickUpTable = pickUpTable
         self.menu = menu
@@ -51,5 +51,4 @@ enum Coffee: String {
 
 var misterLee = Person(money: 1000)
 var missKim = Person(money: 2000)
-var yagombucks = CoffeeShop(revenue: 10000, menu: [.superCoffe: 4000, .megaCoffe: 3000, .umCoffee: 2000, .realCoffee: 1000], pickUpTable: [1])
-
+var yagombucks = CoffeeShop(revenue: 10000, menu: [.superCoffe: 4000, .megaCoffe: 3000, .umCoffee: 2000, .realCoffee: 1000], pickUpTable: [.megaCoffe])
