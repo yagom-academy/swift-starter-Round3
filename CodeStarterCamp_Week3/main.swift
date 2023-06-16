@@ -11,7 +11,7 @@ import Foundation
 class Person {
     var money: Int
     func buyCoffee (){
-        var buyingCoffee: String
+        
     }
     
     init(money: Int) {
@@ -19,26 +19,30 @@ class Person {
     }
 }
 
-
 class CoffeeShop {
     var revenue: Int
-    var menu: [String: Int]
+    var menu: [Coffee: Int]
     var pickUpTable: [Int]
-    func orderAndMakeCoffee() {
+    var barista: Person
+    func ordered() {
 
     }
-    func onPickUpTable() {
+    func makeCoffe() {
+        
+    }
+    func dropOnPickUpTable() {
         
     }
     
-    init(revenue: Int, menu: [String: Int], pickUpTable: [Int]) {
+    init(revenue: Int, menu: [Coffee: Int], pickUpTable: [Int]) {
         self.revenue = revenue
-        self.menu = menu
         self.pickUpTable = pickUpTable
+        self.menu = menu
+        self.barista = misterLee
     }
 }
 
-enum Coffee {
+enum Coffee: String {
     case superCoffe
     case megaCoffe
     case umCoffee
@@ -47,4 +51,5 @@ enum Coffee {
 
 var misterLee = Person(money: 1000)
 var missKim = Person(money: 2000)
-var yagombucks = CoffeeShop(revenue: 10000, menu: [SuperCoffe: 1000], pickUpTable: 1, barista: misterLee)
+var yagombucks = CoffeeShop(revenue: 10000, menu: [.superCoffe: 4000, .megaCoffe: 3000, .umCoffee: 2000, .realCoffee: 1000], pickUpTable: [1])
+
