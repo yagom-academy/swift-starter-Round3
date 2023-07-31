@@ -8,6 +8,17 @@
 
 import Foundation
 
+class PaymentSystem {
+    static func makePayment(customer: Person, amount: Double) -> Bool {
+        if customer.money >= amount {
+            customer.money -= amount
+            return true
+        } else {
+            return false
+        }
+    }
+}
+
 enum Coffee {
     case americano
     case latte
@@ -15,14 +26,20 @@ enum Coffee {
 }
 
 class Person {
+    var name: String
     var money: Double
 
-    init(money: Double) {
+    init(name: String, money: Double) {
+        self.name = name
         self.money = money
     }
 
-    func purchaseCoffee(from coffeeShop: CoffeeShop, type: Coffee) {
-        coffeeShop.takeOrder(from: self, coffeeType: type)
+    func order(_ coffee: Coffee, from coffeeShop: CoffeeShop) {
+        coffeeShop.takeOrder(from: self, coffeeType: coffee)
+    }
+    
+    func makePayment(amount: Double) -> Bool {
+        return PaymentSystem.makePayment(customer: self, amount: amount)
     }
 }
 
@@ -40,23 +57,44 @@ class CoffeeShop {
     }
 
     func takeOrder(from customer: Person, coffeeType: Coffee) {
-        if let price = menu[coffeeType], customer.money >= price {
-            customer.money -= price
+        if let price = menu[coffeeType], PaymentSystem.makePayment(customer: customer, amount: price) {
             sales += price
-            makeCoffee(type: coffeeType)
-        } 
+            makeCoffee(type: coffeeType, from: customer.name)
+        } else {
+            if let price = menu[coffeeType] {
+                let difference = price - customer.money
+                print("잔액이 \(Int(difference * 1000))원만큼 부족합니다.")
+            } else {
+                print("해당하는 커피가 메뉴에 없습니다.")
+            }
+        }
     }
 
-    private func makeCoffee(type: Coffee) {
+    internal func makeCoffee(type: Coffee, from name: String) {
         pickUpTable.append(type)
+        let coffeeName = self.convertCoffeeName(type)
+        let postfix = self.convertCoffeePostfix(type)
+        print("\(name) 님이 주문하신 \(coffeeName)\(postfix) 준비되었습니다. 픽업대에서 가져가주세요.")
+    }
+
+    private func convertCoffeeName(_ coffee: Coffee) -> String {
+        switch coffee {
+        case .americano: return "아메리카노"
+        case .latte: return "라떼"
+        case .cappuccino: return "카푸치노"
+        }
+    }
+
+    private func convertCoffeePostfix(_ coffee: Coffee) -> String {
+        return (coffee == .americano) ? "이" : "가"
     }
 }
 
-let misterLee = Person(money: 10.0)
-let missKim = Person(money: 15.0)
-
+let missKim = Person(name: "missKim", money: 15.0)
+//let missKim = Person(name: "missKim", money: 3.0)
 let yagombucksMenu: [Coffee: Double] = [.americano: 3.0, .latte: 4.0, .cappuccino: 4.5]
-let yagombucks = CoffeeShop(sales: 0.0, menu: yagombucksMenu, barista: misterLee)
+let yagombucks = CoffeeShop(sales: 0.0, menu: yagombucksMenu, barista: missKim)
 
-yagombucks.takeOrder(from: misterLee, coffeeType: .americano)
-yagombucks.takeOrder(from: missKim, coffeeType: .latte)
+missKim.order(.cappuccino, from: yagombucks)
+
+
