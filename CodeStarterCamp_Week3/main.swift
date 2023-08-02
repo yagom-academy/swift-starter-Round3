@@ -8,16 +8,16 @@
 
 import Foundation
 
-var misterLee: Person = Person(name: "misterLee", age: 32)
-var missKim: Person = Person(name: "missKim", age: 25)
-
+var misterLee: Person = Person(name: "misterLee", asset: 10000 )
+var missKim: Person = Person(name: "missKim", asset: 0 )
 var yagombucks: CoffeeShop = CoffeeShop()
+
 yagombucks.barista = misterLee
-yagombucks.getOrder(menus: [Coffee.americano])
+misterLee.buyCoffee(coffeeShop: yagombucks, menus: [Coffee.americano, Coffee.iceTea])
 
 dump(missKim)
 dump(misterLee)
-dump(yagombucks)
+dump(yagombucks.pickUpTable)
 
 
 

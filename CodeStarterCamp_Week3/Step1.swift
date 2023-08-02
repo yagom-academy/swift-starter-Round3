@@ -9,12 +9,19 @@ import Foundation
 
 class Person {
     var name: String
-    var age: Int
-    var mbti: String?
-    init(name: String, age: Int, mbti: String? = nil) {
+    var asset: Int = 0
+    init(name: String, asset: Int) {
         self.name = name
-        self.age = age
-        self.mbti = mbti
+        self.asset = asset
+    }
+    
+    func buyCoffee(coffeeShop: CoffeeShop, menus: [Coffee]) {
+        coffeeShop.getOrder(menus: menus)
+        for menu in menus {
+            if let price = coffeeShop.menus[menu.rawValue] {
+                self.asset -= price
+            }
+        }
     }
     
 }
@@ -22,16 +29,20 @@ class Person {
 class CoffeeShop {
     var barista: Person?
     var sales: Int = 0
-    var menus: Dictionary<Coffee, Int> = [Coffee.americano: 4000]
-    var pickUpTable: Array<Coffee> = []
-    
+    var menus: Dictionary<String, Int> = [:]
+    var pickUpTable: Array<String> = []
+    init() {
+        self.menus = [Coffee.americano.rawValue: 4000,
+                      Coffee.latte.rawValue: 4500,
+                      Coffee.iceTea.rawValue: 5000]
+    }
     func getOrder(menus: [Coffee]) {
         for menu in menus {
-            self.makeCoffee(menu)
+            self.makeCoffee(menu.rawValue)
         }
     }
     
-    func makeCoffee(_ menu: Coffee) {
+    func makeCoffee(_ menu: String) {
         self.pickUpTable.append(menu)
         if let sale = menus[menu] {
             self.sales += sale
@@ -42,7 +53,5 @@ class CoffeeShop {
 enum Coffee: String {
     case americano = "americano"
     case latte = "latte"
-    case caramel = "caramel"
-    case greenTea = "greenTea"
     case iceTea = "iceTea"
 }
