@@ -11,34 +11,34 @@ import Foundation
 //step1
 
 enum Coffee {
-    case 아메리카노
-    case 라떼
-    case 카푸치노
+    case americano
+    case latte
+    case cappuccino
 }
 
 class Person {
-    var money: Int?
+    var money: Int = 0
     
-    func order() {
-        print("order coffee")
+    func order(_ coffee: Coffee, coffeeShop: CoffeeShop) {
+        coffeeShop.make(coffee, barista: misterLee)
     }
 }
 
 class CoffeeShop {
-    var sales: Int?
-    var menu: [String : Int] = [:]
+    var sales: Int = 0
+    var menu: [Coffee : Int] = [.americano : 3000, .latte : 4000, .cappuccino : 5000]
     var pickUpTable: [Coffee] = []
     var barista: Person
     
-    init(barist: Person) {
-        self.barista = barist
+    init(barista: Person) {
+        self.barista = barista
     }
     
-    func make(_ coffee: Coffee) {
+    func make(_ coffee: Coffee, barista: Person) {
         pickUpTable.append(coffee)
     }
 }
 
 var misterLee: Person = Person()
 var missKim: Person = Person()
-var yagombucks: CoffeeShop = CoffeeShop(barist: misterLee)
+var yagombuck: CoffeeShop = CoffeeShop(barista: misterLee)
