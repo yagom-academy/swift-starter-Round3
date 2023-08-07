@@ -27,7 +27,7 @@ class Person {
 }
 
 class CoffeeShop {
-    var barista: Person? //기본값을 넣어주기 애매?
+    var barista: Person?
     var sales: Int = 0
     var menu: [Coffee: Int]
     var pickUpTable: [Coffee] = []
@@ -51,7 +51,18 @@ class CoffeeShop {
 }
 
 enum Coffee: String {
-    case americano = "americano"
-    case latte = "latte"
-    case iceTea = "iceTea"
+    case americano
+    case latte
+    case iceTea
+    
+    func price() -> Int {
+        switch self {
+        case .americano:
+            return 4000
+        case .latte:
+            return 4500
+        case .iceTea:
+            return 4500
+        }
+    }
 }
