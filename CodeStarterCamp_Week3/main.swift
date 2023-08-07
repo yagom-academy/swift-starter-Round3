@@ -8,7 +8,7 @@
 
 import Foundation
 
-//step1
+//step2
 
 enum Coffee {
     case americano
@@ -17,10 +17,21 @@ enum Coffee {
 }
 
 class Person {
-    var money: Int = 0
+    var money: Int
     
-    func order(_ coffee: Coffee, coffeeShop: CoffeeShop) {
-        coffeeShop.make(coffee, barista: misterLee)
+    init(money: Int) {
+        self.money = money
+    }
+    
+    func order(_ coffee: Coffee, coffeeShop: CoffeeShop, name: String) {
+        guard let price = coffeeShop.menu[coffee] else { return print("상품이 존재하지 않습니다.") }
+        if money >= price {
+            coffeeShop.make(coffee, barista: misterLee, name: name)
+            money = money - price
+            coffeeShop.sales += price
+        }else {
+            print("\(price - money)원만큼 잔액이 부족합니다.")
+        }
     }
 }
 
@@ -34,11 +45,15 @@ class CoffeeShop {
         self.barista = barista
     }
     
-    func make(_ coffee: Coffee, barista: Person) {
+    func make(_ coffee: Coffee, barista: Person, name: String) {
         pickUpTable.append(coffee)
+        print("\(name) 님이 주문하신 \(coffee)(이/가) 준비되었습니다. 픽업대에서 가져가 주세요.")
     }
 }
 
-var misterLee: Person = Person()
-var missKim: Person = Person()
-var yagombuck: CoffeeShop = CoffeeShop(barista: misterLee)
+var misterLee: Person = Person(money: 0)
+var missKim: Person = Person(money: 4000)
+var yagombucks: CoffeeShop = CoffeeShop(barista: misterLee)
+
+missKim.order(.americano, coffeeShop: yagombucks, name: "missKim")
+print(yagombucks.sales)
