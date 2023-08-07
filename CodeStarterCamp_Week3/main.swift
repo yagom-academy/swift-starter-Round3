@@ -10,10 +10,10 @@ import Foundation
 
 var misterLee: Person = Person(name: "misterLee", asset: 10000 )
 var missKim: Person = Person(name: "missKim", asset: 0 )
-var yagombucks: CoffeeShop = CoffeeShop()
+var yagombucks: CoffeeShop = CoffeeShop(menu: [Coffee.americano: 4000, Coffee.latte: 4500])
 
 yagombucks.barista = misterLee
-misterLee.buyCoffee(coffeeShop: yagombucks, menus: [Coffee.americano, Coffee.iceTea])
+misterLee.buyCoffee(menu: [Coffee.americano, Coffee.latte], at: yagombucks)
 
 dump(missKim)
 dump(misterLee)
