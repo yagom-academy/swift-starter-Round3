@@ -39,7 +39,7 @@ struct CoffeeShop {
             return false
         }
         guard customer.money >= unwrapedMenu else {
-            print("잔액이 \(customer.money - unwrapedMenu)모자랍니다.")
+            print("잔액이 \(unwrapedMenu - customer.money)원만큼 모자랍니다.")
             return false
         }
         return true
@@ -66,7 +66,11 @@ struct CoffeeShop {
 }
 
 var misterLee = Person(name: "misterLee")
-var missKim = Person(name: "missKim")
+var missKim = Person(name: "missKim", money: 3000)
 
 var yagombucks = CoffeeShop()
 yagombucks.barista = misterLee
+
+missKim.buyCoffee(.americano, from: &yagombucks)
+missKim.money = 5000
+missKim.buyCoffee(.americano, from: &yagombucks)
