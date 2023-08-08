@@ -15,10 +15,10 @@ struct Person {
     mutating func buyCoffee(_ coffee: Coffee, from coffeeShop: inout CoffeeShop) {
         if coffeeShop.validateOrder(coffee, orderedBy: self) {
             coffeeShop.takeOrder(coffee, orderedBy: self)
-            guard let unwrapedMenu = coffeeShop.menu[coffee] else {
+            guard let menuPrice = coffeeShop.menu[coffee] else {
                 return
             }
-            money -= unwrapedMenu
+            money -= menuPrice
         }
     }
 }
@@ -34,27 +34,32 @@ struct CoffeeShop {
     var pickUpTable: [String: [Coffee]] = [:]
         
     func validateOrder(_ coffee: Coffee, orderedBy customer: Person) -> Bool {
-        guard let unwrapedMenu = menu[coffee] else {
+        guard let menuPrice = menu[coffee] else {
             print("해당 메뉴는 존재하지 않습니다.")
             return false
         }
-        guard customer.money >= unwrapedMenu else {
-            print("잔액이 \(unwrapedMenu - customer.money)원만큼 모자랍니다.")
+        guard customer.money >= menuPrice else {
+            print("잔액이 \(menuPrice - customer.money)원만큼 모자랍니다.")
             return false
         }
         return true
     }
     
     mutating func takeOrder(_ coffee: Coffee, orderedBy customer: Person) {
-        guard let unwrapedMenu = menu[coffee] else {
+        guard let menuPrice = menu[coffee] else {
             return
         }
-        sales += unwrapedMenu
+        sales += menuPrice
         makeCoffee(coffee, customer: customer.name)
     }
     
     mutating func makeCoffee(_ coffee: Coffee, customer name: String) {
-        pickUpTable[name]?.append(coffee)
+        if pickUpTable[name] == nil {
+            pickUpTable[name] = [coffee]
+        }
+        else {
+            pickUpTable[name]?.append(coffee)
+        }
         print("\(name) 님이 주문하신 \(coffee)(이/가) 준비되었습니다. 픽업대에서 가져가주세요.")
     }
     
@@ -66,11 +71,10 @@ struct CoffeeShop {
 }
 
 var misterLee = Person(name: "misterLee")
-var missKim = Person(name: "missKim", money: 3000)
+var missKim = Person(name: "missKim", money: 10000)
 
 var yagombucks = CoffeeShop()
 yagombucks.barista = misterLee
 
 missKim.buyCoffee(.americano, from: &yagombucks)
-missKim.money = 5000
-missKim.buyCoffee(.americano, from: &yagombucks)
+missKim.buyCoffee(.cappuccino, from: &yagombucks)
