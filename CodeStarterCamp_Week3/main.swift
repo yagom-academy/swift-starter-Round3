@@ -11,10 +11,10 @@ struct CoffeeShop {
     var menu: [Coffee: Int] = [:]
     var pickUpTable: Array<Coffee> = []
     var barista: Person
-    func takeOrder() {
-
+    mutating func takeOrder(_ coffee : Coffee) {
+        makeCoffee(coffee)
     }
-    mutating func makeCoffee(coffee : Coffee) {
+    mutating func makeCoffee(_ coffee : Coffee) {
         print("\(coffee) 만들기 완료")
         pickUpTable.append(coffee)
     }
@@ -28,7 +28,7 @@ var misterLee = Person()
 var missKim = Person()
 var yagombucks = CoffeeShop(barista: misterLee)
 
-yagombucks.makeCoffee(coffee: .americano)
+yagombucks.takeOrder(.vanillaLatte)
 print(yagombucks.pickUpTable)
 
 
