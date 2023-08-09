@@ -25,7 +25,11 @@ class Person {
         let strTypeOfCoffee = typeOfCoffee
         if let typeOfCoffee = coffeeShop.menu[typeOfCoffee] {
             if self.money >= typeOfCoffee {
+                self.money -= typeOfCoffee
                 coffeeShop.orderCoffee(from: self, typeOfCoffee: strTypeOfCoffee)
+            } else {
+                let shortage = typeOfCoffee - self.money
+                            print("잔액이 \(shortage)원만큼 부족합니다.")
             }
         }
         
@@ -69,7 +73,7 @@ class CoffeeShop {
 }
 
 let misterLee = Person(name: "misterLee", height: 180.0, weight: 70.0, money: 30000)
-let missKim = Person(name: "missKim", height: 170.0, weight: 60.0, money: 30000)
+let missKim = Person(name: "missKim", height: 170.0, weight: 60.0, money: 100)
 let yagombucksMenu: [CoffeeShop.Coffee: Int] = [.iceAmericano: 4000, .caffeMocha: 7000, .brewCoffee: 8000]
 
 
