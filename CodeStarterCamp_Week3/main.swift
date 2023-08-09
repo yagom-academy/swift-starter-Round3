@@ -21,8 +21,14 @@ class Person {
         self.money = money
     }
     
-    func buyingCoffee(from coffeeShop: CoffeeShop, typeOfCoffee: CoffeeShop.Coffee ) {
-        coffeeShop.orderCoffee(from: self, typeOfCoffee: typeOfCoffee)
+    func purchaseCoffee(from coffeeShop: CoffeeShop, typeOfCoffee: CoffeeShop.Coffee) {
+        let strTypeOfCoffee = typeOfCoffee
+        if let typeOfCoffee = coffeeShop.menu[typeOfCoffee] {
+            if self.money >= typeOfCoffee {
+                coffeeShop.orderCoffee(from: self, typeOfCoffee: strTypeOfCoffee)
+            }
+        }
+        
     }
 }
 
@@ -30,7 +36,7 @@ class CoffeeShop {
     var sugarContent: Int // 당도
     var typeOfBeans: String // 원두종류
     var sales: Int
-    var menu: Dictionary<Coffee, Int>
+    var menu = [Coffee:Int]() //Dictionary<Coffee, Int>
     var pickUpTable: [Coffee]
     var barista: Person
     
@@ -49,17 +55,15 @@ class CoffeeShop {
     
     func orderCoffee(from customer: Person, typeOfCoffee: Coffee) {
         if let price = menu[typeOfCoffee] {
-            if customer.money >= price {
-                customer.money -= price
-                sales += price
-                makeCoffee(cofee: typeOfCoffee)
-                print("\(typeOfCoffee) 결제가 완료되었습니다.") // 코드가 제대로 작동되는지 확인하기 위함
-            }
+            customer.money -= price
+            sales += price
+            makeCoffee(coffee: typeOfCoffee)
+            print("\(typeOfCoffee) 결제가 완료되었습니다.") // 코드가 제대로 작동되는지 확인하기 위함
         }
     }
     
-    func makeCoffee(cofee: Coffee) {
-        pickUpTable.append(cofee)
+    func makeCoffee(coffee: Coffee) {
+        pickUpTable.append(coffee)
     }
     
 }
@@ -72,4 +76,4 @@ let yagombucksMenu: [CoffeeShop.Coffee: Int] = [.iceAmericano: 4000, .caffeMocha
 // -MARK: CoffeShop 타입 인스턴스 생성 및 바리스타 할당
 let yagombucks = CoffeeShop(sugarContent: 40, typeOfBeans: "Luwak", sales: 0, menu: yagombucksMenu, pickUpTable: [], barista: misterLee)
 
-misterLee.buyingCoffee(from: yagombucks, typeOfCoffee: .caffeMocha)
+missKim.purchaseCoffee(from: yagombucks, typeOfCoffee: .caffeMocha)
