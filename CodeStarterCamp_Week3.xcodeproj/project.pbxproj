@@ -8,6 +8,11 @@
 
 /* Begin PBXBuildFile section */
 		34811DD5274B93EB00A1E994 /* main.swift in Sources */ = {isa = PBXBuildFile; fileRef = 34811DD4274B93EB00A1E994 /* main.swift */; };
+		7D3C8C8F2A9D999800F908E8 /* Person.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7D3C8C8E2A9D999800F908E8 /* Person.swift */; };
+		7D3C8C912A9DB57200F908E8 /* MBTI.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7D3C8C902A9DB57200F908E8 /* MBTI.swift */; };
+		7D3C8C932A9DB62F00F908E8 /* Coffee.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7D3C8C922A9DB62F00F908E8 /* Coffee.swift */; };
+		7D3C8C952A9DB69700F908E8 /* CoffeeShop.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7D3C8C942A9DB69700F908E8 /* CoffeeShop.swift */; };
+		7D3C8C972A9DCD8D00F908E8 /* OrderResult.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7D3C8C962A9DCD8D00F908E8 /* OrderResult.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXCopyFilesBuildPhase section */
@@ -25,6 +30,11 @@
 /* Begin PBXFileReference section */
 		34811DD1274B93EB00A1E994 /* CodeStarterCamp_Week3 */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.executable"; includeInIndex = 0; path = CodeStarterCamp_Week3; sourceTree = BUILT_PRODUCTS_DIR; };
 		34811DD4274B93EB00A1E994 /* main.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = main.swift; sourceTree = "<group>"; };
+		7D3C8C8E2A9D999800F908E8 /* Person.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Person.swift; sourceTree = "<group>"; };
+		7D3C8C902A9DB57200F908E8 /* MBTI.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MBTI.swift; sourceTree = "<group>"; };
+		7D3C8C922A9DB62F00F908E8 /* Coffee.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Coffee.swift; sourceTree = "<group>"; };
+		7D3C8C942A9DB69700F908E8 /* CoffeeShop.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CoffeeShop.swift; sourceTree = "<group>"; };
+		7D3C8C962A9DCD8D00F908E8 /* OrderResult.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OrderResult.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -58,8 +68,21 @@
 			isa = PBXGroup;
 			children = (
 				34811DD4274B93EB00A1E994 /* main.swift */,
+				7D3C8C982A9DDA2B00F908E8 /* Round3Step1 */,
 			);
 			path = CodeStarterCamp_Week3;
+			sourceTree = "<group>";
+		};
+		7D3C8C982A9DDA2B00F908E8 /* Round3Step1 */ = {
+			isa = PBXGroup;
+			children = (
+				7D3C8C8E2A9D999800F908E8 /* Person.swift */,
+				7D3C8C902A9DB57200F908E8 /* MBTI.swift */,
+				7D3C8C922A9DB62F00F908E8 /* Coffee.swift */,
+				7D3C8C942A9DB69700F908E8 /* CoffeeShop.swift */,
+				7D3C8C962A9DCD8D00F908E8 /* OrderResult.swift */,
+			);
+			path = Round3Step1;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -119,7 +142,12 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				7D3C8C8F2A9D999800F908E8 /* Person.swift in Sources */,
+				7D3C8C952A9DB69700F908E8 /* CoffeeShop.swift in Sources */,
+				7D3C8C912A9DB57200F908E8 /* MBTI.swift in Sources */,
+				7D3C8C972A9DCD8D00F908E8 /* OrderResult.swift in Sources */,
 				34811DD5274B93EB00A1E994 /* main.swift in Sources */,
+				7D3C8C932A9DB62F00F908E8 /* Coffee.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
