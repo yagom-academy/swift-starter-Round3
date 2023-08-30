@@ -31,15 +31,23 @@ class Person {
 
 extension Person {
     func buyCoffee(_ coffee: Coffee, atShop shop: CoffeeShop) -> String {
-        let result = shop.orderCoffee(coffee, from: self)
-        return result.localizedDescription
+        var result = ""
+        let orderStatus = shop.requestOrder(coffee: coffee, from: self)
+        switch orderStatus {
+        case .success(let pickUpNumber):
+            result = "\(pickUpNumber)번 손님 주문하신 \(coffee) 나왔습니다."
+        case .failure(let error):
+            result = error.message
+        }
+
+        return result
     }
 
-    func income(_ amount: Int) {
+    func increaseMoney(_ amount: Int) {
         money += amount
     }
 
-    func expense(_ amount: Int) -> Bool {
+    func requestPayment(_ amount: Int) -> Bool {
         if money < amount {
             return false
         }

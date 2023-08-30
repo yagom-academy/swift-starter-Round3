@@ -12,7 +12,7 @@
 		7D3C8C912A9DB57200F908E8 /* MBTI.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7D3C8C902A9DB57200F908E8 /* MBTI.swift */; };
 		7D3C8C932A9DB62F00F908E8 /* Coffee.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7D3C8C922A9DB62F00F908E8 /* Coffee.swift */; };
 		7D3C8C952A9DB69700F908E8 /* CoffeeShop.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7D3C8C942A9DB69700F908E8 /* CoffeeShop.swift */; };
-		7D3C8C972A9DCD8D00F908E8 /* OrderResult.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7D3C8C962A9DCD8D00F908E8 /* OrderResult.swift */; };
+		7D3C8C972A9DCD8D00F908E8 /* OrderError.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7D3C8C962A9DCD8D00F908E8 /* OrderError.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXCopyFilesBuildPhase section */
@@ -34,7 +34,7 @@
 		7D3C8C902A9DB57200F908E8 /* MBTI.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MBTI.swift; sourceTree = "<group>"; };
 		7D3C8C922A9DB62F00F908E8 /* Coffee.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Coffee.swift; sourceTree = "<group>"; };
 		7D3C8C942A9DB69700F908E8 /* CoffeeShop.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CoffeeShop.swift; sourceTree = "<group>"; };
-		7D3C8C962A9DCD8D00F908E8 /* OrderResult.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OrderResult.swift; sourceTree = "<group>"; };
+		7D3C8C962A9DCD8D00F908E8 /* OrderError.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OrderError.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -80,7 +80,7 @@
 				7D3C8C902A9DB57200F908E8 /* MBTI.swift */,
 				7D3C8C922A9DB62F00F908E8 /* Coffee.swift */,
 				7D3C8C942A9DB69700F908E8 /* CoffeeShop.swift */,
-				7D3C8C962A9DCD8D00F908E8 /* OrderResult.swift */,
+				7D3C8C962A9DCD8D00F908E8 /* OrderError.swift */,
 			);
 			path = Round3Step1;
 			sourceTree = "<group>";
@@ -145,7 +145,7 @@
 				7D3C8C8F2A9D999800F908E8 /* Person.swift in Sources */,
 				7D3C8C952A9DB69700F908E8 /* CoffeeShop.swift in Sources */,
 				7D3C8C912A9DB57200F908E8 /* MBTI.swift in Sources */,
-				7D3C8C972A9DCD8D00F908E8 /* OrderResult.swift in Sources */,
+				7D3C8C972A9DCD8D00F908E8 /* OrderError.swift in Sources */,
 				34811DD5274B93EB00A1E994 /* main.swift in Sources */,
 				7D3C8C932A9DB62F00F908E8 /* Coffee.swift in Sources */,
 			);

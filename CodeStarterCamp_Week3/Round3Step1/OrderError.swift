@@ -7,20 +7,17 @@
 
 import Foundation
 
-enum OrderResult: Error {
-    case finished(Int, String)
+enum OrderError: Error {
     case isNotOpen
     case isNotInMenu
     case noHaveMoney
 }
 
-// MARK: - Description
+// MARK: - Public
 
-extension OrderResult: LocalizedError {
-    var errorDescription: String? {
+extension OrderError {
+    var message: String {
         switch self {
-        case let .finished(number, item):
-            return "\(number)번 손님 주문하신 \(item) 나왔습니다."
         case .isNotOpen:
             return "영업 준비중 입니다."
         case .isNotInMenu:

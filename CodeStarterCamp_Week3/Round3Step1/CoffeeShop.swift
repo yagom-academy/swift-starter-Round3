@@ -37,23 +37,23 @@ extension CoffeeShop {
         self.menu = items
     }
 
-    func orderCoffee(_ coffee: Coffee, from client: Person) -> OrderResult {
+    func requestOrder(coffee: Coffee, from client: Person) -> Result<Int, OrderError> {
         if barista == nil {
-            return .isNotOpen
+            return .failure(.isNotOpen)
         }
 
         guard let item = getMenuItem(of: coffee) else {
-            return .isNotInMenu
+            return .failure(.isNotInMenu)
         }
 
-        if !client.expense(item.price) {
-            return .noHaveMoney
+        if client.requestPayment(item.price) == false {
+            return .failure(.noHaveMoney)
         }
         salesAmount += item.price
 
-        let pickUpNumber = makingCoffee(of: item)
+        let pickUpNumber = processOrder(of: item)
 
-        return .finished(pickUpNumber, coffee.description)
+        return .success(pickUpNumber)
     }
 }
 
@@ -64,7 +64,7 @@ extension CoffeeShop {
         return menu.first { $0.coffee == coffee }
     }
 
-    private func makingCoffee(of item: CoffeeShop.MenuItem) -> Int {
+    private func processOrder(of item: CoffeeShop.MenuItem) -> Int {
         pickUpTable.append(item.coffee)
 
         return pickUpTable.count
