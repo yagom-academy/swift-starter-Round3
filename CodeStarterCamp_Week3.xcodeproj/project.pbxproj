@@ -13,6 +13,8 @@
 		7D3C8C932A9DB62F00F908E8 /* Coffee.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7D3C8C922A9DB62F00F908E8 /* Coffee.swift */; };
 		7D3C8C952A9DB69700F908E8 /* CoffeeShop.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7D3C8C942A9DB69700F908E8 /* CoffeeShop.swift */; };
 		7D3C8C972A9DCD8D00F908E8 /* OrderError.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7D3C8C962A9DCD8D00F908E8 /* OrderError.swift */; };
+		7DBAC4F92AA0A18800320E77 /* CoffeeShopStep2.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7DBAC4F82AA0A18800320E77 /* CoffeeShopStep2.swift */; };
+		7DBAC4FB2AA0A1CE00320E77 /* PersonStep2.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7DBAC4FA2AA0A1CE00320E77 /* PersonStep2.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXCopyFilesBuildPhase section */
@@ -35,6 +37,8 @@
 		7D3C8C922A9DB62F00F908E8 /* Coffee.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Coffee.swift; sourceTree = "<group>"; };
 		7D3C8C942A9DB69700F908E8 /* CoffeeShop.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CoffeeShop.swift; sourceTree = "<group>"; };
 		7D3C8C962A9DCD8D00F908E8 /* OrderError.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OrderError.swift; sourceTree = "<group>"; };
+		7DBAC4F82AA0A18800320E77 /* CoffeeShopStep2.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CoffeeShopStep2.swift; sourceTree = "<group>"; };
+		7DBAC4FA2AA0A1CE00320E77 /* PersonStep2.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PersonStep2.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -69,6 +73,7 @@
 			children = (
 				34811DD4274B93EB00A1E994 /* main.swift */,
 				7D3C8C982A9DDA2B00F908E8 /* Round3Step1 */,
+				7DBAC4F72AA0A14F00320E77 /* Round3Step2 */,
 			);
 			path = CodeStarterCamp_Week3;
 			sourceTree = "<group>";
@@ -83,6 +88,15 @@
 				7D3C8C962A9DCD8D00F908E8 /* OrderError.swift */,
 			);
 			path = Round3Step1;
+			sourceTree = "<group>";
+		};
+		7DBAC4F72AA0A14F00320E77 /* Round3Step2 */ = {
+			isa = PBXGroup;
+			children = (
+				7DBAC4FA2AA0A1CE00320E77 /* PersonStep2.swift */,
+				7DBAC4F82AA0A18800320E77 /* CoffeeShopStep2.swift */,
+			);
+			path = Round3Step2;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -143,7 +157,9 @@
 			buildActionMask = 2147483647;
 			files = (
 				7D3C8C8F2A9D999800F908E8 /* Person.swift in Sources */,
+				7DBAC4FB2AA0A1CE00320E77 /* PersonStep2.swift in Sources */,
 				7D3C8C952A9DB69700F908E8 /* CoffeeShop.swift in Sources */,
+				7DBAC4F92AA0A18800320E77 /* CoffeeShopStep2.swift in Sources */,
 				7D3C8C912A9DB57200F908E8 /* MBTI.swift in Sources */,
 				7D3C8C972A9DCD8D00F908E8 /* OrderError.swift in Sources */,
 				34811DD5274B93EB00A1E994 /* main.swift in Sources */,

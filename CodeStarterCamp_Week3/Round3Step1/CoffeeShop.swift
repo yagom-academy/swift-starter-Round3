@@ -37,6 +37,10 @@ extension CoffeeShop {
         self.menu = items
     }
 
+    func getMenuItem(of coffee: Coffee) -> CoffeeShop.MenuItem? {
+        return menu.first { $0.coffee == coffee }
+    }
+
     func requestOrder(coffee: Coffee, from client: Person) -> Result<Int, OrderError> {
         if barista == nil {
             return .failure(.isNotOpen)
@@ -49,21 +53,23 @@ extension CoffeeShop {
         if client.requestPayment(item.price) == false {
             return .failure(.noHaveMoney)
         }
-        salesAmount += item.price
 
-        let pickUpNumber = processOrder(of: item)
+        let pickUpNumber = saleMenuItem(of: item)
 
         return .success(pickUpNumber)
+    }
+
+    func saleMenuItem(of item: CoffeeShop.MenuItem) -> Int {
+        let pickUpNumber = processOrder(of: item)
+        salesAmount += item.price
+
+        return pickUpNumber
     }
 }
 
 // MARK: - Private
 
 extension CoffeeShop {
-    private func getMenuItem(of coffee: Coffee) -> CoffeeShop.MenuItem? {
-        return menu.first { $0.coffee == coffee }
-    }
-
     private func processOrder(of item: CoffeeShop.MenuItem) -> Int {
         pickUpTable.append(item.coffee)
 

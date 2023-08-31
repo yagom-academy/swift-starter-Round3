@@ -1,5 +1,5 @@
 //
-//  OrderResult.swift
+//  OrderError.swift
 //  CodeStarterCamp_Week3
 //
 //  Created by QL Jeong on 2023/08/29.
