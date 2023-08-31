@@ -26,11 +26,11 @@ class CoffeeShop {
     var pickUpTable: [Coffee]
     var barista: Person
     
-    func order(_ coffee: Coffee) {
-        make(coffee)
+    func order(to coffee: Coffee) {
+        make(for: coffee)
     }
     
-    func make(_ coffee: Coffee) {
+    func make(for coffee: Coffee) {
         pickUpTable.append(coffee)
     }
     
