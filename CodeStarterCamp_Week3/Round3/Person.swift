@@ -57,18 +57,8 @@ extension Person {
     }
 
     func order(_ coffee: Coffee, of coffeeShop: CoffeeShop, by name: String) -> String {
-        let price: Int
-        do {
-            price = try coffeeShop.getPrice(of: coffee)
-        }
-        catch OrderError.isNotInMenu {
+        guard let price = coffeeShop.getPrice(of: coffee) else {
             return "주문 할 수 없는 메뉴 입니다."
-        }
-        catch let error as OrderError {
-            return error.message
-        }
-        catch {
-            return error.localizedDescription
         }
 
         if money < price {

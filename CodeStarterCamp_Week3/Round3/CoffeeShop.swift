@@ -41,9 +41,9 @@ extension CoffeeShop {
         return menu.first { $0.coffee == coffee }
     }
 
-    func getPrice(of coffee: Coffee) throws -> Int {
+    func getPrice(of coffee: Coffee) -> Int? {
         guard let item = getMenuItem(of: coffee) else {
-            throw OrderError.isNotInMenu
+            return nil
         }
 
         return item.price
