@@ -55,6 +55,38 @@ extension Person {
         money -= amount
         return true
     }
+
+    func order(_ coffee: Coffee, of coffeeShop: CoffeeShop, by name: String) -> String {
+        let price: Int
+        do {
+            price = try coffeeShop.getPrice(of: coffee)
+        }
+        catch OrderError.isNotInMenu {
+            return "주문 할 수 없는 메뉴 입니다."
+        }
+        catch let error as OrderError {
+            return error.message
+        }
+        catch {
+            return error.localizedDescription
+        }
+
+        if money < price {
+            return "잔액이 \(price - money)원만큼 부족합니다."
+        }
+
+        var result = ""
+        let orderStatus = coffeeShop.make(coffee, from: name)
+        switch orderStatus {
+        case .success(let orderResult):
+            _ = requestPayment(price)
+            result = orderResult
+        case .failure(let error):
+            result = error.message
+        }
+
+        return result
+    }
 }
 
 // MARK: - Description

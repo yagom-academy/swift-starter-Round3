@@ -41,6 +41,14 @@ extension CoffeeShop {
         return menu.first { $0.coffee == coffee }
     }
 
+    func getPrice(of coffee: Coffee) throws -> Int {
+        guard let item = getMenuItem(of: coffee) else {
+            throw OrderError.isNotInMenu
+        }
+
+        return item.price
+    }
+
     func requestOrder(coffee: Coffee, from client: Person) -> Result<Int, OrderError> {
         if barista == nil {
             return .failure(.isNotOpen)
@@ -58,13 +66,6 @@ extension CoffeeShop {
 
         return .success(pickUpNumber)
     }
-
-    func saleMenuItem(of item: CoffeeShop.MenuItem) -> Int {
-        let pickUpNumber = processOrder(of: item)
-        salesAmount += item.price
-
-        return pickUpNumber
-    }
 }
 
 // MARK: - Private
@@ -74,6 +75,28 @@ extension CoffeeShop {
         pickUpTable.append(item.coffee)
 
         return pickUpTable.count
+    }
+
+    func make(_ coffee: Coffee, from name: String) -> Result<String, OrderError> {
+        if barista == nil {
+            return .failure(.isNotOpen)
+        }
+
+        guard let item = getMenuItem(of: coffee) else {
+            return .failure(.isNotInMenu)
+        }
+
+        saleMenuItem(of: item)
+        let result = "\(name) 님이 주문하신 \(coffee)(이/가) 준비되었습니다. 픽업대에서 가져가주세요."
+
+        return .success(result)
+    }
+
+    @discardableResult func saleMenuItem(of item: CoffeeShop.MenuItem) -> Int {
+        let pickUpNumber = processOrder(of: item)
+        salesAmount += item.price
+
+        return pickUpNumber
     }
 }
 

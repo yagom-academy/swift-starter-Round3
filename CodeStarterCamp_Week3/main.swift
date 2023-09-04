@@ -50,9 +50,9 @@ print("\(yagombucks.name) 의 매출은 \(yagombucks.salesAmount) 입니다.")
 
 print("\nRound 3 STEP 2")
 
-var misterLee = PersonStep2(name: "이현", age: 30, gender: .male, mbti: .ENFP, money: 30000)
-let missKim = PersonStep2(name: "김하니", age: 24, gender: .female, mbti: .ISTJ, money: 20000)
-let yagombucks = CoffeeShopStep2(name: "야곰벅스")
+var misterLee = Person(name: "이현", age: 30, gender: .male, mbti: .ENFP, money: 30000)
+let missKim = Person(name: "김하니", age: 24, gender: .female, mbti: .ISTJ, money: 20000)
+let yagombucks = CoffeeShop(name: "야곰벅스")
 yagombucks.setBarista(misterLee)
 yagombucks.setMenu([
     CoffeeShop.MenuItem(coffee: Coffee(name: .espresso, size: .short), price: 4000),
@@ -86,4 +86,3 @@ print(misterLee.order(Coffee(name: .mocha, size: .grande, isHot: false), of: yag
 //[print("\(missKim.name) 의 현재 잔액은 \(missKim.money) 입니다.")
 //print("\(yagombucks.name) 의 매출은 \(yagombucks.salesAmount) 입니다.")
 //print(yagombucks.pickUpTable)
-
