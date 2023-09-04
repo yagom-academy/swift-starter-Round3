@@ -68,12 +68,12 @@
 			isa = PBXGroup;
 			children = (
 				34811DD4274B93EB00A1E994 /* main.swift */,
-				7D3C8C982A9DDA2B00F908E8 /* Round3Step1 */,
+				7D3C8C982A9DDA2B00F908E8 /* Round3 */,
 			);
 			path = CodeStarterCamp_Week3;
 			sourceTree = "<group>";
 		};
-		7D3C8C982A9DDA2B00F908E8 /* Round3Step1 */ = {
+		7D3C8C982A9DDA2B00F908E8 /* Round3 */ = {
 			isa = PBXGroup;
 			children = (
 				7D3C8C8E2A9D999800F908E8 /* Person.swift */,
@@ -82,7 +82,7 @@
 				7D3C8C942A9DB69700F908E8 /* CoffeeShop.swift */,
 				7D3C8C962A9DCD8D00F908E8 /* OrderError.swift */,
 			);
-			path = Round3Step1;
+			path = Round3;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
