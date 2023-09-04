@@ -66,16 +66,6 @@ extension CoffeeShop {
 
         return .success(pickUpNumber)
     }
-}
-
-// MARK: - Private
-
-extension CoffeeShop {
-    private func processOrder(of item: CoffeeShop.MenuItem) -> Int {
-        pickUpTable.append(item.coffee)
-
-        return pickUpTable.count
-    }
 
     func make(_ coffee: Coffee, from name: String) -> Result<String, OrderError> {
         if barista == nil {
@@ -91,8 +81,18 @@ extension CoffeeShop {
 
         return .success(result)
     }
+}
 
-    @discardableResult func saleMenuItem(of item: CoffeeShop.MenuItem) -> Int {
+// MARK: - Private
+
+extension CoffeeShop {
+    private func processOrder(of item: CoffeeShop.MenuItem) -> Int {
+        pickUpTable.append(item.coffee)
+
+        return pickUpTable.count
+    }
+
+    @discardableResult private func saleMenuItem(of item: CoffeeShop.MenuItem) -> Int {
         let pickUpNumber = processOrder(of: item)
         salesAmount += item.price
 
