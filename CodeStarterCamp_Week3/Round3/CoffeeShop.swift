@@ -8,6 +8,14 @@
 import Foundation
 
 class CoffeeShop {
+    static let NotificationNamePickup = Notification.Name("CoffeeShop.NotificationName.Pickup")
+
+    enum NotificationKey {
+        case pickUpNumber
+        case pickUpName
+        case pickUpCoffee
+    }
+
     struct MenuItem: Hashable {
         var coffee: Coffee
         var price: Int
@@ -16,8 +24,27 @@ class CoffeeShop {
     private(set) var name: String
     private(set) var barista: Person?
     private(set) var menu = [CoffeeShop.MenuItem]()
-    private(set) var pickUpTable = [Coffee]()
     private(set) var salesAmount = 0
+    private(set) var pickUpNames = [String]()
+    private(set) var pickUpTable = [Coffee]() {
+        didSet(value) {
+            guard let clientName = getPickUpName(of: pickUpTable.count),
+                  let coffee = pickUpTable.last
+            else {
+                return
+            }
+
+            let notification = Notification(name: CoffeeShop.NotificationNamePickup,
+                         object: self,
+                         userInfo: [
+                             CoffeeShop.NotificationKey.pickUpNumber: pickUpTable.count,
+                             CoffeeShop.NotificationKey.pickUpName: clientName,
+                             CoffeeShop.NotificationKey.pickUpCoffee: coffee
+                         ])
+
+            NotificationQueue.default.enqueue(notification, postingStyle: .now)
+        }
+    }
 
     init(name: String, barista: Person? = nil, menu: [CoffeeShop.MenuItem] = []) {
         self.name = name
@@ -35,10 +62,6 @@ extension CoffeeShop {
 
     func setMenu(_ items: [CoffeeShop.MenuItem]) {
         self.menu = items
-    }
-
-    func getMenuItem(of coffee: Coffee) -> CoffeeShop.MenuItem? {
-        return menu.first { $0.coffee == coffee }
     }
 
     func getPrice(of coffee: Coffee) -> Int? {
@@ -62,12 +85,12 @@ extension CoffeeShop {
             return .failure(.noHaveMoney)
         }
 
-        let pickUpNumber = saleMenuItem(of: item)
+        let pickUpNumber = saleMenuItem(of: item, withClient: client.name)
 
         return .success(pickUpNumber)
     }
 
-    func make(_ coffee: Coffee, from name: String) -> Result<String, OrderError> {
+    func make(_ coffee: Coffee, from name: String) -> Result<Int, OrderError> {
         if barista == nil {
             return .failure(.isNotOpen)
         }
@@ -76,24 +99,36 @@ extension CoffeeShop {
             return .failure(.isNotInMenu)
         }
 
-        saleMenuItem(of: item)
-        let result = "\(name) 님이 주문하신 \(coffee)(이/가) 준비되었습니다. 픽업대에서 가져가주세요."
+        let pickUpNumber = saleMenuItem(of: item, withClient: name)
 
-        return .success(result)
+        return .success(pickUpNumber)
     }
 }
 
 // MARK: - Private
 
 extension CoffeeShop {
-    private func processOrder(of item: CoffeeShop.MenuItem) -> Int {
+    private func getMenuItem(of coffee: Coffee) -> CoffeeShop.MenuItem? {
+        return menu.first { $0.coffee == coffee }
+    }
+
+    private func addPickUpInformation(of item: CoffeeShop.MenuItem, withClient client: String) -> Int {
+        pickUpNames.append(client)
         pickUpTable.append(item.coffee)
 
         return pickUpTable.count
     }
 
-    @discardableResult private func saleMenuItem(of item: CoffeeShop.MenuItem) -> Int {
-        let pickUpNumber = processOrder(of: item)
+    private func getPickUpName(of number: Int) -> String? {
+        if (1...pickUpNames.count ~= number) == false {
+            return nil
+        }
+
+        return pickUpNames[number - 1]
+    }
+
+    @discardableResult private func saleMenuItem(of item: CoffeeShop.MenuItem, withClient client: String) -> Int {
+        let pickUpNumber = addPickUpInformation(of: item, withClient: client)
         salesAmount += item.price
 
         return pickUpNumber

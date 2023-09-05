@@ -17,6 +17,7 @@ class Person {
     private(set) var gender: Person.Gender
     private(set) var mbti: MBTI
     private(set) var money: Int
+    private(set) var pickUpNotification: Notification?
 
     init(name: String, age: Int, gender: Person.Gender, mbti: MBTI, money: Int) {
         self.name = name
@@ -24,6 +25,12 @@ class Person {
         self.gender = gender
         self.mbti = mbti
         self.money = money
+
+        NotificationCenter.default.addObserver(forName: CoffeeShop.NotificationNamePickup,
+                                               object: nil,
+                                               queue: .main) { [weak self] in
+            self?.coffeeShopPickupObserver(from: $0 as Notification)
+        }
     }
 }
 
@@ -68,14 +75,45 @@ extension Person {
         var result = ""
         let orderStatus = coffeeShop.make(coffee, from: name)
         switch orderStatus {
-        case .success(let orderResult):
+        case .success(let pickUpNumber):
             _ = requestPayment(price)
-            result = orderResult
+            result = getPickUpMessage(of: pickUpNumber)
         case .failure(let error):
             result = error.message
         }
 
         return result
+    }
+}
+
+// MARK: - Observer
+
+extension Person {
+    private func coffeeShopPickupObserver(from notification: Notification) {
+        if notification.name != CoffeeShop.NotificationNamePickup {
+            return
+        }
+        self.pickUpNotification = notification
+    }
+}
+
+// MARK: - Private
+
+extension Person {
+    private func getPickUpMessage(of pickUpNumber: Int) -> String {
+        guard let number = pickUpNotification?.userInfo?[CoffeeShop.NotificationKey.pickUpNumber] as? Int,
+              let name = pickUpNotification?.userInfo?[CoffeeShop.NotificationKey.pickUpName] as? String,
+              let coffee = pickUpNotification?.userInfo?[CoffeeShop.NotificationKey.pickUpCoffee] as? Coffee
+        else {
+            return "수신된 데이터가 없습니다."
+        }
+
+        self.pickUpNotification = nil
+        if number != pickUpNumber {
+            return "잘못된 픽업 번호 입니다."
+        }
+
+        return "\(name) 님이 주문하신 \(coffee)(이/가) 준비되었습니다. 픽업대에서 가져가주세요."
     }
 }
 
