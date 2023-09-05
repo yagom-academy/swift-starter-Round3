@@ -6,8 +6,8 @@
 //  Copyright © yagom academy. All rights reserved.
 //
 
-var orderedCoffee: String = "americano"
-var menu: [String: Int] = ["caffelatte": 5000, "americano": 4500, "caffemocha": 5500, "coldbrew": 4500, "espresso": 4000]
+let orderedCoffee: String = "americano"
+let menu: [String: Int] = ["caffelatte": 5000, "americano": 4500, "caffemocha": 5500, "coldbrew": 4500, "espresso": 4000]
 var pickupTable = [String]()
 
 struct Person {
@@ -23,26 +23,27 @@ class CoffeeShop {
     var sales: Int
     var menus: [String: Int]
     var pickupTable: [String]
-    init(barista: Person, sales: Int, menus: [String : Int], pickupTable: [String]) {
+    init(barista: Person, sales: Int, menus: [String: Int], pickupTable: [String]) {
         self.barista = barista
         self.sales = 0
         self.menus = menus
         self.pickupTable = pickupTable
     }
+
+    func orderCoffee(coffeeName: String) {
+        if let coffeeCost: Int = menus[coffeeName] {
+            print("\(coffeeCost)원 짜리 \(coffeeName)를 주문 받습니다.")
+        }
+    }
+
+    func serviceCoffee(coffeeName: String) {
+        print("\(coffeeName)를 만들어 Pick-Up Table에 두었습니다.")
+        self.pickupTable.append(coffeeName)
+        print("현재 Pick-Up Table에는 \(self.pickupTable)이 있습니다.")
+    }
 }
 
-func orderCoffee(shop: CoffeeShop) {
-    let coffeeCost = shop.menus[orderedCoffee]!
-    print("\(coffeeCost)₩ 가격의 \(orderedCoffee)를 주문받습니다.")
-    makeCoffee(shop: shop)
-}
-func makeCoffee(shop: CoffeeShop) {
-    print("\(orderedCoffee)를 만들어 PickUp Table에 두었습니다.")
-    shop.pickupTable.append(orderedCoffee)
-    print("Pick-Up Table에 \(shop.pickupTable)가 있습니다.")
-}
-
-enum coffee: String {
+enum Coffee {
     case caffeLatte
     case americano
     case caffemocha
@@ -52,6 +53,4 @@ enum coffee: String {
 
 var missKim = Person(money: 50000)
 var misterLee = Person(money: 50000)
-var yagombucks = CoffeeShop(barista: misterLee, sales: 0, menus: menu, pickupTable: pickupTable)
-
-print(orderCoffee(shop: yagombucks))
+var yagombucks = CoffeeShop.init(barista: misterLee, sales: 0, menus: menu, pickupTable: pickupTable)
