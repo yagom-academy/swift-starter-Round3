@@ -14,8 +14,8 @@ struct Person {
     var money: UInt = 50000
 }
 
-func purchaseCoffee(coffee: String, coffeeCost: Int) {
-    print("\(coffeeCost)₩을 사용해서 \(coffee)를 구매합니다.")
+func purchaseCoffee(coffee: String, cost: Int) {
+    print("\(cost)₩을 사용해서 \(coffee)를 구매합니다.")
 }
 
 class CoffeeShop {
@@ -29,16 +29,22 @@ class CoffeeShop {
         self.menus = menus
         self.pickupTable = pickupTable
     }
-
-    func orderCoffee(coffeeName: String) {
-        if let coffeeCost: Int = menus[coffeeName] {
-            print("\(coffeeCost)원 짜리 \(coffeeName)를 주문 받습니다.")
+    
+    func purchaseCoffee(name: String) {
+        if let cost: Int = menus[name] {
+            print("\(cost)₩을 사용해서 \(name)를 구매합니다.")
+        }
+    }
+    
+    func orderCoffee(name: String) {
+        if let cost: Int = menus[name] {
+            print("\(cost)원 짜리 \(name)를 주문 받습니다.")
         }
     }
 
-    func serviceCoffee(coffeeName: String) {
-        print("\(coffeeName)를 만들어 Pick-Up Table에 두었습니다.")
-        self.pickupTable.append(coffeeName)
+    func serviceCoffee(name: String) {
+        print("\(name)를 만들어 Pick-Up Table에 두었습니다.")
+        self.pickupTable.append(name)
         print("현재 Pick-Up Table에는 \(self.pickupTable)이 있습니다.")
     }
 }
