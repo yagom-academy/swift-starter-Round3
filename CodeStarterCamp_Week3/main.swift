@@ -16,17 +16,17 @@ enum Coffee {
     case chocofrappuccino
     
     func price() -> Int {
-            switch self {
-            case .americano:
-                return 1500
-            case .latte:
-                return 2000
-            case .cappuccino:
-                return 2500
-            case .chocofrappuccino:
-                return 3500
-            }
+        switch self {
+        case .americano:
+            return 1500
+        case .latte:
+            return 2000
+        case .cappuccino:
+            return 2500
+        case .chocofrappuccino:
+            return 3500
         }
+    }
 }
 
 //MARK: - Person 클래스 정의
