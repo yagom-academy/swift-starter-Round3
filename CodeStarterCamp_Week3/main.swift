@@ -53,11 +53,11 @@ class CoffeeShop {
     var barista: Person?
     var pickUpTable: [Coffee]
     
-    init(revenue: Int, menu: [Coffee], pickUpTable: [Coffee]) {
-        self.revenue = revenue
-        self.menu = menu
-        self.pickUpTable = pickUpTable
-    }
+    init(revenue: Int = 0, menu: [Coffee] = [.americano, .cappuccino, .latte, .chocofrappuccino], pickUpTable: [Coffee] = []) {
+            self.revenue = revenue
+            self.menu = menu
+            self.pickUpTable = pickUpTable
+        }
     
     func takeOrder(coffee: Coffee) {
         revenue += coffee.price()
@@ -71,7 +71,7 @@ let misterLee = Person(name: "misterLee", age: 23, money: 10000)
 let missKim = Person(name: "missKim", age: 33, money: 5000)
 
 //CoffeeShop 타입의 인스턴스로 yagombucks을 생성.
-let yagombucks = CoffeeShop(revenue: 0, menu: [.americano, .cappuccino, .latte, .chocofrappuccino], pickUpTable: [])
+let yagombucks = CoffeeShop()
 
 //바리스타를 misterLee로 할당.
 yagombucks.barista = misterLee
@@ -86,7 +86,7 @@ yagombucks.takeOrder(coffee: .americano)
 print("yagombucks의 매출액은 \(yagombucks.revenue)원 입니다.")
 
 //pickUpTable 확인.
-print("yagombucks의 pickUpTable은 \(yagombucks.pickUpTable)입니다.")
+print("yagombucks의 pickUpTable은 \(yagombucks.pickUpTable.map { String(describing: $0) }.joined(separator: ", "))입니다.")
 
 //missKim이 커피주문후 가진 돈 확인
 missKim.buyCoffee(coffee: .americano)
