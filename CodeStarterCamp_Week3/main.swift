@@ -11,11 +11,14 @@ let menu: [String: Int] = ["caffelatte": 5000, "americano": 4500, "caffemocha": 
 var pickupTable = [String]()
 
 struct Person {
-    var money: UInt = 50000
-}
-
-func purchaseCoffee(coffee: String, cost: Int) {
-    print("\(cost)₩을 사용해서 \(coffee)를 구매합니다.")
+    var money: Int = 50000
+    
+    mutating func purchaseCoffee(coffee: String) {
+        if let cost = menu[coffee] {
+            print("\(cost)₩을 사용해서 \(coffee)를 구매합니다.")
+            self.money -= cost
+        }
+    }
 }
 
 class CoffeeShop {
