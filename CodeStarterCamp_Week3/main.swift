@@ -7,59 +7,60 @@
 //
 
 let orderedCoffee: String = "americano"
-let menu: [String: Int] = ["caffelatte": 5000, "americano": 4500, "caffemocha": 5500, "coldbrew": 4500, "espresso": 4000]
-var pickupTable = [String]()
+let menu: [Coffee: Int] = [.caffelatte: 5000, .americano: 4500, .caffemocha: 5500, .coldbrew: 4500, .espresso: 4000]
+var pickupTable = [Coffee]()
 
 struct Person {
-    var money: Int = 50000
+    var money: Int
+    let name: String
     
-    mutating func purchaseCoffee(coffee: String) {
-        if let cost = menu[coffee] {
-            print("\(cost)₩을 사용해서 \(coffee)를 구매합니다.")
-            self.money -= cost
+    mutating func order(_ coffee: Coffee, of coffeeshop: CoffeeShop, by name: String) {
+        if let cost = menu[coffee], self.money < cost {
+            print("잔액이 \(cost - self.money)원 만큼 부족합니다.")
         }
+        if let cost = menu[coffee], self.money >= cost {
+            self.money -= cost
+            coffeeshop.make(coffee, from: self.name)
+        }
+    }
+    
+    init(money: Int, name: String) {
+        self.money = money
+        self.name = name
     }
 }
 
 class CoffeeShop {
     var barista: Person
     var sales: Int
-    var menus: [String: Int]
-    var pickupTable: [String]
-    init(barista: Person, sales: Int, menus: [String: Int], pickupTable: [String]) {
+    var menus: [Coffee: Int]
+    var pickupTable: [Coffee]
+    init(barista: Person, sales: Int, menus: [Coffee: Int], pickupTable: [Coffee]) {
         self.barista = barista
         self.sales = 0
         self.menus = menus
         self.pickupTable = pickupTable
     }
-    
-    func purchaseCoffee(name: String) {
-        if let cost: Int = menus[name] {
-            print("\(cost)₩을 사용해서 \(name)를 구매합니다.")
-        }
-    }
-    
-    func orderCoffee(name: String) {
-        if let cost: Int = menus[name] {
-            print("\(cost)원 짜리 \(name)를 주문 받습니다.")
-        }
-    }
 
-    func serviceCoffee(name: String) {
-        print("\(name)를 만들어 Pick-Up Table에 두었습니다.")
-        self.pickupTable.append(name)
-        print("현재 Pick-Up Table에는 \(self.pickupTable)이 있습니다.")
+    func make(_ coffee: Coffee, from name: String) {
+        if let cost = menus[coffee] {
+            print("\(name) 님이 주문하신 \(coffee)(이/가) 준비되었습니다. 픽업대에서 가져가주세요.")
+            self.pickupTable.append(coffee)
+            self.sales += cost
+        }
     }
 }
 
 enum Coffee {
-    case caffeLatte
+    case caffelatte
     case americano
     case caffemocha
     case coldbrew
     case espresso
 }
 
-var missKim = Person(money: 50000)
-var misterLee = Person(money: 50000)
+var missKim = Person(money: 5000, name: "missKim")
+var misterLee = Person(money: 50000, name: "misterLee")
 var yagombucks = CoffeeShop.init(barista: misterLee, sales: 0, menus: menu, pickupTable: pickupTable)
+
+missKim.order(.caffelatte, of: yagombucks, by: "missKim")
