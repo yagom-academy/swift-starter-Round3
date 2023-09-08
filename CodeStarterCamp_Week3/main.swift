@@ -37,9 +37,11 @@ class CoffeeShop {
 
     func make(_ coffee: Coffee, from name: String) {
         if let cost = menus[coffee] {
-            print("\(name) 님이 주문하신 \(coffee.rawValue)(이/가) 준비되었습니다. 픽업대에서 가져가주세요.")
             self.pickupTable.append(coffee)
             self.sales += cost
+            if self.pickupTable.isEmpty != true {
+                print("\(name) 님이 주문하신 \(coffee.rawValue)(이/가) 준비되었습니다. 픽업대에서 가져가주세요.")
+            }
         }
     }
     
