@@ -31,7 +31,7 @@ enum Coffee {
 
 //MARK: - Person 클래스 정의
 class Person {
-    var name: String
+    var name: String?
     var age: Int
     var money: Int
     
@@ -41,8 +41,13 @@ class Person {
         self.money = money
     }
     
-    func buyCoffee(coffee: Coffee) {
-        money -= coffee.price()
+    func order(_ coffee: Coffee, of coffeeShop: CoffeeShop, by name: String) {
+        if self.money >= coffee.price() {
+            coffeeShop.make(coffee, from: name)
+            money -= coffee.price()
+        }else {
+            print("\(name)의 잔액이 \(coffee.price() - money)원만큼 부족합니다.")
+        }
     }
 }
 
@@ -59,16 +64,18 @@ class CoffeeShop {
             self.pickUpTable = pickUpTable
         }
     
-    func takeOrder(coffee: Coffee) {
+    func make(_ coffee: Coffee, from name: String) {
         revenue += coffee.price()
         pickUpTable.append(coffee)
+        print("\(name) 님이 주문하신 \(coffee)(이/가) 준비되었습니다. 픽업대에서 가져가주세요.")
     }
 }
 
 
-//Person 타입의 인스턴스로 misterLee , missKim을 생성.
+//Person 타입의 인스턴스로 misterLee, missKim, coda를 생성.
 let misterLee = Person(name: "misterLee", age: 23, money: 10000)
-let missKim = Person(name: "missKim", age: 33, money: 5000)
+let missKim = Person(name: "missKim", age: 33, money: 500)
+let coda = Person(name: "Coda", age: 50, money: 50000)
 
 //CoffeeShop 타입의 인스턴스로 yagombucks을 생성.
 let yagombucks = CoffeeShop()
@@ -76,11 +83,11 @@ let yagombucks = CoffeeShop()
 //바리스타를 misterLee로 할당.
 yagombucks.barista = misterLee
 
-//카페라떼 주문.
-yagombucks.takeOrder(coffee: .latte)
+//missKim이 카페라떼 주문.
+missKim.order(.latte, of: yagombucks, by: missKim.name ?? "missKim")
 
-//아메리카노 주문.
-yagombucks.takeOrder(coffee: .americano)
+//coda가 초코프라푸치노 주문.
+coda.order(.chocofrappuccino, of: yagombucks, by: coda.name ?? "coda")
 
 //매출액 확인.
 print("yagombucks의 매출액은 \(yagombucks.revenue)원 입니다.")
@@ -88,6 +95,15 @@ print("yagombucks의 매출액은 \(yagombucks.revenue)원 입니다.")
 //pickUpTable 확인.
 print("yagombucks의 pickUpTable은 \(yagombucks.pickUpTable.map { String(describing: $0) }.joined(separator: ", "))입니다.")
 
-//missKim이 커피주문후 가진 돈 확인
-missKim.buyCoffee(coffee: .americano)
-print("\(missKim.name)의 돈은 \(missKim.money)입니다")
+//커피주문후 가진 돈 확인
+if let name = missKim.name {
+    print("\(name)의 돈은 \(missKim.money)입니다.")
+} else {
+    print("사용자 이름이 없습니다.")
+}
+
+if let name = coda.name {
+    print("\(name)의 돈은 \(coda.money)입니다.")
+} else {
+    print("사용자 이름이 없습니다.")
+}
