@@ -8,67 +8,48 @@
 
 import Foundation
 
-enum Coffe{
-    case asspresso, americano, latte
+enum Coffee{
+    case espresso, americano, latte
     var name : String{
         switch self{
-        case .asspresso:
-            return "asspresso"
+        case .espresso:
+            return "espresso"
         case .americano:
             return "americano"
         case .latte:
             return "latte"
         }
     }
-    var values : Int{
-        switch self{
-        case .americano:
-            return 4000
-        case .latte:
-            return 5000
-        case .asspresso:
-            return 3500
-        }
-    }
 }
 struct Person{
     var name : String
     var money : Int = 10000
-    mutating func order(drink : Coffe){
-        if money < drink.values{
+    mutating func order(_ coffee: Coffee, of coffeeShop: CoffeeShop){
+        if money < coffeeShop.setCoffeeValue{
             print("잔액이 부족합니다")
         }else{
-            money -= drink.values
-            print("\(drink.name)를 주문합니다")
-            print("\(money)원 남았습니다.")
+            money -= coffeeShop.setCoffeeValue
+            print("\(coffee.name)를 주문합니다")
         }
     }
 }
-struct CoffeShop{
-    var barista : Person
+struct CoffeeShop{
+    let barista : Person
     var sales : Int = 0
-    var menuBoard : Coffe = .americano
-    var pickUpTable : [Coffe] = []
+    var menuBoard : [Coffee:Int] = [:]
+    var pickUpTable : [Coffee] = []
+    var setCoffeeValue : Int
     
-    mutating func salesCoffe(){
-        print("\(self.sales)원 벌었습니다.")
+    mutating func make(_ coffee : Coffee, from name : String){
+        print("\(coffee.name)를 만들고 있습니다.")
+        sales += setCoffeeValue
     }
-    mutating func takeOrder(menu : Coffe){
-        print("\(menu)의 가격은 \(menu.values)원 입니다.")
-        sales += menu.values
-        makeCoffe(menu: menu.name)
-        pickUpTable.append(menu)
-    }
-    func makeCoffe(menu : String){
-        print("\(menu)를 만듭니다.")
-    }
-    func showPickUpTable(){
-        for  drink in pickUpTable{
-            print("\(drink)가 완성되었습니다.")
-        }
+    func showPickUpTable(_ coffee : Coffee, customer : Person){
+        print("\(customer.name)님이 주문하신 \(coffee.name)(이/가) 준비 되었습니다.", terminator: "")
+        print("픽업대에서 가져가 주세요.")
     }
 }
 var minsterLee = Person(name: "minsterLee")
 var missKim = Person(name: "missKim")
 
-var yagombucks = CoffeShop(barista: minsterLee)
+var yagombucks = CoffeeShop(barista: minsterLee, setCoffeeValue: 3000)
