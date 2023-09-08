@@ -59,10 +59,10 @@ class CoffeeShop {
     var pickUpTable: [Coffee]
     
     init(revenue: Int = 0, menu: [Coffee] = [.americano, .cappuccino, .latte, .chocofrappuccino], pickUpTable: [Coffee] = []) {
-            self.revenue = revenue
-            self.menu = menu
-            self.pickUpTable = pickUpTable
-        }
+        self.revenue = revenue
+        self.menu = menu
+        self.pickUpTable = pickUpTable
+    }
     
     func make(_ coffee: Coffee, from name: String) {
         revenue += coffee.price()
