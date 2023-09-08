@@ -6,7 +6,6 @@
 //  Copyright © yagom academy. All rights reserved.
 //
 
-let orderedCoffee: String = "americano"
 let menu: [Coffee: Int] = [.caffelatte: 5000, .americano: 4500, .caffemocha: 5500, .coldbrew: 4500, .espresso: 4000]
 var pickupTable = [Coffee]()
 
@@ -35,28 +34,29 @@ class CoffeeShop {
     var sales: Int
     var menus: [Coffee: Int]
     var pickupTable: [Coffee]
+
+    func make(_ coffee: Coffee, from name: String) {
+        if let cost = menus[coffee] {
+            print("\(name) 님이 주문하신 \(coffee.rawValue)(이/가) 준비되었습니다. 픽업대에서 가져가주세요.")
+            self.pickupTable.append(coffee)
+            self.sales += cost
+        }
+    }
+    
     init(barista: Person, sales: Int, menus: [Coffee: Int], pickupTable: [Coffee]) {
         self.barista = barista
         self.sales = 0
         self.menus = menus
         self.pickupTable = pickupTable
     }
-
-    func make(_ coffee: Coffee, from name: String) {
-        if let cost = menus[coffee] {
-            print("\(name) 님이 주문하신 \(coffee)(이/가) 준비되었습니다. 픽업대에서 가져가주세요.")
-            self.pickupTable.append(coffee)
-            self.sales += cost
-        }
-    }
 }
 
-enum Coffee {
-    case caffelatte
-    case americano
-    case caffemocha
-    case coldbrew
-    case espresso
+enum Coffee: String {
+    case caffelatte = "카페라떼"
+    case americano = "아메리카노"
+    case caffemocha = "카페모카"
+    case coldbrew = "콜드브루"
+    case espresso = "에스프레소"
 }
 
 var missKim = Person(money: 5000, name: "missKim")
