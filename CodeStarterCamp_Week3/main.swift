@@ -63,6 +63,6 @@ enum Coffee: String {
 
 var missKim = Person(money: 5000, name: "missKim")
 var misterLee = Person(money: 50000, name: "misterLee")
-var yagombucks = CoffeeShop.init(barista: misterLee, sales: 0, menus: menu, pickupTable: pickupTable)
+let yagombucks = CoffeeShop.init(barista: misterLee, sales: 0, menus: menu, pickupTable: pickupTable)
 
 missKim.order(.caffelatte, of: yagombucks, by: "missKim")
