@@ -24,32 +24,45 @@ enum Coffee{
 struct Person{
     var name : String
     var money : Int = 10000
-    mutating func order(_ coffee: Coffee, of coffeeShop: CoffeeShop){
-        if money < coffeeShop.setCoffeeValue{
-            print("잔액이 부족합니다")
-        }else{
-            money -= coffeeShop.setCoffeeValue
-            print("\(coffee.name)를 주문합니다")
+    mutating func order(_ coffee: Coffee, of coffeeShop: CoffeeShop, by name: String){
+        if let coffeeValue = coffeeShop.menuBoard[coffee] {
+            if  money < coffeeValue{
+                let results = coffeeValue - money
+                print("잔액이 \(results)원만큼 부족합니다")
+            }else{
+                money = money - coffeeValue
+                coffeeShop.make(coffee, from:name )
+            }
         }
     }
 }
-struct CoffeeShop{
+class CoffeeShop{
     let barista : Person
     var sales : Int = 0
     var menuBoard : [Coffee:Int] = [:]
     var pickUpTable : [Coffee] = []
-    var setCoffeeValue : Int
     
-    mutating func make(_ coffee : Coffee, from name : String){
-        print("\(coffee.name)를 만들고 있습니다.")
-        sales += setCoffeeValue
+    init(barista: Person, sales: Int, menuBoard: [Coffee : Int], pickUpTable: [Coffee]) {
+        self.barista = barista
+        self.sales = sales
+        self.menuBoard = menuBoard
+        self.pickUpTable = pickUpTable
     }
-    func showPickUpTable(_ coffee : Coffee, customer : Person){
-        print("\(customer.name)님이 주문하신 \(coffee.name)(이/가) 준비 되었습니다.", terminator: "")
+    func make(_ coffee : Coffee, from name : String){
+        pickUpTable.append(coffee)
+        showPickUpTable(coffee, customer: name)
+    }
+    func showPickUpTable(_ coffee : Coffee, customer : String){
+        print("\(customer)님이 주문하신 \(coffee.name)(이/가) 준비 되었습니다.", terminator: "")
         print("픽업대에서 가져가 주세요.")
     }
 }
 var minsterLee = Person(name: "minsterLee")
 var missKim = Person(name: "missKim")
+var Coda = Person(name: "Coda")
 
-var yagombucks = CoffeeShop(barista: minsterLee, setCoffeeValue: 3000)
+var yagombucks = CoffeeShop(barista: minsterLee, sales: 0, menuBoard: [.americano:3000], pickUpTable: [])
+
+
+missKim.order(.americano, of: yagombucks, by: missKim.name)
+Coda.order(.americano, of: yagombucks, by: Coda.name)
