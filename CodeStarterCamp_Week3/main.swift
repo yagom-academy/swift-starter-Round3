@@ -21,18 +21,18 @@ enum Coffee: String {
 struct Person {
     var money: Int
     var name: String
-    func buyCoffee() {
-        print("커피를 구매합니다.")
+    func buyCoffee(coffee: Coffee) {
+        print("\(coffee.rawValue)를 구매합니다.")
     }
 }
 
 class CoffeeShop {
     var sales: Int
     var barista: Person
-    var menu: Dictionary<String, Int>
-    var pickUpTable: Array<String>
+    var menu: [Coffee: Int]
+    var pickUpTable: [String]
     
-    init(sales: Int, barista: Person, menu: Dictionary<String, Int>, pickUpTable: Array<String>) {
+    init(sales: Int, barista: Person, menu: [Coffee: Int], pickUpTable: [String]) {
         self.sales = sales
         self.barista = barista
         self.menu = menu
@@ -47,17 +47,18 @@ class CoffeeShop {
     func makeCoffee(coffee: Coffee) {
         print("커피를 다 만들었습니다.")
         pickUpTable.append(coffee.rawValue)
+        
     }
+    
 }
 
-var menu: [String: Int] = ["아메리카노": 1000, "카페라떼": 1500, "카푸치노": 1500, "모카": 2000, "프라푸치노": 2500, "바닐라라떼": 1700]
-var pickUpTable: Array<String> = []
+var menu: [Coffee: Int] = [.americano: 1000, .cafeLatte: 1500, .cappuccino: 1500]
+var pickUpTable: [String] = []
 
 var misterLee: Person = Person(money: 2000, name: "이철호")
 var missKim: Person = Person(money: 1500, name: "김숙희")
 var yagombuks: CoffeeShop = CoffeeShop(sales: 10000, barista: misterLee, menu: menu, pickUpTable: pickUpTable)
 
-yagombuks.barista = misterLee
 yagombuks.takeOrder(coffee: .americano)
 
 
