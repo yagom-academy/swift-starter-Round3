@@ -54,7 +54,7 @@ class Person {
         
         self.money -= order.price
         self.order = order
-        self.nickname = nickname        
+        self.nickname = nickname
     }
     
     func eatCoffee(coffee: Coffee) {
@@ -79,5 +79,19 @@ class CoffeeShop {
         self.location = location
         self.sales = sales
         self.menu = menu
+    }
+    
+    func takeOrder(nickname: String, order: Coffee) {
+        print("카페 \(self.name)에서 \(nickname) 고객님의 \(order)(을)를 주문 받았습니다.\n")
+        
+        sales += order.price
+        
+        makeCoffee(to: nickname, coffee: order)
+    }
+    
+    func makeCoffee(to: String, coffee: Coffee) {
+        pickUpTable.append(coffee)
+        
+        print("닉네임 \(to)으로 주문하신 고객님의 \(coffee)(이)가 완성되었습니다.\n")
     }
 }
