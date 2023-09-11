@@ -48,3 +48,19 @@ class Person {
         self.money = money
     }
 }
+
+class CoffeeShop {
+    var name: String
+    var location: String
+    var sales: Int
+    var menu: [Coffee]
+    var pickUpTable: [Coffee] = []
+    var barista: Person?
+
+    init(name: String, location: String, sales: Int, menu: [Coffee]) {
+        self.name = name
+        self.location = location
+        self.sales = sales
+        self.menu = menu
+    }
+}
