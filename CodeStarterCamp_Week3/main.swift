@@ -55,6 +55,8 @@ class Person {
         self.money -= order.price
         self.order = order
         self.nickname = nickname
+        
+        to.takeOrder(nickname: nickname, order: order)
     }
     
     func eatCoffee(coffee: Coffee) {
