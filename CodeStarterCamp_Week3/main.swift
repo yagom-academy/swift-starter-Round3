@@ -97,3 +97,6 @@ class CoffeeShop {
         print("닉네임 \(to)으로 주문하신 고객님의 \(coffee)(이)가 완성되었습니다.\n")
     }
 }
+
+let misterLee = Person(name: "JohnLee", gender: .male, age: 30, money: 10000)
+let missKim = Person(name: "AmyKim", gender: .female, age: 40, money: 20000)
