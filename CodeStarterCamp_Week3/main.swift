@@ -8,6 +8,26 @@
 
 import Foundation
 
+enum Coffee: String {
+    case espresso
+    case americano
+    case latte
+    case cappuccino
+    
+    var price: Int {
+        switch self {
+        case .espresso:
+            return 3000
+        case .americano:
+            return 4000
+        case .latte:
+            return 4500
+        case .cappuccino:
+            return 4500
+        }
+    }
+}
+
 enum Gender: String {
     case male
     case female
