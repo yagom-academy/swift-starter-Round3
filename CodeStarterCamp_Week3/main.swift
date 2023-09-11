@@ -92,6 +92,8 @@ class CoffeeShop {
     }
     
     func makeCoffee(to: String, coffee: Coffee) {
+        print("(\(coffee) 제조중...)\n")
+        
         pickUpTable.append(coffee)
         
         print("닉네임 \(to)으로 주문하신 고객님의 \(coffee)(이)가 완성되었습니다.\n")
