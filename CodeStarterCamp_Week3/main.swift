@@ -39,20 +39,26 @@ struct Person{
 class CoffeeShop{
     let barista : Person
     var sales : Int = 0
-    var menuBoard : [Coffee:Int] = [:]
-    var pickUpTable : [Coffee] = []
-    
-    init(barista: Person, sales: Int, menuBoard: [Coffee : Int], pickUpTable: [Coffee]) {
-        self.barista = barista
-        self.sales = sales
+    var menuBoard : [Coffee:Int]
+    var pickUpTable : [Coffee:String] = [:]{
+        didSet{
+            if let coffee = pickUpTable.keys.first, let name = pickUpTable.values.first{
+                showPickUpTable(coffee, customer: name)
+            }
+        }
+    }
+    init(barista: Person, menuBoard: [Coffee:Int]) {
         self.menuBoard = menuBoard
-        self.pickUpTable = pickUpTable
+        self.barista = barista
     }
-    func make(_ coffee : Coffee, from name : String){
-        pickUpTable.append(coffee)
-        showPickUpTable(coffee, customer: name)
+    func make(_ coffee: Coffee, from name: String){
+        if let coffeeValue = menuBoard[coffee] {
+            sales += coffeeValue
+            pickUpTable.updateValue(name, forKey: coffee)
+//            showPickUpTable(coffee, customer: name)
+        }
     }
-    func showPickUpTable(_ coffee : Coffee, customer : String){
+    func showPickUpTable(_ coffee: Coffee, customer: String){
         print("\(customer)님이 주문하신 \(coffee.name)(이/가) 준비 되었습니다.", terminator: "")
         print("픽업대에서 가져가 주세요.")
     }
@@ -61,8 +67,7 @@ var minsterLee = Person(name: "minsterLee")
 var missKim = Person(name: "missKim")
 var Coda = Person(name: "Coda")
 
-var yagombucks = CoffeeShop(barista: minsterLee, sales: 0, menuBoard: [.americano:3000], pickUpTable: [])
-
+var yagombucks = CoffeeShop(barista: minsterLee, menuBoard: [.americano:3000])
 
 missKim.order(.americano, of: yagombucks, by: missKim.name)
 Coda.order(.americano, of: yagombucks, by: Coda.name)
