@@ -16,7 +16,6 @@ enum Coffee: String {
 }
 
 class Person {
-    
     enum Gender {
         case male
         case female
@@ -26,7 +25,7 @@ class Person {
     var age: Int
     var gender: Gender
     var money: Int
-    lazy var nickName: String = String(self.name.dropFirst(1))
+    var nickName: String
  
     // 이니셜라이저
     init(name: String, age: Int, gender: Gender, money: Int) {
@@ -34,6 +33,7 @@ class Person {
         self.age = age
         self.gender = gender
         self.money = money
+        self.nickName = String(name.dropFirst(1))
     }
     
     func walk() {
@@ -57,15 +57,18 @@ class CoffeeShop {
     var brandName: String
     var branchName: String
     var salesRevenue: Int
-    lazy var baristas: Array<Person> = [Person]()
-    lazy var menu: Dictionary<Coffee, Int> = [Coffee: Int]()
-    lazy var pickUpTable: Array<Coffee> = [Coffee]()
+    var baristas: Array<Person>
+    var menu: Dictionary<Coffee, Int>
+    var pickUpTable: Array<Coffee>
     
     // 이니셜라이저
     init(brandName: String, branchName: String) {
         self.brandName = brandName
         self.branchName = branchName
         self.salesRevenue = 0
+        self.baristas = [Person]()
+        self.menu = [Coffee: Int]()
+        self.pickUpTable = [Coffee]()
     }
     
     func takeOrder() {
