@@ -66,7 +66,7 @@ class Person {
         coffeeShop.make(coffee, from: name)
     }
     
-    func eatCoffee(coffee: Coffee) {
+    func eat(coffee: Coffee) {
         if coffee == order {
             print("주문한 \(coffee)(을/를) 마셨습니다.\n")
         } else {
@@ -103,4 +103,4 @@ let missKim = Person(name: "AmyKim", gender: .female, age: 40, money: 20000)
 let yagombucks = CoffeeShop(name: "yagombucks", location: "Seoul", sales: 100000, menu: [.espresso, .americano, .latte, .cappuccino])
 
 missKim.order(.latte, of: yagombucks, by: "missKim")
-missKim.eatCoffee(coffee: .americano)
+missKim.eat(coffee: .americano)
