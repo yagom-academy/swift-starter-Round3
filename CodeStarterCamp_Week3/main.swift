@@ -61,16 +61,16 @@ class Person {
         order = coffee
         nickname = name
         
-        print("카페 \(coffeeShop)에 \(name) 님이 \(coffee)(을)를 주문했습니다.\n")
+        print("카페 \(coffeeShop.name)에 \(name) 님이 \(coffee)(을/를) 주문했습니다.\n")
         
         coffeeShop.make(coffee, from: name)
     }
     
     func eatCoffee(coffee: Coffee) {
         if coffee == order {
-            print("주문한 \(coffee)(을)를 마셨습니다.\n")
+            print("주문한 \(coffee)(을/를) 마셨습니다.\n")
         } else {
-            print("\(coffee)(을)를 주문하지 않았습니다. 주문 먼저 해주세요.\n")
+            print("\(coffee)(을/를) 주문하지 않았습니다. 주문 먼저 해주세요.\n")
         }
     }
 }
@@ -91,7 +91,7 @@ class CoffeeShop {
     }
 
     func make(_ coffee: Coffee, from name: String) {
-        print("(\(coffee)(을)를 추출합니다.)\n")
+        print("( \(coffee)(을/를) 추출합니다... )\n")
         
         pickUpTable.append(coffee)
         
@@ -102,4 +102,5 @@ class CoffeeShop {
 let missKim = Person(name: "AmyKim", gender: .female, age: 40, money: 20000)
 let yagombucks = CoffeeShop(name: "yagombucks", location: "Seoul", sales: 100000, menu: [.espresso, .americano, .latte, .cappuccino])
 
+missKim.order(.latte, of: yagombucks, by: "missKim")
 missKim.eatCoffee(coffee: .americano)
