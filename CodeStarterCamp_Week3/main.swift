@@ -44,6 +44,7 @@ class CoffeeShop{
         didSet{
             if let coffee = pickUpTable.keys.first, let name = pickUpTable.values.first{
                 showPickUpTable(coffee, customer: name)
+                pickUpTable.removeAll()
             }
         }
     }
@@ -55,7 +56,6 @@ class CoffeeShop{
         if let coffeeValue = menuBoard[coffee] {
             sales += coffeeValue
             pickUpTable.updateValue(name, forKey: coffee)
-//            showPickUpTable(coffee, customer: name)
         }
     }
     func showPickUpTable(_ coffee: Coffee, customer: String){
@@ -67,7 +67,8 @@ var minsterLee = Person(name: "minsterLee")
 var missKim = Person(name: "missKim")
 var Coda = Person(name: "Coda")
 
-var yagombucks = CoffeeShop(barista: minsterLee, menuBoard: [.americano:3000])
+var yagombucks = CoffeeShop(barista: minsterLee, menuBoard: [.espresso: 3000,.americano: 2000, .latte: 5000])
 
 missKim.order(.americano, of: yagombucks, by: missKim.name)
-Coda.order(.americano, of: yagombucks, by: Coda.name)
+Coda.order(.espresso, of: yagombucks, by: Coda.name)
+Coda.order(.latte, of: yagombucks, by: Coda.name)
