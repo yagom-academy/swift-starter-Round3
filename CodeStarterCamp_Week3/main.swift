@@ -58,8 +58,8 @@ class Person {
         money -= coffee.price
         coffeeShop.sales += coffee.price
         
-        self.order = coffee
-        self.nickname = name
+        order = coffee
+        nickname = name
         
         print("카페 \(coffeeShop)에 \(name) 님이 \(coffee)(을)를 주문했습니다.\n")
         
@@ -67,7 +67,7 @@ class Person {
     }
     
     func eatCoffee(coffee: Coffee) {
-        if coffee == self.order {
+        if coffee == order {
             print("주문한 \(coffee)(을)를 마셨습니다.\n")
         } else {
             print("\(coffee)(을)를 주문하지 않았습니다. 주문 먼저 해주세요.\n")
