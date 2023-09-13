@@ -49,14 +49,12 @@ class Person {
         self.money = money
     }
     
-    func buyCoffee(to: CoffeeShop, order: Coffee, nickname: String) {
-        money -= order.price
-        self.order = order
-        self.nickname = nickname
-                
-        print("카페 \(to.name)에 \(nickname) 고객님이 \(order)(을)를 주문했습니다.\n")
+    func order(_ coffee: Coffee, of coffeeShop: CoffeeShop, by name: String) {
+        money -= coffee.price
+        self.order = coffee
+        self.nickname = name
         
-        to.takeOrder(nickname: nickname, order: order)
+        print("카페 \(coffeeShop)에 \(name) 고객님이 \(coffee)(을)를 주문했습니다.\n")
     }
     
     func eatCoffee(coffee: Coffee) {
