@@ -50,11 +50,19 @@ class Person {
     }
     
     func order(_ coffee: Coffee, of coffeeShop: CoffeeShop, by name: String) {
-        money -= coffee.price
-        self.order = coffee
-        self.nickname = name
-        
-        print("카페 \(coffeeShop)에 \(name) 고객님이 \(coffee)(을)를 주문했습니다.\n")
+        if money >= coffee.price {
+            money -= coffee.price
+            coffeeShop.sales += coffee.price
+            
+            self.order = coffee
+            self.nickname = name
+            
+            print("카페 \(coffeeShop)에 \(name) 고객님이 \(coffee)(을)를 주문했습니다.\n")
+            
+            coffeeShop.make(coffee, from: name)
+        } else {
+            print("잔액이 \(coffee.price - money)원만큼 부족합니다.")
+        }
     }
     
     func eatCoffee(coffee: Coffee) {
