@@ -100,11 +100,8 @@ class CoffeeShop {
     }
 }
 
-let misterLee = Person(name: "JohnLee", gender: .male, age: 30, money: 10000)
 let missKim = Person(name: "AmyKim", gender: .female, age: 40, money: 20000)
 let yagombucks = CoffeeShop(name: "yagombucks", location: "Seoul", sales: 100000, menu: [.espresso, .americano, .latte, .cappuccino])
-
-yagombucks.barista = misterLee
 
 missKim.buyCoffee(to: yagombucks,  order: .americano, nickname: "missKim")
 missKim.eatCoffee(coffee: .americano)
