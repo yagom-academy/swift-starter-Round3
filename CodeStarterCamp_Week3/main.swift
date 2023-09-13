@@ -80,26 +80,17 @@ class CoffeeShop {
         self.sales = sales
         self.menu = menu
     }
-    
-    func takeOrder(nickname: String, order: Coffee) {
-        print("카페 \(self.name)에서 \(nickname) 고객님의 \(order)(을)를 주문 받았습니다.\n")
-        
-        sales += order.price
-        
-        makeCoffee(to: nickname, coffee: order)
-    }
-    
-    func makeCoffee(to: String, coffee: Coffee) {
-        print("(\(coffee) 제조중...)\n")
+
+    func make(_ coffee: Coffee, from name: String) {
+        print("(\(coffee)(을)를 추출합니다.)\n")
         
         pickUpTable.append(coffee)
         
-        print("닉네임 \(to)으로 주문하신 고객님의 \(coffee)(이)가 완성되었습니다.\n")
+        print("\(name) 님이 주문하신 \(coffee)(이/가) 준비되었습니다. 픽업대에서 가져가주세요.\n")
     }
 }
 
 let missKim = Person(name: "AmyKim", gender: .female, age: 40, money: 20000)
 let yagombucks = CoffeeShop(name: "yagombucks", location: "Seoul", sales: 100000, menu: [.espresso, .americano, .latte, .cappuccino])
 
-missKim.buyCoffee(to: yagombucks,  order: .americano, nickname: "missKim")
 missKim.eatCoffee(coffee: .americano)
