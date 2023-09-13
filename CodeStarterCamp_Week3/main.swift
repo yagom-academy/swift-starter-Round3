@@ -39,8 +39,8 @@ class Person {
     var gender: Gender
     var age: Int
     var money: Int
-    var nickname: String!
-    var order: Coffee!
+    var nickname: String?
+    var order: Coffee?
 
     init(name: String, gender: Gender, age: Int, money: Int) {
         self.name = name
@@ -50,7 +50,7 @@ class Person {
     }
     
     func buyCoffee(to: CoffeeShop, order: Coffee, nickname: String) {
-        self.money -= order.price
+        money -= order.price
         self.order = order
         self.nickname = nickname
                 
