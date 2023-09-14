@@ -8,6 +8,7 @@
 
 import Foundation
 
+// MARK: - STEP 1
 let misterLee = Person(name: "Mr.Lee", money: 10000)
 let missKim = Person(name: "Miss.Kim", money: 8000)
 let yagombucksMenu: [Coffee: Int] = [
@@ -16,5 +17,9 @@ let yagombucksMenu: [Coffee: Int] = [
     .cappuccino: 4000,
     .mocha: 4500
 ]
-
 let yagombucks = CoffeeShop(barista: misterLee, menu: yagombucksMenu)
+
+// MARK: - STEP 2
+missKim.order(.americano , of:yagombucks)
+missKim.order(.mocha , of:yagombucks)
+missKim.order(.latte , of:yagombucks)
