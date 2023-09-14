@@ -78,17 +78,17 @@ class Person {
 class CoffeeShop {
     var name: String
     var location: String
+    var menu: [Coffee]
+    var barista: Person
     var sales: Int {
         didSet {
             print("* \(name)의 매출: \(oldValue)원 -> \(sales)원\n")
         }
     }
-    var menu: [Coffee]
-    var barista: Person
     var pickUpTable: [(customer: String, coffee: Coffee)] {
         didSet {
             let order = pickUpTable.removeFirst()
-            print("\(order.customer) 님이 주문하신 \(order.coffee)(이/가) 준비되었습니다. 픽업대에서 가져가주세요.\n")
+            print("\(order.customer)님이 주문하신 \(order.coffee)(이/가) 준비되었습니다. 픽업대에서 가져가주세요.\n")
         }
     }
 
