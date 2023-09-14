@@ -29,10 +29,11 @@ class Person {
 class CoffeeShop {
     var revenue: Int = 0
     var menu: [Coffee : Int]
-    var barista : Person?
-    var pickUpTable : [String] = []
+    var barista: Person
+    var pickUpTable: [String] = []
     
-    init(menu: [Coffee :Int]) {
+    init(barista: Person, menu: [Coffee :Int]) {
+        self.barista = barista
         self.menu = menu
     }
     
