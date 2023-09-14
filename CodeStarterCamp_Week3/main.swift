@@ -39,7 +39,6 @@ class Person {
     var gender: Gender
     var age: Int
     var money: Int
-    var nickname: String?
     var order: Coffee?
 
     init(name: String, gender: Gender, age: Int, money: Int) {
@@ -49,7 +48,7 @@ class Person {
         self.money = money
     }
     
-    func order(_ coffee: Coffee, of coffeeShop: CoffeeShop, by name: String) {
+    func order(_ coffee: Coffee, of coffeeShop: CoffeeShop) {
         guard money >= coffee.price else {
             print("잔액이 \(coffee.price - money)원 만큼 부족합니다.")
             return
@@ -59,7 +58,6 @@ class Person {
         coffeeShop.sales += coffee.price
         
         order = coffee
-        nickname = name
         
         print("카페 \(coffeeShop.name)에 \(name) 님이 \(coffee)(을/를) 주문했습니다.\n")
         
@@ -102,5 +100,5 @@ class CoffeeShop {
 let missKim = Person(name: "AmyKim", gender: .female, age: 40, money: 20000)
 let yagombucks = CoffeeShop(name: "yagombucks", location: "Seoul", sales: 100000, menu: [.espresso, .americano, .latte, .cappuccino])
 
-missKim.order(.latte, of: yagombucks, by: "missKim")
+missKim.order(.latte, of: yagombucks)
 missKim.eat(coffee: .americano)
