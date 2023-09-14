@@ -52,10 +52,8 @@ class Person {
         let price = coffeeShop.checkPossibleGetOrder(coffee)
         
         if price != 0 {
-            if isPossiblePay(price: price) {
-                self.money -= price
-                coffeeShop.salesRevenue += price
-                print("===결제 완료!===")
+            if (self.money - price) >= 0 {
+                payForGood(price: price, of: coffeeShop)
                 coffeeShop.makeCoffee(coffee, from: name)
             } else {
                 print("[이런! 잔액이 \(abs(self.money - price))만큼 부족합니다.\n")
@@ -63,8 +61,10 @@ class Person {
         }
     }
     
-    func isPossiblePay(price priceOfCoffee: Int) -> Bool {
-        if (self.money - priceOfCoffee) >= 0 { return true } else { return false }
+    func payForGood(price priceOfGood: Int, of shop: CoffeeShop){
+        self.money -= priceOfGood
+        shop.salesRevenue += priceOfGood
+        print("===결제 완료!===")
     }
     
     func sleep() {
