@@ -20,6 +20,6 @@ let yagombucksMenu: [Coffee: Int] = [
 let yagombucks = CoffeeShop(barista: misterLee, menu: yagombucksMenu)
 
 // MARK: - STEP 2
-missKim.order(.americano , of:yagombucks)
-missKim.order(.mocha , of:yagombucks)
-missKim.order(.latte , of:yagombucks)
+missKim.willBuyCoffee(.americano, of: yagombucks)
+missKim.willBuyCoffee(.mocha, of: yagombucks)
+missKim.willBuyCoffee(.latte, of: yagombucks)
