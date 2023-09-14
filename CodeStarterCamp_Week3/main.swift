@@ -40,7 +40,7 @@ class Person {
     var age: Int
     var money: Int {
         didSet {
-            print("* \(name) 의 잔액: \(money)원\n")
+            print("* \(name) 의 잔액: \(oldValue)원 -> \(money)원\n")
         }
     }
     var order: Coffee?
@@ -82,18 +82,20 @@ class CoffeeShop {
     var location: String
     var sales: Int
     var menu: [Coffee]
-    var pickUpTable: [Coffee] = []
-    var barista: Person?
+    var pickUpTable: [Coffee]
+    var barista: Person
 
-    init(name: String, location: String, sales: Int, menu: [Coffee]) {
+    init(name: String, location: String, sales: Int, menu: [Coffee], pickUpTable: [Coffee], barista: Person) {
         self.name = name
         self.location = location
         self.sales = sales
         self.menu = menu
+        self.pickUpTable = pickUpTable
+        self.barista = barista
     }
 
     func make(_ coffee: Coffee, from name: String) {
-        print("( \(coffee)(을/를) 추출합니다... )\n")
+        print("( \(barista.name)가 \(coffee)(을/를) 추출합니다... )\n")
         
         pickUpTable.append(coffee)
         
@@ -102,7 +104,9 @@ class CoffeeShop {
 }
 
 let missKim = Person(name: "AmyKim", gender: .female, age: 40, money: 20000)
-let yagombucks = CoffeeShop(name: "yagombucks", location: "Seoul", sales: 100000, menu: [.espresso, .americano, .latte, .cappuccino])
+let misterLee = Person(name: "JohnLee", gender: .male, age: 30, money: 10000)
+
+let yagombucks = CoffeeShop(name: "yagombucks", location: "Seoul", sales: 100000, menu: [.espresso, .americano, .latte, .cappuccino], pickUpTable: [], barista: misterLee)
 
 missKim.order(.latte, of: yagombucks)
 missKim.eat(coffee: .americano)
