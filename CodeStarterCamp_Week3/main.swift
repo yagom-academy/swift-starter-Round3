@@ -61,8 +61,6 @@ class Person {
         print("카페 \(coffeeShop.name)에 \(name) 님이 \(coffee)(을/를) 주문했습니다.\n")
         
         money -= coffee.price
-        coffeeShop.sales += coffee.price
-        
         order = coffee
         
         coffeeShop.make(coffee, from: name)
@@ -95,6 +93,8 @@ class CoffeeShop {
     }
 
     func make(_ coffee: Coffee, from name: String) {
+        sales += coffee.price
+
         print("( \(barista.name)가 \(coffee)(을/를) 추출합니다... )\n")
         
         pickUpTable.append(coffee)
