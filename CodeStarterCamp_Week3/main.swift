@@ -63,7 +63,7 @@ class Person {
         money -= coffee.price
         order = coffee
         
-        coffeeShop.make(coffee, from: coffeeShop.barista.name)
+        coffeeShop.make(coffee, from: coffeeShop.barista.name, to: name)
     }
     
     func eat(coffee: Coffee) {
@@ -80,10 +80,15 @@ class CoffeeShop {
     var location: String
     var sales: Int
     var menu: [Coffee]
-    var pickUpTable: [Coffee]
     var barista: Person
+    var pickUpTable: [(customer: String, coffee: Coffee)] {
+        didSet {
+            let order = pickUpTable.removeFirst()
+            print("\(order.customer) 님이 주문하신 \(order.coffee)(이/가) 준비되었습니다. 픽업대에서 가져가주세요.\n")
+        }
+    }
 
-    init(name: String, location: String, sales: Int, menu: [Coffee], pickUpTable: [Coffee], barista: Person) {
+    init(name: String, location: String, sales: Int, menu: [Coffee], pickUpTable: [(customer: String, coffee: Coffee)], barista: Person) {
         self.name = name
         self.location = location
         self.sales = sales
@@ -92,14 +97,12 @@ class CoffeeShop {
         self.barista = barista
     }
 
-    func make(_ coffee: Coffee, from name: String) {
+    func make(_ coffee: Coffee, from name: String, to customer: String) {
         sales += coffee.price
 
         print("( \(name)가 \(coffee)(을/를) 추출합니다... )\n")
         
-        pickUpTable.append(coffee)
-        
-        print("주문하신 \(coffee)(이/가) 준비되었습니다. 픽업대에서 가져가주세요.\n")
+        pickUpTable.append((customer, coffee))
     }
 }
 
