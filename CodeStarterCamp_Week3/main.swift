@@ -40,7 +40,7 @@ class Person {
     var age: Int
     var money: Int {
         didSet {
-            print("* \(name) 의 잔액: \(oldValue)원 -> \(money)원\n")
+            print("* \(name)의 잔액: \(oldValue)원 -> \(money)원\n")
         }
     }
     var order: Coffee?
@@ -78,7 +78,11 @@ class Person {
 class CoffeeShop {
     var name: String
     var location: String
-    var sales: Int
+    var sales: Int {
+        didSet {
+            print("* \(name)의 매출: \(oldValue)원 -> \(sales)원\n")
+        }
+    }
     var menu: [Coffee]
     var barista: Person
     var pickUpTable: [(customer: String, coffee: Coffee)] {
