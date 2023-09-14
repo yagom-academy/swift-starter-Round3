@@ -8,7 +8,7 @@
 
 /* Begin PBXBuildFile section */
 		34811DD5274B93EB00A1E994 /* main.swift in Sources */ = {isa = PBXBuildFile; fileRef = 34811DD4274B93EB00A1E994 /* main.swift */; };
-		B1963D222AB0000D000A2249 /* step2.swift in Sources */ = {isa = PBXBuildFile; fileRef = B1963D212AB0000D000A2249 /* step2.swift */; };
+		B15977562AB13AC60060FB6C /* step2.swift in Sources */ = {isa = PBXBuildFile; fileRef = B1963D212AB0000D000A2249 /* step2.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXCopyFilesBuildPhase section */
@@ -124,8 +124,8 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				B15977562AB13AC60060FB6C /* step2.swift in Sources */,
 				34811DD5274B93EB00A1E994 /* main.swift in Sources */,
-				B1963D222AB0000D000A2249 /* step2.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

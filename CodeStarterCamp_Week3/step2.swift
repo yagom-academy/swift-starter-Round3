@@ -14,18 +14,22 @@ enum Coffee: String {
     case banillaLatte = "바닐라라떼"
 }
 
-struct Person {
+class Person {
     var money: Int
     var name: String
+    
+    init(money: Int, name: String) {
+        self.money = money
+        self.name = name
+    }
 
-    func order(_ coffee: Coffee, of coffeeShop: CoffeeShop, by name: String) {
+    func order(_ coffee: Coffee, of coffeeShop: CoffeeShop) {
         if let price = menu[coffee] {
             if money < price {
                 print("잔액이 \(price - money)원 만큼 부족합니다. ")
-            }
-            else {
+            } else {
                 coffeeShop.make(_: coffee, from: name)
-                coffeeShop.sales += price
+                money = price - money
             }
         }
     }
@@ -35,27 +39,30 @@ class CoffeeShop {
     var sales: Int
     var barista: Person
     var menu: [Coffee: Int]
-    var pickUpTable: [String]
     
-    init(sales: Int, barista: Person, menu: [Coffee: Int], pickUpTable: [String]) {
+    init(sales: Int, barista: Person, menu: [Coffee: Int]) {
         self.sales = sales
         self.barista = barista
         self.menu = menu
-        self.pickUpTable = pickUpTable
-    }
-    
-    func takeOrder(coffee: Coffee) {
-        print("\(coffee.rawValue)의 주문이 들어왔습니다.")
     }
     
     func make(_ coffee: Coffee, from name: String) {
-        pickUpTable.append(coffee.rawValue)
-        if let coffeeName = pickUpTable.last {
-            print("\(name) 님이 주문하신 \(coffeeName)(이/가) 준비되었습니다. 픽업대에서 가져가주세요.")
+        if let price = menu[coffee] {
+            sales += price
         }
+        
+        var pickUpTable: [Coffee] = [] {
+            didSet {
+                if let coffeeName = pickUpTable.last {
+                    print("\(name)님이 주문하신 \(coffeeName.rawValue)(이/가) 준비되었습니다. 픽업대에서 가져가주세요.")
+                }
+            }
+        }
+        pickUpTable.append(coffee)
+        
     }
     
 }
 
 var menu: [Coffee: Int] = [.americano: 1000, .cafeLatte: 3000, .cappuccino: 1500]
-var pickUpTable: [String] = []
+
