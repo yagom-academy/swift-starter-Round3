@@ -38,9 +38,12 @@ class Person {
     var name: String
     var gender: Gender
     var age: Int
-    var money: Int
-    var nickname: String!
-    var order: Coffee!
+    var money: Int {
+        didSet {
+            print("* \(name)의 잔액: \(oldValue)원 -> \(money)원\n")
+        }
+    }
+    var order: Coffee?
 
     init(name: String, gender: Gender, age: Int, money: Int) {
         self.name = name
@@ -49,21 +52,25 @@ class Person {
         self.money = money
     }
     
-    func buyCoffee(to: CoffeeShop, order: Coffee, nickname: String) {
-        self.money -= order.price
-        self.order = order
-        self.nickname = nickname
-                
-        print("카페 \(to.name)에 \(nickname) 고객님이 \(order)(을)를 주문했습니다.\n")
+    func order(_ coffee: Coffee, of coffeeShop: CoffeeShop) {
+        guard money >= coffee.price else {
+            print("잔액이 \(coffee.price - money)원 만큼 부족합니다.")
+            return
+        }
         
-        to.takeOrder(nickname: nickname, order: order)
+        print("카페 \(coffeeShop.name)에 \(name) 님이 \(coffee)(을/를) 주문했습니다.\n")
+        
+        money -= coffee.price
+        order = coffee
+        
+        coffeeShop.make(coffee, from: coffeeShop.barista.name, to: name)
     }
     
-    func eatCoffee(coffee: Coffee) {
-        if coffee == self.order {
-            print("주문한 \(coffee)(을)를 마셨습니다.\n")
+    func eat(coffee: Coffee) {
+        if coffee == order {
+            print("주문한 \(coffee)(을/를) 마셨습니다.\n")
         } else {
-            print("\(coffee)(을)를 주문하지 않았습니다. 주문 먼저 해주세요.\n")
+            print("\(coffee)(을/를) 주문하지 않았습니다. 주문 먼저 해주세요.\n")
         }
     }
 }
@@ -71,40 +78,42 @@ class Person {
 class CoffeeShop {
     var name: String
     var location: String
-    var sales: Int
     var menu: [Coffee]
-    var pickUpTable: [Coffee] = []
-    var barista: Person?
+    var barista: Person
+    var sales: Int {
+        didSet {
+            print("* \(name)의 매출: \(oldValue)원 -> \(sales)원\n")
+        }
+    }
+    var pickUpTable: [(customer: String, coffee: Coffee)] {
+        didSet {
+            let order = pickUpTable.removeFirst()
+            print("\(order.customer)님이 주문하신 \(order.coffee)(이/가) 준비되었습니다. 픽업대에서 가져가주세요.\n")
+        }
+    }
 
-    init(name: String, location: String, sales: Int, menu: [Coffee]) {
+    init(name: String, location: String, sales: Int, menu: [Coffee], pickUpTable: [(customer: String, coffee: Coffee)], barista: Person) {
         self.name = name
         self.location = location
         self.sales = sales
         self.menu = menu
+        self.pickUpTable = pickUpTable
+        self.barista = barista
     }
-    
-    func takeOrder(nickname: String, order: Coffee) {
-        print("카페 \(self.name)에서 \(nickname) 고객님의 \(order)(을)를 주문 받았습니다.\n")
+
+    func make(_ coffee: Coffee, from name: String, to customer: String) {
+        sales += coffee.price
+
+        print("( \(name)가 \(coffee)(을/를) 추출합니다... )\n")
         
-        sales += order.price
-        
-        makeCoffee(to: nickname, coffee: order)
-    }
-    
-    func makeCoffee(to: String, coffee: Coffee) {
-        print("(\(coffee) 제조중...)\n")
-        
-        pickUpTable.append(coffee)
-        
-        print("닉네임 \(to)으로 주문하신 고객님의 \(coffee)(이)가 완성되었습니다.\n")
+        pickUpTable.append((customer, coffee))
     }
 }
 
-let misterLee = Person(name: "JohnLee", gender: .male, age: 30, money: 10000)
 let missKim = Person(name: "AmyKim", gender: .female, age: 40, money: 20000)
-let yagombucks = CoffeeShop(name: "yagombucks", location: "Seoul", sales: 100000, menu: [.espresso, .americano, .latte, .cappuccino])
+let misterLee = Person(name: "JohnLee", gender: .male, age: 30, money: 10000)
 
-yagombucks.barista = misterLee
+let yagombucks = CoffeeShop(name: "yagombucks", location: "Seoul", sales: 100000, menu: [.espresso, .americano, .latte, .cappuccino], pickUpTable: [], barista: misterLee)
 
-missKim.buyCoffee(to: yagombucks,  order: .americano, nickname: "missKim")
-missKim.eatCoffee(coffee: .americano)
+missKim.order(.latte, of: yagombucks)
+missKim.eat(coffee: .americano)
