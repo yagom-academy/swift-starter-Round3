@@ -38,7 +38,11 @@ class Person {
     var name: String
     var gender: Gender
     var age: Int
-    var money: Int
+    var money: Int {
+        didSet {
+            print("* \(name) 의 잔액: \(money)원\n")
+        }
+    }
     var order: Coffee?
 
     init(name: String, gender: Gender, age: Int, money: Int) {
@@ -54,12 +58,12 @@ class Person {
             return
         }
         
+        print("카페 \(coffeeShop.name)에 \(name) 님이 \(coffee)(을/를) 주문했습니다.\n")
+        
         money -= coffee.price
         coffeeShop.sales += coffee.price
         
         order = coffee
-        
-        print("카페 \(coffeeShop.name)에 \(name) 님이 \(coffee)(을/를) 주문했습니다.\n")
         
         coffeeShop.make(coffee, from: name)
     }
