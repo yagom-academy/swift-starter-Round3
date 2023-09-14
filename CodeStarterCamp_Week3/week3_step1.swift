@@ -63,12 +63,8 @@ class Person {
         }
     }
     
-    func isPossiblePay(price priceOfCoffee: Int) -> Bool{
-        if (self.money - priceOfCoffee) >= 0 {
-            return true
-        } else {
-            return false
-        }
+    func isPossiblePay(price priceOfCoffee: Int) -> Bool {
+        if (self.money - priceOfCoffee) >= 0 { return true } else { return false }
     }
     
     func sleep() {
