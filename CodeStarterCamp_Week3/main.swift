@@ -8,4 +8,5 @@
 
 import Foundation
 
+// MARK: - STEP 1
 start()
