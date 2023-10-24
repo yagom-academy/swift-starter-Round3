@@ -10,9 +10,11 @@ import Foundation
 
 
 struct Person {
-    var money: Int = 10000
-    
-    func buyCoffee(order: String) {
+    var money: Int
+    init(money: Int) {
+        self.money = money
+    }
+    func buyCoffee(order: [String]) {
         print("\(order)을(를) 구매합니다.")
     }
 }
@@ -23,7 +25,7 @@ struct CoffeeShop {
     var pickupTable: [String] = []
     var barista: Person?
     
-    func receivedOrder(order: String) {
+    mutating func receivedOrder(order: String) {
         print("\(order) 메뉴의 주문이 들어왔습니다.")
     }
     mutating func makeCoffee(order: String) {
@@ -39,8 +41,10 @@ struct Coffee {
     }
 }
 
-var misterLee: Person = Person()
-var missKim: Person = Person()
+var misterLee: Person = Person(money: 10000)
+var missKim: Person = Person(money: 50000)
 
 var yagombucks: CoffeeShop = CoffeeShop()
 yagombucks.barista = misterLee
+
+
