@@ -8,5 +8,5 @@
 
 import Foundation
 
-print("Hello, World!")
-
+// MARK: - STEP 1
+start()
