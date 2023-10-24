@@ -31,3 +31,9 @@ struct CoffeeShop {
     }
     
 }
+
+struct Coffee {
+    enum coffeeType {
+        case 아메리카노, 카페라떼, 돌체라떼, 아포가토
+    }
+}
