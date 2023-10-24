@@ -18,11 +18,12 @@ struct Person {
 }
 
 struct CoffeeShop {
-    var salesVolume: Int = 100000
+    var salesVolume: Int = 0
     let menu: [String: Int] = ["아메리카노": 2500, "카페라떼": 4000]
     var pickupTable: [String] = []
+    var barista: Person?
     
-    mutating func receivedOrder(order: String) {
+    func receivedOrder(order: String) {
         print("\(order) 메뉴의 주문이 들어왔습니다.")
     }
     mutating func makeCoffee(order: String) {
@@ -42,4 +43,4 @@ var misterLee: Person = Person()
 var missKim: Person = Person()
 
 var yagombucks: CoffeeShop = CoffeeShop()
-
+yagombucks.barista = misterLee
