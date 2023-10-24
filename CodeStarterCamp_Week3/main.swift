@@ -37,3 +37,9 @@ struct Coffee {
         case 아메리카노, 카페라떼, 돌체라떼, 아포가토
     }
 }
+
+var misterLee: Person = Person()
+var missKim: Person = Person()
+
+var yagombucks: CoffeeShop = CoffeeShop()
+
