@@ -12,7 +12,22 @@ import Foundation
 struct Person {
     var money: Int = 10000
     
-    func buyCoffee() {
-        print("커피를 구매합니다")
+    func buyCoffee(order: String) {
+        print("\(order)을(를) 구매합니다.")
     }
+}
+
+struct CoffeeShop {
+    var salesVolume: Int = 100000
+    let menu: [String: Int] = ["아메리카노": 2500, "카페라떼": 4000]
+    var pickupTable: [String] = []
+    
+    mutating func receivedOrder(order: String) {
+        print("\(order) 메뉴의 주문이 들어왔습니다.")
+    }
+    mutating func makeCoffee(order: String) {
+        pickupTable = [order]
+        print("\(order) 메뉴의 제작이 완료되었습니다.")
+    }
+    
 }
