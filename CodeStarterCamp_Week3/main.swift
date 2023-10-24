@@ -8,5 +8,17 @@
 
 import Foundation
 
-print("Hello, World!")
+//print("Hello, World!")
+
+let misterLee = Person(money: 10000, name: "misterLee")
+let missKim = Person(money: 10000, name: "missKim")
+
+let yagombucks = CoffeeShop()
+yagombucks.barista = misterLee
+
+misterLee.buyCoffee(coffeeShop: yagombucks, coffee: Coffee.americano)
+
+for coffee in yagombucks.pickUpTable {
+    print(coffee.name)
+}
 
