@@ -35,11 +35,13 @@ struct CoffeeShop {
     
 }
 
-struct Coffee {
-    enum coffeeType {
-        case 아메리카노, 카페라떼, 돌체라떼, 아포가토
+enum Coffee {
+    case 아메리카노(price: Int, type: String)
+    case 카페라떼(price: Int, type: String)
+    case 돌체라떼(price: Int, type: String)
+    case 아포가토(price: Int)
     }
-}
+
 
 var misterLee: Person = Person(money: 10000)
 var missKim: Person = Person(money: 50000)
