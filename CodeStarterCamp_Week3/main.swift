@@ -46,7 +46,7 @@ class CoffeeShop {
     
     }
     
-    init? (name: String, barista: Person, revenue: Int) {
+    init (name: String, barista: Person?, revenue: Int) {
         self.name = name
         self.barista = barista
         self.revenue = revenue
@@ -67,10 +67,14 @@ class CoffeeShop {
 }
     
 
-var missKim: Person? = Person(name: "missKim", age: 23, money: 1000)
-var misterLee: Person? = Person(name: "misterLee", age: 30, money: 1500)
-var yagombucks: CoffeeShop? = CoffeeShop(name:"yagombucks", barista: misterLee!, revenue: 0)
-yagombucks?.takeOrder(coffeeName: .espresso, customer: missKim!)
-yagombucks!.pickUpTable = (yagombucks?.serveOrder(name: "missKim", coffeeName: .espresso))!
-print("\(yagombucks!.name)의 매출액은 \(yagombucks!.revenue)입니다.")
+guard let missKim: Person = Person(name: "missKim", age: 23, money: 1000) else {
+    fatalError("Person missKim initializing failed")
+}
+guard let misterLee: Person = Person(name: "misterLee", age: 30, money: 1500) else {
+    fatalError("Person misterLee initializing failed")
+}
+let yagombucks: CoffeeShop = CoffeeShop(name:"yagombucks", barista: misterLee, revenue: 0)
+yagombucks.takeOrder(coffeeName: .espresso, customer: missKim)
+yagombucks.pickUpTable = (yagombucks.serveOrder(name: "missKim", coffeeName: .espresso))
+print("\(yagombucks.name)의 매출액은 \(yagombucks.revenue)입니다.")
 
