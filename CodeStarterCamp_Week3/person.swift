@@ -16,7 +16,7 @@ class Person {
         self.name = name
     }
     
-    func buyCoffee(coffeeShop: CoffeeShop, coffee: Coffee) {
+    func buy(coffee: Coffee, at coffeeShop: CoffeeShop) {
         coffeeShop.takeOrderFor(coffee: coffee)
     }
 }
