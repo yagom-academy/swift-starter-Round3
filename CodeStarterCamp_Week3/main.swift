@@ -14,18 +14,18 @@ struct Person {
     init(money: Int) {
         self.money = money
     }
-    func buyCoffee(order: [String]) {
+    func buyCoffee(order: [Coffee]) {
         print("\(order)을(를) 구매합니다.")
     }
 }
 
 struct CoffeeShop {
     var salesVolume: Int = 0
-    let menu: [String: Int] = ["아메리카노": 2500, "카페라떼": 4000]
+    let menu: [Coffee: Int] = [Coffee.아메리카노: 2500, Coffee.카페라떼: 4000]
     var pickupTable: [String] = []
     var barista: Person?
     
-    mutating func receivedOrder(order: String) {
+    mutating func receiveOrder(order: String) {
         print("\(order) 메뉴의 주문이 들어왔습니다.")
     }
     mutating func makeCoffee(order: String) {
@@ -36,10 +36,10 @@ struct CoffeeShop {
 }
 
 enum Coffee {
-    case 아메리카노(price: Int, type: String)
-    case 카페라떼(price: Int, type: String)
-    case 돌체라떼(price: Int, type: String)
-    case 아포가토(price: Int)
+    case 아메리카노
+    case 카페라떼
+    case 돌체라떼
+    case 아포가토
     }
 
 
