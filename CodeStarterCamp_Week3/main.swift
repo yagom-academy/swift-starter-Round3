@@ -13,10 +13,9 @@ import Foundation
 let misterLee = Person(money: 10000, name: "misterLee")
 let missKim = Person(money: 10000, name: "missKim")
 
-let yagombucks = CoffeeShop()
-yagombucks.barista = misterLee
+let yagombucks = CoffeeShop(barista: misterLee)
 
-misterLee.buyCoffee(coffeeShop: yagombucks, coffee: Coffee.americano)
+misterLee.buy(coffee: Coffee.americano, at: yagombucks)
 
 for coffee in yagombucks.pickUpTable {
     print(coffee.name)

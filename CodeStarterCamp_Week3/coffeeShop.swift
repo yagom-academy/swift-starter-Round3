@@ -25,10 +25,14 @@ class CoffeeShop {
     var salesAmount: Int = 0
     var menuPan: [Coffee: Int] = [:]
     var pickUpTable: [Coffee] = []
-    var barista: Person = Person(money: 0, name: "")
+    var barista: Person
+    
+    init(barista: Person) {
+        self.barista = barista
+    }
     
     func takeOrderFor(coffee: Coffee) {
-        makeCoffeeFor(coffee: coffee)
+        make(coffee: coffee)
     }
     
     func make(coffee: Coffee) {
