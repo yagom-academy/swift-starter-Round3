@@ -31,7 +31,7 @@ class CoffeeShop {
         makeCoffeeFor(coffee: coffee)
     }
     
-    func makeCoffeeFor(coffee: Coffee) {
+    func make(coffee: Coffee) {
         putOnTableFor(coffee: coffee)
     }
     
