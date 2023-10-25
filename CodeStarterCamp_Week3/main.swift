@@ -22,13 +22,13 @@ class Person {
         self.money = money
     }
     
-    func orderMenu (coffeeName: CoffeeShop.Menu) {
-        if self.money < coffeeName.rawValue {
-            print ("\(self.name)!! 잔액이 부족합니다. 현재잔액은 \(self.money)입니다.")
+    func order(_ coffee: CoffeeShop.Coffee, of coffeeShop: CoffeeShop, by name: String) {
+        if self.money < coffee.rawValue {
+            var insufficientFunds = coffee.rawValue - self.money
+            print ("잔액이 \(insufficientFunds)만큼 부족합니다.")
         } else {
-            self.money = money - coffeeName.rawValue
-            print("\(self.name)은(는) \(coffeeName)을(를) 주문하였습니다. 남은 잔액은\(self.money)입니다.")
-    
+            coffeeShop.make(_ : coffee, from: name)
+            self.money = money - coffee.rawValue
         }
     }
 }
@@ -38,31 +38,25 @@ class CoffeeShop {
     var name: String
     var barista: Person!
     var revenue: Int
-    var pickUpTable: Dictionary<String, Menu> = [:]
-    enum Menu: Int {
+    var pickUpTable: Array<String>
+    
+    enum Coffee: Int {
         case americano = 1500
         case latte = 3500
         case espresso = 1000
-    
     }
     
     init (name: String, barista: Person?, revenue: Int) {
         self.name = name
         self.barista = barista
         self.revenue = revenue
+        self.pickUpTable = []
     }
        
-    func takeOrder (coffeeName: Menu, customer: Person) {
-        print("안녕하세요.\(self.name)입니다. 주문하시겠요?")
-        customer.orderMenu(coffeeName: coffeeName)
-        print("바리스타 \(self.barista.name)이(가) \(coffeeName)를 주문받았습니다.")
-    }
-        
-    func serveOrder (name: String, coffeeName: Menu) -> Dictionary<String, Menu>{
-        print("\(name)님의 \(coffeeName)가 픽업테이블에 준비되었습니다.")
-        let CoffeMenu: [String: Menu] = [name: coffeeName]
-        self.revenue += coffeeName.rawValue
-        return CoffeMenu
+    func make(_ coffee: Coffee, from name: String) {
+        self.revenue += coffee.rawValue
+        self.pickUpTable.append(coffee.rawValue.description)
+        print("\(name)님이 주문하신 \(coffee)(이/가) 준비되었습니다. 픽업대에서 가져가주세요.")
     }
 }
     
@@ -74,7 +68,6 @@ guard let misterLee: Person = Person(name: "misterLee", age: 30, money: 1500) el
     fatalError("Person misterLee initializing failed")
 }
 let yagombucks: CoffeeShop = CoffeeShop(name:"yagombucks", barista: misterLee, revenue: 0)
-yagombucks.takeOrder(coffeeName: .espresso, customer: missKim)
-yagombucks.pickUpTable = (yagombucks.serveOrder(name: "missKim", coffeeName: .espresso))
-print("\(yagombucks.name)의 매출액은 \(yagombucks.revenue)입니다.")
+missKim.order(.latte, of: yagombucks, by: missKim.name)
+missKim.order(.espresso, of: yagombucks, by: missKim.name)
 
