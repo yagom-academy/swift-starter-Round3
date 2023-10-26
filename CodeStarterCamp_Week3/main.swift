@@ -11,13 +11,10 @@ import Foundation
 //print("Hello, World!")
 
 let misterLee = Person(money: 10000, name: "misterLee")
-let missKim = Person(money: 10000, name: "missKim")
+let missKim = Person(money: 3500, name: "missKim")
 
 let yagombucks = CoffeeShop(barista: misterLee)
+yagombucks.menuPan = [.americano: 3900, .vanillaLatte: 4500, .iceAmericano: 4300, .cafeLatte: 4400]
 
-misterLee.buy(coffee: Coffee.americano, at: yagombucks)
-
-for coffee in yagombucks.pickUpTable {
-    print(coffee.name)
-}
-
+misterLee.order(.americano, at: yagombucks)
+missKim.order(.cafeLatte, at: yagombucks)

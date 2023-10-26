@@ -16,7 +16,25 @@ class Person {
         self.name = name
     }
     
-    func buy(coffee: Coffee, at coffeeShop: CoffeeShop) {
-        coffeeShop.takeOrderFor(coffee: coffee)
+    func order(_ coffee: Coffee, at coffeeShop: CoffeeShop) {
+        if let coffeeCost = coffeeShop.menuPan[coffee] {
+            let myCheckMoney = myMoneyCheckFor(by: coffeeCost)
+            
+            if myCheckMoney > 0 {
+                coffeeShop.takeOrderFor(coffee: coffee, by: self)
+            } else {
+                if myCheckMoney == 0 {
+                    print("잔액이 \(coffeeCost)원만큼 부족합니다.")
+                } else {
+                    print("잔액이 \(myCheckMoney * -1)원만큼 부족합니다.")
+                }
+            }
+        } else {
+            print("\(coffee.name)는 없는 메뉴 입니다.")
+        }
+    }
+    
+    func myMoneyCheckFor(by cost: Int) -> Int {
+        return self.money - cost
     }
 }
