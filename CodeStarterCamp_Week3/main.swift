@@ -46,7 +46,7 @@ class CoffeeShop {
         case espresso = 1000
     }
     
-    init (name: String, barista: Person?, revenue: Int) {
+    init(name: String, barista: Person?, revenue: Int) {
         self.name = name
         self.barista = barista
         self.revenue = revenue
