@@ -10,64 +10,35 @@ struct Person {
         self.money = money
     }
     
-    func checkMoney() {
-        print("\(self.name)의 소유 금액: \(self.money)원")
-    }
-    
-    mutating func payMoney(_ coffee: Coffee) {
-        money -= coffee.price
-    }
-    
-    mutating func order(_ coffee: Coffee, of coffeeShop: CoffeeShop, by name: String) {
-        if self.money >= coffee.price {
-            print("\(self.name)가(이) \(coffeeShop.name)에서 \(coffee.name)(\(coffee.price)원)를 주문합니다.")
-            payMoney(coffee)
-            coffeeShop.calculateSales(coffee)
-            coffeeShop.make(coffee, from: coffeeShop.barista.name)
-            coffeeShop.announceMenu(by: self, coffee: coffee)
-        } else if self.money < coffee.price {
-            let difference: Int = coffee.price - self.money
-            print("\(self.name)님! \(coffee.name)의 금액은 \(coffee.price)원 입니다. 잔액이 \(difference)원 부족합니다.")
-        }
+    func buyCoffee(cafe: CoffeeShop,coffee: Coffee) {
+        print("\(self.name)가(이) \(cafe.name)에서 \(coffee.name)를 구매합니다.")
     }
 }
 
-class CoffeeShop {
+struct CoffeeShop {
     let name: String
     var sales: Int
-    var menu: [Coffee: Int]
+//    var menu: [Coffee: Int]
     var barista: Person
-    var pickUpTable: [String] = []
+    lazy var pickUpTable: [Coffee] = []
     
-    init(name: String, sales: Int, menu: [Coffee : Int], barista: Person, pickUpTable: [String]) {
+    init(name: String, sales: Int, barista: Person) {
         self.name = name
         self.sales = sales
-        self.menu = menu
         self.barista = barista
-        self.pickUpTable = pickUpTable
-    }
-    
-    func checkSales() {
-        print("\(self.name)의 매출액: \(self.sales)원")
     }
     
     func takeOrder(orderer: Person, coffee: Coffee) {
         print("\(orderer.name)가(이) \(coffee.name)를 주문했습니다.")
     }
     
-    func announceMenu(by name: Person, coffee: Coffee) {
-        let announceMent: String = "\(name.name)가(이) 주문한 \(coffee.name)가 완료되었습니다. 픽업대에서 가져가주세요."
-        pickUpTable.append(announceMent)
-        print(pickUpTable.last ?? "픽업대가 비었습니다.")
-    }
-
-    func calculateSales(_ coffee: Coffee) {
-        sales += coffee.price
+    func makeCoffe(coffee: Coffee) {
+        print("바리스타 \(self.barista.name)가(이) \(coffee.name)을 제조합니다.")
     }
     
-    func make(_ coffee: Coffee, from name: String) {
-        print("바리스타 \(name)가(이) \(coffee.name)을 제조합니다.")
-        
+    func announceMenu(orderer: Person, coffee: Coffee) {
+        print("\(orderer.name)가(이) 주문한 \(coffee.name)가 완료되었습니다.")
+        print("픽업 테이블에서 가져가주세요.")
     }
 }
 
@@ -103,18 +74,13 @@ enum Coffee {
 }
 
 func start() {
-    let misterLee: Person = .init(name: "misterLee", age: 28, money: 0)
-    var missKim: Person = .init(name: "missKim", age: 27, money: 5000)
-    var maru: Person = .init(name: "maru", age: 30, money: 7000)
-    let yagombucksMenu: [Coffee: Int] = [.iceAmericano: Coffee.iceAmericano.price, .hotAmericano: Coffee.hotAmericano.price, .cafeLatte: Coffee.cafeLatte.price, .coldBrew: Coffee.coldBrew.price, .appleJuice: Coffee.appleJuice.price, .bananaJuice: Coffee.bananaJuice.price]
-    let yagombucks: CoffeeShop = .init(name: "yagombucks", sales: 0, menu: yagombucksMenu, barista: misterLee, pickUpTable: [])
+    let misterLee: Person = .init(name: "Lee", age: 31, money: 5000)
+    let missKim: Person = .init(name: "Kim", age: 28, money: 10000)
+
+    let yagombucks: CoffeeShop = .init(name: "yagombucks", sales: 54000, barista: misterLee)
     
-    yagombucks.checkSales()
-    print("--------------------------------------")
-    missKim.order(.bananaJuice, of: yagombucks, by: missKim.name)
-    maru.order(.iceAmericano, of: yagombucks, by: missKim.name)
-    print("--------------------------------------")
-    yagombucks.checkSales()
-    missKim.checkMoney()
-    maru.checkMoney()
+    missKim.buyCoffee(cafe: yagombucks, coffee: .cafeLatte)
+    yagombucks.takeOrder(orderer: missKim, coffee: .cafeLatte)
+    yagombucks.makeCoffe(coffee: .cafeLatte)
+    yagombucks.announceMenu(orderer: missKim, coffee: .cafeLatte)
 }

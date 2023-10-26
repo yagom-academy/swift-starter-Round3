@@ -9,4 +9,7 @@
 import Foundation
 
 // MARK: - STEP 1
+//start()
+
+// MARK: - STEP 2
 start()
