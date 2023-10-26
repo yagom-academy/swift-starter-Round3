@@ -24,7 +24,7 @@ class Person {
     
     func order(_ coffee: CoffeeShop.Coffee, of coffeeShop: CoffeeShop, by name: String) {
         if self.money < coffee.rawValue {
-            var insufficientFunds = coffee.rawValue - self.money
+            let insufficientFunds = coffee.rawValue - self.money
             print ("잔액이 \(insufficientFunds)만큼 부족합니다.")
         } else {
             coffeeShop.make(_ : coffee, from: name)
@@ -38,7 +38,11 @@ class CoffeeShop {
     var name: String
     var barista: Person!
     var revenue: Int
-    var pickUpTable: Array<String>
+    var pickUpTable: Array<String> = [] {
+        didSet {
+            print("\(name)님이 주문하신 \(pickUpTable.last ?? "준비되지 않았습니다.")(이/가) 준비되었습니다. 픽업대에서 가져가주세요.")
+        }
+    }
     
     enum Coffee: Int {
         case americano = 1500
@@ -50,13 +54,11 @@ class CoffeeShop {
         self.name = name
         self.barista = barista
         self.revenue = revenue
-        self.pickUpTable = []
     }
        
     func make(_ coffee: Coffee, from name: String) {
         self.revenue += coffee.rawValue
-        self.pickUpTable.append(coffee.rawValue.description)
-        print("\(name)님이 주문하신 \(coffee)(이/가) 준비되었습니다. 픽업대에서 가져가주세요.")
+        self.pickUpTable.append(String(describing: coffee))
     }
 }
     
