@@ -35,11 +35,11 @@ struct Person {
 class CoffeeShop {
     let name: String
     var sales: Int
-    var menu: [Coffee: Int]
+    var menu: [Coffee]
     var barista: Person
     var pickUpTable: [String] = []
     
-    init(name: String, sales: Int, menu: [Coffee : Int], barista: Person, pickUpTable: [String]) {
+    init(name: String, sales: Int, menu: [Coffee], barista: Person, pickUpTable: [String]) {
         self.name = name
         self.sales = sales
         self.menu = menu
@@ -106,7 +106,8 @@ func start() {
     let misterLee: Person = .init(name: "misterLee", age: 28, money: 0)
     var missKim: Person = .init(name: "missKim", age: 27, money: 5000)
     var maru: Person = .init(name: "maru", age: 30, money: 7000)
-    let yagombucksMenu: [Coffee: Int] = [.iceAmericano: Coffee.iceAmericano.price, .hotAmericano: Coffee.hotAmericano.price, .cafeLatte: Coffee.cafeLatte.price, .coldBrew: Coffee.coldBrew.price, .appleJuice: Coffee.appleJuice.price, .bananaJuice: Coffee.bananaJuice.price]
+    
+    let yagombucksMenu: [Coffee] = [.iceAmericano, .hotAmericano, .cafeLatte, .coldBrew, .appleJuice, .bananaJuice]
     let yagombucks: CoffeeShop = .init(name: "yagombucks", sales: 0, menu: yagombucksMenu, barista: misterLee, pickUpTable: [])
     
     yagombucks.checkSales()
