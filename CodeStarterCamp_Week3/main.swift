@@ -46,8 +46,10 @@ struct CoffeeShop {
     
     mutating func receiveOrder(order: [Coffee], by person: Person) {
         print("\(order) 메뉴의 주문이 들어왔습니다.")
-        //salesVolume에 totalPrice를 더한다.
-        //makeCoffee를 시작한다.
+        salesVolume += buyCoffee.totalPrice
+        print("(좋아. 오늘의 총 매출은\(salesVolume)원 이군.)")
+        
+        makeCoffee(order: order, by: person)
     }
     mutating func makeCoffee(order: [Coffee], by person: Person) {
         pickupTable = [order]
