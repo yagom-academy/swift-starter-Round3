@@ -8,5 +8,48 @@
 
 import Foundation
 
-print("Hello, World!")
+// Person 타입 정의
+struct Person {
+    var name: String
+    var money: Double
+    
+    init(name: String, money: Double) {
+        self.name = name
+        self.money = money
+    }
+}
+
+// CoffeeShop 타입 정의
+struct CoffeeShop {
+    var revenue: Double
+    var menu: [CoffeeType: Double]
+    var pickUpTable: [Coffee] = []
+    var barista: Person?
+    
+    init(revenue: Double, menu: [CoffeeType: Double]) {
+        self.revenue = revenue
+        self.menu = menu
+    }
+}
+
+
+// CoffeeShop과 Person 인스턴스 생성
+var yagombucks = CoffeeShop(revenue: 10, menu: [.espresso: 2.5, .latte: 3.0, .cappuccino: 3.5])
+var misterLee = Person(name: "Mr. Lee", money: 20.0)
+var missKim = Person(name: "Ms. Kim", money: 15.0)
+
+// yagombucks의 바리스타를 misterLee로 할당
+yagombucks.barista = misterLee
+
+// Coffee 타입(열거형) 정의
+enum CoffeeType {
+    case espresso, latte, cappuccino
+}
+
+// Coffee 타입 정의
+struct Coffee {
+    var type: CoffeeType
+}
+
+
 
