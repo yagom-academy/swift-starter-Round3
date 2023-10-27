@@ -49,7 +49,7 @@ struct CoffeeShop {
     }
     mutating func makeCoffee(order: String) {
         pickupTable = [order]
-        print("\(order) 메뉴의 제작이 완료되었습니다.")
+        print("\(Person)님이 주문하신 \(pickupTable)(이/가) 준비되었습니다. 픽업대에서 가져가주세요.")
     }
     
 }
