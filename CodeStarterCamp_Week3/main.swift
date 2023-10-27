@@ -38,9 +38,11 @@ class CoffeeShop {
     var name: String
     var barista: Person!
     var revenue: Int
-    var pickUpTable: Array<String> = [] {
+    var pickUpTable: Dictionary<String, String> = [:] {
         didSet {
-            print("\(name)님이 주문하신 \(pickUpTable.last ?? "준비되지 않았습니다.")(이/가) 준비되었습니다. 픽업대에서 가져가주세요.")
+            let customers: Array<String> = Array(pickUpTable.keys)
+            let coffees: Array<String> = Array(pickUpTable.values)
+            print("\(customers.last ?? "주문이 없습니다" )님이 주문하신 \(coffees.last ?? "주문내역이 없습니다" )(이/가) 준비되었습니다. 픽업대에서 가져가주세요.")
         }
     }
     
@@ -58,7 +60,7 @@ class CoffeeShop {
        
     func make(_ coffee: Coffee, from name: String) {
         self.revenue += coffee.rawValue
-        self.pickUpTable.append(String(describing: coffee))
+        self.pickUpTable[name] = (String(describing: coffee))
     }
 }
     
