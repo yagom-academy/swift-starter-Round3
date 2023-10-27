@@ -17,7 +17,7 @@ struct Person {
         self.money = money
     }
     
-    mutating func buyCoffee(order: [Coffee], of coffeeShop: CoffeeShop) {
+    mutating func buyCoffee(order: [Coffee], of coffeeShop: inout CoffeeShop) {
         var totalPrice = 0
         for coffee in order {
             totalPrice += coffee.price
@@ -28,12 +28,12 @@ struct Person {
             print("\(order)을(를) 구매합니다. 주머니에 있는 \(money)에서 \(totalPrice)를 지불합니다.")
             self.money -= totalPrice
             print("현재 제 주머니에는 \(money)원이 남아있네요.")
-            coffeeShop.receiveOrder(order: order)
+            coffeeShop.receiveOrder(order: order, by: self)
             }
         else
             {
-            var neededMoney = totalPrice - money
-            print("잔액이 \(neededMoney)만큼 부족합니다.")
+            let neededMoney = totalPrice - money
+            print("잔액이 \(neededMoney)원만큼 부족합니다.")
             }
         }
 }
@@ -41,18 +41,18 @@ struct Person {
 struct CoffeeShop {
     var salesVolume: Int = 0
     let menu: [Coffee] = [.iceAmericano, .hotAmericano, .cafeLatte, .coldBrew]
-    var pickupTable: [String] = []
+    var pickupTable: [Coffee] = []
     var barista: Person?
     
     mutating func receiveOrder(order: [Coffee], by person: Person) {
         print("\(order) 메뉴의 주문이 들어왔습니다.")
-        salesVolume += buyCoffee.totalPrice
-        print("(좋아. 오늘의 총 매출은\(salesVolume)원 이군.)")
+        //salesVolume += buyCoffee.totalPrice
+        //print("(좋아. 오늘의 총 매출은\(salesVolume)원 이군.)")
         
         makeCoffee(order: order, by: person)
     }
     mutating func makeCoffee(order: [Coffee], by person: Person) {
-        pickupTable = [order]
+        pickupTable = order
         print("\(person.name)님이 주문하신 \(pickupTable)(이/가) 준비되었습니다. 픽업대에서 가져가주세요.")
     }
     
@@ -93,4 +93,5 @@ var luciebucks: CoffeeShop = CoffeeShop()
 
 yagombucks.barista = misterLee
 
-missKim.buyCoffee(order: [.iceAmericano, .coldBrew], of: yagombucks)
+missKim.buyCoffee(order: [.iceAmericano, .hotAmericano], of: &yagombucks)
+//말하듯이 아이스 아메리카노, 콜드브루 로 주문을 받도록 해보자
