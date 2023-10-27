@@ -17,6 +17,10 @@ struct Person {
         self.name = name
         self.money = money
     }
+    
+    func order(_ coffee: Coffee, of coffeeShop: CoffeeShop, by name: String) {
+        
+    }
 }
 
 // CoffeeShop 타입 정의
@@ -29,6 +33,12 @@ struct CoffeeShop {
     init(revenue: Double, menu: [CoffeeType: Double]) {
         self.revenue = revenue
         self.menu = menu
+    }
+    
+    mutating func make(_ coffee: Coffee, from name: String) {
+        let coffee = Coffee(type: coffee.type)
+        pickUpTable.append(coffee)
+        print("issKim 님이 주문하신 \(coffee)(이/가) 준비되었습니다. 픽업대에서 가져가주세요.")
     }
 }
 
