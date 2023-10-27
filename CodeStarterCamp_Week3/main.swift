@@ -10,12 +10,14 @@ import Foundation
 
 
 struct Person {
+    var name: String
     var money: Int
-    init(money: Int) {
+    init(name: String, money: Int) {
+        self.name = name
         self.money = money
     }
     
-    mutating func buyCoffee(order: [Coffee], of coffeeShop: CoffeeShop, by name: Person) {
+    mutating func buyCoffee(order: [Coffee], of coffeeShop: CoffeeShop) {
         var totalPrice = 0
         for coffee in order {
             totalPrice += coffee.price
@@ -42,14 +44,14 @@ struct CoffeeShop {
     var pickupTable: [String] = []
     var barista: Person?
     
-    mutating func receiveOrder(order: [Coffee]) {
+    mutating func receiveOrder(order: [Coffee], by person: Person) {
         print("\(order) 메뉴의 주문이 들어왔습니다.")
         //salesVolume에 totalPrice를 더한다.
         //makeCoffee를 시작한다.
     }
-    mutating func makeCoffee(order: String) {
+    mutating func makeCoffee(order: [Coffee], by person: Person) {
         pickupTable = [order]
-        print("\(Person)님이 주문하신 \(pickupTable)(이/가) 준비되었습니다. 픽업대에서 가져가주세요.")
+        print("\(person.name)님이 주문하신 \(pickupTable)(이/가) 준비되었습니다. 픽업대에서 가져가주세요.")
     }
     
 }
@@ -80,12 +82,13 @@ enum Coffee {
 }
 
 
-var misterLee: Person = Person(money: 10000)
-var paulBasset: Person = Person(money: 10000)
-var missKim: Person = Person(money: 9000)
+var misterLee: Person = Person(name: "misterLee", money: 10000)
+var paulBasset: Person = Person(name: "paulBasset", money: 10000)
+var missKim: Person = Person(name: "missKim", money: 9000)
 
 var yagombucks: CoffeeShop = CoffeeShop()
 var luciebucks: CoffeeShop = CoffeeShop()
 
+yagombucks.barista = misterLee
 
-missKim.order(_ Coffee: [.iceAmericano, .coldBrew], of CoffeeShop: yagombucks, by name: paulBasset)
+missKim.buyCoffee(order: [.iceAmericano, .coldBrew], of: yagombucks)
