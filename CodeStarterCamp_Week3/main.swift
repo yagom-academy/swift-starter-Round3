@@ -8,5 +8,57 @@
 
 import Foundation
 
-print("Hello, World!")
+struct Person {
+    var money: Int
+    
+    mutating func buyCoffe(with coffee: Coffee, of coffeeShop: CoffeeShop) {
+        guard let price = coffeeShop.menu[coffee], money >= price else {
+            print("돈이 부족하거나 메뉴에 없는 커피입니다.")
+            return
+        }
+        
+        coffeeShop.takeOrder(with: coffee)
+        money -= price
+    }
+}
 
+class CoffeeShop {
+    let barista: Person
+    var revenue: Int = 0
+    let menu: [Coffee: Int]
+    var pickUpTable: [Coffee] = []
+    
+    init(barista: Person, menu: [Coffee: Int]) {
+        self.barista = barista
+        self.menu = menu
+    }
+    
+    func takeOrder(with coffee: Coffee) {
+        guard let price = menu[coffee] else {
+            print("없는 메뉴입니다.")
+            return
+        }
+        self.revenue += price
+        self.makeCoffee(with: coffee)
+    }
+    
+    func makeCoffee(with coffee: Coffee) {
+        self.pickUpTable.append(coffee)
+    }
+}
+
+enum Coffee {
+    case americano
+    case latte
+    case mocha
+}
+
+let misterLee = Person(money: 2_000)
+let missKim = Person(money: 2_000)
+let yagombucks = CoffeeShop(
+    barista: misterLee,
+    menu: [
+        .americano: 4500,
+        .latte: 5000
+    ]
+)
