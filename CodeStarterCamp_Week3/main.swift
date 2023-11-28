@@ -13,11 +13,11 @@
 import Foundation
 
 enum Coffee {
-    case Americano
-    case Latte
-    case Choco
-    case Caramel
-    case Mint
+    case americano
+    case latte
+    case choco
+    case caramel
+    case mint
     
 }
 
@@ -33,12 +33,16 @@ struct Person {
 
 //CoffeShop 타입을 구조체로 설정
 struct CoffeeShop {
-    var barista: Person
+    var barista = Person()
     var totalSales: Int = 0
     var coffeeMenu: String = ""
     var coffeePrice: Int = 0
     var pickUpTable: [String] = []
     
+
+    init(barista: Person){
+        self.barista = barista
+    }
     
     mutating func orderCoffee(coffeMenu: String){
         self.coffeeMenu = coffeMenu
@@ -55,6 +59,5 @@ var misterLee: Person = Person()
 var missKim: Person = Person()
 
 var yagombucks: CoffeeShop = CoffeeShop(barista: misterLee)
-
 
 
