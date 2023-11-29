@@ -58,7 +58,7 @@ let missKim = Person(money: 2_000)
 let yagombucks = CoffeeShop(
     barista: misterLee,
     menu: [
-        .americano: 4500,
-        .latte: 5000
+        .americano: 4_500,
+        .latte: 5_000
     ]
 )
