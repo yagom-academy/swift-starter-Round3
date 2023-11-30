@@ -12,13 +12,18 @@ struct Person {
     var money: Int
     
     mutating func buyCoffe(with coffee: Coffee, of coffeeShop: CoffeeShop) {
-        guard let price = coffeeShop.menu[coffee], money >= price else {
-            print("돈이 부족하거나 메뉴에 없는 커피입니다.")
+        guard let price = coffeeShop.menu[coffee] else {
+            print("메뉴에 없는 커피입니다.")
+            return
+        }
+
+        guard money >= price else {
+            print("잔액이 부족합니다.")
             return
         }
         
         coffeeShop.takeOrder(with: coffee)
-        money -= price
+        self.money -= price
     }
 }
 
@@ -34,7 +39,7 @@ class CoffeeShop {
     }
     
     func takeOrder(with coffee: Coffee) {
-        guard let price = menu[coffee] else {
+        guard let price = self.menu[coffee] else {
             print("없는 메뉴입니다.")
             return
         }
