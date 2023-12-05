@@ -6,24 +6,25 @@
 //  Copyright © yagom academy. All rights reserved.
 //
 
+import Combine
 import Foundation
 
 struct Person {
     var name: String
     var money: Int
     
-    mutating func buyCoffe(with coffee: Coffee, of coffeeShop: CoffeeShop, by name: String) {
+    mutating func buyCoffee(with coffee: Coffee, of coffeeShop: CoffeeShop) {
         guard let price = coffeeShop.menu[coffee] else {
             print("메뉴에 없는 커피입니다.")
             return
         }
-
+        
         guard money >= price else {
             print("잔액이 \(price - money)원만큼 부족합니다.")
             return
         }
         
-        coffeeShop.takeOrder(with: coffee, from: name)
+        coffeeShop.takeOrder(with: coffee, from: self.name)
         self.money -= price
     }
 }
@@ -51,7 +52,7 @@ class CoffeeShop {
     func makeCoffee(with coffee: Coffee, from name: String) {
         self.pickUpTable.append(coffee)
         
-        print("\(name) 님이 주문하신 \(coffee.rawValue)(이/가) 준비되었습니다. 픽업대에 가져가주세요.")
+        print("\(name) 님이 주문하신 \(coffee.name)(이/가) 준비되었습니다. 픽업대에 가져가주세요.")
     }
 }
 
@@ -60,6 +61,10 @@ enum Coffee: String {
     case latte = "라떼"
     case mocha = "모카"
     case cappuccino = "카푸치노"
+    
+    var name: String {
+        self.rawValue
+    }
 }
 
 let misterLee = Person(name: "misterLee", money: 2_000)
@@ -73,4 +78,4 @@ let yagombucks = CoffeeShop(
     ]
 )
 
-missKim.buyCoffe(with: .cappuccino, of: yagombucks, by: missKim.name)
+missKim.buyCoffe(with: .cappuccino, of: yagombucks)
