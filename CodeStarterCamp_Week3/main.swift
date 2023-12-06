@@ -47,7 +47,7 @@ struct CoffeeShop {
         }
         if customer.money >= price {
             brewUpCoffee(type: coffeeType)
-            sales += Int(price)
+            sales += price
         } else {
             print("돈이 부족합니다.")
         }
