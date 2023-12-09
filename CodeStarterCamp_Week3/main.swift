@@ -9,7 +9,7 @@
 import Foundation
 
 /// Person Class 타입
-class Person {
+struct Person {
     var nickName: String
     var balance: Int = 0
     
@@ -23,9 +23,9 @@ class Person {
     ///   - coffee: 커피 종류
     ///   - coffeeShop: 커피매장
     ///   - name: 주문자 닉네임
-    func makeOrder(_ coffee: Coffee, of coffeeShop: CoffeeShop, by name: String) {
+    mutating func makeOrder(_ coffee: Coffee, of coffeeShop: CoffeeShop, by name: String) {
         if (coffee.rawValue > self.balance) {
-            print("잔액이 부족합니다.")
+            print("잔액이 \(coffee.rawValue - self.balance)원만큼 부족합니다.")
         } else {
             self.balance -= coffee.rawValue
             coffeeShop.receiveOrder(coffee, by: name)
@@ -60,17 +60,21 @@ class CoffeeShop {
     ///   - name: 주문자 닉네임
     func makeCoffee(_ coffee: Coffee, from name: String) {
         self.pickUpTable.append(coffee)
+        print("\(name) 님이 주문하신 \(coffee)(이/가) 준비되었습니다. 픽업대에서 가져가주세요.")
     }
 }
 
 /// Coffee 열거형
 enum Coffee: Int {
-    case espresso = 4000
-    case americano = 4500
-    case latte = 5000
-    case mocha = 5500
+    case 에스프레소 = 4000
+    case 아메리카노 = 4500
+    case 라떼 = 5000
+    case 모카 = 5500
 }
 
-let misterLee = Person(nickName: "misterLee", balance: 4700)
-let missKim = Person(nickName: "missKim", balance: 4500)
+var misterLee = Person(nickName: "misterLee", balance: 4700)
+var missKim = Person(nickName: "missKim", balance: 8300)
 let yagombucks = CoffeeShop(shopName: "yagombucks", barista: misterLee)
+
+missKim.makeOrder(.아메리카노, of: yagombucks, by: "missKim")
+missKim.makeOrder(.라떼, of: yagombucks, by: "missKim")
