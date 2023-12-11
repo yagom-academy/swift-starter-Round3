@@ -49,9 +49,7 @@ struct CoffeeShop {
     var menu: [Coffee: Int]
     
     var pickUpTable: String? = ""
-    
-    // 커피 주문 메소드
-    
+
     // 커피 제조 메소드
     mutating func make(_ coffee: Coffee, for name: String) {
         guard let price: Int = menu[coffee] else {
