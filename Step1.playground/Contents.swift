@@ -1,28 +1,13 @@
-//
-//  main.swift
-//  CodeStarterCamp_Week3
-//
-//  Created by Nat Kim on 2023/12/07.
-//
+import UIKit
 
-import Foundation
-// MARK: - STEP1
 
-// MARK: Person 타입 정의
 class Person {
     var money: Int = 0
-    func buyCoffee(from shop: inout CoffeeShop, types: [CoffeeShop.Coffee]) {
-        for type in types {
-            shop.takeOrder(customer: self, coffeeType: type)
-            
-            if let price = shop.menu[type], money >= price {
-                money -= price
-            }
-        }
+    func buyCoffee(from shop: inout CoffeeShop, type: CoffeeShop.Coffee) {
+        shop.takeOrder(customer: self, coffeeType: type)
     }
 }
 
-// MARK: 카페 유형
 struct CoffeeShop {
     enum Coffee: String {
         case espresso
@@ -47,7 +32,7 @@ struct CoffeeShop {
         }
         if customer.money >= price {
             brewUpCoffee(type: coffeeType)
-            sales += price
+            sales += Int(price)
         } else {
             print("돈이 부족합니다.")
         }
@@ -59,27 +44,15 @@ struct CoffeeShop {
     }
 }
 
-// MARK: - 인스턴스 생성 및 호출
-// barista
 let misterLee = Person()
-// customer
 let missKim = Person()
 
 var yagomBucks = CoffeeShop(
     sales: 0,
-    menu: [.americano: 4000,
-           .espresso: 3500,
-           .cafeLatte: 4500,
-           .machiatto: 5000,
-           .cappuchino: 5000
-    ],
+    menu: [.americano: 4000, .espresso: 3500, .cafeLatte: 4500],
     barista: misterLee,
     pickUpTable: []
 )
 
 missKim.money = 10000
-missKim.buyCoffee(from: &yagomBucks, types: [.americano, .cappuchino])
-
-print("yagomBucks pickUp list: \(yagomBucks.pickUpTable)")
-print("yagomBucks 매출액: \(yagomBucks.sales)")
-print("missKim의 남은 돈: \(missKim.money)")
+missKim.buyCoffee(from: &yagomBucks, type: .americano)
