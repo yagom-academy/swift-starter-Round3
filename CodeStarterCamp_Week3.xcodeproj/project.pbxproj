@@ -7,7 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		1A84C9BE2B20FED700CE33F0 /* main.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1A84C9BD2B20FED700CE33F0 /* main.swift */; };
+		1AF1F9942B2714BF001EABA3 /* main.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1AF1F9932B2714BF001EABA3 /* main.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXCopyFilesBuildPhase section */
@@ -24,7 +24,8 @@
 
 /* Begin PBXFileReference section */
 		1A84C9BA2B20F8AD00CE33F0 /* Step1.playground */ = {isa = PBXFileReference; lastKnownFileType = file.playground; path = Step1.playground; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.swift; };
-		1A84C9BD2B20FED700CE33F0 /* main.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = main.swift; sourceTree = "<group>"; };
+		1A84C9BD2B20FED700CE33F0 /* STEP1.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = STEP1.swift; sourceTree = "<group>"; };
+		1AF1F9932B2714BF001EABA3 /* main.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = main.swift; sourceTree = "<group>"; };
 		34811DD1274B93EB00A1E994 /* CodeStarterCamp_Week3 */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.executable"; includeInIndex = 0; path = CodeStarterCamp_Week3; sourceTree = BUILT_PRODUCTS_DIR; };
 		34811DD4274B93EB00A1E994 /* initializer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = initializer.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -61,7 +62,8 @@
 			isa = PBXGroup;
 			children = (
 				34811DD4274B93EB00A1E994 /* initializer.swift */,
-				1A84C9BD2B20FED700CE33F0 /* main.swift */,
+				1A84C9BD2B20FED700CE33F0 /* STEP1.swift */,
+				1AF1F9932B2714BF001EABA3 /* main.swift */,
 			);
 			path = CodeStarterCamp_Week3;
 			sourceTree = "<group>";
@@ -97,6 +99,7 @@
 				TargetAttributes = {
 					34811DD0274B93EB00A1E994 = {
 						CreatedOnToolsVersion = 12.5.1;
+						LastSwiftMigration = 1430;
 					};
 				};
 			};
@@ -123,7 +126,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				1A84C9BE2B20FED700CE33F0 /* main.swift in Sources */,
+				1AF1F9942B2714BF001EABA3 /* main.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -248,8 +251,10 @@
 		34811DD9274B93EB00A1E994 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_STYLE = Automatic;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
 				SWIFT_VERSION = 5.0;
 			};
 			name = Debug;
@@ -257,6 +262,7 @@
 		34811DDA274B93EB00A1E994 /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_STYLE = Automatic;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_VERSION = 5.0;
