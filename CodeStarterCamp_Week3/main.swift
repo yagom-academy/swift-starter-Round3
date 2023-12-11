@@ -70,7 +70,7 @@ struct CoffeeShop {
 }
 
 // MARK: - 주문 픽업
-var missKim: Person = Person(customer: Person.Role.customer, money: 20000)
+var missKim: Person = Person(customer: Person.Role.customer, money: 6000)
 var yagomBucks: CoffeeShop = .init(
     sales: 0,
     menu: [
@@ -83,22 +83,9 @@ var yagomBucks: CoffeeShop = .init(
     ],
     pickUpTable: ""
 )
-
+// MARK: - 커피 주문
 missKim.order(.cappuchino, of: &yagomBucks, by: "missKim")
+// MARK: - 카페 매출액 증가 확인
 print("yagombucks의 매출액이 \(yagomBucks.sales)원 만큼 증가했습니다.")
-
 // MARK: - 잔액 모자른 case
-var misterYa: Person = Person(customer: Person.Role.customer, money: 3300)
-var starbucks: CoffeeShop = .init(
-    sales: 0,
-    menu: [
-        .americano: 3000,
-        .cafeLatte: 4000,
-        .cafeMocha: 4500,
-        .cappuchino: 4500,
-        .machiatto: 5000,
-        .espresso: 2800
-    ],
-    pickUpTable: ""
-)
-misterYa.order(.cafeMocha, of: &starbucks, by: "misterYa")
+missKim.order(.americano, of: &yagomBucks, by: "missKim")
