@@ -9,15 +9,7 @@
 import Foundation
 
 struct Person {
-    var money: Int
-    
-    init() {
-        self.money = 0
-    }
-    
-    init(money: Int) {
-        self.money = money
-    }
+    var money: Int = 0
     
     func buyCoffee() {
         print("커피를 구매합니다.")
@@ -48,7 +40,7 @@ struct CoffeeShop {
     }
     
     func putCoffee() {
-        print("커피를 할당합니다.")
+        print("커피를 서빙합니다.")
 //        pickUpTable.append(<#T##newElement: Coffee##Coffee#>)
     }
 }
@@ -61,7 +53,8 @@ enum Coffee {
     case macchiato
 }
 
-var misterLee = Person(money: 30000)
+//var misterLee = Person(money: 30000)
+var misterLee = Person()
 var missKim = Person(money: 50000)
 
 var yagombucks = CoffeeShop(barista: misterLee)
