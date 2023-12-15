@@ -2,84 +2,88 @@
 //  main.swift
 //  CodeStarterCamp_Week3
 //
-//  Created by Nat Kim on 2023/12/07.
+//  Created by Nat Kim on 2023/12/11.
 //
 
 import Foundation
-// MARK: - STEP1
 
-// MARK: Person 타입 정의
-class Person {
-    var money: Int = 0
-    func buyCoffee(from shop: inout CoffeeShop, types: [CoffeeShop.Coffee]) {
-        for type in types {
-            shop.takeOrder(customer: self, coffeeType: type)
-            
-            if let price = shop.menu[type], money >= price {
-                money -= price
-            }
-        }
-    }
-}
+// MARK: STEP2
 
-// MARK: 카페 유형
-struct CoffeeShop {
-    enum Coffee: String {
-        case espresso
-        case americano
-        case cafeLatte
-        case cappuchino
-        case machiatto
-        case cafeMocha
+struct Person {
+    enum Role: String {
+        case customer
     }
+    var customer: Role
+    var money: Int
     
-    var sales: Int
-    var menu: [Coffee: Int]
-    var barista: Person?
-    
-    var pickUpTable: [String] = []
-    
-    // 커피 주문 메소드
-    mutating func takeOrder(customer: Person, coffeeType: Coffee) {
-        guard let price = menu[coffeeType] else {
-            print("주문이 올바르지 않습니다.")
+    mutating func order(_ coffee: Coffee, of coffeeShop: inout CoffeeShop,
+                        by name: String) {
+        guard let price: Int = coffeeShop.menu[coffee] else {
+            print("판매하지 않는 커피 종류입니다.")
             return
         }
-        if customer.money >= price {
-            brewUpCoffee(type: coffeeType)
-            sales += price
+        if money >= price {
+            coffeeShop.make(coffee, for: name)
+            money -= price
         } else {
-            print("돈이 부족합니다.")
+            let shortageAmount = price - money
+            print("잔액이 \(shortageAmount)원만큼 부족합니다.")
         }
-    }
-    // 커피 제조 메소드
-    mutating func brewUpCoffee(type: CoffeeShop.Coffee) {
-        pickUpTable.append(type.rawValue)
-        print("\(type)이(가) 준비되었습니다.")
     }
 }
 
-// MARK: - 인스턴스 생성 및 호출
-// barista
-let misterLee = Person()
-// customer
-let missKim = Person()
 
-var yagomBucks = CoffeeShop(
+
+enum Coffee: String {
+    case espresso   = "에스프레소"
+    case americano  = "아메리카노"
+    case cafeLatte  = "카페라떼"
+    case cappuchino = "카푸치노"
+    case machiatto  = "마키아또"
+    case cafeMocha  = "카페모카"
+}
+
+struct CoffeeShop {
+    
+    var sales: Int // 카페의 매출액
+    var menu: [Coffee: Int]
+    
+    var pickUpTable: String? = ""
+
+    // 커피 제조 메소드
+    mutating func make(_ coffee: Coffee, for name: String) {
+        guard let price: Int = menu[coffee] else {
+            print("판매하지 않는 커피 종류입니다.")
+            return
+        }
+        if price > 0 {
+            pickUpTable?.append(coffee.rawValue)
+            sales += price
+        }
+        if let upwrappedPickUpTable = pickUpTable {
+            print("\(name) 님이 주문하신 \(upwrappedPickUpTable)(이/가) 준비되었습니다. 픽업대에서 가져가주세요.")
+        }
+        
+    }
+}
+
+// MARK: - 주문 픽업
+var missKim: Person = Person(customer: Person.Role.customer, money: 6000)
+var yagomBucks: CoffeeShop = .init(
     sales: 0,
-    menu: [.americano: 4000,
-           .espresso: 3500,
-           .cafeLatte: 4500,
-           .machiatto: 5000,
-           .cappuchino: 5000
+    menu: [
+        .americano: 3000,
+        .cafeLatte: 4000,
+        .cafeMocha: 4500,
+        .cappuchino: 4500,
+        .machiatto: 5000,
+        .espresso: 2800
     ],
-    barista: misterLee,
-    pickUpTable: []
+    pickUpTable: ""
 )
-
-missKim.money = 10000
-missKim.buyCoffee(from: &yagomBucks, types: [.americano, .cappuchino])
-
-print("yagomBucks pickUp list: \(yagomBucks.pickUpTable)")
-print("yagomBucks 매출액: \(yagomBucks.sales)")
-print("missKim의 남은 돈: \(missKim.money)")
+// MARK: - 커피 주문
+missKim.order(.cappuchino, of: &yagomBucks, by: "missKim")
+// MARK: - 카페 매출액 증가 확인
+print("yagombucks의 매출액이 \(yagomBucks.sales)원 만큼 증가했습니다.")
+// MARK: - 잔액 모자른 case
+missKim.order(.americano, of: &yagomBucks, by: "missKim")
