@@ -38,8 +38,8 @@ class Person {
         self.nickName = nickName
     }
     
-    func buyCoffees(coffees: [Coffee], isHot: Bool, at coffeeShop: CoffeShop) {
-        for coffee in coffees {
+    func buyCoffees(_ coffees: [Coffee: Bool], at coffeeShop: CoffeShop) {
+        for (coffee, isHot) in coffees {
             buyCoffee(coffee, isHot: isHot, at: coffeeShop)
         }
     }
@@ -54,8 +54,8 @@ class Person {
             print("\(nickName)이(가) \(coffee)를 주문합니다.")
             
             money -= coffeePrice
+            print("잔액 : \(money)")
             coffeeShop.order([coffee: isHot], price: coffeePrice)
-            
         } else {
             print("잔액이 부족합니다.")
         }
@@ -80,12 +80,13 @@ class CoffeShop {
         for (coffee, isHot) in orderMenu {
             makeCoffee(coffee, isHot: isHot)
             totalRevenue += price
+            print("\(shopName) 매출액: \(totalRevenue)")
         }
     }
     
     func makeCoffee(_ coffee: Coffee, isHot: Bool) {
         let coffeeIs: String = isHot ? "뜨거운" : "아이스"
-        print("\(coffeeIs) \(coffee)를(을) 만들었습니다.")
+        print("\(shopName)에서 바리스타 \(barista.nickName)(이)가 \(coffeeIs) \(coffee)를(을) 만들었습니다.")
         
         pickUpTable.append(coffee)
     }
