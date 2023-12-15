@@ -17,7 +17,6 @@ enum Coffee: String {
 }
 
 struct CoffeeShop {
-    
     var sales: Int // 카페의 매출액
     var menu: [Coffee: Int]
     var pickUpTable: String? = ""
