@@ -8,7 +8,7 @@
 import Foundation
 
 // Step1
-enum Coffee: String {
+enum Coffee : String {
     case americano
     case latte
     case vanila
@@ -21,13 +21,24 @@ struct Person {
     var money: Int = 0
     var receipt: Int = 0
     var orderMenus: [Coffee]
+    var leftMoney: Int = 0
     
     
     init(name: String, money:Int, orderMenus: [Coffee]) {
         self.name = name
         self.money = money
         self.orderMenus = orderMenus
-    }
+        for orderMenu in orderMenus {
+            switch orderMenu.rawValue {
+            case "americano": self.receipt += 2500
+            case "latte": self.receipt += 3500
+            case "vanila": self.receipt += 4500
+            case "coldbrew": self.receipt += 5000
+            default: break
+            }
+        }
+        self.leftMoney = money - self.receipt
+   }
     
     mutating func orderCoffee(from shop: inout CoffeeShop) {
         for orderMenu in orderMenus {
@@ -40,7 +51,13 @@ struct Person {
     }
     
     func getMyOrder() {
-        
+        print(self.name)
+        print(self.money)
+        print(self.receipt)
+        print(self.leftMoney)
+        for orderMenu in self.orderMenus {
+            print(orderMenu.rawValue)
+        }
     }
     
 }
@@ -64,7 +81,8 @@ struct CoffeeShop {
         self.customers = customers
         self.pickUpTable = pickUpTable
     }
-
+  
+    
     mutating func sellCoffee(customer: Person, orderMenus: Coffee) {
         guard let price = menu[orderMenus] else {
             print("주문이 올바르지 않습니다.")
@@ -98,6 +116,5 @@ var yagomBucks = CoffeeShop(
     pickUpTable: []
 )
 
-print(misterLee)
-print(missKim)
-print(yagomBucks)
+misterLee.getMyOrder()
+missKim.getMyOrder()
