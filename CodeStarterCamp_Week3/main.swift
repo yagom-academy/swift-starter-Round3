@@ -11,50 +11,55 @@ import Foundation
 
 enum Coffee {
     case americano, latte, coldBrew
+
+    var displayName: String {
+        switch self {
+        case .americano: return "아메리카노"
+        case .latte: return "라떼"
+        case .coldBrew: return "콜드브루"
+        }
+    }
 }
 
 class Person {
     var money: Double = 0.0
     
-    func buyCoffee(from coffeeShop: CoffeeShop, type: Coffee) {
-        let price = coffeeShop.menu[type] ?? 0.0
+    func order(_ coffee: Coffee, of coffeeShop: CoffeeShop, by name: String) {
+        let price = coffeeShop.menu[coffee] ?? 0.0
         if self.money >= price {
             self.money -= price
             coffeeShop.revenue += price
-            coffeeShop.makeCoffee(type: type)
+            coffeeShop.makeCoffee(type: coffee, by: name)
+        } else {
+            print("잔액이 \(price - self.money)원만큼 부족합니다.")
         }
     }
 }
 
 class CoffeeShop {
     var revenue: Double = 0.0
-    let menu: [Coffee: Double]
-    var pickUpTable: [Coffee] = []
-    var barista: Person?
+    var menu: [Coffee: Double]
+    var pickUpTable: [String] = []
     
     init(menu: [Coffee: Double]) {
         self.menu = menu
     }
     
-    func takeOrder(customer: Person, coffeeType: Coffee) {
-        customer.buyCoffee(from: self, type: coffeeType)
-    }
-    
-    func makeCoffee(type: Coffee) {
-        pickUpTable.append(type)
+    func makeCoffee(type: Coffee, by name: String) {
+        pickUpTable.append("\(name) 님이 주문하신 \(type.displayName)(이/가) 준비되었습니다. 픽업대에서 가져가주세요.")
     }
 }
 
-let misterLee = Person()
-misterLee.money = 10.0
 
 let missKim = Person()
 missKim.money = 10.0
 
 let yagombucksMenu: [Coffee: Double] = [.americano: 3.0, .latte: 4.0, .coldBrew: 5.0]
 let yagombucks = CoffeeShop(menu: yagombucksMenu)
-yagombucks.barista = misterLee
 
-yagombucks.takeOrder(customer: misterLee, coffeeType: .americano)
-yagombucks.takeOrder(customer: missKim, coffeeType: .coldBrew)
-print("매출액: \(yagombucks.revenue)")
+
+missKim.order(.coldBrew, of: yagombucks, by: "missKim")
+missKim.order(.latte, of: yagombucks, by: "missKim")
+missKim.order(.latte, of: yagombucks, by: "missKim")
+
+yagombucks.pickUpTable.forEach { print($0) }
