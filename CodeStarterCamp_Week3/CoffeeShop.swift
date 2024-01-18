@@ -8,9 +8,9 @@
 import Foundation
 
 final class CoffeeShop{
-    private var storeName: String
-    private var address: String
-    private var phoneNumber: String
+    private(set) var storeName: String
+    private(set) var address: String
+    private(set) var phoneNumber: String
     private var sales: Int
     private var orderTable: [String: [Coffee]]
     private var pickUpTable: [String: [Coffee]]
@@ -27,10 +27,6 @@ final class CoffeeShop{
         self.menus = menus
     }
     
-    func name() -> String {
-        return self.storeName
-    }
-    
     func employBarista(barista person: Person) {
         self.barista = person
     }
@@ -40,16 +36,22 @@ final class CoffeeShop{
     }
     
     func acceptOrder(from person: Person, orderList: [Coffee]) {
-        let name: String = person.name()
+        var amount: Int = 0
+        let name: String = person.fullName
         self.orderTable[name] = orderList
         
+        
+        orderList.forEach({ amount += self.menus[$0] ?? 0 })
+        self.sales += amount
+        
         print("\(name)님의 주문을 받았습니다.")
-        orderList.forEach({ self.sales += self.menus[$0] ?? 0 })
+        print("이번 주문의 결제 금액은 \(amount)원 입니다.")
         print("현재 매장의 매출은 \(self.sales)원 입니다.")
     }
     
     func makeCoffee(from person: Person) {
-        let name = person.name()
+        let name = person.fullName
+        
         
         if let _ = self.barista {
             pickUpTable[name] = orderTable[name]
@@ -61,13 +63,9 @@ final class CoffeeShop{
     }
     
     func giveCoffee(from person: Person) -> [Coffee]? {
-        let name = person.name()
+        let name = person.fullName
         
-        guard let coffees: [Coffee] = self.pickUpTable[name] else {
-            print("\(name)님의 주문이 완료되지 않았습니다.")
-            return nil
-        }
-        
+        guard let coffees: [Coffee] = self.pickUpTable[name] else { return nil }
         self.pickUpTable[name] = nil
         
         return coffees

@@ -8,11 +8,11 @@
 import Foundation
 
 final class Person {
-    private var fullName: String
+    private(set) var fullName: String
     private var weight: Int
     private var height: Int
-    private var nationality: String
-    private var mbti: String
+    private(set) var nationality: String
+    private(set) var mbti: String
     private var money: Int
     
     init(fullName: String, weight: Int, height: Int, nationality: String, mbti: String, money: Int) {
@@ -24,12 +24,8 @@ final class Person {
         self.money = money
     }
     
-    func name() -> String {
-        return self.fullName
-    }
-    
-    func visitCoffeeShop(coffeeShop: CoffeeShop) {
-        print("\(self.fullName)은 \(coffeeShop.name())을 방문합니다.")
+    func visitCoffeeShop(to coffeeShop: CoffeeShop) {
+        print("\(self.fullName)은 \(coffeeShop.storeName)을 방문합니다.")
     }
     
     func orderCoffee(to coffeeShop: CoffeeShop, orderList: [Coffee]) {
@@ -37,9 +33,13 @@ final class Person {
     }
     
     func takeCoffee(to coffeeShop: CoffeeShop) {
-        guard let coffees = coffeeShop.giveCoffee(from: self) else { return }
+        guard let coffees = coffeeShop.giveCoffee(from: self) else {
+            print("\(self.fullName)님의 완료된 주문이 없습니다. 주문을 확인해 주세요.")
+            return
+        }
         
         print("\(self.fullName)은 커피를 받아서 맛있게 먹었습니다.")
-        coffees.forEach({ print($0.rawValue) })
+        print("---주문내역---")
+        coffees.forEach({ print($0.name) })
     }
 }

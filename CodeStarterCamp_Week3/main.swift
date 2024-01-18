@@ -12,6 +12,14 @@ enum Coffee: String {
     case americano = "americano"
     case espresso = "espresso"
     case latte = "latte"
+    
+    var name: String {
+        switch self {
+        case .americano: return "americano"
+        case .espresso: return "espresso"
+        case .latte: return "latte"
+        }
+    }
 }
 
 let misterLee: Person = Person(fullName: "Lee", weight: 160, height: 60, nationality: "Korea", mbti: "INFP", money: 50000)
@@ -28,7 +36,7 @@ let yagombucks: CoffeeShop = CoffeeShop(
 )
 
 yagombucks.employBarista(barista: misterLee)
-missKim.visitCoffeeShop(coffeeShop: yagombucks)
+missKim.visitCoffeeShop(to: yagombucks)
 missKim.orderCoffee(to: yagombucks, orderList: [.americano, .americano, .latte])
 yagombucks.makeCoffee(from: missKim)
 missKim.takeCoffee(to: yagombucks)
