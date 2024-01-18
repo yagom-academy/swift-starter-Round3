@@ -8,10 +8,10 @@
 
 import Foundation
 
-enum Coffee: String {
-    case americano = "americano"
-    case espresso = "espresso"
-    case latte = "latte"
+enum Coffee {
+    case americano
+    case espresso
+    case latte
     
     var name: String {
         switch self {
