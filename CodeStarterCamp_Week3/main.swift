@@ -9,37 +9,36 @@
 import Foundation
 
 class Person {
-    var money: Int
+    var money: Double
     
-    init(money: Int = 0) {
+    init(money: Double = 0) {
         self.money = money
     }
     
-    func buyCoffee() {
-        
+    func buyCoffee(price: Double) {
+        if price > money {
+            print("커피를 구매할 돈이 부족합니다.")
+        } else {
+            self.money -= price
+            print("\(price)를 지불 하였습니다.")
+        }
     }
 }
 
 class CoffeeShop {
-    
-    enum Coffee {
-        case americano, latte, hazelnuts
-    }
-    
     var sales: Double = 0.0
-    var menus: [Coffee: Double] = [.americano: 3000, .latte: 3500, .hazelnuts: 4000]
-    var pickUpTable = [Coffee]()
+    var menus: [String: Double] = ["americano": 3000, "latte": 3500, "hazelnuts": 4000]
+    var pickUpTable = [String]()
     var barista: Person?
     
-    func takeOrder(coffee: Coffee) {
-        self.makeCoffee(name: coffee)
+    func takeOrder(coffee: String) {
+        if menus.keys.contains(coffee), let price = menus[coffee] {
+            self.sales += price
+            self.pickUpTable.append(coffee)
+        }
     }
     
-    private func makeCoffee(name coffee: Coffee) {
-        self.pickUpTable.append(coffee)
-    }
-    
-    func employment(person: Person) {
+    func employ(person: Person) {
         self.barista = person
     }
 }
@@ -50,7 +49,7 @@ var missKim: Person = Person()
 
 var yagombucks = CoffeeShop()
 
-yagombucks.employment(person: misterLee)
+yagombucks.employ(person: misterLee)
 
 //yagombucks.takeOrder(coffee: .americano)
 //yagombucks.takeOrder(coffee: .hazelnuts)
