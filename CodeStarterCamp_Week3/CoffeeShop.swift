@@ -40,8 +40,14 @@ final class CoffeeShop{
         let name: String = person.fullName
         self.orderTable[name] = orderList
         
+        orderList.forEach({
+            if let price = self.menus[$0] {
+                amount += price
+            } else {
+                print("메뉴를 확인해주세요.")
+            }
+        })
         
-        orderList.forEach({ amount += self.menus[$0] ?? 0 })
         self.sales += amount
         
         print("\(name)님의 주문을 받았습니다.")
@@ -51,7 +57,6 @@ final class CoffeeShop{
     
     func makeCoffee(from person: Person) {
         let name = person.fullName
-        
         
         if let _ = self.barista {
             pickUpTable[name] = orderTable[name]
