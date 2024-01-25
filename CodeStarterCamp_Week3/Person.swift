@@ -25,7 +25,6 @@ final class Person {
     }
 
     func order(_ coffee: Coffee, of coffeeShop: CoffeeShop, by name: String) {
-        
         guard let price = coffeeShop.menus[coffee] else {
             print("주문을 다시 한번 확인해주세요.")
             return
