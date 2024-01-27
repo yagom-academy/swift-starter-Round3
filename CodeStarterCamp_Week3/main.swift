@@ -8,54 +8,35 @@
 
 import Foundation
 
-class Person {
+enum Coffee: Double {
+    case americano = 3000, lattee = 3500, hazelnuts = 4000
+}
+
+struct Person {
+    var name: String
     var money: Double
     
-    init(money: Double = 0) {
-        self.money = money
-    }
     
-    func buyCoffee(price: Double) {
-        if price > money {
-            print("커피를 구매할 돈이 부족합니다.")
+    mutating func order(_ coffee: Coffee, of coffeeShop: CoffeeShop, by name: String) {
+        if money >= coffee.rawValue {
+            money -= coffee.rawValue
+            coffeeShop.make(coffee, from: name)
         } else {
-            self.money -= price
-            print("\(price)를 지불 하였습니다.")
+            print("잔액이 \(coffee.rawValue - money)원만큼 부족합니다.")
         }
     }
 }
 
 class CoffeeShop {
-    var sales: Double = 0.0
-    var menus: [String: Double] = ["americano": 3000, "latte": 3500, "hazelnuts": 4000]
-    var pickUpTable = [String]()
-    var barista: Person?
+    var pickUpTable = [Coffee]()
     
-    func takeOrder(coffee: String) {
-        if menus.keys.contains(coffee), let price = menus[coffee] {
-            self.sales += price
-            self.pickUpTable.append(coffee)
-        }
-    }
-    
-    func employ(person: Person) {
-        self.barista = person
+    func make(_ coffee: Coffee, from name: String) {
+        pickUpTable.append(coffee)
+        print("\(name) 님이 주문하신 \(coffee)(이/가) 준비되었습니다. 픽업대에서 가져가주세요.")
     }
 }
 
-
-var misterLee: Person = Person()
-var missKim: Person = Person()
-
 var yagombucks = CoffeeShop()
+var missKim = Person(name: "missKim", money: 3500)
 
-yagombucks.employ(person: misterLee)
-
-//yagombucks.takeOrder(coffee: .americano)
-//yagombucks.takeOrder(coffee: .hazelnuts)
-//yagombucks.takeOrder(coffee: .hazelnuts)
-//
-//print(yagombucks.pickUpTable)
-
-
-
+missKim.order(.lattee, of: yagombucks, by: "missKim")
