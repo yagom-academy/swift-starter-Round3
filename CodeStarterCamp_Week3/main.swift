@@ -6,6 +6,6 @@
 //  Copyright © yagom academy. All rights reserved.
 //
 
-var misterLee = Person()
-var missKim = Person()
-var yagombucks = CoffeeShop(barista: misterLee)
+let misterLee = Person()
+let missKim = Person()
+let yagombucks = CoffeeShop(barista: misterLee)

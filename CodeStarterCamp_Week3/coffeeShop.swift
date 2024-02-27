@@ -7,8 +7,8 @@
 
 class CoffeeShop {
     var sales: Int = 0
-    var menu: [String: Int] = [:]
-    var pickUpTable: [String] = []
+    var menu: [Coffee: Int] = [:]
+    var pickUpTable: [Coffee] = []
     var barista: Person
     
     init(barista: Person) {
@@ -19,7 +19,7 @@ class CoffeeShop {
         print("주문을 받는다!")
     }
     
-    func make(_ coffee: String) {
+    func make(_ coffee: Coffee) {
         print("커피를 만든다!")
         pickUpTable.append(coffee)
         print("만든 커피를 픽업대에 올렸다!")

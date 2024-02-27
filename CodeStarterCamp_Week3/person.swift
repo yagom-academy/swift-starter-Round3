@@ -8,7 +8,7 @@
 class Person {
     var money: Int = 0
     
-    func order(_ coffee: String) {
+    func order(_ coffee: Coffee) {
         print("커피를 주문한다!")
     }
 }
