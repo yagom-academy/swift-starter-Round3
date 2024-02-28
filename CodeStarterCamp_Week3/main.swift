@@ -6,7 +6,6 @@
 //  Copyright © yagom academy. All rights reserved.
 //
 
-import Foundation
-
-print("Hello, World!")
-
+let misterLee = Person()
+let missKim = Person()
+let yagombucks = CoffeeShop(barista: misterLee)
