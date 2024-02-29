@@ -15,13 +15,13 @@ struct Person {
         self.cash = cash
     }
     
-    mutating func buyCoffee(_ coffee: Coffee, at cafe: CoffeeShop) {
+    mutating func order(_ coffee: Coffee, of cafe: CoffeeShop) {
         if coffee.price > cash {
-            print("잔액이 부족합니다.")
+            print("잔액이 \(coffee.price - cash)원만큼 부족합니다.")
         } else {
             cash -= coffee.price
             print("\(coffee.rawValue) 주문에 성공했습니다.")
-            cafe.takeOrder(coffee, by: self)
+            cafe.make(coffee, from: self.name)
         }
     }
 }
@@ -29,7 +29,7 @@ struct Person {
 class CoffeeShop {
     var name: String
     var sales: Int
-    var barista: Person!
+    var barista: Person?
     var menu: [Coffee: Int]
     var pickUpTable: [Coffee]
     
@@ -44,24 +44,19 @@ class CoffeeShop {
         }
     }
     
-    func takeOrder(_ coffee: Coffee, by customer: Person) {
-        print("\(customer.name) 고객님의 주문 : \(coffee.rawValue)")
-        self.sales += coffee.price
-        self.makeCoffee(coffee, by: self.barista)
-    }
-    
-    func makeCoffee(_ order: Coffee, by barista: Person) {
-        print("\(order.rawValue)가 완성되었습니다.")
-        pickUpTable.append(order)
+    func make(_ coffee: Coffee, from name: String) {
+        sales += coffee.price
+        pickUpTable.append(coffee)
+        print("\(name) 님이 주문하신 \(coffee.rawValue)(이/가) 준비되었습니다. 픽업대에서 가져가주세요.")
     }
 }
 
 enum Coffee: String, CaseIterable {
-    case espresso
-    case americano
-    case latte
-    case cappuccino
-    case macchiato
+    case espresso = "에스프레소"
+    case americano = "아메리카노"
+    case latte = "카페라떼"
+    case cappuccino = "카푸치노"
+    case macchiato = "마끼아또"
     
     var price: Int {
         switch self {
@@ -74,8 +69,6 @@ enum Coffee: String, CaseIterable {
     }
 }
 
-var missKim = Person(name: "Kim", cash: 30000)
-let misterLee = Person(name: "Lee")
+var missKim = Person(name: "missKim", cash: 10000)
 let yagombucks = CoffeeShop(name: "yagombucks")
-yagombucks.barista = misterLee
-missKim.buyCoffee(.americano, at: yagombucks)
+missKim.order(.americano, of: yagombucks)
