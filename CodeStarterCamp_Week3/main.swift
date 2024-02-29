@@ -8,10 +8,10 @@
 
 struct Person {
     let name: String
-    var money: Int = 0
+    var money: Int
     
     func buyCoffee(coffee: typesOfCoffee) {
-        print("\(name)이(가) \(coffee)를 주문합니다.")
+        print("\(name)이(가) \(coffee.rawValue)를 주문합니다.")
     }
 }
 
@@ -19,20 +19,25 @@ struct CoffeeShop {
     var totalSales: Int = 0
     var menu: [typesOfCoffee: Int] = [:]
     var pickUpTable: [String] = []
-    var barista: Person
+    let barista: Person
     
     func takeOrders() {
-        print("\(barista.name)이(가) 주문을 받습니다.")
+        print("바리스타 \(barista.name)이(가) 주문을 받습니다.")
     }
     
     mutating func makeCoffee(coffee: typesOfCoffee) {
         pickUpTable.append(coffee.rawValue)
-        print("주문받은 \(coffee)를 만들었습니다.")
+        print("주문받은 \(coffee.rawValue)를 만들었습니다.")
     }
 }
 
 enum typesOfCoffee: String {
-    case espresso, americano, iceAmericano, cafeLatte, cafeMocha, vanillaLatte
+    case espresso = "에스프레소"
+    case americano = "아메리카노"
+    case iceAmericano = "아이스 아메리카노"
+    case cafeLatte = "카페라떼"
+    case cafeMocha = "카페모카"
+    case vanillaLatte = "바닐라라떼"
 }
 
 let misterLee = Person(name: "Mr.Lee", money: 5000)
