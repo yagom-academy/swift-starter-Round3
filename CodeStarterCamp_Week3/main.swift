@@ -6,7 +6,10 @@
 //  Copyright © yagom academy. All rights reserved.
 //
 
-import Foundation
+let misterLee = Person(name: "Mr.Lee", money: 5000)
+let missKim = Person(name: "Ms.Kim", money: 10000)
+var yagombucks = CoffeeShop(barista: misterLee)
 
-print("Hello, World!")
-
+missKim.orderCoffee(.espresso)
+yagombucks.takeOrders()
+yagombucks.makeCoffee(.espresso)
