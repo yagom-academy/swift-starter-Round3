@@ -9,7 +9,7 @@ struct Person {
     let name: String
     var money: Int
     
-    func buyCoffee(coffee: Coffee) {
+    func orderCoffee(_ coffee: Coffee) {
         print("\(name)이(가) \(coffee.rawValue)를 주문합니다.")
     }
 }

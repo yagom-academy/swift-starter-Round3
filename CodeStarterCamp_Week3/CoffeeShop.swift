@@ -7,15 +7,15 @@
 
 struct CoffeeShop {
     var totalSales: Int = 0
-    var menu: [Coffee: Int] = [:]
+    var menu: [Coffee: Int] = [.espresso: 4000, .americano: 5000, .cafeLatte: 5500, .cafeMocha: 6000, .vanillaLatte: 6000, .changeToIced: 0]
     var pickUpTable: [String] = []
-    let barista: Person
+    var barista: Person
     
     func takeOrders() {
         print("바리스타 \(barista.name)이(가) 주문을 받습니다.")
     }
     
-    mutating func makeCoffee(coffee: Coffee) {
+    mutating func makeCoffee(_ coffee: Coffee) {
         pickUpTable.append(coffee.rawValue)
         print("주문받은 \(coffee.rawValue)를 만들었습니다.")
     }

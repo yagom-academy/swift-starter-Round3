@@ -10,6 +10,6 @@ let misterLee = Person(name: "Mr.Lee", money: 5000)
 let missKim = Person(name: "Ms.Kim", money: 10000)
 var yagombucks = CoffeeShop(barista: misterLee)
 
-missKim.buyCoffee(coffee: .espresso)
+missKim.orderCoffee(.espresso)
 yagombucks.takeOrders()
-yagombucks.makeCoffee(coffee: .espresso)
+yagombucks.makeCoffee(.espresso)
