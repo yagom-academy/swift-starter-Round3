@@ -6,10 +6,23 @@
 //
 
 struct Person {
-    let name: String
+    var name: String
     var money: Int
-    
-    func orderCoffee(_ coffee: Coffee) {
-        print("\(name)이(가) \(coffee.rawValue)를 주문합니다.")
+        
+    mutating func order(_ coffee: Coffee, of coffeeShop: CoffeeShop, by name: String) {
+        print("\(name)이(가) \(coffeeShop.name)에서 \(coffee.rawValue)를 주문합니다.")
+        
+        if let price = coffeeShop.menu[coffee] {
+            if money >= price {
+                money -= price
+                coffeeShop.totalSales += price
+                print("\(price)원 결제가 완료되었습니다. (\(name)님의 현재 잔액: \(money)원)")
+                coffeeShop.make(coffee, from: name)
+            } else {
+                print("잔액이 \(price - money)원만큼 부족합니다. (\(name)님의 현재 잔액: \(money)원")
+            }
+        } else {
+            print("요청하신 메뉴는 없는 메뉴입니다.")
+        }
     }
 }
