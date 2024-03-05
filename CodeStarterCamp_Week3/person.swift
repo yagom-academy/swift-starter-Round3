@@ -5,14 +5,11 @@
 //  Created by 이지은 on 2/24/24.
 //
 
-class Person{
+struct Person{
+    let name: String
     var money: Int
     
-    init(money: Int) {
-        self.money = money
-    }
-    
-    func order(_ coffee: Coffee, at coffeeShop: CoffeeShop, by name: String) {
+    mutating func order(_ coffee: Coffee, at coffeeShop: CoffeeShop, by name: String) {
         guard let priceOfCoffee = coffeeShop.menu[coffee] else {
             print("잘못된 주문입니다.")
             return
@@ -22,6 +19,6 @@ class Person{
             return
         }
         money -= priceOfCoffee
-        coffeeShop.take(order: coffee, from: name)
+        coffeeShop.takeOrder(coffee, from: name)
     }
 }
