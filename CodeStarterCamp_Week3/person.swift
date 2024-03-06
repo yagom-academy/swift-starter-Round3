@@ -28,8 +28,12 @@ class Person {
     }
 
     func payPrice(possible: Bool) -> Int {
-        if (possible) { money -= moneyToPay }
-        return possible ? moneyToPay : 0
+        let pay = possible ? moneyToPay : 0
+        if possible {
+            money -= moneyToPay
+            moneyToPay = 0
+        }
+        return pay
     }
 
     func takeMyCoffee(coffee: Coffee) {
