@@ -6,10 +6,10 @@
 //
 
 class CoffeeShop {
-    var name: String
+    let name: String
     var totalSales: Int
-    var menu: [Coffee: Int] = [:]
-    var pickUpTable: [String] = []
+    var menu: [Coffee: Int]
+    var pickUpTable: [String]
     var barista: Person
     
     init(name: String, totalSales: Int, menu: [Coffee : Int], pickUpTable: [String], barista: Person) {
@@ -20,8 +20,14 @@ class CoffeeShop {
         self.barista = barista
     }
     
-    func make(_ coffee: Coffee, from name: String) {
+    func make(_ coffee: Coffee, from customer: String) {
         pickUpTable.append(coffee.rawValue)
-        print("\(name)님이 주문하신 \(coffee.rawValue)가 준비되었습니다. 픽업대에서 가져가주세요.")
+        print("\(customer)님이 주문하신 \(coffee.rawValue)가 준비되었습니다. 픽업대에서 가져가주세요.")
+    }
+    
+    func getMoney(_ coffee: Coffee, _ price: Int, from customer: String) {
+        totalSales += price
+        print("\(name)에 \(price)원 매출이 발생했습니다. (\(name)의 매출액: \(totalSales))")
+        make(coffee, from: customer)
     }
 }
