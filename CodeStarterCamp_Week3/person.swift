@@ -10,6 +10,7 @@ import Foundation
 class Person {
     var nickName: String
     var money: Int
+    var moneyToPay = 0
     var myCoffee: Coffee? = nil
     
     init(nickName: String, money: Int) {
@@ -20,16 +21,15 @@ class Person {
     func orderCoffee(coffee: Coffee) -> Coffee {
         return coffee
     }
+    
+    func canIPay(price: Int) -> Bool {
+        moneyToPay = price
+        return money >= price
+    }
 
-    func payPrice(price: Int) -> Int {
-        var pay = 0
-        if money >= price {
-            money -= price
-            pay = price
-        } else {
-            pay = money
-        }
-        return pay
+    func payPrice(possible: Bool) -> Int {
+        if (possible) { money -= moneyToPay }
+        return possible ? moneyToPay : 0
     }
 
     func takeMyCoffee(coffee: Coffee) {
