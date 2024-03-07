@@ -10,7 +10,7 @@ import Foundation
 
 let misterLee = Person(nickName: "미스터리", money: 5000)
 var missKim = Person(nickName: "미스김", money: 6000)
-var yagombucks = CoffeeShop(barista: misterLee)
+var yagombucks = CoffeeShop(barista: misterLee, menu: [.americano: 4000, .cafeLatte: 4500, .oatLatte: 4500, .milkTea: 5000])
 
 
 let orderedCoffee = yagombucks.takeCoffeeOrder(customer: missKim, coffee: missKim.orderCoffee(coffee:Coffee.americano))

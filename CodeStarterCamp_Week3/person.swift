@@ -11,7 +11,7 @@ class Person {
     var nickName: String
     var money: Int
     var moneyToPay = 0
-    var myCoffee: Coffee? = nil
+    var myCoffee: Coffee?
     
     init(nickName: String, money: Int) {
         self.nickName = nickName

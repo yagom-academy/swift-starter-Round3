@@ -21,35 +21,29 @@ enum Coffee {
 
 class CoffeeShop {
     var barista: Person
+    var menu: [Coffee: Int]
     var totalSales = 0
-    var currentOrder : (String, Coffee)? = nil
+    var currentOrder : (String, Coffee)?
     var pickUpTable = Array<(String, Coffee)>() {
         didSet {
             showPickUpTable()
         }
     }
     
-    init(barista: Person) {
+    init(barista: Person, menu: [Coffee: Int]) {
         self.barista = barista
+        self.menu = menu
     }
     
-    let americano = 4000
-    let cafeLatte = 4500
-    let oatLatte = 4500
-    let milkTea = 5000
-
     
+
     func takeCoffeeOrder(customer: Person, coffee: Coffee) -> Int {
         currentOrder = (customer.nickName, coffee)
-        switch coffee {
-        case .americano : return americano
-        case .cafeLatte : return cafeLatte
-        case .oatLatte : return oatLatte
-        case .milkTea : return milkTea
-        default : do {
+        if let price = menu[coffee] {
+            return price
+        } else {
             print("해당 메뉴를 판매하지 않습니다.")
             return 0
-            }
         }
     }
     
@@ -65,8 +59,7 @@ class CoffeeShop {
     
     func makeCoffee(order: (String,  Coffee)?) {
         if let order = order {
-            let nickName = order.0
-            let coffee = order.1
+            let nickName = order.0, coffee = order.1
             pickUpTable.append((nickName, coffee))
         } else {
             print("주문이 없습니다.")
@@ -75,8 +68,7 @@ class CoffeeShop {
     
     func showPickUpTable() {
         if !pickUpTable.isEmpty {
-            let tableStart = "----- Pick Up Here ------"
-            let tableEnd = "-------------------------"
+            let tableStart = "----- Pick Up Here ------", tableEnd = "-------------------------"
             for (nickName, coffee) in pickUpTable {
                 print("\(tableStart)\n\(nickName) - \(coffee)\n\(tableEnd)")
             }
