@@ -5,18 +5,29 @@
 //  Created by Jay Shin on 3/1/24.
 //
 
-struct CoffeeShop {
-    var totalSales: Int = 0
-    var menu: [Coffee: Int] = [.espresso: 4000, .americano: 5000, .cafeLatte: 5500, .cafeMocha: 6000, .vanillaLatte: 6000, .changeToIced: 0]
-    var pickUpTable: [String] = []
+class CoffeeShop {
+    let name: String
+    var totalSales: Int
+    var menu: [Coffee: Int]
+    var pickUpTable: [String]
     var barista: Person
     
-    func takeOrders() {
-        print("바리스타 \(barista.name)이(가) 주문을 받습니다.")
+    init(name: String, totalSales: Int, menu: [Coffee : Int], pickUpTable: [String], barista: Person) {
+        self.name = name
+        self.totalSales = totalSales
+        self.menu = menu
+        self.pickUpTable = pickUpTable
+        self.barista = barista
     }
     
-    mutating func makeCoffee(_ coffee: Coffee) {
+    func make(_ coffee: Coffee, from customer: String) {
         pickUpTable.append(coffee.rawValue)
-        print("주문받은 \(coffee.rawValue)를 만들었습니다.")
+        print("\(customer)님이 주문하신 \(coffee.rawValue)가 준비되었습니다. 픽업대에서 가져가주세요.")
+    }
+    
+    func getMoney(_ coffee: Coffee, _ price: Int, from customer: String) {
+        totalSales += price
+        print("\(name)에 \(price)원 매출이 발생했습니다. (\(name)의 매출액: \(totalSales))")
+        make(coffee, from: customer)
     }
 }
