@@ -8,12 +8,9 @@
 
 import Foundation
 
-let misterLee = Person(nickName: "미스터리", money: 5000)
-var missKim = Person(nickName: "미스김", money: 6000)
+let misterLee = Person(name: "미스터리", money: 5000)
+var missKim = Person(name: "미스김", money: 6000)
 var yagombucks = CoffeeShop(barista: misterLee, menu: [.americano: 4000, .cafeLatte: 4500, .oatLatte: 4500, .milkTea: 5000])
 
+missKim.order(Coffee.milkTea, of: yagombucks, by: missKim.name)
 
-let orderedCoffee = yagombucks.takeCoffeeOrder(customer: missKim, coffee: missKim.orderCoffee(coffee:Coffee.americano))
-
-yagombucks.processPayment(paidMoney: missKim.payPrice(possible: missKim.canIPay(price: orderedCoffee)))
-yagombucks.makeCoffee(order: yagombucks.currentOrder)

@@ -8,36 +8,22 @@
 import Foundation
 
 class Person {
-    var nickName: String
+    var name: String
     var money: Int
-    var moneyToPay = 0
-    var myCoffee: Coffee?
-    
-    init(nickName: String, money: Int) {
-        self.nickName = nickName
+    init(name: String, money: Int) {
+        self.name = name
         self.money = money
     }
-
-    func orderCoffee(coffee: Coffee) -> Coffee {
-        return coffee
-    }
     
-    func canIPay(price: Int) -> Bool {
-        moneyToPay = price
-        return money >= price
-    }
-
-    func payPrice(possible: Bool) -> Int {
-        let pay = possible ? moneyToPay : 0
-        if possible {
-            money -= moneyToPay
-            moneyToPay = 0
+    func order(_ coffee: Coffee, of coffeeshop: CoffeeShop, by name: String) {
+        if let price = coffeeshop.menu[coffee] {
+            if price <= money {
+                money -= price
+                coffeeshop.make(coffee, from: name)
+            } else {
+                print("잔액이 \(price - money)원만큼 부족합니다.")
+            }
         }
-        return pay
     }
 
-    func takeMyCoffee(coffee: Coffee) {
-        myCoffee = coffee
-    }
-    
 }
