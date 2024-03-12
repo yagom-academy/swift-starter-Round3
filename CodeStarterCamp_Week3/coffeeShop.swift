@@ -7,16 +7,39 @@
 
 import Foundation
 
-enum Coffee: String {
-    case americano =  "아메리카노",
-         cafeLatte = "카페라떼",
-         chocolateLatte = "초콜릿라떼",
-         vanilaLatte = "바닐라라떼",
-         coldBrew = "콜드브루",
-         oatLatte = "오트라떼",
-         milkTea = "밀크티",
-         vienna = "비엔나",
-         iceCreamLatte = "아이스크림라떼"
+enum Coffee {
+    case americano,
+         cafeLatte,
+         chocolateLatte,
+         vanilaLatte,
+         coldBrew,
+         oatLatte,
+         milkTea,
+         vienna,
+         iceCreamLatte
+    
+    var coffeeName: String {
+        switch self {
+        case .americano :
+            return "아메리카노"
+        case .cafeLatte :
+            return "카페라떼"
+        case .chocolateLatte :
+            return "초콜릿라떼"
+        case .vanilaLatte :
+            return "바닐라라떼"
+        case .coldBrew :
+            return "콜드브루"
+        case .oatLatte :
+            return "오트라떼"
+        case .milkTea :
+            return "밀크티"
+        case .vienna :
+            return "비엔나"
+        case .iceCreamLatte :
+            return "아이스크림라떼"
+        }
+    }
 }
 
 class CoffeeShop {
@@ -24,7 +47,7 @@ class CoffeeShop {
     var menu: [Coffee: Int]
     var totalSales = 0
     var pickUpTable = Array<(String, Coffee)>() {
-        didSet { call() }
+        didSet { callCustomer() }
     }
     
     init(barista: Person, menu: [Coffee: Int]) {
@@ -41,10 +64,10 @@ class CoffeeShop {
         }
     }
     
-    func call() {
+    func callCustomer() {
         if !pickUpTable.isEmpty {
             for (name, coffee) in pickUpTable {
-                print("\(name)님이 주문하신 \(coffee.rawValue)(이/가) 준비되었습니다. 픽업대에서 가져가주세요.")
+                print("\(name)님이 주문하신 \(coffee.coffeeName)(이/가) 준비되었습니다. 픽업대에서 가져가주세요.")
             }
         }
     }

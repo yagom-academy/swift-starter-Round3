@@ -8,7 +8,7 @@
 import Foundation
 
 class Person {
-    var name: String
+    let name: String
     var money: Int
     init(name: String, money: Int) {
         self.name = name
