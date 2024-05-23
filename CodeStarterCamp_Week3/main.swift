@@ -12,7 +12,7 @@ class Person {
     var name: String
     var money: Int {
         didSet {
-            print("\(name)의 잔액이 \(money)원 남았습니다.")
+            print("\(name)의 잔액이 \(oldValue)원에서 \(money)원으로 감소했습니다.")
         }
     }
     
@@ -21,18 +21,18 @@ class Person {
         self.money = money
     }
     
-    func buyCoffee(order coffee: Coffee, in cafe: CoffeeShop) {
-        guard let price = cafe.menu[coffee] else {
-            print("\(coffee.rawValue)는 \(cafe.shopName)에 없는 메뉴입니다.")
+    func order(_ coffee: Coffee, of coffeeShop: CoffeeShop) {
+        guard let price = coffeeShop.menu[coffee] else {
+            print("\(coffee.name)는 \(coffeeShop.shopName)에 없는 메뉴입니다.")
             return
         }
         if price > self.money {
             print("\(name)의 잔액이 \(price - self.money)원 부족합니다.")
             return
         }
-        print("\(name)(이)가 \(cafe.shopName)에서 \(coffee.rawValue)를 주문했습니다.")
+        print("\(name)(이)가 \(coffeeShop.shopName)에서 \(coffee.name)를 주문했습니다.")
         self.money -= price
-        cafe.getOrder(self, order: coffee)
+        coffeeShop.make(coffee, from: self)
     }
 }
 
@@ -55,33 +55,50 @@ class CoffeeShop {
         self.sales = sales
     }
     
-    func getOrder(_ customer: Person, order coffee: Coffee) {
+    func make(_ coffee: Coffee, from customer: Person) {
         guard let price = self.menu[coffee] else {
-            print("\(coffee.rawValue)는 \(self.shopName)에 없는 메뉴입니다.")
+            print("\(coffee.name)는 \(self.shopName)에 없는 메뉴입니다.")
             return
         }
         sales += price
         
-        print("\(shopName)의 바리스타 \(barista.name)가 \(coffee.rawValue)를 만드는 중입니다.")
+        print("\(shopName)의 바리스타 \(barista.name)가 \(coffee.name)를 만드는 중입니다.")
         pickUpTable.append((customer, coffee))
-        print("\(customer.name)님의 \(coffee.rawValue)가 준비되었습니다.")
+        print("\(customer.name)님이 주문하신 \(coffee.name)가 준비되었습니다. 픽업대에서 가져가주세요.")
     }
 }
 
-enum Coffee: String {
-    case Espresso = "에스프레소"
-    case Americano = "아메리카노"
-    case CafeLatte = "카페라떼"
-    case VanillaLatte = "바닐라라떼"
-    case CaramelMacchiato = "카라멜마끼아또"
-    case CafeMocha = "카페모카"
+enum Coffee {
+    case Espresso
+    case Americano
+    case CafeLatte
+    case VanillaLatte
+    case CaramelMacchiato
+    case CafeMocha
+    
+    var name: String {
+        switch self {
+        case .Espresso:
+            "에스프레소"
+        case .Americano:
+            "아메리카노"
+        case .CafeLatte:
+            "카페라떼"
+        case .VanillaLatte:
+            "바닐라라떼"
+        case .CaramelMacchiato:
+            "카라멜마끼아또"
+        case .CafeMocha:
+            "카페모카"
+        }
+    }
 }
 
 var misterLee = Person(name: "Lee")
 var missKim = Person(name: "Kim", money: 10000)
-var misterChoi = Person(name: "Choi", money: 5000)
+var mango = Person(name: "Mango", money: 7000)
 
 var yagombucks = CoffeeShop(shopName: "야곰벅스", barista: misterLee, menu: [Coffee.Espresso: 3000, Coffee.Americano: 4000, Coffee.CafeLatte: 5000, Coffee.VanillaLatte: 6000])
 
-missKim.buyCoffee(order: Coffee.Americano, in: yagombucks)
-misterChoi.buyCoffee(order: Coffee.CaramelMacchiato, in: yagombucks)
+missKim.order(Coffee.Americano, of: yagombucks)
+mango.order(Coffee.VanillaLatte, of: yagombucks)
