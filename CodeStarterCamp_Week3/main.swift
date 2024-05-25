@@ -40,7 +40,11 @@ class CoffeeShop {
     var shopName: String
     var barista: Person
     var menu: [Coffee: Int]
-    var pickUpTable: [(Person, Coffee)]
+    var pickUpTable: [(Person, Coffee)] {
+        didSet {
+            print("\(pickUpTable.last!.0.name)님이 주문하신 \(pickUpTable.last!.1.name)가 준비되었습니다. 픽업대에서 가져가주세요.")
+        }
+    }
     var sales: Int {
         didSet {
             print("\(shopName)의 매출액이 \(oldValue)원에서 \(sales)원으로 증가했습니다.")
@@ -64,7 +68,6 @@ class CoffeeShop {
         
         print("\(shopName)의 바리스타 \(barista.name)가 \(coffee.name)를 만드는 중입니다.")
         pickUpTable.append((customer, coffee))
-        print("\(customer.name)님이 주문하신 \(coffee.name)가 준비되었습니다. 픽업대에서 가져가주세요.")
     }
 }
 
@@ -94,11 +97,11 @@ enum Coffee {
     }
 }
 
-var misterLee = Person(name: "Lee")
-var missKim = Person(name: "Kim", money: 10000)
-var mango = Person(name: "Mango", money: 7000)
+let misterLee = Person(name: "Lee")
+let missKim = Person(name: "Kim", money: 10000)
+let mango = Person(name: "Mango", money: 7000)
 
-var yagombucks = CoffeeShop(shopName: "야곰벅스", barista: misterLee, menu: [Coffee.Espresso: 3000, Coffee.Americano: 4000, Coffee.CafeLatte: 5000, Coffee.VanillaLatte: 6000])
+let yagombucks = CoffeeShop(shopName: "야곰벅스", barista: misterLee, menu: [Coffee.Espresso: 3000, Coffee.Americano: 4000, Coffee.CafeLatte: 5000, Coffee.VanillaLatte: 6000])
 
 missKim.order(Coffee.Americano, of: yagombucks)
 mango.order(Coffee.VanillaLatte, of: yagombucks)
