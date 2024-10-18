@@ -14,7 +14,7 @@ class Person {
         self.money = money
     }
     
-    func placeOrder (_ coffee: Coffee, at cafe: CoffeeShop) {
-        cafe.takeOrder(coffee, by: self)
+    func order(_ coffee: Coffee, of coffeeShop: CoffeeShop, by name: String) {
+        coffeeShop.make(coffee, by: self, name: name)
     }
 }

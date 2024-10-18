@@ -7,7 +7,6 @@
 
 class CoffeeShop {
     var sales: Int = 0
-    var orderList: [(Coffee, String)] = []
     var pickUpTable: [(Coffee, String)] = []
     var barista: Person
     let menu: [Coffee: Int]
@@ -16,24 +15,18 @@ class CoffeeShop {
         self.barista = barista
         self.menu = menu
     }
-
-    func takeOrder(_ order: Coffee, by customer: Person) {
+    
+    func make(_ order: Coffee, by customer: Person, name: String) {
         if let price = menu[order] {
-            print("\(customer.name)님의 \(order.rawValue) 주문을 받았습니다!")
-            orderList.append((order, customer.name))
-            customer.money -= price
+            if customer.money >= price {
+                customer.money -= price
+                sales += price
+                print("\(name) 님이 주문하신 \(order.name)(이/가) 준비되었습니다. 픽업대에서 가져가주세요.")
+            } else {
+                print("잔액이 \(price - customer.money)원만큼 부족합니다.")
+            }
         } else {
             print("우리집에 그런거 안팔아요")
-        }
-    }
-    
-    func makeOrder() {
-        if let brewingOrder: (Coffee, String) = orderList.first {
-            self.pickUpTable.append(brewingOrder)
-            orderList.remove(at: 0)
-            print("\(brewingOrder.1)님 주문하신 \(brewingOrder.0.rawValue) 나왔습니다.")
-        } else {
-            print("만들고 싶어도 오더가 없음")
         }
     }
 }
